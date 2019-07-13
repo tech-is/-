@@ -2,17 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * class cl_main 
+ * class cl_main
  * メールを扱う関数を主に置いています
  * メールホストを設定したい場合にはapplication/confing/email.phpを書き換えてください
  */
 
-class Cl_main extends CI_Controller {
+class Cl_mail extends CI_Controller {
 
-    public function hello()
-    {
-        echo "hello";
-    }
     /**
      * send_mail_magazine
      * @param $magazine_id = マガジンテンプレートのインデックスid
@@ -57,25 +53,27 @@ class Cl_main extends CI_Controller {
 
     public function send_mail_test()
     {
-        echo "hello";
-        exit;
         try {
-            $data = $this->input->post("mail");
+            $mail = $this->input->post();
             $config["mailtype"] = "text";
             $this->load->library("email", $config);
             $magazine_id = $this->input->post("magazine_id");
             $this->load->model("mdl_cms");
-            $data = $this->model->get_magazine_setting($magazine_id);
+            // $data = $this->model->get_magazine_setting($magazine_id);
+            $data = ["mail_subject" => "システムメール","mail_detail" => "テスト"];
             /* $data[0]["mail"] = ユーザーのメールアドレス, $data[0]["mail_header_name"] = 差出人名 */
-            $this->email->from($data["mail"], $data["mail_header_name"]);
-            $this->email->subject($data["mail_subject"]);
-            $this->email->message($data["mail_detail"]);
-            foreach($data as $customer) {
-                $this->email->to($customer);
+            for($i = 0; $i < count($mail); $i++) {
+                $this->email->from("system_animarl@niji-desk.work", $mail["mail_header_name"][$i]);
+                $this->email->to($mail["mail"][$i]);
+                $this->email->set_newline("\r\n");
+                $this->email->subject($data["mail_subject"]);
+                $this->email->message($data["mail_detail"]);
                 $this->email->send();
             }
+            echo "送信成功";
         } catch(extension $e) {
             echo "メールの送信に失敗しました";
+            exit;
         }
     }
 
