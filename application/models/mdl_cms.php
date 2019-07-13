@@ -22,11 +22,23 @@ class Mdl_cms extends CI_Model {
     /**
      * get_pets_table
      * petsテーブルからデータを配列で取得
-     * @return $query->result();
+     * @return array($query->result())
      */
     public function get_pets_table()
     {   
-        $query = $this->load->get("pet");
-        return $query->result();
+        $query = $this->db->get("pet");
+        return $query->result("array");
+    }
+
+    /**
+     * get_magazine_tmp
+     * 
+     */
+    public function get_magazine_setting($magazine_id)
+    {
+        $this->db->where('magazine_id', $magazine_id);
+        $this->db->select('mail, mail_type, mail_subject, mail_detail');
+        $query = $this->db->get("magazine_setting");
+        return $query->result("array");
     }
 }

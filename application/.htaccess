@@ -4,8 +4,4 @@
 <IfModule !authz_core_module>
     Deny from all
 </IfModule>
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
-php_value include_path
+SetEnv CI_ENV development
