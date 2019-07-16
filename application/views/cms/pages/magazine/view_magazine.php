@@ -3,8 +3,18 @@
         <div class="row clearfix">
             <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
                 <div class="card">
-                    <div class="header">
-                        <h2>メールテンプレート一覧</h2>
+                    <div class="header row clearfix">
+                        <div class ="pull-left">
+                            <h2 style="line-height: 37px; margin-left:10px;">メールテンプレート</h2>
+                        </div>
+                        <div class="pull-right">
+                            <a href="new_create_magazine">
+                                <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:10px;">
+                                    <i class="material-icons">edit</i>
+                                    <span>new</span>
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -14,12 +24,12 @@
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="card">
                             <div class="header row clearfix">
-                                <div class="col-lg-6">
-                                    <h2><?= $template_name[$i] ?></h2>
+                                <div class="pull-left">
+                                    <h2 style="line-height: 37px; margin-left:10px;"><?= $template_name[$i] ?></h2>
                                 </div>
                                 <div class="pull-right">
                                     <a href="magazine_form">
-                                        <button type="button" class="btn bg-deep-purple waves-effect">
+                                        <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:10px;">
                                             <i class="material-icons">settings</i>
                                         </button>
                                     </a>
@@ -86,7 +96,6 @@
     <!-- Custom Js -->
     <script src="../../assets/cms/js/admin.js"></script>
     <script src="../../assets/cms/js/pages/magazine.js"></script>
-
     <!-- Demo Js -->
     <!-- <script src="../../assets/cms/js/demo.js"></script> -->
     </body>

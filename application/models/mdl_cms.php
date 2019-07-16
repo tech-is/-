@@ -34,9 +34,8 @@ class Mdl_cms extends CI_Model {
      * get_magazine_tmp
      * 
      */
-    public function get_magazine_setting($magazine_id)
+    public function get_magazine_setting()
     {
-        $this->db->where('magazine_id', $magazine_id);
         $this->db->select('mail, mail_type, mail_subject, mail_detail');
         $query = $this->db->get("magazine_setting");
         return $query->result("array");
