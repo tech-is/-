@@ -29,6 +29,11 @@ class Cl_main extends CI_Controller {
 	{
 		$this->load->view('signup');
 	}
+	public function pet_table()
+	{
+		$this->load->view('view_pet.html');
+	}
+
 
 	public function load_customer_table()
 	{
