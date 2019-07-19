@@ -8,7 +8,7 @@
                             <h2 style="line-height: 37px; margin-left:10px;">メールテンプレート</h2>
                         </div>
                         <div class="pull-right">
-                            <a href="new_create_magazine">
+                            <a href="magazine_new_form">
                                 <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:10px;">
                                     <i class="material-icons">edit</i>
                                     <span>new</span>
@@ -25,9 +25,14 @@
                         <div class="card">
                             <div class="header row clearfix">
                                 <div class="pull-left">
-                                    <h2 style="line-height: 37px; margin-left:10px;"><?= $template_name[$i] ?></h2>
+                                    <h2 style="line-height: 37px"><?= $template_name[$i] ?></h2>
                                 </div>
                                 <div class="pull-right">
+                                    <a href="magazine_send">
+                                        <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:10px;">
+                                            <i class="material-icons">contact_mail</i>
+                                        </button>
+                                    </a>
                                     <a href="magazine_form">
                                         <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:10px;">
                                             <i class="material-icons">settings</i>

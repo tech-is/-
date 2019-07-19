@@ -5,7 +5,7 @@ class Cl_main extends CI_Controller {
 
 	/**
 	 * index
-	 *
+	 * 
 	 * @return require('index.html')
 	 */
 	public function index()
@@ -52,7 +52,22 @@ class Cl_main extends CI_Controller {
 		$this->load->view("cms/pages/magazine/view_magazine", $data);
 	}
 
-	public function new_create_magazine()
+	public function magazine_send()
+	{
+		$data = [
+			"template_name" => ["sample1", "sample2", "sample3"],
+			"from_name" => ["cipher", "galm", "pixy"],
+			"mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
+			"mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
+			"mail_detail" => ["Hello World", "やばいですね！", "yahoooooooooooooo"],
+			"name" => ["aaa", "bbb", "ccc", "ddd"]
+		];
+		$this->load->view('cms/pages/parts/header.html');
+		$this->load->view('cms/pages/parts/sidebars.html');
+		$this->load->view("cms/pages/magazine/view_magazine_send", $data);
+	}
+
+	public function magazine_new_form()
 	{
 		$this->load->view('cms/pages/parts/header.html');
 		$this->load->view('cms/pages/parts/sidebars.html');
