@@ -28,7 +28,7 @@ class Cl_main extends CI_Controller {
 
     public function login()
     {
-        $this->load->view('cms/sign-in');
+        $this->load->view('sign-in.html');
     }
 
 	public function signup()

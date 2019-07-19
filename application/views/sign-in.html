@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Sign Up | Bootstrap Based Admin Template - Material Design</title>
+    <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
     <!-- Favicon-->
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
@@ -26,33 +26,49 @@
     <link href="../../assets/cms/css/style.css" rel="stylesheet">
 </head>
 
-<body class="signup-page">
-    <div class="signup-box">
+<body class="login-page">
+    <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);"><b>Animarl</b></a>
-            <!-- <small>Admin BootStrap Based - Material Design</small> -->
+            <a href="javascript:void(0);">Admin<b>BSB</b></a>
+            <small>Animark</small>
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_up" method="POST">
-                    <div class="msg">まず初めにEmailを登録してください</div>
+                <form id="sign_in" method="POST">
+                    <div class="msg">Sign in to start your session</div>
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <i class="material-icons">email</i>
+                            <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                            <input type="text" class="form-control" name="username" placeholder="Username" required
+                                autofocus>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">
-                        <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of
-                                usage</a>.</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        </div>
                     </div>
-                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
-
-                    <div class="m-t-25 m-b--5 align-center">
-                        <a href="login">アカウントを持っていますか?</a>
+                    <div class="row">
+                        <div class="col-xs-8 p-t-5">
+                            <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
+                            <label for="rememberme">Remember Me</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                        </div>
+                    </div>
+                    <div class="row m-t-15 m-b--20">
+                        <div class="col-xs-6">
+                            <a href="signup">Register Now!</a>
+                        </div>
+                        <div class="col-xs-6 align-right">
+                            <a href="forgot-password.html">Forgot Password?</a>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -73,7 +89,7 @@
 
     <!-- Custom Js -->
     <script src="../../assets/cms/js/admin.js"></script>
-    <script src="../../assets/cms/js/pages/examples/sign-up.js"></script>
+    <script src="../../assets/cms/js/pages/examples/sign-in.js"></script>
 </body>
 
 </html>
