@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cl_main extends CI_Controller {
+class Cl_main extends CI_Controller
+{
 
 	/**
 	 * index
@@ -15,8 +16,8 @@ class Cl_main extends CI_Controller {
 	}
 
 	/**
-	 * cms
-	 *
+	 * main
+	 * 
 	 * @return require('cms/main.html')
 	 */
 	public function main()
@@ -31,6 +32,11 @@ class Cl_main extends CI_Controller {
         $this->load->view('sign-in.html');
     }
 
+	/**
+	 * signup
+	 *
+	 * @return void
+	 */
 	public function signup()
 	{
 		$this->load->view('sign-up.html');
@@ -85,4 +91,5 @@ class Cl_main extends CI_Controller {
 	{
 		$this->load->model("mdl_cms");
 	}
+
 }
