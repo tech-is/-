@@ -10,8 +10,9 @@ class Cl_main extends CI_Controller {
 	 */
 	public function index()
 	{
+		echo dirname($_SERVER['DOCUMENT_ROOT']);
 		// $this->load->view('index.html');
-		$this->main();
+		// $this->main();
 	}
 
 	/**
