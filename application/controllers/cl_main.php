@@ -6,19 +6,18 @@ class Cl_main extends CI_Controller
 
 	/**
 	 * index
-	 * 
+	 *
 	 * @return require('index.html')
 	 */
 	public function index()
 	{
-		echo dirname($_SERVER['DOCUMENT_ROOT']);
-		// $this->load->view('index.html');
+		$this->load->view('index.html');
 		// $this->main();
 	}
 
 	/**
 	 * main
-	 * 
+	 *
 	 * @return require('cms/main.html')
 	 */
 	public function main()
@@ -42,6 +41,23 @@ class Cl_main extends CI_Controller
 	{
 		$this->load->view('sign-up.html');
 	}
+
+	public function register()
+    {
+        $tmp = $this->input->get("code");
+        if($tmp == null) {
+            echo "不正なログインです";
+            exit;
+        }
+        $this->load->model("mdl_members");
+        $data = $this->mdl_members->check_tmp($tmp);
+        if($data == false) {
+            echo "dbにありませんす";
+            exit;
+        } else {
+            $this->load->view("sign-up.html", $data);
+        }
+    }
 
 	public function magazine()
 	{

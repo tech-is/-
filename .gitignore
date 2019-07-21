@@ -32,3 +32,5 @@ AdminBSBMaterialDesign-master/*
 /tests/results/
 /user_guide
 /チーム開発定義書
+/.vscode
+/tmp

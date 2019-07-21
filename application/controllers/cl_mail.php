@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * メールホストを設定したい場合にはapplication/confing/email.phpを書き換えてください
  */
 
+
 class Cl_mail extends CI_Controller {
 
     /**
@@ -19,7 +20,7 @@ class Cl_mail extends CI_Controller {
     {
         try {
             $config["mailtype"] = "text";
-            $this->load->library("email", $condig);
+            $this->load->library("email", $config);
             $magazine_id = $this->input->post("magazine_id");
             $this->load->model("mdl_cms");
             $data = $this->model->get_magazine_setting($magazine_id);
@@ -39,8 +40,7 @@ class Cl_mail extends CI_Controller {
     public function send_dm_mail()
     {
         try {
-            $config["mailtype"] = "text";
-            $this->load->library("email", $condig);
+            $this->load->library("email", $config);
             $data = $this->input->post();
             $this->email->from($data["mail"], $data["mail_header_name"]);
             $this->email->to('');
@@ -54,17 +54,21 @@ class Cl_mail extends CI_Controller {
     public function send_mail_test()
     {
         try {
-            $mail = $this->input->post();
-            $config["mailtype"] = "text";
-            $this->load->library("email", $config);
-            $magazine_id = $this->input->post("magazine_id");
+            // $mail = $this->input->post();
+            // $config["mailtype"] = "text";
+            $mail = [
+                "mail_header_name" => ["hero"],
+                "to" => ["delta0716@gmail.com"],
+            ];
+            $this->load->library("email");
+            // $magazine_id = $this->input->post("magazine_id");
             $this->load->model("mdl_cms");
             // $data = $this->model->get_magazine_setting($magazine_id);
             $data = ["mail_subject" => "システムメール","mail_detail" => "テスト"];
             /* $data[0]["mail"] = ユーザーのメールアドレス, $data[0]["mail_header_name"] = 差出人名 */
             for($i = 0; $i < count($mail); $i++) {
                 $this->email->from("system_animarl@niji-desk.work", $mail["mail_header_name"][$i]);
-                $this->email->to($mail["mail"][$i]);
+                $this->email->to($mail["to"][$i]);
                 $this->email->set_newline("\r\n");
                 $this->email->subject($data["mail_subject"]);
                 $this->email->message($data["mail_detail"]);

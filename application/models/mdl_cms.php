@@ -25,7 +25,7 @@ class Mdl_cms extends CI_Model {
      * @return array($query->result())
      */
     public function get_pets_table()
-    {   
+    {
         $query = $this->db->get("pet");
         return $query->result("array");
     }
