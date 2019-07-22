@@ -2,12 +2,6 @@
 
 class Mdl_members extends CI_Model {
 
-    public function __construct()
-    {
-        // CI_Model constructor の呼び出し
-        parent::__construct();
-    }
-
     /**
      * get_customer_table
      * custmoerテーブルからデータを配列で取得
@@ -30,35 +24,24 @@ class Mdl_members extends CI_Model {
      * petsテーブルからデータを配列で取得
      * @return $query->result();
      */
-    public function sign_up_mail($email, $tmp)
+    public function insert_mail($email, $code)
     {
         $data = [
             'email' => $email,
-            'pass_tmp' => $tmp
+            'code' => $code
         ];
-        // $this->db->trans_start();
-        if($this->db->insert('members', $data)) {
-            return true;
-        } else {
-            return false;
-        }
-        // $this->db->trans_complete();
-        // if ($this->db->trans_status() === FALSE){
-        //     return false;
-        // } else {
-        //     return true;
-        // }
-    }
-
-    public function check_tmp($tmp)
-    {
-        $query = $this->db->get_where("members", ["pass_tmp" => $tmp]);
-        $row = $query->result();
-        count($row)  == 1? $result = true: $result =false;
+        $this->db->insert('tmp_members', $data)? $result = true: $result = false;
         return $result;
     }
 
-    public function update_user()
+    public function check_code($code)
+    {
+        $query = $this->db->get_where("members", ["code" => $code]);
+        $query->num_rows() == 1? $result = $query->result("array"): $result = false;
+        return $result;
+    }
+
+    public function insert_user()
     {
         $data = [
             "name" => $name,
@@ -70,5 +53,10 @@ class Mdl_members extends CI_Model {
         ];
         $this->db->where('id', $id);
         return $this->db->update('mytable', $data);
+    }
+
+    public function delete_email($email)
+    {
+        $this->db->delete('mytable', ['email' => $email]);
     }
 }

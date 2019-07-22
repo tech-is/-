@@ -3,7 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cl_login extends CI_Controller
 {
-
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper(["url", "form"]);
+        $this->load->model("mdl_members");
+    }
     /**
      * check_email
      *
@@ -12,28 +17,30 @@ class Cl_login extends CI_Controller
      */
     public function check_email()
     {
-        $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
+        $this->load->library("form_validation");
         $this->form_validation->set_rules('email', 'メールアドレス', 'required|valid_email',
             [
                 "required" => "正しいメールアドレスを入力してください。",
                 "valid_email" => "正しいメールアドレスを入力してください。"
             ]
         );
-        if ($this->form_validation->run() == false) {
+        if($this->form_validation->run() == false) {
             $this->load->view('sign-up.html');
         } else {
             $email = $this->input->post("email");
             $tmp = md5(uniqid(rand(), true));
             if($this->tmp_db_registration($email, $tmp) == true) {
                 if($this->send_mail($email, $tmp) == true) {
-                    redirect("/cl_main/login");
+                    redirect("cl_main/login");
                 } else {
                     $this->del_email($email);
                 }
+            } else {
+                //dbに登録できなかった時のページ
             }
         }
     }
+
 
     /**
      * tmp_db_registration
@@ -43,7 +50,6 @@ class Cl_login extends CI_Controller
      */
     private function tmp_db_registration($email, $tmp)
     {
-        $this->load->model("mdl_members");
         $result = $this->mdl_members->sign_up_mail($email, $tmp);
         return $result;
     }
@@ -54,10 +60,9 @@ class Cl_login extends CI_Controller
      * @param [str] $email
      * @return 登録した行を削除
      */
-    private function del_email($email)
+    private function delete_email($email)
     {
-        $this->load->model("mdl_members");
-        $this->mdl_members->delete_email($email, $tmp);
+        $this->mdl_members->delete_email($email);
         redirect("/cl_main/login");
     }
 
@@ -90,7 +95,52 @@ class Cl_login extends CI_Controller
 
     private function db_registration()
     {
-        //
+        $this->load->library("form_validation");
+        $config = [
+            [
+                'field' => 'name',
+                'label' => 'ユーザ名',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'kana',
+                'label' => 'フリガナ',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'zip_adderss',
+                'label' => '住所',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'year',
+                'label' => '生年月日',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'password',
+                'label' => 'パスワード',
+                'rules' => 'required',
+                'errors' => [
+                        'required' => '%s を入力してください。',
+                ]
+            ],
+            [
+                'field' => 'passconf',
+                'label' => 'パスワード確認',
+                'rules' => 'required'
+            ]
+        ];
+        if($this->form_validation->run() == false) {
+            $this->load->view('sign-up.html');
+        } else {
+            $post = $this->input->post();
+            $post["password"] = password_hash($post["password"], PASSWORD_DEFAULT);
+            if($this->mdl_member->db_registration($post) == true) {
+                redirect("/cl_main/login");
+            } else {
+                echo "失敗だお";
+            }
+        }
     }
-
 }

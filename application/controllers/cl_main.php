@@ -3,7 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cl_main extends CI_Controller
 {
-
+	public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper(["url"]);
+        $this->load->model("mdl_members");
+    }
 	/**
 	 * index
 	 *
@@ -32,31 +37,31 @@ class Cl_main extends CI_Controller
         $this->load->view('sign-in.html');
     }
 
-	/**
-	 * signup
-	 *
-	 * @return void
-	 */
 	public function signup()
 	{
-		$this->load->view('sign-up.html');
+		$this->load->view('sign-up');
+	}
+
+	public function forgot_password()
+	{
+		$this->load->view("forgot-password.html");
 	}
 
 	public function register()
     {
         $tmp = $this->input->get("code");
         if($tmp == null) {
-            echo "不正なログインです";
-            exit;
-        }
-        $this->load->model("mdl_members");
-        $data = $this->mdl_members->check_tmp($tmp);
-        if($data == false) {
-            echo "dbにありませんす";
-            exit;
+			redirect("index.php/cl_main/login");	
         } else {
-            $this->load->view("sign-up.html", $data);
-        }
+			$this->load->model("mdl_members");
+			$data = $this->mdl_members->check_tmp($tmp);
+			if($data == false) {
+				echo "dbにありませんす";
+				exit;
+			} else {
+				$this->load->view("register", $data);
+			}
+		}
     }
 
 	public function magazine()
