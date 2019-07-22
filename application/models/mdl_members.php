@@ -30,17 +30,45 @@ class Mdl_members extends CI_Model {
      * petsテーブルからデータを配列で取得
      * @return $query->result();
      */
-    public function sign_up_mail($mail)
-    {   
+    public function sign_up_mail($email, $tmp)
+    {
         $data = [
-            'mail' => $mail,
-            'tmp_password' => $tmp
+            'email' => $email,
+            'pass_tmp' => $tmp
         ];
-        return $this->db->insert('members', $data);
+        // $this->db->trans_start();
+        if($this->db->insert('members', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+        // $this->db->trans_complete();
+        // if ($this->db->trans_status() === FALSE){
+        //     return false;
+        // } else {
+        //     return true;
+        // }
+    }
+
+    public function check_tmp($tmp)
+    {
+        $query = $this->db->get_where("members", ["pass_tmp" => $tmp]);
+        $row = $query->result();
+        count($row)  == 1? $result = true: $result =false;
+        return $result;
     }
 
     public function update_user()
     {
-        $data = $this->input->post(["name", "kana", "tel", "mail", "year"]);
+        $data = [
+            "name" => $name,
+            "kana" => $kana,
+            "tel" => $tel,
+            "year" => $year,
+            "password" => $password,
+            "pass_tmp" => null
+        ];
+        $this->db->where('id', $id);
+        return $this->db->update('mytable', $data);
     }
 }
