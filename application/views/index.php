@@ -80,7 +80,7 @@
     
     <div id="hero" class="hero-section">
         
-        
+        <div id="hero-carousel" class="hero-carousel carousel carousel-fade slide" data-ride="carousel" data-interval="10000">
             
             <div class="figure-holder-wrapper">
         		<div class="container">
@@ -114,7 +114,7 @@
                 </div><!--//item-->
                 
 				<?php } elseif (11 <= $time && $time <= 13){ ?>
-				<div class="carousel-item item-2">
+				<div class="carousel-item item-2 active">
 					<div class="item-content container">
 						<div class="item-content-inner">
     				        
@@ -127,7 +127,7 @@
                 </div><!--//item-->
                 
                 <?php } elseif (14 <= $time && $time <= 17) { ?>
-                <div class="carousel-item item-3">
+                <div class="carousel-item item-3 active">
 					<div class="item-content container">
 						<div class="item-content-inner">
     				        
@@ -139,8 +139,8 @@
 					</div>
 				</div><!--//item-->
                 
-                <?php  }else{ ?>
-				<div class="carousel-item item-4">
+                <?php } else { ?>
+				<div class="carousel-item item-4 active">
 					<div class="item-content container">
 						<div class="item-content-inner">
     				        
@@ -153,7 +153,7 @@
                 </div><!--//item-->
                 <?php } ?>
 			</div><!--//carousel-inner-->
-
+        </div>
     </div><!--//hero-->
     
     <div id="about" class="about-section">
