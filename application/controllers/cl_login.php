@@ -69,6 +69,7 @@ class Cl_login extends CI_Controller
                     $this->del_email($email);
                 }
             } else {
+                echo "失敗だお";
                 //dbに登録できなかった時のページ
             }
         }
@@ -170,6 +171,7 @@ class Cl_login extends CI_Controller
                 redirect("/cl_main/login");
             } else {
                 echo "失敗だお";
+                // 失敗ページ作成予定
             }
         }
     }
