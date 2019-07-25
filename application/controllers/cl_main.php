@@ -16,24 +16,23 @@ class Cl_main extends CI_Controller
 	 * @return require('index.html')
 	 */
 	public function index()
-	{
-		$this->load->view('index.html');
-		// $this->main();
+  {
+        $this->load->view('index');
 	}
 
-	/**
-	 * main
-	 *
-	 * @return require('cms/main.html')
-	 */
-	public function main()
+	public function html()
+	{
+        $this->load->view('index.html');
+	}	
+
+	public function cms()
 	{
 		$this->load->view('cms/pages/parts/header.html');
 		$this->load->view('cms/pages/parts/sidebars.html');
 		$this->load->view('cms/main.html');
 	}
 
-    public function login()
+   public function login()
     {
         $this->load->view('sign-in.html');
     }
