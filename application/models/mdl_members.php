@@ -9,10 +9,10 @@ class Mdl_members extends CI_Model {
      */
     public function chk_login()
     {
-        $this->db->where("mail", $this->input->post("mail"));
+        $this->db->where("email", $this->input->post("email"));
         $this->db->select("id, password");
         $query = $this->db->get('members');
-        if($query->num_rows() == 1){
+        if($query->num_rows() == 1) {
             return $query->result('array');
         }else{
             return false;

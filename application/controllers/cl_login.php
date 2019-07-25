@@ -9,6 +9,39 @@ class Cl_login extends CI_Controller
         $this->load->helper(["url", "form"]);
         $this->load->model("mdl_members");
     }
+
+    /**
+     * check_user
+     * 
+     * @param $_POST["email"] = ポストされたメールアドレス
+     * @return メインページにリダイレクト
+     */
+    public function check_user()
+    {
+        $config = [
+            [
+                'field' => 'email',
+                'label' => 'メールアドレス',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'password',
+                'label' => 'パスワード',
+                'rules' => 'required'
+            ],
+        ];
+        $this->load->library("form_validation", $config);
+        if($this->form_validation->run() == false) {
+            $this->load->view('sign-up.html');
+        } else {
+            if($this->mdl_members->chk_login()) {
+                redirect("index.php/cl_main/main");
+            } else {
+                redirect("index.php/cl_main/login");
+            }
+        }
+    }
+
     /**
      * check_email
      *
@@ -28,8 +61,8 @@ class Cl_login extends CI_Controller
             $this->load->view('sign-up.html');
         } else {
             $email = $this->input->post("email");
-            $tmp = md5(uniqid(rand(), true));
-            if($this->tmp_db_registration($email, $tmp) == true) {
+            $code = md5(uniqid(rand(), true));
+            if($this->tmp_db_registration($email, $code) == true) {
                 if($this->send_mail($email, $tmp) == true) {
                     redirect("cl_main/login");
                 } else {
@@ -48,9 +81,9 @@ class Cl_login extends CI_Controller
      * @param [str] $email
      * @return true | false
      */
-    private function tmp_db_registration($email, $tmp)
+    private function tmp_db_registration($email, $code)
     {
-        $result = $this->mdl_members->sign_up_mail($email, $tmp);
+        $result = $this->mdl_members->insert_mail($email, $code);
         return $result;
     }
 
@@ -95,7 +128,6 @@ class Cl_login extends CI_Controller
 
     private function db_registration()
     {
-        $this->load->library("form_validation");
         $config = [
             [
                 'field' => 'name',
@@ -120,10 +152,7 @@ class Cl_login extends CI_Controller
             [
                 'field' => 'password',
                 'label' => 'パスワード',
-                'rules' => 'required',
-                'errors' => [
-                        'required' => '%s を入力してください。',
-                ]
+                'rules' => 'required'
             ],
             [
                 'field' => 'passconf',
@@ -131,6 +160,7 @@ class Cl_login extends CI_Controller
                 'rules' => 'required'
             ]
         ];
+        $this->load->library("form_validation", $config);
         if($this->form_validation->run() == false) {
             $this->load->view('sign-up.html');
         } else {

@@ -9,6 +9,7 @@ class Cl_main extends CI_Controller
         $this->load->helper(["url"]);
         $this->load->model("mdl_members");
     }
+	
 	/**
 	 * index
 	 *
@@ -51,11 +52,11 @@ class Cl_main extends CI_Controller
     {
         $tmp = $this->input->get("code");
         if($tmp == null) {
-			redirect("index.php/cl_main/login");	
+			redirect("index.php/cl_main/login");
         } else {
 			$this->load->model("mdl_members");
 			$data = $this->mdl_members->check_tmp($tmp);
-			if($data == false) {
+			if(!$data) {
 				echo "dbにありませんす";
 				exit;
 			} else {
@@ -113,5 +114,4 @@ class Cl_main extends CI_Controller
 	{
 		$this->load->model("mdl_cms");
 	}
-
 }
