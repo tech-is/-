@@ -25,7 +25,7 @@ class Cl_main extends CI_Controller
         $this->load->view('index.html');
 	}	
 
-	public function cms()
+	public function main()
 	{
 		$this->load->view('cms/pages/parts/header.html');
 		$this->load->view('cms/pages/parts/sidebars.html');

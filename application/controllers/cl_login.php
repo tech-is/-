@@ -127,6 +127,11 @@ class Cl_login extends CI_Controller
         }
     }
 
+    /**
+     * db_registration
+     *
+     * @return dbに登録後ログインページに遷移
+     */
     private function db_registration()
     {
         $config = [
