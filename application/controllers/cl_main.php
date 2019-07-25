@@ -63,7 +63,10 @@ class Cl_main extends CI_Controller
 			}
 		}
     }
-
+  public function pet_table()
+	{
+        $this->load->view('view_pet.html');
+	}
 	public function magazine()
 	{
 		// $this->load->model("mdl_cms");
