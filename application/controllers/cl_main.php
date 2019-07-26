@@ -9,7 +9,7 @@ class Cl_main extends CI_Controller
         $this->load->helper(["url"]);
         $this->load->model("mdl_members");
     }
-	
+
 	/**
 	 * index
 	 *
@@ -23,7 +23,7 @@ class Cl_main extends CI_Controller
 	public function html()
 	{
         $this->load->view('index.html');
-	}	
+	}
 
 	public function main()
 	{
@@ -62,7 +62,21 @@ class Cl_main extends CI_Controller
 				$this->load->view("register", $data);
 			}
 		}
-    }
+	}
+
+  	public function pet_table()
+	{
+		$this->load->view('cms/pages/parts/header.html');
+		$this->load->view('cms/pages/parts/sidebars.html');
+        $this->load->view('cms/view_pet.html');
+	}
+
+	public function customer_table()
+	{
+		$this->load->view('cms/pages/parts/header.html');
+		$this->load->view('cms/pages/parts/sidebars.html');
+		$this->load->view('cms/view_customer.html');
+	}
 
 	public function magazine()
 	{
