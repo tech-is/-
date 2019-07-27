@@ -22,5 +22,5 @@ https://github.com/tech-is/teamWM/archive/master.zip
 ・system/ ライブラリやヘルパーを置いているフォルダです  
 ・assets/ CSSやjsをおいているフォルダです  
 　　・  CMS/　CMS本体のcssとjsを置いています  
-・index.php  
+・index.php　最初にこのファイルを読み込んでください
 
