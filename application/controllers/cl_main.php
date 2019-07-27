@@ -7,7 +7,7 @@ class Cl_main extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(["url"]);
-        $this->load->model("mdl_members");
+        // $this->load->model("mdl_members");
     }
 
 	/**
