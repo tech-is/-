@@ -96,7 +96,7 @@ class Cl_main extends CI_Controller
 
 	public function magazine_send()
 	{
-		$data = [
+		$data = [                                                                                
 			"template_name" => ["sample1", "sample2", "sample3"],
 			"from_name" => ["cipher", "galm", "pixy"],
 			"mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
