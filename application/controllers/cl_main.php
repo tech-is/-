@@ -115,3 +115,4 @@ class Cl_main extends CI_Controller
 		$this->load->model("mdl_cms");
 	}
 }
+ 
