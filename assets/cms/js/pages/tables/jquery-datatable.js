@@ -11,7 +11,7 @@ $(function () {
         } ,
         responsive: true,
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'excel', 'print'
         ]
     });
 });
