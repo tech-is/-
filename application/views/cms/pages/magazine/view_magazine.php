@@ -23,7 +23,7 @@
                 for($i = 0; $i < count($template_name); $i++) { ?>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="card">
-                            <div class="header row clearfix">
+                            <div class="header clearfix">
                                 <div class="pull-left">
                                     <h2 style="line-height: 37px"><?= $template_name[$i] ?></h2>
                                 </div>

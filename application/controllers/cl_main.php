@@ -6,7 +6,7 @@ class Cl_main extends CI_Controller
 	public function __construct()
     {
         parent::__construct();
-        $this->load->helper(["url"]);
+        $this->load->helper(["url", "form"]);
         $this->load->model("mdl_members");
     }
 	
@@ -35,13 +35,19 @@ class Cl_main extends CI_Controller
 
     public function login()
     {
-        $this->load->view('sign-in.html');
+        $this->load->view('sign-in');
     }
 
 	public function signup()
 	{
 		$this->load->view('sign-up');
 	}
+
+    public function signup_db_error()
+    {
+        $data["error"] = '<div class="msg" style="color: red">データベースに登録できませんでした<br>しばらく時間をおいて登録してください</div>';
+        $this->load->view('sign-up' ,$data);
+    }
 
 	public function forgot_password()
 	{
@@ -50,12 +56,12 @@ class Cl_main extends CI_Controller
 
 	public function register()
     {
-        $tmp = $this->input->get("code");
-        if($tmp == null) {
+        $code = $this->input->get("code");
+        if($code == null) {
 			redirect("index.php/cl_main/login");
         } else {
 			$this->load->model("mdl_members");
-			$data = $this->mdl_members->check_tmp($tmp);
+			$data = $this->mdl_members->check_code($code);
 			if(!$data) {
 				echo "dbにありませんす";
 				exit;
@@ -67,8 +73,6 @@ class Cl_main extends CI_Controller
 
 	public function magazine()
 	{
-		// $this->load->model("mdl_cms");
-		// $data = $this->get_magazine_setting();
 		$data = [
 			"template_name" => ["sample1", "sample2", "sample3"],
 			"from_name" => ["cipher", "galm", "pixy"],
@@ -105,9 +109,16 @@ class Cl_main extends CI_Controller
 
 	public function magazine_form()
 	{
+        $data = [
+			"template_name" => ["sample1", "sample2", "sample3"],
+			"from_name" => ["cipher", "galm", "pixy"],
+			"mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
+			"mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
+			"mail_detail" => ["Hello World", "やばいですね！", "yahoooooooooooooo"]
+		];
 		$this->load->view('cms/pages/parts/header.html');
 		$this->load->view('cms/pages/parts/sidebars.html');
-		$this->load->view("cms/pages/magazine/view_magazine_form.html");
+		$this->load->view("cms/pages/magazine/view_magazine_form", $data);
 	}
 
 	public function load_customer_table()
