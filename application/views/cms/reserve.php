@@ -3,6 +3,11 @@
     <div class="container-fluid">
         <!-- Body Copy -->
         <div class="row clearfix">
+            <div class="card">
+                <div class="col-12">
+                    <h2 class="card-inside-title">メールヘッダー</h2>
+                </div>
+            </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div id='calendar'></div>

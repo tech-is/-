@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="pull-right">
                                     <a href="magazine_send">
-                                        <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:10px;">
+                                        <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:30px;">
                                             <i class="material-icons">contact_mail</i>
                                         </button>
                                     </a>
@@ -45,7 +45,13 @@
                                 <p>< <?= $mail[$i] ?> ></p>
                                 <p>件名:<?= $mail_subject[$i] ?></p>
                                 <p>本文:</p>
-                                <p><?= $mail_detail[$i] ?></p>
+                                if(mb_strlen($text) > 10) {
+                                    $title = mb_substr($text, 0, $limit);
+                                        echo $title. ･･･ ;
+                                    } else {
+                                        echo get_the_title($text);
+                                }
+                                <p><?= str_replace("<br>", " ", mb_substr($mail_detail[$i], 0, 10)) ?></p>
                             </div>
                         </div>
                     </div>
@@ -54,20 +60,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card">
                             <div class="header">
-                                <h2><?= $template_name[$i] ?></h2>
-                                <p style="text-align: right">
-                                <a href="magazine_form">
-                                    <button type="button" class="btn bg-deep-purple waves-effect">
-                                        <i class="material-icons">settings</i>
-                                        <span>SETTINGS</span>
-                                    </button>
-                                </p></a>
-                            </div>
-                            <div class="body">
-                                <p>From: <?= $from_name[$i] ?> < <?= $mail[$i] ?> ></p>
-                                <p>件名:<?= $mail_subject[$i] ?></p>
-                                <p>本文</p>
-                                <p><?= $mail_detail[$i] ?></p>
+                                <h2>テンプレートがありません。メールマガジンを新規作成してください</h2>
                             </div>
                         </div>
                     </div>

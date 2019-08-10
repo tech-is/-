@@ -7,11 +7,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * メールホストを設定したい場合にはapplication/confing/email.phpを書き換えてください
  */
 
-
 class Cl_mail extends CI_Controller {
 
     /**
-     * send_mail_magazine
+     * send_mail_magazine メールマガジンを送る
      * @param $magazine_id = マガジンテンプレートのインデックスid
      *        $data = DB内のマガジンテンプレートを配列で格納
      * @return メールを指定した顧客に送信
