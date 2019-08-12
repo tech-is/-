@@ -45,12 +45,14 @@
                                 <p>< <?= $mail[$i] ?> ></p>
                                 <p>件名:<?= $mail_subject[$i] ?></p>
                                 <p>本文:</p>
+                                <?php
                                 if(mb_strlen($text) > 10) {
                                     $title = mb_substr($text, 0, $limit);
                                         echo $title. ･･･ ;
                                     } else {
                                         echo get_the_title($text);
                                 }
+                                ?>
                                 <p><?= str_replace("<br>", " ", mb_substr($mail_detail[$i], 0, 10)) ?></p>
                             </div>
                         </div>
