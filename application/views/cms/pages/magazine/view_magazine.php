@@ -1,9 +1,20 @@
+<?php
+function escape_mail_detail($mail_detail) {
+    $esc_mail_detail = str_replace("<br>", " ", $mail_detail);
+    if(mb_strlen($esc_mail_detail) > 20) {
+        $resize_mail_detail = mb_substr($esc_mail_detail, 0, 20);
+            return $resize_mail_detail. "･･･" ;
+        } else {
+            return $esc_mail_detail;
+    }
+}
+?>
 <section class="content">
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
                 <div class="card">
-                    <div class="header row clearfix">
+                    <div class="header clearfix">
                         <div class ="pull-left">
                             <h2 style="line-height: 37px; margin-left:10px;">メールテンプレート</h2>
                         </div>
@@ -45,15 +56,7 @@
                                 <p>< <?= $mail[$i] ?> ></p>
                                 <p>件名:<?= $mail_subject[$i] ?></p>
                                 <p>本文:</p>
-                                <?php
-                                if(mb_strlen($text) > 10) {
-                                    $title = mb_substr($text, 0, $limit);
-                                        echo $title. ･･･ ;
-                                    } else {
-                                        echo get_the_title($text);
-                                }
-                                ?>
-                                <p><?= str_replace("<br>", " ", mb_substr($mail_detail[$i], 0, 10)) ?></p>
+                                <p><?= escape_mail_detail($mail_detail[$i]) ?></p>
                             </div>
                         </div>
                     </div>
@@ -62,7 +65,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card">
                             <div class="header">
-                                <h2>テンプレートがありません。メールマガジンを新規作成してください</h2>
+                                <h2>テンプレートがありません。テンプレートを新規作成してください</h2>
                             </div>
                         </div>
                     </div>
@@ -87,17 +90,9 @@
     <!-- Waves Effect Plugin Js -->
     <script src="../../assets/cms/plugins/node-waves/waves.js"></script>
 
-    <!-- Ckeditor -->
-    <!-- <script src="../../assets/cms/plugins/ckeditor/ckeditor.js"></script> -->
-
-    <!-- TinyMCE -->
-    <!-- <script src="../../assets/cms/plugins/tinymce/tinymce.js"></script> -->
-
-    <!-- Custom Js -->
     <script src="../../assets/cms/js/admin.js"></script>
+
     <script src="../../assets/cms/js/pages/magazine.js"></script>
-    <!-- Demo Js -->
-    <!-- <script src="../../assets/cms/js/demo.js"></script> -->
     </body>
 
     </html>

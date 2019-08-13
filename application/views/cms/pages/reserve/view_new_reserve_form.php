@@ -6,7 +6,7 @@
                 <div class="card">
                     <form method="POST" action="#">
                         <div class="header clearfix">
-                            <h2 class="pull-left" style="font-weight: bold; line-height: 37px">新規作成</h2>
+                            <h2 class="pull-left" style="font-weight: bold; line-height: 37px">編集</h2>
                             <div class="pull-right">
                                 <button type="button" class="btn bg-pink waves-effect"
                                     onclick="window.open('magazine', '_self')">
@@ -21,29 +21,39 @@
                             </div>
                         </div>
                         <div class="body">
-                            <h2 class="card-inside-title">メールヘッダー</h2>
+                            <h2 class="card-inside-title">新規予約</h2>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <label for="template_name">テンプレート名</label>
+                                    <label for="template_name">予約</label>
                                     <input type="text" class="form-control" name="template_name" placeholder="テンプレート名">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <label for="from_name">差出人:</label>
-                                    <input type="text" class="form-control" name="from_name" placeholder="差出人:">
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <select class="form-control show-tick">
+                                        <option value="">-- Please select --</option>
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-control" disabled>
+                                        <option value="">Disabled</option>
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <label for="mail_subject">テンプレート名</label>
-                                    <input type="text" class="form-control" name="mail_subject" placeholder="件名">
-                                </div>
-                            </div>
-                            <h2 class="card-inside-title">メール本文</h2>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <textarea rows="6" class="form-control no-resize" placeholder="メール本文を入力してください"></textarea>
+                                    <label for="from_name">担当者</label>
+                                    <input type="text" class="form-control" name="from_name" placeholder="担当者:">
                                 </div>
                             </div>
                         </div>
@@ -52,9 +62,7 @@
             </div>
         </div>
     </div>
-    </div>
 </section>
-
 
 <!-- Jquery Core Js -->
 <script src="../../assets/cms/plugins/jquery/jquery.min.js"></script>
@@ -79,11 +87,14 @@
 
 <!-- Custom Js -->
 <script src="../../assets/cms/js/admin.js"></script>
-<script src="../../assets/cms/js/pages/magazine.js"></script>
 <script src="../../assets/cms/js/pages/forms/editors.js"></script>
+<script src="../../assets/cms/js/pages/magazine.js"></script>
 
 <!-- Demo Js -->
 <script src="../../assets/cms/js/demo.js"></script>
+<script>
+    var id = $("#ckeditor").attr("")
+</script>
 </body>
 
 </html>
