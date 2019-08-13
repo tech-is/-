@@ -38,7 +38,7 @@
                 <form action="../cl_login/check_email" method="POST">
                     <div class="msg">まず初めにEmailを登録してください</div>
                     <?php echo form_error('email');
-                          isset($error)? print($error): false; 
+                          isset($error)? print($error): false;
                     ?>
                     <div class="input-group">
                         <span class="input-group-addon">

@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cl_login extends CI_Controller
 {
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -90,7 +90,7 @@ class Cl_login extends CI_Controller
 
     /**
      * del_email($email)
-     * 
+     *
      * @param [str] $email
      * @return 登録した行を削除
      */

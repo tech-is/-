@@ -23,6 +23,15 @@
     <!-- Animation Css -->
     <link href="../../assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
 
+    <!-- Bootstrap Select Css -->
+    <link href="../../assets/cms/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="../../assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+    <!-- Bootstrap DatePicker Css -->
+    <link href="../../assets/cms/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+
     <!-- Morris Chart Css-->
     <link href="../../assets/cms/plugins/morrisjs/morris.css" rel="stylesheet" />
 

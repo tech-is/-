@@ -6,7 +6,7 @@
                 <div class="card">
                     <form method="POST" action="#">
                         <div class="header clearfix">
-                            <h2 class="pull-left" style="font-weight: bold; line-height: 37px">編集</h2>
+                            <h2 class="pull-left" style="font-weight: bold; line-height: 37px">新規予約</h2>
                             <div class="pull-right">
                                 <button type="button" class="btn bg-pink waves-effect"
                                     onclick="window.open('magazine', '_self')">
@@ -21,40 +21,35 @@
                             </div>
                         </div>
                         <div class="body">
-                            <h2 class="card-inside-title">新規予約</h2>
+                            <!-- <h2 class="card-inside-title">新規予約</h2> -->
                             <div class="form-group">
                                 <div class="form-line">
-                                    <label for="template_name">予約</label>
-                                    <input type="text" class="form-control" name="template_name" placeholder="テンプレート名">
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-sm-6">
-                                    <select class="form-control show-tick">
-                                        <option value="">-- Please select --</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
-                                        <option value="50">50</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6">
-                                    <select class="form-control" disabled>
-                                        <option value="">Disabled</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
-                                        <option value="50">50</option>
-                                    </select>
+                                    <label for="template_name">お客様名</label>
+                                    <input type="text" class="form-control" name="template_name" placeholder="お客様名">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <label for="from_name">担当者</label>
-                                    <input type="text" class="form-control" name="from_name" placeholder="担当者:">
+                                    <label for="template_name">ペット名</label>
+                                    <input type="text" class="form-control" name="template_name" placeholder="お客様名">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                <label for="from_name">予定日</label>
+                                    <input type="text" class="datetimepicker form-control" placeholder="クリックしてカレンダーで予定日を追加してください" data-dtp="dtp_GAJiB">
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="from_name">担当者</label>
+                                <input type="text" class="form-control" name="from_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="template_name">予約詳細</label>
+                                <textarea rows="4" class="form-control no-resize" placeholder="例：トリミング"></textarea>
                             </div>
                         </div>
                     </form>
@@ -79,21 +74,26 @@
 <!-- Waves Effect Plugin Js -->
 <script src="../../assets/cms/plugins/node-waves/waves.js"></script>
 
-<!-- Ckeditor -->
-<script src="../../assets/cms/plugins/ckeditor/ckeditor.js"></script>
+<!-- Moment Plugin Js -->
+<script src="../../assets/cms/plugins/momentjs/moment.js"></script>
 
-<!-- TinyMCE -->
-<script src="../../assets/cms/plugins/tinymce/tinymce.js"></script>
+<!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script src="../../assets/cms/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ja.js"></script>
 
 <!-- Custom Js -->
 <script src="../../assets/cms/js/admin.js"></script>
-<script src="../../assets/cms/js/pages/forms/editors.js"></script>
-<script src="../../assets/cms/js/pages/magazine.js"></script>
 
-<!-- Demo Js -->
-<script src="../../assets/cms/js/demo.js"></script>
 <script>
-    var id = $("#ckeditor").attr("")
+$(function() {
+    $('.datetimepicker').bootstrapMaterialDatePicker({
+        format:"YYYY-MM-DD HH:mm",
+        clearButton: true,
+        weekStart: 1,
+        lang:"ja",
+    });
+});
 </script>
 </body>
 

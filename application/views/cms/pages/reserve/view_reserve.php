@@ -22,7 +22,7 @@
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
-                    <div id='calendar'></div>
+                    <div id='calendar' style="padding :10px"></div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -48,7 +48,6 @@
 <script src="../../assets/cms/plugins/fullcalendar/packages/timegrid/main.js"></script>
 <script src="../../assets/cms/plugins/fullcalendar/packages/list/main.js"></script>
 <script src="../../assets/cms/plugins/fullcalendar/packages/core/locales/ja.js"></script>
-
 
 <!-- Bootstrap Core Js -->
 <script src=" ../../assets/cms/plugins/bootstrap/js/bootstrap.js"> </script>
@@ -84,10 +83,28 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: ['interaction', 'dayGrid'],
+            header: {
+                left:"prev,today,next", //ヘッダー左側
+                center: 'title', //ヘッダー中央
+                right: 'month,agendaWeek,agendaDay,listYear' //ヘッダー右側
+            },
             locale: 'ja',
             editable: true,
             eventLimit: true, // allow "more" link when too many events
-            events: <?php echo json_encode($events);?>
+            events: <?php echo json_encode($events);?>,
+            eventClick: function(item, jsEvent, view) {
+                alert('Clicked on: ' + item.title);
+            },
+            eventDrop: function(item, delta,revertFunc,jsEvent,ui, view) {
+                 //ドロップした情報
+            alert('Clicked on: ' + item.title);
+            //ドロップしたことを元に戻したいとき
+            revertFunc();
+        },
+        dayClick: function(date, jsEvent, view) {
+        //クリックした日付が取れるよ
+            alert("新規の予定を追加しますか？");
+        }
         });
         calendar.render();
     }
