@@ -3,7 +3,7 @@
 ペットサロンむけの顧客管理システムです
 
 ## ダウンロード
-GitHubからダウンロードしてください
+GitHubからダウンロードするかgit cloneしてください
 https://github.com/tech-is/teamWM/archive/master.zip
 
 ## 環境構成
