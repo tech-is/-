@@ -8,7 +8,7 @@ class Cl_login extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(["url", "form"]);
-        $this->load->model("mdl_members");
+        // $this->load->model("mdl_members");
     }
 
     /**
@@ -127,6 +127,11 @@ class Cl_login extends CI_Controller
         }
     }
 
+    /**
+     * db_registration
+     *
+     * @return dbに登録後ログインページに遷移
+     */
     private function db_registration()
     {
         $config = [
