@@ -1,9 +1,9 @@
 # Animarl
 ## Animarl(アニマール)とは
-ペットサロンむけの顧客管理システムです
+ペットサロン事業者向けの顧客管理システムです
 
 ## ダウンロード
-GitHubからダウンロードするかgit cloneしてください
+GitHubからダウンロードするかgit cloneしてください　　
 https://github.com/tech-is/teamWM/archive/master.zip
 
 ## 環境構成
@@ -38,3 +38,4 @@ use Animarl;
 ・assets/ 静的ファイルをおいているフォルダです  
 　　・  CMS/　CMS本体のcssとjsを置いています  
 ・index.php　最初にこのファイルを読み込んでください  
+・database.txt 

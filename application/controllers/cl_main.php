@@ -32,7 +32,7 @@ class Cl_main extends CI_Controller
 		$this->load->view('cms/main.html');
 	}
 
-   public function login()
+    public function login()
     {
         $this->load->view('sign-in.html');
     }
@@ -64,7 +64,7 @@ class Cl_main extends CI_Controller
 		}
 	}
 
-  	public function pet_table()
+    public function pet_table()
 	{
 		$this->load->view('cms/pages/parts/header.html');
 		$this->load->view('cms/pages/parts/sidebars.html');
