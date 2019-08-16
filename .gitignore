@@ -34,6 +34,11 @@ AdminBSBMaterialDesign-master/*
 /チーム開発定義書
 /.vscode
 /tmp
+<<<<<<< HEAD
+/appkit-landing-theme-v2.1.zip
+/assets/cms/plugins/fullcalendar-4.2.0.zip
+=======
 appkit-landing-theme-v2.1.zip
 assets/cms/plugins/fullcalendar-4.2.0.zip
 Untitled-1.sql
+>>>>>>> master

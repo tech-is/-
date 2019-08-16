@@ -36,7 +36,7 @@ class Mdl_members extends CI_Model {
 
     public function check_code($code)
     {
-        $query = $this->db->get_where("members", ["code" => $code]);
+        $query = $this->db->get_where("tmp_members", ["code" => $code]);
         $query->num_rows() == 1? $result = $query->result("array"): $result = false;
         return $result;
     }

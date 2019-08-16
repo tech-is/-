@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cl_login extends CI_Controller
 {
+    
     public function __construct()
     {
         parent::__construct();
@@ -63,24 +64,23 @@ class Cl_login extends CI_Controller
             $email = $this->input->post("email");
             $code = md5(uniqid(rand(), true));
             if($this->tmp_db_registration($email, $code) == true) {
-                if($this->send_mail($email, $tmp) == true) {
-                    redirect("cl_main/login");
+                if($this->send_mail($email, $code) == true) {
+                    // redirect("cl_main/login");
+                    echo "登録完了しました！";
                 } else {
                     $this->del_email($email);
                 }
             } else {
-                echo "失敗だお";
-                //dbに登録できなかった時のページ
+                redirect("index.php/cl_main/signup_db_error");
             }
         }
     }
-
 
     /**
      * tmp_db_registration
      *
      * @param [str] $email
-     * @return true | false
+     * @return true || false
      */
     private function tmp_db_registration($email, $code)
     {
@@ -103,16 +103,16 @@ class Cl_login extends CI_Controller
     /**
      * send_mail
      *
-     * @return true | false
+     * @return true || false
      */
-    private function send_mail($email, $tmp)
+    private function send_mail($email, $code)
     {
         $message = "このメールは、配信専用のアドレスで配信されています。\n";
         $message .= "このメールに返信されても、返信内容の確認およびご返答ができません。\n";
         $message .= "あらかじめご了承ください。\n";
         $message .= "電子メールアドレスのご登録ありがとうございます。\n";
         $message .= "電子メールアドレスを確認するには、次のリンクをクリックしてください。\n";
-        $message .= "http://localhost/cl_main/register?code=".$tmp."\n";
+        $message .= "http://localhost/cl_main/register?code=".$code."\n";
         $message .= "このメールに覚えのない場合には、お手数ですがメールを破棄してくださいますようお願い致します。\n";
         $this->load->library("email");
         $this->email->from("system_animarl@niji-desk.work", "Animarlシステムメール");
@@ -175,7 +175,7 @@ class Cl_login extends CI_Controller
             if($this->mdl_member->db_registration($post) == true) {
                 redirect("/cl_main/login");
             } else {
-                echo "失敗だお";
+                redirect("/cl_main/login");
                 // 失敗ページ作成予定
             }
         }
