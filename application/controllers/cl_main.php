@@ -17,7 +17,7 @@ class Cl_main extends CI_Controller
      */
     public function index()
     {
-        $this->load->view('landing.html');
+        $this->load->view('index.html');
     }
 
     /**
