@@ -7,10 +7,8 @@ class Mdl_reserve extends CI_Model
         // $this->db->where('calender_event', ['shop_id' => $_SESSION["shop_id"]]);
         $where = ['event_shop_id' => 1, 'event_state' => 1];
         $this->db->where($where);
-        $this->db->select("event_customer, event_content, event_start, event_end, staff_name");
+        $this->db->select("event_customer, event_content, event_start, event_end");
         $this->db->from('calender_event');
-        // $this->db->join('staff', 'event_shop_id = staff_shop_id', 'left outer');
-        // $this->db->join('staff', 'event_staff_id = staff_id', 'left outer');
         $query = $this->db->get();
         return $query->result_array();
     }

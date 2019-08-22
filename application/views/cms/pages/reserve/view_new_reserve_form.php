@@ -113,7 +113,7 @@ function select_staff()
 <!-- <script src="../assets/cms/js/pages/magazine.js"></script> -->
 <script>
 $('.datetimepicker').bootstrapMaterialDatePicker({
-    format: 'YYYY-M-DDTHH:mm',
+    format: 'YYYY-MM-DDTHH:mm',
     clearButton: true,
     weekStart: 1
 });

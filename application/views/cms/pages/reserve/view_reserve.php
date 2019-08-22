@@ -70,39 +70,36 @@
 
 <!-- Custom Js -->
 <script src="../assets/cms/js/admin.js"></script>
-<script>
-
-</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         calendar_lend();
-        calendar_list();
+        // calendar_list();
     });
 
     function calendar_lend() {
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+            plugins: [ 'interaction', 'dayGrid'],
             locale: 'ja',
             editable: true,
             eventLimit: true, // allow "more" link when too many events
-            events: <?php echo json_encode($events);?>
+            events: <?php echo json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>
         });
         calendar.render();
     }
 
-    function calendar_list() {
-        var calendarEl = document.getElementById('event_list');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: ['list'],
-            locale: 'ja',
-            defaultView: 'listWeek',
-            events: <?php echo json_encode($events);?>
-        });
-        calendar.render();
-    }
+    // function calendar_list() {
+    //     var calendarEl = document.getElementById('event_list');
+    //     var calendar = new FullCalendar.Calendar(calendarEl, {
+    //         plugins: ['list'],
+    //         locale: 'ja',
+    //         defaultView: 'listWeek',
+    //         events: <?php echo json_encode($events);?>
+    //     });
+    //     calendar.render();
+    // }
 </script>
 </body>
 
