@@ -1,4 +1,4 @@
-/*ANIMARLデータベース 2019/8/9 
+/*ANIMARLデータベース 2019/8/9
 **********************************************************************
 // 仮登録店舗情報
 **********************************************************************/
@@ -7,9 +7,10 @@ create database Animarl character set utf8mb4 collate utf8mb4_general_ci;
 use Animarl;
 create table assumed_shops
 (
-    assumed_id                int(5) not null auto_increment primary key comment '仮ショップid',
-    assumed_email              varchar(100) not null UNIQUE comment 'メールアドレス',
-    assumed_code               varchar(100) not null         comment 'パスワードトークン'
+    assumed_id    int(5) not null auto_increment primary key comment '仮ショップid',
+    assumed_email    varchar(100) not null UNIQUE comment 'メールアドレス',
+    assumed_code    varchar(100) not null comment 'パスワードトークン'
+    assumed_created_at datetime default current_timestamp() comment '登録日時'
 );
 -- ログインid検索
 create index assumed_shops_login on assumed_shops (assumed_email,assumed_code);
@@ -29,7 +30,7 @@ create table shops
     shop_email              varchar(64) not null UNIQUE	comment 'メールアドレス',
     shop_password       varchar(32) not null        comment 'パスワード',
     shop_memo            text                          comment 'メモ',
-    shop_created_at     datetime                  comment '登録日時',
+    shop_created_at     datetime         default current_timestamp()         comment '登録日時',
     shop_updated_at    datetime                  comment '更新日時',
     shop_state               int(3) default '1'             comment '削除フラグ'
 );
@@ -53,7 +54,7 @@ create table customer
     customer_group       int(2) default'0'         comment '0:デフォルト',
     customer_add_info         text      comment '追加情報',
     customer_created_at    datetime            comment '登録日時',
-    customer_updatedate      datetime            comment '更新日時',
+    customer_updatedate      datetime     default current_timestamp()       comment '更新日時',
     customer_state               int(3) default '1'   comment '削除フラグ'
 );
 
@@ -79,8 +80,9 @@ create table pet
     pet_birthday             date                  comment '誕生日',
     pet_last_reservdate      date                  comment '最終予約日',
     pet_information              text                  comment 'ペット情報',
-    pet_created_at           datetime            comment '登録日時',
-    pet_update_at               datetime            comment '更新日時',
+    pet_created_at           datetime    default current_timestamp()        comment '登録日時',
+    pet_update_at               datetime default current_timestamp on update current_timestamp() 
+      comment '更新日時',
     pet_state               int(3) default 1   comment '削除フラグ'
 );
 create index pet_list on pet (pet_id);
@@ -92,13 +94,14 @@ create table calender_event
 (
     event_id     int(5) not null auto_increment primary key comment 'イベントid',
     event_shop_id    int(5) not null          comment 'イベント登録ショップ_id',
-    event_title        varchar(200) not null      comment 'タイトル',
-    event_start        date not null     comment '開始',
-    event_end        date       comment '終了',
-    event_staff_id        int(5) not null  comment '担当id',
-    event_created_at   datetime       comment '作成日時',
-    event_update_at   datetime       comment '更新日時',
-    event_state          int(3)      comment '削除フラグ'
+    event_customer        varchar(200) not null      comment '顧客名',
+    event_content              text                  comment '内容',
+    event_start        varchar(20)       comment '開始',
+    event_end        varchar(20)       comment '終了',
+    event_staff_id        int(5)  comment '担当id',
+    event_created_at   datetime   default current_timestamp()    comment '作成日時',
+    event_update_at   datetime    default current_timestamp on update current_timestamp()   comment '更新日時',
+    event_state          int(3)   default 1   comment '削除フラグ'
 );
 
 -- カレンダーから一覧出力index
@@ -118,8 +121,8 @@ create table mail_magazine
     mail_subject        varchar(56)             comment '件名',
     mail_sendend_at       datetime        comment '最終送信日',
     mail_detail         text      comment '本文',
-    mail_created_at        datetime      comment '作成日時',
-    mail_updated_at        datetime      comment '更新日時'
+    mail_created_at        datetime   current_timestamp()   comment '作成日時',
+    mail_updated_at        datetime   current_timestamp on update current_timestamp()   comment '更新日時'
 );
 
 -- ショップ管理画面から自分のメルマガ一覧出力
@@ -136,8 +139,8 @@ create table staff
     staff_shop_id    int(5)           comment 'スタッフショップid',
     staff_name        varchar(50)        comment '氏名',
     staff_detail       text       comment '備考',
-    staff_created_at        datetime        comment '作成日時',
-    staff_updated_at        datetime      comment '更新日時'
+    staff_created_at        datetime    current_timestamp()    comment '作成日時',
+    staff_updated_at        datetime    current_timestamp on update current_timestamp()  comment '更新日時'
 );
 
 -- 従業員管理一覧
@@ -152,9 +155,10 @@ create table rank_group
     rank_group_id     int(5) not null auto_increment primary key comment 'グループid',
     rank_group_shop_id    int(5)           comment 'ショップid',
     rank_group_name        varchar(100)        comment 'グループ氏名',
-    rank_group_created_at       datetime        comment '作成日時',
-    rank_group_update_at        datetime        comment '更新日時'
+    rank_group_created_at       datetime    current_timestamp()    comment '作成日時',
+    rank_group_update_at        datetime    current_timestamp on update current_timestamp()    comment '更新日時'
 );
 
 -- グループ管理一覧
 create index rank_group on rank_group (rank_group_id);
+

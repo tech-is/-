@@ -3,12 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cl_login extends CI_Controller
 {
-    
+
     public function __construct()
     {
         parent::__construct();
         $this->load->helper(["url", "form"]);
-        // $this->load->model("mdl_members");
+        $this->load->model("mdl_members");
     }
 
     /**
@@ -33,7 +33,7 @@ class Cl_login extends CI_Controller
         ];
         $this->load->library("form_validation", $config);
         if($this->form_validation->run() == false) {
-            $this->load->view('sign-up.html');
+            $this->load->view('sign-up');
         } else {
             if($this->mdl_members->chk_login()) {
                 redirect("index.php/cl_main/main");
@@ -69,9 +69,10 @@ class Cl_login extends CI_Controller
                     echo "登録完了しました！";
                 } else {
                     $this->del_email($email);
+                    redirect("/cl_main/login");
                 }
             } else {
-                redirect("index.php/cl_main/signup_db_error");
+                redirect("cl_main/signup_db_error");
             }
         }
     }
@@ -97,13 +98,13 @@ class Cl_login extends CI_Controller
     private function delete_email($email)
     {
         $this->mdl_members->delete_email($email);
-        redirect("/cl_main/login");
+        return;
     }
 
     /**
      * send_mail
      *
-     * @return true || false
+     * @return true or false
      */
     private function send_mail($email, $code)
     {
