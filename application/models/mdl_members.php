@@ -1,6 +1,7 @@
 <?php
 
-class Mdl_members extends CI_Model {
+class Mdl_ extends CI_Model
+{
 
     /**
      * get_customer_table
@@ -11,7 +12,7 @@ class Mdl_members extends CI_Model {
     {
         $this->db->where("email", $this->input->post("email"));
         $this->db->select("id, password");
-        $query = $this->db->get('members');
+        $query = $this->db->get('customer');
         if($query->num_rows() == 1) {
             return $query->result('array');
         }else{
@@ -36,7 +37,7 @@ class Mdl_members extends CI_Model {
 
     public function check_code($code)
     {
-        $query = $this->db->get_where("members", ["code" => $code]);
+        $query = $this->db->get_where("tmp_members", ["code" => $code]);
         $query->num_rows() == 1? $result = $query->result("array"): $result = false;
         return $result;
     }

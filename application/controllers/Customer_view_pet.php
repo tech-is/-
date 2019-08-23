@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Customer_view_pet extends CI_Controller {
+class customer extends CI_Controller {
 
 	/**
 	 * Undocumented function
