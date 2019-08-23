@@ -15,22 +15,32 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="/sub/assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="/sub/assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="/sub/assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
-    <link href="/sub/assets/cms/plugins/morrisjs/morris.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/morrisjs/morris.css" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="../assets/cms/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="../assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+    <!-- full calender Css -->
+    <link href='../assets/cms/plugins/fullcalendar/packages/core/main.css' rel='stylesheet' />
+    <link href='../assets/cms/plugins/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
 
     <!-- Custom Css -->
-    <link href="/sub/assets/cms/css/style.css" rel="stylesheet">
+    <link href="../assets/cms/css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="/sub/assets/cms/css/themes/all-themes.css" rel="stylesheet" />
+    <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" />
 </head>
 
 <body class="theme-red">

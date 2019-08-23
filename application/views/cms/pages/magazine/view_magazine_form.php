@@ -58,33 +58,33 @@
 </section>
 
 <!-- Jquery Core Js -->
-<script src="../../assets/cms/plugins/jquery/jquery.min.js"></script>
+<script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="../../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
 <!-- Select Plugin Js -->
-<script src="../../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
 <!-- Slimscroll Plugin Js -->
-<script src="../../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="../../assets/cms/plugins/node-waves/waves.js"></script>
+<script src="../assets/cms/plugins/node-waves/waves.js"></script>
 
 <!-- Ckeditor -->
-<script src="../../assets/cms/plugins/ckeditor/ckeditor.js"></script>
+<script src="../assets/cms/plugins/ckeditor/ckeditor.js"></script>
 
 <!-- TinyMCE -->
-<script src="../../assets/cms/plugins/tinymce/tinymce.js"></script>
+<script src="../assets/cms/plugins/tinymce/tinymce.js"></script>
 
 <!-- Custom Js -->
-<script src="../../assets/cms/js/admin.js"></script>
-<script src="../../assets/cms/js/pages/forms/editors.js"></script>
-<script src="../../assets/cms/js/pages/magazine.js"></script>
+<script src="../assets/cms/js/admin.js"></script>
+<script src="../assets/cms/js/pages/forms/editors.js"></script>
+<script src="../assets/cms/js/pages/magazine.js"></script>
 
 <!-- Demo Js -->
-<script src="../../assets/cms/js/demo.js"></script>
+<script src="../assets/cms/js/demo.js"></script>
 <script>
     var id = $("#ckeditor").attr("")
 </script>

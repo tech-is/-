@@ -72,18 +72,16 @@
 <script src="../../assets/cms/plugins/node-waves/waves.js"></script>
 
 <!-- Ckeditor -->
-<script src="../../assets/cms/plugins/ckeditor/ckeditor.js"></script>
+<!-- <script src="../../assets/cms/plugins/ckeditor/ckeditor.js"></script> -->
 
 <!-- TinyMCE -->
-<script src="../../assets/cms/plugins/tinymce/tinymce.js"></script>
+<!-- <script src="../../assets/cms/plugins/tinymce/tinymce.js"></script> -->
 
 <!-- Custom Js -->
 <script src="../../assets/cms/js/admin.js"></script>
 <script src="../../assets/cms/js/pages/magazine.js"></script>
 <script src="../../assets/cms/js/pages/forms/editors.js"></script>
 
-<!-- Demo Js -->
-<script src="../../assets/cms/js/demo.js"></script>
 </body>
 
 </html>
