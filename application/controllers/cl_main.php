@@ -22,25 +22,35 @@ class Cl_main extends CI_Controller
 
     public function reserve()
     {
-        $data["events"] = [
-            [
-                "title" => '田中太郎',
-                "start" => '2019-06-12T10:30',
-                "end" => '2019-06-12T12:30',
-                "url" => 'reserve_view?id=1'
-            ],
-        ];
-        // $this->load->model('mdl_reserve');
-        // $result = $this->mdl_reserve->get_reserve_data();
-        // for($i=0; $i <count($result); $i++) {
-        //     $data["events"][$i]["title"] = $result[$i]['event_customer'];
-        //     $data["events"][$i]["start"] = $result[$i]['event_start'];
-        //     $data["events"][$i]["end"] = $result[$i]['event_end'];
-        //     // $data["events"][$i]['staff_id'] = $result[$i]['event_staff_id'];
-        // }
+        // $data["events"] = [
+        //     [
+        //         "title" => '田中太郎',
+        //         "start" => '2019-06-12T10:30',
+        //         "end" => '2019-06-12T12:30',
+        //         "url" => 'reserve_view?id=1'
+        //     ],
+        // ];
+        $this->load->model('mdl_reserve');
+        $result = $this->mdl_reserve->get_reserve_list();
+        for($i=0; $i <count($result); $i++) {
+            $data["events"][$i]["title"] = $result[$i]['event_customer'];
+            $data["events"][$i]["start"] = $result[$i]['event_start'];
+            $data["events"][$i]["end"] = $result[$i]['event_end'];
+            $data["events"][$i]['url'] = "reserve_view?id={$result[$i]['event_id']}";
+        }
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebars.html');
         $this->load->view('cms/pages/reserve/view_reserve', $data);
+    }
+
+    public function reserve_view()
+    {
+        $id = $this->input->get("id");
+        $this->load->model('mdl_reserve');
+        $data["content"] = $this->mdl_reserve->get_reserve_data($id);
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebars.html');
+        $this->load->view('cms/pages/reserve/view_reserve_content', $data);
     }
 
     public function reserve_new_form()
