@@ -34,6 +34,17 @@
     </div>
 </section>
 
+<section id="modalArea" class="modalArea">
+  <div id="modalBg" class="modalBg"></div>
+  <div class="modalWrapper">
+    <div class="modalContents" id="modalContents"></div>
+    <div id="closeModal" class="closeModal">
+      ×
+    </div>
+  </div>
+</section>
+<!-- モーダルエリアここまで -->
+
 <!-- Jquery Core Js -->
 <script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
 
@@ -41,13 +52,15 @@
 <script src='../assets/cms/plugins/momentjs/moment.js'></script>
 
 <!-- full calender -->
-<script src="../assets/cms/plugins/fullcalendar/packages/core/main.js"></script>
+<!-- <script src="../assets/cms/plugins/fullcalendar/packages/core/main.js"></script>
 <script src="../assets/cms/plugins/fullcalendar/packages/daygrid/main.js"></script>
 <script src="../assets/cms/plugins/fullcalendar/packages/interaction/main.js"></script>
 <script src="../assets/cms/plugins/fullcalendar/packages/timegrid/main.js"></script>
 <script src="../assets/cms/plugins/fullcalendar/packages/list/main.js"></script>
-<script src="../assets/cms/plugins/fullcalendar/packages/core/locales/ja.js"></script>
+<script src="../assets/cms/plugins/fullcalendar/packages/core/locales/ja.js"></script> -->
 
+<!-- fullcalendar-3.10.0 -->
+<script src="../assets/cms/plugins/fullcalendar-3.9.0/dist/fullcalendar.min.js"></script>
 
 <!-- Bootstrap Core Js -->
 <script src=" ../assets/cms/plugins/bootstrap/js/bootstrap.js"> </script>
@@ -72,34 +85,93 @@
 <script src="../assets/cms/js/admin.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        calendar_lend();
-        // calendar_list();
+$(document).ready(function() {
+
+    $('#calendar').fullCalendar({
+        header: {
+        left: 'prev,next today',
+        center: 'title',
+        // right: 'month,basicWeek,basicDay'
+        right: 'month,agendaWeek,agendaDay,listMonth'
+        },
+        timeFormat: 'HH:mm',
+        timezone: 'Asia/Tokyo',
+        navLinks: true, // can click day/week names to navigate views
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        events: <?php echo json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>,
+        // events: [
+        //     {
+        //         title: 'All Day Event',
+        //         start: '2018-03-01'
+        //     },
+        //     {
+        //         title: 'Long Event',
+        //         start: '2018-03-07',
+        //         end: '2018-03-10'
+        //     },
+        //     {
+        //         id: 999,
+        //         title: 'Repeating Event',
+        //         start: '2018-03-09T16:00:00'
+        //     },
+        //     {
+        //         id: 999,
+        //         title: 'Repeating Event',
+        //         start: '2019-08-16T16:00:00'
+        //     },
+        //     {
+        //         title: 'Conference',
+        //         start: '2018-03-11',
+        //         end: '2018-03-13'
+        //     },
+        //     {
+        //         title: 'Meeting',
+        //         start: '2018-03-12T10:30:00',
+        //         end: '2018-03-12T12:30:00'
+        //     }
+        // ],
+        eventClick: function(calEvent, jsEvent, view) {
+                var contents = "<h2>"+ calEvent.title + "</h2>"
+                contents += "<p>" + calEvent.content + "</p>";
+                contents += "<p>" + calEvent.start + "</p>";
+                contents += "<p>" + calEvent.end + "</p>";
+                // contents += calEvent.staff
+                // $('#modalContents').html(calEvent.title);
+                $('#modalContents').html(contents);
+                $('#modalArea').fadeIn();
+        }
     });
+});
+</script>
 
-    function calendar_lend() {
-        var calendarEl = document.getElementById('calendar');
+    <!-- // document.addEventListener('DOMContentLoaded', function () {
+    //     calendar_lend();
+    // });
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'interaction', 'dayGrid'],
-            locale: 'ja',
-            editable: true,
-            eventLimit: true, // allow "more" link when too many events
-            events: <?php echo json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>
-        });
-        calendar.render();
-    }
+    // function calendar_lend() {
+    //     var calendarEl = document.getElementById('calendar');
 
-    // function calendar_list() {
-    //     var calendarEl = document.getElementById('event_list');
     //     var calendar = new FullCalendar.Calendar(calendarEl, {
-    //         plugins: ['list'],
+    //         plugins: [ 'interaction', 'dayGrid'],
     //         locale: 'ja',
-    //         defaultView: 'listWeek',
-    //         events: <?php echo json_encode($events);?>
+    //         editable: true,
+    //         eventLimit: true, // allow "more" link when too many events
+    //         events: <?php echo json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>,
+    //         eventClick: function(calEvent, jsEvent, view) {
+    //             // var content =   "<h1>"+ calEvent.title + "</h1>"
+    //             $('#modalContents').html(calEvent.title);
+    //             $('#modalArea').fadeIn();
+    //         }
     //     });
     //     calendar.render();
-    // }
+    // } -->
+<script>
+$(function () {
+    $('#closeModal , #modalBg').click(function(){
+        $('#modalArea').fadeOut();
+    });
+});
 </script>
 </body>
 

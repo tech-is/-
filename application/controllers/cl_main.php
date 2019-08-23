@@ -36,7 +36,8 @@ class Cl_main extends CI_Controller
             $data["events"][$i]["title"] = $result[$i]['event_customer'];
             $data["events"][$i]["start"] = $result[$i]['event_start'];
             $data["events"][$i]["end"] = $result[$i]['event_end'];
-            $data["events"][$i]['url'] = "reserve_view?id={$result[$i]['event_id']}";
+            $data["events"][$i]["content"] = $result[$i]['event_content'];
+            // $data["events"][$i]['url'] = "reserve_view?id={$result[$i]['staff']}";
         }
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebars.html');
