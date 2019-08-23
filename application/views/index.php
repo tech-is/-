@@ -13,9 +13,9 @@
     <!-- FontAwesome JS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- Global CSS -->
-    <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
     <!-- Theme CSS -->  
-    <link id="theme-style" rel="stylesheet" href="../../assets/css/styles.css">
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
     
     <!-- Google Analytics -->
     <script>
@@ -147,18 +147,18 @@
             <h2 class="section-title">Why Use AppKit Landing?</h2>
             <p class="intro">Appkit Landing uses modern front-end technologies and is packed with useful components and widgets to speed up your development</p>
             <ul class="technologies list-inline">
-                <li class="list-inline-item"><img src="../../assets/images/logo-html5.svg" alt="HTML5"></li>
-                <li class="list-inline-item"><img src="../../assets/images/logo-css3.svg" alt="CSS3"></li>
-                <li class="list-inline-item"><img src="../../assets/images/logo-bootstrap.svg" alt="Bootstrap"></li>
-                <li class="list-inline-item"><img src="../../assets/images/logo-sass.svg" alt="Sass"></li>
-                <li class="list-inline-item"><img src="../../assets/images/logo-jquery.svg" alt="jQuery"></li>
+                <li class="list-inline-item"><img src="assets/images/logo-html5.svg" alt="HTML5"></li>
+                <li class="list-inline-item"><img src="assets/images/logo-css3.svg" alt="CSS3"></li>
+                <li class="list-inline-item"><img src="assets/images/logo-bootstrap.svg" alt="Bootstrap"></li>
+                <li class="list-inline-item"><img src="assets/images/logo-sass.svg" alt="Sass"></li>
+                <li class="list-inline-item"><img src="assets/images/logo-jquery.svg" alt="jQuery"></li>
             </ul>
             
             <div class="items-wrapper row">
                 <div class="item col-md-4 col-12">
                     <div class="item-inner">
                         <div class="figure-holder">
-                            <img class="figure-image" src="../../assets/images/figure-1.png" alt="image">
+                            <img class="figure-image" src="assets/images/figure-1.png" alt="image">
                         </div><!--//figure-holder-->
                         <h3 class="item-title">Benefit Lorem Ipsum</h3>
                         <div class="item-desc">
@@ -169,7 +169,7 @@
                 <div class="item col-md-4 col-12">
                     <div class="item-inner">
                         <div class="figure-holder">
-                            <img class="figure-image" src="../../assets/images/figure-2.png" alt="image">
+                            <img class="figure-image" src="assets/images/figure-2.png" alt="image">
                         </div><!--//figure-holder-->
                         <h3 class="item-title">Benefit Corporis</h3>
                         <div class="item-desc">
@@ -179,7 +179,7 @@
                 <div class="item col-md-4 col-12">
                     <div class="item-inner">
                         <div class="figure-holder">
-                            <img class="figure-image" src="../../assets/images/figure-3.png" alt="image">
+                            <img class="figure-image" src="assets/images/figure-3.png" alt="image">
                         </div><!--//figure-holder-->
                         <h3 class="item-title">Benefit Imperdiet</h3>
                         <div class="item-desc">
@@ -195,7 +195,7 @@
             <h2 class="section-title text-center">Many Happy Customers</h2>
             <div class="item mx-auto">
                 <div class="profile-holder">
-                    <img class="profile-image" src="../../assets/images/profile-1.png" alt="profile">
+                    <img class="profile-image" src="assets/images/profile-1.png" alt="profile">
                 </div>
                 <div class="quote-holder">
                     <blockquote class="quote">
@@ -209,7 +209,7 @@
             </div><!--//item-->
             <div class="item item-reversed mx-auto">
                 <div class="profile-holder">
-                    <img class="profile-image" src="../../assets/images/profile-2.png" alt="profile">
+                    <img class="profile-image" src="assets/images/profile-2.png" alt="profile">
                 </div>
                 <div class="quote-holder">
                     <blockquote class="quote">
@@ -223,7 +223,7 @@
             </div><!--//item-->
             <div class="item mx-auto">
                 <div class="profile-holder">
-                    <img class="profile-image" src="../../assets/images/profile-3.png" alt="profile">
+                    <img class="profile-image" src="assets/images/profile-3.png" alt="profile">
                 </div>
                 <div class="quote-holder">
                     <blockquote class="quote">
@@ -237,7 +237,7 @@
             </div><!--//item-->
             <div class="item item-reversed mx-auto">
                 <div class="profile-holder">
-                    <img class="profile-image" src="../../assets/images/profile-4.png" alt="profile">
+                    <img class="profile-image" src="assets/images/profile-4.png" alt="profile">
                 </div>
                 <div class="quote-holder">
                     <blockquote class="quote">
@@ -446,10 +446,10 @@
     </footer>
      
     <!-- Javascript -->          
-    <script type="text/javascript" src="../../assets/plugins/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>     
-    <script type="text/javascript" src="../../assets/js/main.js"></script> 
+    <script type="text/javascript" src="assets/plugins/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>     
+    <script type="text/javascript" src="assets/js/main.js"></script> 
        
 </body>
 </html> 

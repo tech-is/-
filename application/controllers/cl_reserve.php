@@ -9,6 +9,11 @@ class Cl_reserve extends CI_Controller
         $this->load->helper(["url", "form"]);
     }
 
+    public function reserve_view()
+    {
+        $id = $this->$input->get("reserve_id");
+    }
+
     public function register_reserve_data()
     {
         if($this->chk_reserve_data() == true) {
