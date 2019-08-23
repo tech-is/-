@@ -34,44 +34,27 @@ class Cl_main extends CI_Controller
 
     public function reserve()
     {
-        $data["events"] = [
-                [
-                    "title" => 'All Day Event',
-                    "start" => '2019-06-01'
-                ],
-                [
-                    "title" => 'Long Event',
-                    "start" => '2019-01-01'
-                ],
-                [
-                    "title" => 'Repeating Event',
-                    "start" => '2019-06-09T16:00:00'
-                ],
-                [
-                    "title" => 'Repeating Event',
-                    "start" => '2019-06-16T16:00:00'
-                ],
-                [
-                    "title" => 'Conference',
-                    "start" => '2019-06-11',
-                    "end" => '2019-06-13'
-                ],
-                [
-                    "title" => 'Meeting',
-                    "start" => '2019-06-12T10:30:00',
-                    "end" => '2019-06-12T12:30:00'
-                ],
-                [
-                    "title" => 'Lunch',
-                    "start" => '2019-06-12T12:00:00'
-                ]
-        ];
+        // $data["events"] = [
+        //     [
+        //         "title" => '田中太郎',
+        //         "start" => '2019-06-12T10:30',
+        //         "end" => '2019-06-12T12:30'
+        //     ],
+        // ];
+        $this->load->model('mdl_reserve');
+        $result = $this->mdl_reserve->get_reserve_data();
+        for($i=0; $i <count($result); $i++) {
+            $data["events"][$i]["title"] = $result[$i]['event_customer'];
+            $data["events"][$i]["start"] = $result[$i]['event_start'];
+            $data["events"][$i]["end"] = $result[$i]['event_end'];
+            // $data["events"][$i]['staff_id'] = $result[$i]['event_staff_id'];
+        }
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebars.html');
         $this->load->view('cms/pages/reserve/view_reserve', $data);
     }
 
-    public function new_cr_reserve()
+    public function reserve_new_form()
     {
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebars.html');
@@ -118,7 +101,6 @@ class Cl_main extends CI_Controller
 
     public function magazine()
     {
-        // $data = "";
         $data = [
             "template_name" => ["sample1", "sample2", "sample3"],
             "from_name" => ["cipher", "galm", "pixy"],

@@ -39,11 +39,9 @@ function escape_mail_detail($mail_detail) {
                                     <h2 style="line-height: 37px"><?= $template_name[$i] ?></h2>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="magazine_send">
-                                        <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:30px;">
-                                            <i class="material-icons">contact_mail</i>
-                                        </button>
-                                    </a>
+                                    <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:30px;" onclick="window.open('magazine_send', '_self')">
+                                        <i class="material-icons">contact_mail</i>
+                                    </button>
                                     <a href="magazine_form">
                                         <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:10px;">
                                             <i class="material-icons">settings</i>
@@ -76,23 +74,23 @@ function escape_mail_detail($mail_detail) {
 </section>
 
     <!-- Jquery Core Js -->
-    <script src="../../assets/cms/plugins/jquery/jquery.min.js"></script>
+    <script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core Js -->
-    <script src="../../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
     <!-- Select Plugin Js -->
-    <script src="../../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
     <!-- Slimscroll Plugin Js -->
-    <script src="../../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
     <!-- Waves Effect Plugin Js -->
-    <script src="../../assets/cms/plugins/node-waves/waves.js"></script>
+    <script src="../assets/cms/plugins/node-waves/waves.js"></script>
 
-    <script src="../../assets/cms/js/admin.js"></script>
+    <script src="../assets/cms/js/admin.js"></script>
 
-    <script src="../../assets/cms/js/pages/magazine.js"></script>
+    <script src="../assets/cms/js/pages/magazine.js"></script>
     </body>
 
     </html>
