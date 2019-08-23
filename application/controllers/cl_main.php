@@ -7,7 +7,7 @@ class Cl_main extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(["url"]);
-        $this->load->model("mdl_members");
+        // $this->load->model("mdl_members");
     }
 
     /**
@@ -17,7 +17,7 @@ class Cl_main extends CI_Controller
      */
     public function index()
     {
-        $this->load->view('index');
+        $this->load->view('index.html');
     }
 
     public function reserve()
@@ -51,7 +51,7 @@ class Cl_main extends CI_Controller
 
     public function login()
     {
-        $this->load->view('sign-in.html');
+        $this->load->view('sign-in');
     }
 
     public function signup()
