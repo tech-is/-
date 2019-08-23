@@ -5,7 +5,7 @@ class Cl_login extends CI_Controller
 {
 
     public function __construct()
-    {
+    {$this->load->helper(["url", "form"]);
         parent::__construct();
         $this->load->helper(["url", "form"]);
         $this->load->model("mdl_members");

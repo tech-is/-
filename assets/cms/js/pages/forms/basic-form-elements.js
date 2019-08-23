@@ -10,7 +10,8 @@ $(function () {
     });
 
     $('.datepicker').bootstrapMaterialDatePicker({
-        format: 'dddd DD MMMM YYYY',
+        format: 'YYYY MMMM DD dddd',
+        lang:"ja",
         clearButton: true,
         weekStart: 1,
         time: false

@@ -1,6 +1,6 @@
 <?php
 
-class Mdl_members extends CI_Model
+class Mdl_ extends CI_Model
 {
 
     public function __construct()
