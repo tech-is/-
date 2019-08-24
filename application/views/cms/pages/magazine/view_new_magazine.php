@@ -25,19 +25,19 @@
                             <div class="form-group">
                                 <div class="form-line">
                                     <label for="template_name">テンプレート名</label>
-                                    <input type="text" class="form-control" name="template_name" placeholder="テンプレート名">
+                                    <input type="text" class="form-control" name="template_name" placeholder="例: 休業のお知らせ">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <label for="from_name">差出人:</label>
-                                    <input type="text" class="form-control" name="from_name" placeholder="差出人:">
+                                    <label for="from_name">差出人</label>
+                                    <input type="text" class="form-control" name="from_name" placeholder="例: 株式会社Animarl">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <label for="mail_subject">テンプレート名</label>
-                                    <input type="text" class="form-control" name="mail_subject" placeholder="件名">
+                                    <label for="mail_subject">件名</label>
+                                    <input type="text" class="form-control" name="mail_subject" placeholder="例: 短期休業のお知らせ">
                                 </div>
                             </div>
                             <h2 class="card-inside-title">メール本文</h2>
@@ -55,32 +55,24 @@
     </div>
 </section>
 
-
 <!-- Jquery Core Js -->
-<script src="../../assets/cms/plugins/jquery/jquery.min.js"></script>
+<script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="../../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
 <!-- Select Plugin Js -->
-<script src="../../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
 <!-- Slimscroll Plugin Js -->
-<script src="../../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="../../assets/cms/plugins/node-waves/waves.js"></script>
-
-<!-- Ckeditor -->
-<!-- <script src="../../assets/cms/plugins/ckeditor/ckeditor.js"></script> -->
-
-<!-- TinyMCE -->
-<!-- <script src="../../assets/cms/plugins/tinymce/tinymce.js"></script> -->
+<script src="../assets/cms/plugins/node-waves/waves.js"></script>
 
 <!-- Custom Js -->
-<script src="../../assets/cms/js/admin.js"></script>
-<script src="../../assets/cms/js/pages/magazine.js"></script>
-<script src="../../assets/cms/js/pages/forms/editors.js"></script>
+<script src="../assets/cms/js/admin.js"></script>
+<script src="../assets/cms/js/pages/magazine.js"></script>
 
 </body>
 

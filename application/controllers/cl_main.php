@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * viewファイル専用コントローラー
+ * viewファイルを主に扱うコントローラーです。
+ * デフォルトコントローラーに設定されています。
+*/
 class Cl_main extends CI_Controller
 {
     public function __construct()
@@ -22,25 +27,67 @@ class Cl_main extends CI_Controller
 
     public function reserve()
     {
-        // $data["events"] = [
-        //     [
-        //         "title" => '田中太郎',
-        //         "start" => '2019-06-12T10:30',
-        //         "end" => '2019-06-12T12:30',
-        //         "url" => 'reserve_view?id=1'
-        //     ],
-        // ];
-        $this->load->model('mdl_reserve');
-        $result = $this->mdl_reserve->get_reserve_list();
-        for($i=0; $i <count($result); $i++) {
-            $data["events"][$i]["title"] = $result[$i]['event_customer'];
-            $data["events"][$i]["start"] = $result[$i]['event_start'];
-            $data["events"][$i]["end"] = $result[$i]['event_end'];
-            $data["events"][$i]["content"] = $result[$i]['event_content'];
-            // $data["events"][$i]['url'] = "reserve_view?id={$result[$i]['staff']}";
-        }
+        $data["events"] = [
+            [
+                "title" => 'トリミング',
+                "start" => '2019-08-03T10:30',
+                "end" => '2019-08-03T11:00',
+                "color" => '#FF0000'
+            ],
+            [
+                "title" => 'シャンプー',
+                "start" => '2019-08-20T10:30',
+                "end" => '2019-08-20T12:30',
+                "color" => '#9c27b0'
+            ],
+            [
+                "title" => 'トリミング',
+                "start" => '2019-08-12T10:30',
+                "end" => '2019-08-12T11:00',
+                "color" => '#ffc107'
+            ],
+            [
+                "title" => 'トリミング',
+                "start" => '2019-08-12T12:30',
+                "end" => '2019-08-12T13:30',
+                "color" => 'blue'
+            ],
+            [
+                "title" => 'カラー',
+                "start" => '2019-08-16T15:30',
+                "end" => '2019-08-16T16:30',
+                "color" => 'green'
+            ],
+            [
+                "title" => 'シャンプー',
+                "start" => '2019-08-28T10:30',
+                "end" => '2019-08-28T12:30',
+                "color" => 'green'
+            ],
+            [
+                "title" => 'シャンプー',
+                "start" => '2019-08-07T10:30',
+                "end" => '2019-08-07T12:30',
+                "color" => '#9c27b0'
+            ],
+            [
+                "title" => 'シャンプー',
+                "start" => '2019-08-29T10:30',
+                "end" => '2019-08-29T12:30',
+                "color" => '#ffc107'
+            ]
+        ];
+        // $this->load->model('mdl_reserve');
+        // $result = $this->mdl_reserve->get_reserve_list();
+        // for($i=0; $i <count($result); $i++) {
+        //     $data["events"][$i]["title"] = $result[$i]['event_customer'];
+        //     $data["events"][$i]["start"] = $result[$i]['event_start'];
+        //     $data["events"][$i]["end"] = $result[$i]['event_end'];
+        //     $data["events"][$i]["content"] = $result[$i]['event_content'];
+        //     // $data["events"][$i]['url'] = "reserve_view?id={$result[$i]['staff']}";
+        // }
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars.html');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/reserve/view_reserve', $data);
     }
 
@@ -50,14 +97,14 @@ class Cl_main extends CI_Controller
         $this->load->model('mdl_reserve');
         $data["content"] = $this->mdl_reserve->get_reserve_data($id);
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars.html');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/reserve/view_reserve_content', $data);
     }
 
     public function reserve_new_form()
     {
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars.html');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/reserve/view_new_reserve_form');
     }
 
@@ -107,7 +154,7 @@ class Cl_main extends CI_Controller
             "mail_detail" => ["Hello World<br>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "やばいですね！", "yahoooooooooooooo"]
         ];
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars.html');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view("cms/pages/magazine/view_magazine", $data);
     }
 
@@ -122,21 +169,29 @@ class Cl_main extends CI_Controller
             "name" => ["aaa", "bbb", "ccc", "ddd"]
         ];
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars.html');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view("cms/pages/magazine/view_magazine_send", $data);
     }
 
     public function magazine_new_form()
     {
-        $this->load->view('cms/pages/parts/header.html');
-        $this->load->view('cms/pages/parts/sidebars.html');
-        $this->load->view("cms/pages/magazine/view_new_magazine.html");
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view("cms/pages/magazine/view_new_magazine");
     }
 
     public function magazine_form()
     {
-        $this->load->view('cms/pages/parts/header.html');
-        $this->load->view('cms/pages/parts/sidebars.html');
-        $this->load->view("cms/pages/magazine/view_magazine_form.html");
+        $data = [
+            "template_name" => ["sample1", "sample2", "sample3"],
+            "from_name" => ["cipher", "galm", "pixy"],
+            "mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
+            "mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
+            "mail_detail" => ["Hello World", "やばいですね！", "yahoooooooooooooo"],
+            "name" => ["aaa", "bbb", "ccc", "ddd"]
+        ];
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view("cms/pages/magazine/view_magazine_form", $data);
     }
 }

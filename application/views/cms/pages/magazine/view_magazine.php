@@ -39,11 +39,11 @@ function escape_mail_detail($mail_detail) {
                                     <h2 style="line-height: 37px"><?= $template_name[$i] ?></h2>
                                 </div>
                                 <div class="pull-right">
-                                    <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:30px;" onclick="window.open('magazine_send', '_self')">
+                                    <button type="button" class="btn bg-red waves-effect view_magazine" style="margin-right:10px;">
                                         <i class="material-icons">contact_mail</i>
                                     </button>
                                     <a href="magazine_form">
-                                        <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:10px;">
+                                        <button type="button" class="btn bg-blue waves-effect">
                                             <i class="material-icons">settings</i>
                                         </button>
                                     </a>
@@ -72,6 +72,15 @@ function escape_mail_detail($mail_detail) {
         </div>
     </div>
 </section>
+<section id="modalArea" class="modalArea">
+    <div id="modalBg" class="modalBg"></div>
+    <div class="modalWrapper">
+        <div class="modalContents" id="modalContents"></div>
+            <div id="closeModal" class="closeModal">
+                ×
+            </div>
+    </div>
+</section>
 
     <!-- Jquery Core Js -->
     <script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
@@ -91,6 +100,17 @@ function escape_mail_detail($mail_detail) {
     <script src="../assets/cms/js/admin.js"></script>
 
     <script src="../assets/cms/js/pages/magazine.js"></script>
+    <script>
+    $(function () {
+        $('#closeModal , #modalBg').click(function(){
+            $('#modalArea').fadeOut();
+        });
+        $('.view_magazine').click(function() {
+            $('#modalContents').load("../assets/cms/reserve_form_parts.php?magazine_id=<?= $magazine_id?>");
+            $('#modalArea').fadeIn();
+        });
+    });
+    </script>
     </body>
 
     </html>

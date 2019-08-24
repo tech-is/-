@@ -35,7 +35,7 @@
     <!-- full calender Css -->
     <!-- <link href='../assets/cms/plugins/fullcalendar/packages/core/main.css' rel='stylesheet' />
     <link href='../assets/cms/plugins/fullcalendar/packages/daygrid/main.css' rel='stylesheet' /> -->
-    <link href='../assets/cms/plugins/fullcalendar-3.9.0/dist/fullcalendar.min.css' rel='stylesheet' />
+    <link href='../assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.css' rel='stylesheet' />
 
     <!-- Custom Css -->
     <link href="../assets/cms/css/style.css" rel="stylesheet">
