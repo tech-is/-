@@ -15,7 +15,7 @@ function select_staff()
 }
 ?>
 
-<form method="POST" action="../cl_reserve/register_reserve_data">
+<form method="POST" action="../cl_reserve/register_reserve_data" id="reserve">
     <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
         <h2 class="pull-left" style="font-weight: bold; line-height: 37px; margin: 0px">新規予約</h2>
         <div class="pull-right">
@@ -23,7 +23,7 @@ function select_staff()
                 <i class="material-icons">cancel</i>
                 <span>cancel</span>
             </button>
-            <button type="submit" class="btn bg-orange waves-effect" style="margin-right: 10px" onclick="return confirm_form()">
+            <button type="submit" class="btn bg-orange waves-effect" style="margin-right: 10px">
                 <i class=" material-icons">save</i>
                 <span>SAVE</span>
             </button>
@@ -32,14 +32,14 @@ function select_staff()
     <div class="body">
         <div class="form-group">
             <div class="form-line">
-                <label for="template_name">お客様名<span style="color: red; margin-left: 10px">必須</span></label>
+                <label for="customer">お客様名<span style="color: red; margin-left: 10px">必須</span></label>
                 <input type="text" class="form-control" name="customer" placeholder="例：田中太郎さん">
             </div>
         </div>
         <div class="form-group">
             <div class="form-line">
-                <label for="from_name">ペット名<span style="color: red; margin-left: 10px">必須</span></label>
-                <input type="text" class="form-control" name="from_name" placeholder="例：ポチくん">
+                <label for="pet">ペット名<span style="color: red; margin-left: 10px">必須</span></label>
+                <input type="text" class="form-control" name="pet" placeholder="例：ポチくん">
             </div>
         </div>
         <div class="form-group">
@@ -74,3 +74,53 @@ function select_staff()
         </div>
     </div>
 </form>
+
+<script>
+$("#reserve").validate({
+        rules: {
+            customer: {
+                required: true
+            },
+            pet: {
+                required: true
+            },
+            start: {
+                required: true
+            },
+            end: {
+                required: true
+            },
+            content: {
+                required: true
+            }
+        },
+        messages: {
+            customer: {
+                required: "入力してください。"
+            },
+            pet: {
+                required: "入力してください。"
+            },
+            start: {
+                required: "入力してください。"
+            },
+            end: {
+                required: "入力してください。"
+            },
+            content: {
+                required: "入力してください。"
+            }
+        },
+        highlight: function (input) {
+            // console.log(input);
+            $(input).parents('.form-line').addClass('error');
+        },
+        unhighlight: function (input) {
+            $(input).parents('.form-line').removeClass('error');
+        },
+        errorPlacement: function (error, element) {
+            $(element).parents('.input-group').append(error);
+            $(element).parents('.form-group').append(error);
+        }
+    });
+</script>

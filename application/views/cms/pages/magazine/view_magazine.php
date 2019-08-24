@@ -36,7 +36,7 @@ function escape_mail_detail($mail_detail) {
                         <div class="card">
                             <div class="header clearfix">
                                 <div class="pull-left">
-                                    <h2 style="line-height: 37px"><?= $template_name[$i] ?></h2>
+                                    <h2 style="line-height: 37px"><?= $mail_magazine_name[$i] ?></h2>
                                 </div>
                                 <div class="pull-right">
                                     <button type="button" class="btn bg-red waves-effect view_magazine" style="margin-right:10px;">
@@ -106,8 +106,22 @@ function escape_mail_detail($mail_detail) {
             $('#modalArea').fadeOut();
         });
         $('.view_magazine').click(function() {
-            $('#modalContents').load("../assets/cms/reserve_form_parts.php?magazine_id=<?= $magazine_id?>");
+            $('#modalContents').load("../assets/cms/html_parts/reserve_form_parts.php?magazine_id=<?= $magazine_id?>");
             $('#modalArea').fadeIn();
+        });
+        $("#reserve").validate({
+            rules: {
+                customer: {
+                    required: true,
+                    maxlength: 50
+                }
+            },
+            messages: {
+                customer: {
+                    required: "お名前を入力してください。",
+                    maxlength: "お名前は50文字以内で入力してください。"
+                },
+            }
         });
     });
     </script>

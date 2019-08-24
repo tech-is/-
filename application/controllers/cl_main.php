@@ -29,18 +29,21 @@ class Cl_main extends CI_Controller
     {
         $data["events"] = [
             [
+                "event_id" => 1,
                 "title" => 'トリミング',
                 "start" => '2019-08-03T10:30',
                 "end" => '2019-08-03T11:00',
                 "color" => '#FF0000'
             ],
             [
+                "event_id" => 2,
                 "title" => 'シャンプー',
                 "start" => '2019-08-20T10:30',
                 "end" => '2019-08-20T12:30',
                 "color" => '#9c27b0'
             ],
             [
+                "event_id" => 3,
                 "title" => 'トリミング',
                 "start" => '2019-08-12T10:30',
                 "end" => '2019-08-12T11:00',
@@ -184,7 +187,7 @@ class Cl_main extends CI_Controller
     {
         $data = [
             "template_name" => ["sample1", "sample2", "sample3"],
-            "from_name" => ["cipher", "galm", "pixy"],
+            "mail_from_name" => ["cipher", "galm", "pixy"],
             "mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
             "mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
             "mail_detail" => ["Hello World", "やばいですね！", "yahoooooooooooooo"],

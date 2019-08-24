@@ -22,17 +22,27 @@ class Mdl_reserve extends CI_Model
         return $query->result_array();
     }
 
-    public function insert_reserve_data()
+    public function insert_reserve_data($data)
     {
-        $_POST["staff_id"] == ""? $staff = null: $staff = $_POST["staff_id"];
+
         $data = [
-            'event_customer' => $_POST["customer"],
-            'event_start' => $_POST["start"],
-            'event_end' => $_POST["end"],
-            'event_content' => $_POST["content"],
-            'event_staff_id' => $staff
+            'event_customer' => $data['event_customer'],
+            'event_pet' => $data['event_pet'],
+            'event_start' => $data['event_start'],
+            'event_end' => $data['event_end'],
+            'event_content' => $data['event_content'],
+            'event_staff_id' => $data['event_staff']
         ];
         $this->db->insert('calender_event', $data)? $result = true: $result = false;
         return $result;
     }
+
+    public function select_reserve_data($event_id)
+    {
+        $this->db->where(['event_id' => $event_id]);
+        $this->db->select("event_id, event_customer, event_start, event_end, event_content");
+        $query = $this->db->get('calender_event');
+        return $query->result_array();
+    }
+
 }
