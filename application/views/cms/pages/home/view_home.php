@@ -1,29 +1,11 @@
-﻿<!-- body start -->
+<!-- body start -->
 <section class="content">
     <div class="container-fluid">
     <!-- Body Copy -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="header clearfix">
-                        <div class="pull-left">
-                            <h2 class="card-inside-title" style="line-height: 37px">予定一覧</h2>
-                        </div>
-                        <div class="pull-right">
-                            <button type="button" class="btn bg-deep-purple waves-effect" id="register">
-                                <i class="material-icons">contact_mail</i>
-                                <span>new</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div id="calendar" style="padding: 10px"></div>
-                </div>
-            </div>
-        </div>
+    <div class="card">
+        <div id="calendar" style="padding: 10px"></div>
+    </div>
+    <!-- Body end -->
     </div>
 </section>
 
@@ -95,8 +77,6 @@
 <!-- Custom Plugin Js -->
 <script src="../assets/cms/js/admin.js"></script>
 
-<script src="../assets/cms/js/sidebar.js"></script>
-
 <script>
 $(document).ready(function() {
     $('#calendar').fullCalendar({
@@ -105,14 +85,15 @@ $(document).ready(function() {
         left: 'prev,next today',
         center: 'title',
         // right: 'month,basicWeek,basicDay'
-        right: 'month,agendaWeek,agendaDay,listMonth'
+        right: 'month,agendaWeek,ListWeek,listDay'
         },
         // timeFormat: 'HH:mm',
+        defaultView: 'listDay',
         timezone: 'Asia/Tokyo',
         navLinks: true, // can click day/week names to navigate views
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-        events: <?php echo json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>,
+        <?= isset($events)? "events:". json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT). ",": false;?>
         eventClick: function(calEvent, jsEvent, view) {
                 var contents = "<h2>予約名:"+ calEvent.title + "</h2>"
                 contents += "<p>開始日時:" + $.fullCalendar.formatDate(calEvent.start, 'YYYY年MM月DD日 HH:mm') + "<p>";
@@ -127,7 +108,7 @@ $(document).ready(function() {
     });
 });
 </script>
-<!-- モーダルウィンドウを閉じる -->
+
 <script>
 $(function () {
     $('#closeModal , #modalBg').click(function() {
@@ -175,7 +156,6 @@ $(function () {
 });
 
 </script>
-
 </body>
 
 </html>

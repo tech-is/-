@@ -25,68 +25,16 @@ class Cl_main extends CI_Controller
         $this->load->view('index.html');
     }
 
-    public function main()
+    public function home()
     {
+        $data = $this->get_reserve();
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/pages/main/view_main');
+        $this->load->view('cms/pages/home/view_home', $data);
     }
 
     public function reserve()
     {
-        // $data["events"] = [
-        //     [
-        //         "event_id" => 1,
-        //         "title" => 'トリミング',
-        //         "start" => '2019-08-03T10:30',
-        //         "end" => '2019-08-03T11:00',
-        //         "color" => '#FF0000'
-        //     ],
-        //     [
-        //         "event_id" => 2,
-        //         "title" => 'シャンプー',
-        //         "start" => '2019-08-20T10:30',
-        //         "end" => '2019-08-20T12:30',
-        //         "color" => '#9c27b0'
-        //     ],
-        //     [
-        //         "event_id" => 3,
-        //         "title" => 'トリミング',
-        //         "start" => '2019-08-12T10:30',
-        //         "end" => '2019-08-12T11:00',
-        //         "color" => '#ffc107'
-        //     ],
-        //     [
-        //         "title" => 'トリミング',
-        //         "start" => '2019-08-12T12:30',
-        //         "end" => '2019-08-12T13:30',
-        //         "color" => 'blue'
-        //     ],
-        //     [
-        //         "title" => 'カラー',
-        //         "start" => '2019-08-16T15:30',
-        //         "end" => '2019-08-16T16:30',
-        //         "color" => 'green'
-        //     ],
-        //     [
-        //         "title" => 'シャンプー',
-        //         "start" => '2019-08-28T10:30',
-        //         "end" => '2019-08-28T12:30',
-        //         "color" => 'green'
-        //     ],
-        //     [
-        //         "title" => 'シャンプー',
-        //         "start" => '2019-08-07T10:30',
-        //         "end" => '2019-08-07T12:30',
-        //         "color" => '#9c27b0'
-        //     ],
-        //     [
-        //         "title" => 'シャンプー',
-        //         "start" => '2019-08-29T10:30',
-        //         "end" => '2019-08-29T12:30',
-        //         "color" => '#ffc107'
-        //     ]
-        // ];
         $this->load->model('mdl_reserve');
         $result = $this->mdl_reserve->get_reserve_list();
         for($i=0; $i <count($result); $i++) {
@@ -156,13 +104,7 @@ class Cl_main extends CI_Controller
 
     public function magazine()
     {
-        $data = [
-            "template_name" => ["sample1", "sample2", "sample3"],
-            "from_name" => ["cipher", "galm", "pixy"],
-            "mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
-            "mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
-            "mail_detail" => ["Hello World<br>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "やばいですね！", "yahoooooooooooooo"]
-        ];
+        $data = $this->get_magazine();
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view("cms/pages/magazine/view_magazine", $data);
@@ -203,5 +145,85 @@ class Cl_main extends CI_Controller
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view("cms/pages/magazine/view_magazine_form", $data);
+    }
+
+    private function get_reserve()
+    {
+        // $data["events"] = [
+        //     [
+        //         "event_id" => 1,
+        //         "title" => 'トリミング',
+        //         "start" => '2019-08-03T10:30',
+        //         "end" => '2019-08-03T11:00',
+        //         "color" => '#FF0000'
+        //     ],
+        //     [
+        //         "event_id" => 2,
+        //         "title" => 'シャンプー',
+        //         "start" => '2019-08-20T10:30',
+        //         "end" => '2019-08-20T12:30',
+        //         "color" => '#9c27b0'
+        //     ],
+        //     [
+        //         "event_id" => 3,
+        //         "title" => 'トリミング',
+        //         "start" => '2019-08-12T10:30',
+        //         "end" => '2019-08-12T11:00',
+        //         "color" => '#ffc107'
+        //     ],
+        //     [
+        //         "title" => 'トリミング',
+        //         "start" => '2019-08-12T12:30',
+        //         "end" => '2019-08-12T13:30',
+        //         "color" => 'blue'
+        //     ],
+        //     [
+        //         "title" => 'カラー',
+        //         "start" => '2019-08-16T15:30',
+        //         "end" => '2019-08-16T16:30',
+        //         "color" => 'green'
+        //     ],
+        //     [
+        //         "title" => 'シャンプー',
+        //         "start" => '2019-08-28T10:30',
+        //         "end" => '2019-08-28T12:30',
+        //         "color" => 'green'
+        //     ],
+        //     [
+        //         "title" => 'シャンプー',
+        //         "start" => '2019-08-07T10:30',
+        //         "end" => '2019-08-07T12:30',
+        //         "color" => '#9c27b0'
+        //     ],
+        //     [
+        //         "title" => 'シャンプー',
+        //         "start" => '2019-08-29T10:30',
+        //         "end" => '2019-08-29T12:30',
+        //         "color" => '#ffc107'
+        //     ]
+        // ];
+        $this->load->model('mdl_reserve');
+        $result = $this->mdl_reserve->get_reserve_list();
+        for($i=0; $i <count($result); $i++) {
+            $data["events"][$i]["event_id"] = $result[$i]['event_id'];
+            $data["events"][$i]["title"] = $result[$i]['event_customer'];
+            $data["events"][$i]["start"] = $result[$i]['event_start'];
+            $data["events"][$i]["end"] = $result[$i]['event_end'];
+            $data["events"][$i]["content"] = $result[$i]['event_content'];
+        }
+        return $data;
+    }
+
+    private function get_magazine()
+    {
+        $data = [
+            "mail_magazine_name" => ["sample1", "sample2", "sample3"],
+            "from_name" => ["cipher", "galm", "pixy"],
+            "mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
+            "mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
+            "mail_detail" => ["Hello World<br>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "やばいですね！", "yahoooooooooooooo"]
+        ];
+        $this->load->model('mdl_magazine');
+        return $data;
     }
 }

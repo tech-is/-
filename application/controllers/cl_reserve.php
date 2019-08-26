@@ -14,16 +14,24 @@ class Cl_reserve extends CI_Controller
         $event_id = $this->input->post("event_id");
         $data = $this->get_reserve($event_id);
         $result = $this->create_html_parts($data);
-        // header("Content-Type: application/json; charset=UTF-8");
-        // $json_result = json_encode($result, JSON_UNESCAPED_UNICODE);
         echo $result;
+    }
+
+    public function update_reserve_data()
+    {
+        if($this->chk_reserve_data() == true) {
+            if($this->update_reserve() == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public function register_reserve_data()
     {
         if($this->chk_reserve_data() == true) {
-            // $data = $this->input->post();
-            if($this->insert_reserve() == true){
+            if($this->insert_reserve() == true) {
                 redirect("cl_main/reserve");
             } else {
                 redirect("cl_main/reserve");
@@ -91,7 +99,23 @@ class Cl_reserve extends CI_Controller
         return $result;
     }
 
-    public function create_html_parts($data)
+    private function update_reserve()
+    {
+        $this->load->model("mdl_reserve");
+        isset($_POST["staff_id"]) == ""? $staff = null: $staff = $_POST["staff_id"];
+        $data = [
+            'event_customer' => $_POST["customer"],
+            'event_pet' => $_POST["pet"],
+            'event_start' => $_POST["start"],
+            'event_end' => $_POST["end"],
+            'event_content' => $_POST["content"],
+            'event_staff_id' => $staff
+        ];
+        $result = $this->mdl_reserve->update_reserve_data($data);
+        return $result;
+    }
+
+    private function create_html_parts($data)
     {
         // if(isset($staff_id)) {
         //     $select = "<select name='staff_id' class='form-control show-tick'>";
@@ -162,6 +186,7 @@ class Cl_reserve extends CI_Controller
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="event_id" value="{$data[0]['event_id']}">
         </form>
         <script>
         $("#reserve").validate({

@@ -24,12 +24,12 @@
         <ul class="list">
             <li class="header">MAIN NAVIGATION</li>
             <li class=active>
-                <a href="main">
+                <a href="home">
                     <i class="material-icons">home</i>
                     <span>Home</span>
                 </a>
             </li>
-            <li>
+            <li id="reserve">
                 <a href="reserve">
                     <i class="material-icons">home</i>
                     <span>予約一覧</span>

@@ -30,8 +30,8 @@ function escape_mail_detail($mail_detail) {
                 </div>
             </div>
             <?php
-            if(isset($template_name)) {
-                for($i = 0; $i < count($template_name); $i++) { ?>
+            if(isset($mail_magazine_name)) {
+                for($i = 0; $i < count($mail_magazine_name); $i++) { ?>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="card">
                             <div class="header clearfix">
@@ -97,9 +97,10 @@ function escape_mail_detail($mail_detail) {
     <!-- Waves Effect Plugin Js -->
     <script src="../assets/cms/plugins/node-waves/waves.js"></script>
 
+    <!-- Custom Plugin Js -->
     <script src="../assets/cms/js/admin.js"></script>
 
-    <script src="../assets/cms/js/pages/magazine.js"></script>
+    <script src="../assets/cms/js/sidebar.js"></script>
     <script>
     $(function () {
         $('#closeModal , #modalBg').click(function(){
