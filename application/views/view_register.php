@@ -106,9 +106,7 @@
                             <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">
                             <label for="terms"><a href="javascript:void(0);">利用規約</a>に同意します</label>
                         </div>
-
                         <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
-
                         <div class="m-t-25 m-b--5 align-center">
                             <a href="login">既にアカウントを持っている場合</a>
                         </div>

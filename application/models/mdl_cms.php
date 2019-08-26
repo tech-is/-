@@ -4,7 +4,6 @@ class Mdl_cms extends CI_Model {
 
     public function __construct()
     {
-        // CI_Model constructor の呼び出し
         parent::__construct();
     }
 

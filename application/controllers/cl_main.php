@@ -15,16 +15,6 @@ class Cl_main extends CI_Controller
         // $this->load->model("mdl_members");
     }
 
-    /**
-     * index
-     *
-     * @return require('index.html')
-     */
-    public function index()
-    {
-        $this->load->view('index.html');
-    }
-
     public function home()
     {
         $data = $this->get_reserve();
@@ -66,37 +56,6 @@ class Cl_main extends CI_Controller
         $this->load->view('cms/pages/reserve/view_new_reserve_form');
     }
 
-    public function login()
-    {
-        $this->load->view('sign-in');
-    }
-
-    public function signup()
-    {
-        $this->load->view('sign-up');
-    }
-
-    public function forgot_password()
-    {
-        $this->load->view("forgot-password.html");
-    }
-
-    public function register()
-    {
-        $tmp = $this->input->get("code");
-        if($tmp == null) {
-            redirect("cl_main/login");
-        } else {
-            $this->load->model("mdl_members");
-            $data = $this->mdl_members->check_tmp($tmp);
-            if(!$data) {
-                echo "dbにありませんす";
-                exit;
-            } else {
-                $this->load->view("register", $data);
-            }
-        }
-    }
     public function pet_table()
     {
         $this->load->view('view_pet.html');
