@@ -1,5 +1,16 @@
 <?php
-function escape_mail_detail($mail_detail) {
+function escape_mail_subject($mail_subject)
+{
+    if(mb_strlen($mail_subject) > 20) {
+        $resize_mail_subject = mb_substr($mail_subject, 0, 20);
+            return $resize_mail_subject. "･･･" ;
+        } else {
+            return $mail_subject;
+    }
+}
+
+function escape_mail_detail($mail_detail)
+{
     $esc_mail_detail = str_replace("<br>", " ", $mail_detail);
     if(mb_strlen($esc_mail_detail) > 20) {
         $resize_mail_detail = mb_substr($esc_mail_detail, 0, 20);
@@ -30,13 +41,13 @@ function escape_mail_detail($mail_detail) {
                 </div>
             </div>
             <?php
-            if(isset($mail_magazine_name)) {
-                for($i = 0; $i < count($mail_magazine_name); $i++) { ?>
+            if(isset($mail_subject)) {
+                for($i = 0; $i < count($mail_subject); $i++) { ?>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="card">
                             <div class="header clearfix">
                                 <div class="pull-left">
-                                    <h2 style="line-height: 37px"><?= $mail_magazine_name[$i] ?></h2>
+                                    <h2 style="line-height: 37px"><?= $mail_subject[$i] ?></h2>
                                 </div>
                                 <div class="pull-right">
                                     <button type="button" class="btn bg-red waves-effect view_magazine" style="margin-right:10px;">
@@ -52,7 +63,6 @@ function escape_mail_detail($mail_detail) {
                             <div class="body">
                                 <p>From: <?= $from_name[$i] ?></p>
                                 <p>< <?= $mail[$i] ?> ></p>
-                                <p>件名:<?= $mail_subject[$i] ?></p>
                                 <p>本文:</p>
                                 <p><?= escape_mail_detail($mail_detail[$i]) ?></p>
                             </div>

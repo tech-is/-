@@ -24,7 +24,6 @@ class Mdl_reserve extends CI_Model
 
     public function insert_reserve_data($data)
     {
-
         $data = [
             'event_customer' => $data['event_customer'],
             'event_pet' => $data['event_pet'],
@@ -47,7 +46,7 @@ class Mdl_reserve extends CI_Model
 
     public function update_reserve_data($data)
     {
-        $data = [
+        $upt_data = [
             'event_customer' => $data['event_customer'],
             'event_pet' => $data['event_pet'],
             'event_start' => $data['event_start'],
@@ -55,9 +54,10 @@ class Mdl_reserve extends CI_Model
             'event_content' => $data['event_content'],
             'event_staff_id' => $data['event_staff']
         ];
-        $this->db->set();
+        $this->db->set($upt_data);
         $this->db->where('event_id', $data['event_id']);
-        $query = $this->db->update('calender_event', );
+        $query = $this->db->update('calender_event');
+        return $query;
     }
 
 }

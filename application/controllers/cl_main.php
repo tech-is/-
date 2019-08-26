@@ -11,7 +11,7 @@ class Cl_main extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper(["url"]);
+        $this->load->helper(["url", "form"]);
         // $this->load->model("mdl_members");
     }
 
@@ -113,7 +113,6 @@ class Cl_main extends CI_Controller
     public function magazine_send()
     {
         $data = [
-            "template_name" => ["sample1", "sample2", "sample3"],
             "from_name" => ["cipher", "galm", "pixy"],
             "mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
             "mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
@@ -127,20 +126,22 @@ class Cl_main extends CI_Controller
 
     public function magazine_new_form()
     {
+        $data = [
+            "mail_from_name" => "cipher",
+            "mail_adr" => "cipher_galm01@outlook.jp"
+        ];
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view("cms/pages/magazine/view_new_magazine");
+        $this->load->view("cms/pages/magazine/view_new_magazine", $data);
     }
 
     public function magazine_form()
     {
         $data = [
-            "template_name" => ["sample1", "sample2", "sample3"],
             "mail_from_name" => ["cipher", "galm", "pixy"],
             "mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
             "mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
             "mail_detail" => ["Hello World", "やばいですね！", "yahoooooooooooooo"],
-            "name" => ["aaa", "bbb", "ccc", "ddd"]
         ];
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
@@ -217,10 +218,9 @@ class Cl_main extends CI_Controller
     private function get_magazine()
     {
         $data = [
-            "mail_magazine_name" => ["sample1", "sample2", "sample3"],
+            "mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
             "from_name" => ["cipher", "galm", "pixy"],
             "mail" => ["cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp", "cipher_galm01@outlook.jp"],
-            "mail_subject" => ["システムテスト", "やっはろー！", "ヤバいですね！"],
             "mail_detail" => ["Hello World<br>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "やばいですね！", "yahoooooooooooooo"]
         ];
         $this->load->model('mdl_magazine');

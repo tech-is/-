@@ -4,7 +4,7 @@
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
-                    <form method="POST" action="#">
+                    <form method="POST" action="cl_mail/">
                         <div class="header clearfix">
                             <h2 class="pull-left" style="font-weight: bold; line-height: 37px">新規作成</h2>
                             <div class="pull-right">
@@ -24,14 +24,14 @@
                             <h2 class="card-inside-title">メールヘッダー</h2>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <label for="template_name">テンプレート名</label>
-                                    <input type="text" class="form-control" name="template_name" placeholder="例: 休業のお知らせ">
+                                    <label for="from_name">差出人</label>
+                                    <input type="text" class="form-control" name="from_name" placeholder="例: 株式会社Animarl" value="<?= $mail_from_name?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <label for="from_name">差出人</label>
-                                    <input type="text" class="form-control" name="from_name" placeholder="例: 株式会社Animarl">
+                                    <label for="from_name">表示メールアドレス</label>
+                                    <input type="text" class="form-control" name="mail_adr" placeholder="例: 株式会社Animarl" value="<?= $mail_adr?>">
                                 </div>
                             </div>
                             <div class="form-group">
