@@ -25,70 +25,77 @@ class Cl_main extends CI_Controller
         $this->load->view('index.html');
     }
 
+    public function main()
+    {
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view('cms/pages/main/view_main');
+    }
+
     public function reserve()
     {
-        $data["events"] = [
-            [
-                "event_id" => 1,
-                "title" => 'トリミング',
-                "start" => '2019-08-03T10:30',
-                "end" => '2019-08-03T11:00',
-                "color" => '#FF0000'
-            ],
-            [
-                "event_id" => 2,
-                "title" => 'シャンプー',
-                "start" => '2019-08-20T10:30',
-                "end" => '2019-08-20T12:30',
-                "color" => '#9c27b0'
-            ],
-            [
-                "event_id" => 3,
-                "title" => 'トリミング',
-                "start" => '2019-08-12T10:30',
-                "end" => '2019-08-12T11:00',
-                "color" => '#ffc107'
-            ],
-            [
-                "title" => 'トリミング',
-                "start" => '2019-08-12T12:30',
-                "end" => '2019-08-12T13:30',
-                "color" => 'blue'
-            ],
-            [
-                "title" => 'カラー',
-                "start" => '2019-08-16T15:30',
-                "end" => '2019-08-16T16:30',
-                "color" => 'green'
-            ],
-            [
-                "title" => 'シャンプー',
-                "start" => '2019-08-28T10:30',
-                "end" => '2019-08-28T12:30',
-                "color" => 'green'
-            ],
-            [
-                "title" => 'シャンプー',
-                "start" => '2019-08-07T10:30',
-                "end" => '2019-08-07T12:30',
-                "color" => '#9c27b0'
-            ],
-            [
-                "title" => 'シャンプー',
-                "start" => '2019-08-29T10:30',
-                "end" => '2019-08-29T12:30',
-                "color" => '#ffc107'
-            ]
-        ];
-        // $this->load->model('mdl_reserve');
-        // $result = $this->mdl_reserve->get_reserve_list();
-        // for($i=0; $i <count($result); $i++) {
-        //     $data["events"][$i]["title"] = $result[$i]['event_customer'];
-        //     $data["events"][$i]["start"] = $result[$i]['event_start'];
-        //     $data["events"][$i]["end"] = $result[$i]['event_end'];
-        //     $data["events"][$i]["content"] = $result[$i]['event_content'];
-        //     // $data["events"][$i]['url'] = "reserve_view?id={$result[$i]['staff']}";
-        // }
+        // $data["events"] = [
+        //     [
+        //         "event_id" => 1,
+        //         "title" => 'トリミング',
+        //         "start" => '2019-08-03T10:30',
+        //         "end" => '2019-08-03T11:00',
+        //         "color" => '#FF0000'
+        //     ],
+        //     [
+        //         "event_id" => 2,
+        //         "title" => 'シャンプー',
+        //         "start" => '2019-08-20T10:30',
+        //         "end" => '2019-08-20T12:30',
+        //         "color" => '#9c27b0'
+        //     ],
+        //     [
+        //         "event_id" => 3,
+        //         "title" => 'トリミング',
+        //         "start" => '2019-08-12T10:30',
+        //         "end" => '2019-08-12T11:00',
+        //         "color" => '#ffc107'
+        //     ],
+        //     [
+        //         "title" => 'トリミング',
+        //         "start" => '2019-08-12T12:30',
+        //         "end" => '2019-08-12T13:30',
+        //         "color" => 'blue'
+        //     ],
+        //     [
+        //         "title" => 'カラー',
+        //         "start" => '2019-08-16T15:30',
+        //         "end" => '2019-08-16T16:30',
+        //         "color" => 'green'
+        //     ],
+        //     [
+        //         "title" => 'シャンプー',
+        //         "start" => '2019-08-28T10:30',
+        //         "end" => '2019-08-28T12:30',
+        //         "color" => 'green'
+        //     ],
+        //     [
+        //         "title" => 'シャンプー',
+        //         "start" => '2019-08-07T10:30',
+        //         "end" => '2019-08-07T12:30',
+        //         "color" => '#9c27b0'
+        //     ],
+        //     [
+        //         "title" => 'シャンプー',
+        //         "start" => '2019-08-29T10:30',
+        //         "end" => '2019-08-29T12:30',
+        //         "color" => '#ffc107'
+        //     ]
+        // ];
+        $this->load->model('mdl_reserve');
+        $result = $this->mdl_reserve->get_reserve_list();
+        for($i=0; $i <count($result); $i++) {
+            $data["events"][$i]["event_id"] = $result[$i]['event_id'];
+            $data["events"][$i]["title"] = $result[$i]['event_customer'];
+            $data["events"][$i]["start"] = $result[$i]['event_start'];
+            $data["events"][$i]["end"] = $result[$i]['event_end'];
+            $data["events"][$i]["content"] = $result[$i]['event_content'];
+        }
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/reserve/view_reserve', $data);

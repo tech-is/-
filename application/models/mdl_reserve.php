@@ -40,7 +40,7 @@ class Mdl_reserve extends CI_Model
     public function select_reserve_data($event_id)
     {
         $this->db->where(['event_id' => $event_id]);
-        $this->db->select("event_id, event_customer, event_start, event_end, event_content");
+        $this->db->select("event_id, event_customer, event_pet, event_start, event_end, event_content");
         $query = $this->db->get('calender_event');
         return $query->result_array();
     }

@@ -11,7 +11,7 @@ class Cl_mail extends CI_Controller {
 
     public function register_mail_magazine()
     {
-        
+
     }
     /**
      * send_mail_magazine メールマガジンを送る

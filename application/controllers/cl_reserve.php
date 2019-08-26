@@ -16,7 +16,7 @@ class Cl_reserve extends CI_Controller
         $result = $this->create_html_parts($data);
         // header("Content-Type: application/json; charset=UTF-8");
         // $json_result = json_encode($result, JSON_UNESCAPED_UNICODE);
-        return $result;
+        echo $result;
     }
 
     public function register_reserve_data()
@@ -106,9 +106,9 @@ class Cl_reserve extends CI_Controller
         $html = <<<EOH
         <form method="POST" action="../cl_reserve/register_reserve_data" id="reserve">
             <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
-                <h2 class="pull-left" style="font-weight: bold; line-height: 37px; margin: 0px">新規予約</h2>
+                <h2 class="pull-left" style="font-weight: bold; line-height: 37px; margin: 0px">編集</h2>
                 <div class="pull-right">
-                    <button type="button" class="btn bg-pink waves-effect" onclick="window.open('reserve', '_self')">
+                    <button type="button" class="btn bg-pink waves-effect">
                         <i class="material-icons">cancel</i>
                         <span>cancel</span>
                     </button>
@@ -122,13 +122,13 @@ class Cl_reserve extends CI_Controller
                 <div class="form-group">
                     <div class="form-line">
                         <label for="customer">お客様名<span style="color: red; margin-left: 10px">必須</span></label>
-                        <input type="text" class="form-control" name="customer" placeholder="例：田中太郎さん" value="">
+                        <input type="text" class="form-control" name="customer" placeholder="例：田中太郎さん" value='{$data[0]['event_customer']}'>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-line">
                         <label for="pet">ペット名<span style="color: red; margin-left: 10px">必須</span></label>
-                        <input type="text" class="form-control" name="pet" placeholder="例：ポチくん">
+                        <input type="text" class="form-control" name="pet" placeholder="例：ポチくん" value='{$data[0]['event_pet']}'>
                     </div>
                 </div>
                 <div class="form-group">
