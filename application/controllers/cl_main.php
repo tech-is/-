@@ -13,7 +13,7 @@ class Cl_main extends CI_Controller
         parent::__construct();
         $this->load->helper(["url", "form"]);
         session_start();
-        $_SESSION["shop_id"] = 1;
+        $_SESSION["shops_id"] = 1;
     }
 
     public function index()
@@ -149,13 +149,7 @@ class Cl_main extends CI_Controller
     private function get_reserve()
     {
         // $data["events"] = [
-        //     [
-        //         "event_id" => 1,
-        //         "title" => 'トリミング',
-        //         "start" => '2019-08-03T10:30',
-        //         "end" => '2019-08-03T11:00',
-        //         "color" => '#FF0000'
-        //     ],
+        //     ["event_id" => 1, "title" => 'トリミング', "start" => '2019-08-03T10:30', "end" => '2019-08-03T11:00', "color" => '#FF0000'],
         //     [
         //         "event_id" => 2,
         //         "title" => 'シャンプー',

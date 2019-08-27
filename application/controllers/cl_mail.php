@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * class cl_main
+ * class cl_mail
  * メールを扱う関数を主に置いています
  * メールホストを設定したい場合にはapplication/confing/email.phpを書き換えてください
  */
