@@ -12,14 +12,10 @@ class Cl_main extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(["url", "form"]);
-        // $this->load->model("mdl_members");
+        session_start();
+        $_SESSION["shop_id"] = 1;
     }
 
-    /**
-     * index
-     *
-     * @return require('index.html')
-     */
     public function index()
     {
         $this->load->view('index.html');
@@ -27,7 +23,9 @@ class Cl_main extends CI_Controller
 
     public function home()
     {
+        $_SESSION["id"] = 1;
         $data = $this->get_reserve();
+        echo $_SESSION["id"];
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/home/view_home', $data);
