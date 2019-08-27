@@ -4,7 +4,8 @@
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
-                    <form method="POST" action="../cl_magazine/registration_magazine">
+                    <!-- <form method="POST" action="../cl_magazine/registration_magazine"> -->
+                    <form onsubmit="ajax();">
                         <div class="header clearfix">
                             <h2 class="pull-left" style="font-weight: bold; line-height: 37px">新規作成</h2>
                             <div class="pull-right">
@@ -13,8 +14,7 @@
                                     <i class="material-icons">cancel</i>
                                     <span>cancel</span>
                                 </button>
-                                <button type="submit" class="btn bg-orange waves-effect" style="margin-right: 10px"
-                                    onclick="return confirm_form()">
+                                <button type="submit" class="btn bg-orange waves-effect" style="margin-right: 10px">
                                     <i class=" material-icons">save</i>
                                     <span>SAVE</span>
                                 </button>
@@ -73,7 +73,31 @@
 <!-- Custom Js -->
 <script src="../assets/cms/js/admin.js"></script>
 <!-- <script src="../assets/cms/js/pages/magazine.js"></script> -->
-
+<script type="text/javascript">
+function ajax()
+{
+    event.preventDefault();
+    $.ajax({
+        url:'../cl_magazine/registration_magazine',
+        type:'POST',
+        data:{
+            'from_name':$('input[name="from_name"]').val(),
+            'mail':$('input[name="mail"]').val(),
+            'subject':$('input[name="subject"]').val(),
+            'detail':$('textarea[name="detail"]').val()
+        }
+    })
+    // Ajaxリクエストが成功した時発動
+    .done( (data) => {
+        console.log(data);
+    })
+    // Ajaxリクエストが失敗した時発動
+    .fail( (data) => {
+        // $('.result').html(data);
+        console.log(data);
+    });
+}
+    </script>
 </body>
 
 </html>

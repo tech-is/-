@@ -24,14 +24,14 @@ class Cl_magazine extends CI_Controller {
 
     public function registration_magazine()
     {
-        if($this->chk_magazine_data()) {
+        if($this->chk_magazine_data() == true) {
             if($this->insert_magazine_data()) {
-                
+                echo "データベースへの登録が完了しました";
             } else {
-
+                echo "データベースへの登録が失敗しました。";
             }
         } else {
-            return false;
+            echo "フォームの値が間違っています";
         }
     }
 
@@ -39,7 +39,7 @@ class Cl_magazine extends CI_Controller {
     {
         $config = [
             [
-                'field' => 'name',
+                'field' => "from_name",
                 'label' => 'ユーザ名',
                 'rules' => 'required'
             ],
@@ -69,7 +69,7 @@ class Cl_magazine extends CI_Controller {
             //     'rules' => 'required'
             // ]
         ];
-        $this->load->library("form_validation", $config);
+        return $this->load->library("form_validation", $config);
     }
 
     private function insert_magazine_data()
@@ -77,10 +77,10 @@ class Cl_magazine extends CI_Controller {
         $post_data = $this->input->post(null, true);
         $data = [
             "mail_shop_id" => $_SESSION["shops_id"],
-            "mail_from_name" => $_postdata["form_name"],
-            "mail_shop_mail" => $_postdata["mail"],
-            "mail_subject" => $_postdata["subject"],
-            "mail_detail" => $_postdata["detail"]
+            "mail_from_name" => $post_data["from_name"],
+            "mail_shop_mail" => $post_data["mail"],
+            "mail_subject" => $post_data["subject"],
+            "mail_detail" => $post_data["detail"]
         ];
         $this->load->model("mdl_magazine");
         return $this->mdl_magazine->insert_magazine($data);
@@ -90,11 +90,11 @@ class Cl_magazine extends CI_Controller {
     {
         $post_data = $this->input->post(null, true);
         $data = [
-            "mail_id" => $_postdata["id"],
-            "mail_shop_mail" => $_postdata["mail"],
-            "mail_from_name" => $_postdata["form_name"],
-            "mail_subject" => $_postdata["subject"],
-            "mail_detail" => $_postdata["detail"]
+            "mail_id" => $post_data["id"],
+            "mail_shop_mail" => $post_data["mail"],
+            "mail_from_name" => $post_data["form_name"],
+            "mail_subject" => $post_data["subject"],
+            "mail_detail" => $post_data["detail"]
         ];
     }
 }
