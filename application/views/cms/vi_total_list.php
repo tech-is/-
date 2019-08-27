@@ -18,6 +18,9 @@
                         <a href="customer_table">
                             <button type="btn" class="btn btn-primary m-t-15 waves-effect">新規登録</button>
                         </a>
+                        <?php if( $page_flag === 1 ): ?>
+                        <p>お客様の登録が完了致しました。</p>
+                        <?php endif;  ?>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

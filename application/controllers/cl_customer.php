@@ -16,9 +16,9 @@ class cl_customer extends CI_Controller {
 		$this->load->helper(["url", "form"]);
 
 		//顧客登録一覧
-		$this->load->view('cms/Customer_view.html');
-		$this->load->view('cms/pages/parts/header.php');
-		$this->load->view('cms/pages/parts/sidebars.html');
+		$this->load->view('cms/Customer_view');
+		$this->load->view('cms/pages/parts/header');
+		$this->load->view('cms/pages/parts/sidebars');
 	}
 	
 	// public function check_customer()
@@ -122,8 +122,6 @@ class cl_customer extends CI_Controller {
 			$this->load->view('cms/Customer_view.html');
 		}
 
-
-
 				//メールマガジンをintへ
 				if(isset($c_test['customer_magazine'])){
 					if($c_test['customer_magazine'] == 'null') {
@@ -143,22 +141,14 @@ class cl_customer extends CI_Controller {
 							$c_test['customer_group'] = 3;
 						}
 					//データベースの呼び出し	
-				$this->mdl_customer->test($c_test);
-		
-	
 
-	// 	else{
-	// 		$this->data = $this->input->post();
-	// 		$this->last();
-	// 	}
-	// }
-  // if ($this->form_validation->run()) {
-	// 	//modelのクリエイトにpostに入ったtaskを引き渡す。
-	// 	$this->mdl_customer->create($this->input->post());
-	// 	$data['create']= true;
-	// }else{
-	// 	$data['create']= false;
-	// 	redirect("index.php/cl_customer/index");
-	// }
-	}
+				if($this->mdl_customer->test($c_test) == true) {
+						$data["text"] = "<script>alert('お客様の登録が完了致しました。')</script>";
+						$this->load->view("cms/Customer_view",$data);
+					} else {
+						$data["text"]  = "<script>alert('登録失敗しました。以上の項目をご確認ください。')</script>";
+						$this->load->view("cms/Customer_view",$data);
+					}
+				}
+	
 }

@@ -85,10 +85,10 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <form action="cl_customer/customer_validation" id="form_validation" method="POST">
+                            <form action="pet_info_validation" id="form_validation" method="POST">
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required>
+                                        <input type="text" class="form-control" name="pet_name" required>
                                         <label class="form-label">名前</label>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                     </div>
                                 <div class="form-group form-float">
                                      <div class="form-line">
-                                        <input type="text" class="form-control" name="classification" required>
+                                        <input type="text" class="form-control" name="pet_classification" required>
                                         <label class="form-label">分類</label>
                                      </div>
                                     <div class="help-info">犬、猫、鳥</div>
@@ -121,48 +121,53 @@
                                     <div class="help-info">トイ・プードル</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="radio" name="gender" id="male" class="with-gap">
+                                    <input type="radio" name="pet_animal_gender" id="male" value="male" class="with-gap">
                                     <label for="male">オス</label>
 
-                                    <input type="radio" name="gender" id="female" class="with-gap">
+                                    <input type="radio" name="pet_animal_gender" id="female" value="female" class="with-gap">
                                     <label for="female" class="m-l-20">メス</label>
+
+                                    <input type="radio" name="pet_animal_gender" id="other" value="other" class="with-gap">
+                                    <label for="other" class="m-l-20">その他</label>
                                 </div>
                                       <div class="form-group">
                                         <div class="form-line">
-                                            <input class="datepicker form-control" type="text" placeholder="生年月日">
+                                            <label for="date">生年月日</label>
+                                            <input id="date" name="pet_birthday" class="form-control" type="date" >
                                         </div>
-                                    　</div>
+                                      </div>
                                 <div class="form-group">
-                                    <input type="checkbox" id="checkbox" name="">
+                                    <input type="checkbox" id="checkbox" name="pet_contraception">
                                     <label for="checkbox">避妊</label>
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="number" class="form-control" name="body_height" required>
+                                        <input type="number" class="form-control" name="pet_body_height" required>
                                         <label class="form-label">体高</label>
                                     </div>
                                     <div class="help-info">cm</div>
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="number" class="form-control" name="body_weight" required>
+                                        <input type="number" class="form-control" name="pet_body_weight" required>
                                         <label class="form-label">体重</label>
                                     </div>
                                     <div class="help-info">kg</div>
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <textarea name="pet_infomation" cols="30" rows="5" class="form-control no-resize" required></textarea>
+                                        <textarea name="pet_information" cols="30" rows="5" class="form-control no-resize" required></textarea>
                                         <label class="form-label">備考：</label>
                                     </div>
                                 </div>
                                     <button class="btn btn-primary waves-effect" type="submit">新規登録</button>
-                                    <button class="btn btn-primary waves-effect" type="submit">クリア</button>
+                                    <button class="btn btn-primary waves-effect" type="reset">クリア</button>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input class="reservation form-control" type="text" placeholder="最終予約日">
+                                        <label class="">最終予約日：</label><br>
+                                            < class="reservation form-control" name="pet_last_reservdate" type="date" placeholder="最終予約日">
                                         </div>
-                                    　</div>
+                                    </div>
                              </form>
                         </div>
                     </div>

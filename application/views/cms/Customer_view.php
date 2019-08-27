@@ -157,7 +157,8 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">登録</button>
-                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">ホームへ戻る</button>
+                            <button type="reset" class="btn btn-primary m-t-15 waves-effect">クリア</button>
+                            <button type="button" onclick="location.href='URL'" class="btn btn-primary m-t-15 waves-effect">ホームへ戻る</button>
                         </form>
                         </div>
                     </div>
@@ -166,7 +167,7 @@
             <!-- #END# Input -->
        </div>
     </section>
-
+    <?= isset($text)? $text: false; ?>
     <!-- Jquery Core Js -->
     <script src="/sub/assets/cms/plugins/jquery/jquery.min.js"></script>
 
