@@ -13,13 +13,16 @@ class mdl_pet_info extends CI_Model
    //登録するデータを第一引数で持つ
     public function test($p_test)
     {
-        echo 'aaaa';
-        var_dump($p_test);
+        // var_dump($p_test);
 
         //$c_testは連想配列、カラム名をkeyとして格納し
         //1引数でテーブル名、2で連想配列として受け渡す
 
-        $this->db->insert('pet',$p_test);
+        if($this->db->insert('pet',$p_test)) {
+            return true;
+        }else {
+            return false;
+        }
     }
     // public funcution reservdate()
     // {

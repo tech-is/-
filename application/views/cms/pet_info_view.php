@@ -85,7 +85,7 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <form action="pet_info_validation" id="form_validation" method="POST">
+                            <form action="cl_pet_info/pet_info_validation" id="form_validation" method="POST">
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <input type="text" class="form-control" name="pet_name" required>
@@ -100,7 +100,7 @@
                                                     <h2>写真</h2>
                                                 </div>
                                                 <div class="body">
-                                                    <input type="file" id="files" name="files[]" multiple />
+                                                    <input type="file" id="files" name="" multiple />
                                                     <output id="list"></output>
                                                 </div>
                                             </div>
@@ -121,14 +121,16 @@
                                     <div class="help-info">トイ・プードル</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="radio" name="pet_animal_gender" id="male" value="male" class="with-gap">
+                                  <div class="form-line">
+                                    <input type="radio" name="pet_animal_gender" id="male" value="1" class="with-gap" checked/>
                                     <label for="male">オス</label>
 
-                                    <input type="radio" name="pet_animal_gender" id="female" value="female" class="with-gap">
+                                    <input type="radio" name="pet_animal_gender" id="female" value="2" class="with-gap">
                                     <label for="female" class="m-l-20">メス</label>
 
-                                    <input type="radio" name="pet_animal_gender" id="other" value="other" class="with-gap">
+                                    <input type="radio" name="pet_animal_gender" id="other" value="3" class="with-gap">
                                     <label for="other" class="m-l-20">その他</label>
+                                    </div>
                                 </div>
                                       <div class="form-group">
                                         <div class="form-line">
@@ -137,8 +139,13 @@
                                         </div>
                                       </div>
                                 <div class="form-group">
-                                    <input type="checkbox" id="checkbox" name="pet_contraception">
-                                    <label for="checkbox">避妊</label>
+                                    <div class="form-line">
+                                    <label class="with-gap">去勢</label>
+                                    <input type="radio" name="pet_contraception" id="on" value="1" class="with-gap">
+                                    <label for="on">有</label>
+                                    <input type="radio" name="pet_contraception" id="off" value="2" class="with-gap" checked/>
+                                    <label for="off">無</label>
+                                    </div>
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
@@ -165,7 +172,7 @@
                                     <div class="form-group">
                                         <div class="form-line">
                                         <label class="">最終予約日：</label><br>
-                                            < class="reservation form-control" name="pet_last_reservdate" type="date" placeholder="最終予約日">
+                                            < class="reservation form-control" name="" type="date" placeholder="最終予約日">
                                         </div>
                                     </div>
                              </form>
@@ -177,6 +184,7 @@
            
         </div>
     </section>
+    <?= isset($text)? $text: false; ?>
     <!-- Dropzone Plugin Js -->
     <script src="/sub/assets/cms/plugins/dropzone/dropzone.js"></script>
 

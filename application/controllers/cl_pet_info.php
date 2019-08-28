@@ -92,16 +92,16 @@ class cl_pet_info extends CI_Controller {
 					'label' => '備考',
 					'rules' => 'required|trim',
 					)
-			);
+				);
 							$this->load->library('form_validation');
 							$this->form_validation->set_rules($config);
-							$this->form_validation->set_rules('files[]', '写真', 'required');
+							// $this->form_validation->set_rules('files[]', '写真', 'required');
 
 					if ($this->form_validation->run() !== false){
 								$this->load->model('mdl_pet_info');
 								$p_test = $this->input->post();
 							}else{
-								$this->index();
+								// $this->index();
 							}
 	
 					//避妊をintへ
@@ -113,24 +113,25 @@ class cl_pet_info extends CI_Controller {
 							}
 						}
 					//性別をintへ
-						if($p_test['pet_animal_gender'] == 'male') {
-								$p_test['pet_animal_gender'] = 1; 
-							}elseif ($p_test['pet_animal_gender'] == 'female') {
-								$p_test['pet_animal_gender'] = 2;
-							}elseif($p_test['pet_animal_gender'] == 'other'){
-								$p_test['pet_animal_gender'] = 3;
-							}else{
-								$p_test['pet_animal_gender'] = NULL;
-							}
+						// if($p_test['pet_animal_gender'] == 'male') {
+						// 		$p_test['pet_animal_gender'] = 1; 
+						// 	}elseif ($p_test['pet_animal_gender'] == 'female') {
+						// 		$p_test['pet_animal_gender'] = 2;
+						// 	}elseif($p_test['pet_animal_gender'] == 'other'){
+						// 		$p_test['pet_animal_gender'] = 3;
+						// 	}else{
+						// 		$p_test['pet_animal_gender'] = NULL;
+						// 	}
 
 						//データベースの呼び出し	
-						$this->mdl_pet_info->test($p_test);
-					// if($this->mdl_pet_info->test($p_test) == true) {
-					// 		$data["text"] = "<script>alert('お客様の登録が完了致しました。')</script>";
-					// 		$this->load->view("cms/pet_info_view",$data);
-					// 	} else {
-					// 		$data["text"]  = "<script>alert('登録失敗しました。以上の項目をご確認ください。')</script>";
-					// 		$this->load->view("cms/pet_info_view",$data);
-					// 	}
+						// $this->mdl_pet_info->test($p_test);
+
+					if($this->mdl_pet_info->test($p_test) == true) {
+							$data["text"] = "<script>alert('お客様の登録が完了致しました。')</script>";
+							$this->load->view("cms/pet_info_view",$data);
+						} else {
+							$data["text"]  = "<script>alert('登録失敗しました。以上の項目をご確認ください。')</script>";
+							$this->load->view("cms/pet_info_view",$data);
+						}
 		}
 }
