@@ -1,5 +1,16 @@
 <?php
-function escape_mail_detail($mail_detail) {
+function escape_mail_subject($mail_subject)
+{
+    if(mb_strlen($mail_subject) > 20) {
+        $resize_mail_subject = mb_substr($mail_subject, 0, 20);
+            return $resize_mail_subject. "･･･" ;
+        } else {
+            return $mail_subject;
+    }
+}
+
+function escape_mail_detail($mail_detail)
+{
     $esc_mail_detail = str_replace("<br>", " ", $mail_detail);
     if(mb_strlen($esc_mail_detail) > 20) {
         $resize_mail_detail = mb_substr($esc_mail_detail, 0, 20);
@@ -30,20 +41,20 @@ function escape_mail_detail($mail_detail) {
                 </div>
             </div>
             <?php
-            if(isset($template_name)) {
-                for($i = 0; $i < count($template_name); $i++) { ?>
+            if(isset($mail_subject)) {
+                for($i = 0; $i < count($mail_subject); $i++) { ?>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="card">
                             <div class="header clearfix">
                                 <div class="pull-left">
-                                    <h2 style="line-height: 37px"><?= $template_name[$i] ?></h2>
+                                    <h2 style="line-height: 37px"><?= $mail_subject[$i] ?></h2>
                                 </div>
                                 <div class="pull-right">
-                                    <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:30px;" onclick="window.open('magazine_send', '_self')">
+                                    <button type="button" class="btn bg-red waves-effect view_magazine" style="margin-right:10px;">
                                         <i class="material-icons">contact_mail</i>
                                     </button>
                                     <a href="magazine_form">
-                                        <button type="button" class="btn bg-deep-purple waves-effect" style="margin-right:10px;">
+                                        <button type="button" class="btn bg-blue waves-effect">
                                             <i class="material-icons">settings</i>
                                         </button>
                                     </a>
@@ -52,7 +63,6 @@ function escape_mail_detail($mail_detail) {
                             <div class="body">
                                 <p>From: <?= $from_name[$i] ?></p>
                                 <p>< <?= $mail[$i] ?> ></p>
-                                <p>件名:<?= $mail_subject[$i] ?></p>
                                 <p>本文:</p>
                                 <p><?= escape_mail_detail($mail_detail[$i]) ?></p>
                             </div>
@@ -72,6 +82,15 @@ function escape_mail_detail($mail_detail) {
         </div>
     </div>
 </section>
+<section id="modalArea" class="modalArea">
+    <div id="modalBg" class="modalBg"></div>
+    <div class="modalWrapper">
+        <div class="modalContents" id="modalContents"></div>
+            <div id="closeModal" class="closeModal">
+                ×
+            </div>
+    </div>
+</section>
 
     <!-- Jquery Core Js -->
     <script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
@@ -88,9 +107,35 @@ function escape_mail_detail($mail_detail) {
     <!-- Waves Effect Plugin Js -->
     <script src="../assets/cms/plugins/node-waves/waves.js"></script>
 
+    <!-- Custom Plugin Js -->
     <script src="../assets/cms/js/admin.js"></script>
 
-    <script src="../assets/cms/js/pages/magazine.js"></script>
+    <script src="../assets/cms/js/sidebar.js"></script>
+    <script>
+    $(function () {
+        $('#closeModal , #modalBg').click(function(){
+            $('#modalArea').fadeOut();
+        });
+        $('.view_magazine').click(function() {
+            $('#modalContents').load("../assets/cms/html_parts/reserve_form_parts.php?magazine_id=<?= $magazine_id?>");
+            $('#modalArea').fadeIn();
+        });
+        $("#reserve").validate({
+            rules: {
+                customer: {
+                    required: true,
+                    maxlength: 50
+                }
+            },
+            messages: {
+                customer: {
+                    required: "お名前を入力してください。",
+                    maxlength: "お名前は50文字以内で入力してください。"
+                },
+            }
+        });
+    });
+    </script>
     </body>
 
     </html>

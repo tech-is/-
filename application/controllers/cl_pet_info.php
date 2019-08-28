@@ -6,19 +6,18 @@ class cl_pet_info extends CI_Controller {
 	/**
 	 * Undocumented function
 	 *
-	 * @return 
+	 * @return
 	 */
 	public function index()
 	{
 		// $this->load->view('index.html');
 		$this->cms();
-		
 	}
 
 	public function cms()
 	{
-		// $this->load->view('cms/pages/parts/header.html');
-		// $this->load->view('cms/pages/parts/sidebars.html');
+		$this->load->view('cms/pages/parts/header');
+		$this->load->view('cms/pages/parts/sidebars.html');
 		// $this->load->view('cms/main.html');
 		// $this->load->view('cms/Customer_view.html');
 		//顧客管理一覧
@@ -35,10 +34,5 @@ class cl_pet_info extends CI_Controller {
 	public function signup()
 	{
 		$this->load->view('signup');
-	}
-
-	public function load_customer_table()
-	{
-		$this->load->model("mdl");
 	}
 }
