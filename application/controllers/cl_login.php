@@ -37,7 +37,7 @@ class Cl_login extends CI_Controller
             if($this->mdl_members->chk_login()) {
                 redirect("cl_main/main");
             } else {
-                redirect("cl_main/login");
+                redirect("cl_landing/login");
             }
         }
     }

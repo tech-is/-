@@ -1,9 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cl_register extends CI_Controller {
-    
-
+class Cl_register extends CI_Controller
+{
     public function register_email()
     {
         if($this->check_email() == true) {
@@ -12,10 +11,10 @@ class Cl_register extends CI_Controller {
             if($this->tmp_db_registration($email, $code) == true) {
                 if($this->send_mail($email, $code) == true) {
                     // redirect("cl_main/login");
-                    echo "登録完了しました！";
+                    echo "仮登録が完了しました！メールを送信しましたのでご確認ください。";
                 } else {
                     $this->del_email($email);
-                    redirect("/cl_main/login");
+                    redirect("/cl_landing/login");
                 }
             } else {
                 redirect("cl_main/signup_db_error");
@@ -24,6 +23,25 @@ class Cl_register extends CI_Controller {
             $this->load->view('sign-up');
         }
     }
+
+    public function register_shop()
+    {
+        if($this->check_shop_data() == true) {
+            $data = $this->input->post(null, true);
+            if($this->shop_registration($data) == true) {
+                echo "登録が完了しました";
+                exit;
+            } else {
+                echo "登録失敗しました";
+                exit;
+            }
+        } else {
+            // return false;
+            echo "入力したデータが不正です。";
+            exit;
+        }
+    }
+
     /**
      * check_email
      *
@@ -42,6 +60,49 @@ class Cl_register extends CI_Controller {
         return $this->form_validation->run();
     }
 
+    private function check_shop_data()
+    {
+        $config = [
+            [
+                'field' => 'name',
+                'label' => 'ユーザ名',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'kana',
+                'label' => 'フリガナ',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'email',
+                'label' => 'メールアドレス',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'tel',
+                'label' => '電話番号',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'zip_code',
+                'label' => '郵便番号',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'zip_address',
+                'label' => '住所',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'password',
+                'label' => 'パスワード',
+                'rules' => 'required'
+            ]
+        ];
+        $this->load->library("form_validation", $config);
+        return $this->form_validation->run();
+    }
+
     /**
      * tmp_db_registration
      *
@@ -50,8 +111,12 @@ class Cl_register extends CI_Controller {
      */
     private function tmp_db_registration($email, $code)
     {
+        $data = [
+            'tmp_email' => $email,
+            'tmp_code' => $code
+        ];
         $this->load->model("mdl_register");
-        $result = $this->mdl_register->insert_mail($email, $code);
+        $result = $this->mdl_register->insert_mail($data);
         return $result;
     }
 
@@ -98,47 +163,18 @@ class Cl_register extends CI_Controller {
      *
      * @return dbに登録後ログインページに遷移
      */
-    private function db_registration()
+    private function shop_registration($data)
     {
-        $config = [
-            [
-                'field' => 'name',
-                'label' => 'ユーザ名',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'kana',
-                'label' => 'フリガナ',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'zip_adderss',
-                'label' => '住所',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'year',
-                'label' => '生年月日',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'password',
-                'label' => 'パスワード',
-                'rules' => 'required'
-            ]
+        $this->load->model("mdl_register");
+        $data = [
+            "shop_name" => $data["name"],
+            "shop_kana" => $data["kana"],
+            "shop_tel" => $data["tel"],
+            "shop_email" => $data["email"],
+            "shop_zip_code" => $data["zip_code"],
+            "shop_zip_address" => $data["zip_address"],
+            "shop_password" => $data["password"],
         ];
-        $this->load->library("form_validation", $config);
-        if($this->form_validation->run() == false) {
-            $this->load->view('sign-up.html');
-        } else {
-            $post = $this->input->post();
-            $post["password"] = password_hash($post["password"], PASSWORD_DEFAULT);
-            if($this->mdl_member->db_registration($post) == true) {
-                redirect("/cl_main/login");
-            } else {
-                redirect("/cl_main/login");
-                // 失敗ページ作成予定
-            }
-        }
+        return $this->mdl_register->insert_shops($data);
     }
 }

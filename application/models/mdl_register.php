@@ -2,24 +2,27 @@
 
 class Mdl_register extends CI_Model
 {
-    public function insert_mail($email, $code)
+    public function insert_mail($data)
     {
-        $data = [
-            'tmp_email' => $email,
-            'tmp_code' => $code
-        ];
         $this->db->insert('tmp_shops', $data)? $result = true: $result = false;
         return $result;
     }
 
-    public function check_code($code)
+    public function select_code($code)
     {
-        $query = $this->db->get_where("tmp_shops", ["tmp_code" => $code]);
-        $query->num_rows() == 1? $result = $query->result("array"): $result = false;
+        $this->db->where("tmp_code", $code);
+        $this->db->select("tmp_email", "tmp_code");
+        $query = $this->db->get("tmp_shops");
+        $query->num_rows() == 1? $result = $query->row(0, "array"): $result = false;
         return $result;
     }
 
-    public function insert_user()
+    public function insert_shops($data)
+    {
+        return $this->db->insert('shops', $data);
+    }
+
+    public function update_shops()
     {
         $data = [
             "name" => $name,
@@ -30,12 +33,12 @@ class Mdl_register extends CI_Model
             "pass_tmp" => null
         ];
         $this->db->where('id', $id);
-        return $this->db->update('mytable', $data);
+        return $this->db->update('shops', $data);
     }
 
     public function delete_email($email)
     {
-        $this->db->delete('mytable', ['email' => $email]);
+        $this->db->delete('shops', ['email' => $email]);
     }
 
 }
