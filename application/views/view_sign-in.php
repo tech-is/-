@@ -33,7 +33,7 @@
         </div>
         <div class="card">
             <div class="body">
-                <form action="../cl_login/check_user" method="POST">
+                <form action="../cl_login/login_chk" method="POST">
                     <div class="msg">メールアドレスとパスワードを入力してください</div>
                     <div class="input-group">
                         <span class="input-group-addon">

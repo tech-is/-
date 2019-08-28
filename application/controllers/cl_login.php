@@ -16,7 +16,27 @@ class Cl_login extends CI_Controller
      * @param $_POST["email"] = ポストされたメールアドレス
      * @return メインページにリダイレクト
      */
-    public function check_user()
+    public function login_chk()
+    {
+        if($this->vali_login_data() === true) {
+            $data = $this->chk_login_data();
+            if($data !== false) {
+                if($this->chk_password($data) === true) {
+                    session_start();
+                    $SESSION["shops_id"] = $data["shops_id"];
+                    redirect("cl_main/home");
+                } else {
+                    redirect("cl_landing/login");
+                }
+            } else {
+                redirect("cl_landing/login");
+            }
+        } else {
+            $this->load->view('cl_landing/login');
+        }
+    }
+
+    private function vali_login_data()
     {
         $config = [
             [
@@ -31,15 +51,21 @@ class Cl_login extends CI_Controller
             ],
         ];
         $this->load->library("form_validation", $config);
-        if($this->form_validation->run() == false) {
-            $this->load->view('sign-up');
-        } else {
-            if($this->mdl_members->chk_login()) {
-                redirect("cl_main/main");
-            } else {
-                redirect("cl_landing/login");
-            }
-        }
+        return $this->form_validation->run();
     }
 
+    private function chk_login_data()
+    {
+        $data = [
+            "shop_email" => $this->input->post("email")
+        ];
+        $this->load->model("mdl_login");
+        return $this->mdl_login->select_login_data($data);
+    }
+
+    private function chk_password($data)
+    {
+        $password = $this->input->post("password");
+        return password_verify($password, $data["shop_password"]);
+    }
 }

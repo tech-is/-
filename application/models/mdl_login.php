@@ -1,13 +1,13 @@
 <?php
 class Mdl_login extends CI_Model
 {
-    public function chk_login()
+    public function select_login_data($data)
     {
-        $this->db->where("email", $this->input->post("email"));
-        $this->db->select("id, password");
-        $query = $this->db->get('customer');
+        $this->db->where($data);
+        $this->db->select("shop_id, shop_password");
+        $query = $this->db->get('shops');
         if($query->num_rows() == 1) {
-            return $query->result_array();
+            return $query->row(0, "array");
         }else{
             return false;
         }
