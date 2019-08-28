@@ -165,6 +165,7 @@ class Cl_register extends CI_Controller
      */
     private function shop_registration($data)
     {
+        $hash_pass = password_hash($data["password"], PASSWORD_DEFAULT);
         $this->load->model("mdl_register");
         $data = [
             "shop_name" => $data["name"],
@@ -173,7 +174,7 @@ class Cl_register extends CI_Controller
             "shop_email" => $data["email"],
             "shop_zip_code" => $data["zip_code"],
             "shop_zip_address" => $data["zip_address"],
-            "shop_password" => $data["password"],
+            "shop_password" => $hash_pass,
         ];
         return $this->mdl_register->insert_shops($data);
     }
