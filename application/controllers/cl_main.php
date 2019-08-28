@@ -12,12 +12,15 @@ class Cl_main extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(["url", "form"]);
-        // $this->load->model("mdl_members");
+        session_start();
+        $_SESSION["shops_id"] = 1;
     }
 
     public function home()
     {
+        $_SESSION["id"] = 1;
         $data = $this->get_reserve();
+        echo $_SESSION["id"];
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/home/view_home', $data);
@@ -110,13 +113,7 @@ class Cl_main extends CI_Controller
     private function get_reserve()
     {
         // $data["events"] = [
-        //     [
-        //         "event_id" => 1,
-        //         "title" => 'トリミング',
-        //         "start" => '2019-08-03T10:30',
-        //         "end" => '2019-08-03T11:00',
-        //         "color" => '#FF0000'
-        //     ],
+        //     ["event_id" => 1, "title" => 'トリミング', "start" => '2019-08-03T10:30', "end" => '2019-08-03T11:00', "color" => '#FF0000'],
         //     [
         //         "event_id" => 2,
         //         "title" => 'シャンプー',
