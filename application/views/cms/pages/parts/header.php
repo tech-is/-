@@ -33,8 +33,6 @@
     <link href="../assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
     <!-- full calender Css -->
-    <!-- <link href='../assets/cms/plugins/fullcalendar/packages/core/main.css' rel='stylesheet' />
-    <link href='../assets/cms/plugins/fullcalendar/packages/daygrid/main.css' rel='stylesheet' /> -->
     <link href='../assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.css' rel='stylesheet' />
 
     <!-- Custom Css -->
@@ -94,6 +92,7 @@
     left: 50%;
     transform:translate(-50%,-50%);
     }
+
 </style>
 </head>
 

@@ -23,12 +23,32 @@ class Cl_main extends CI_Controller
 
     public function home()
     {
-        $_SESSION["id"] = 1;
         $data = $this->get_reserve();
-        echo $_SESSION["id"];
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/home/view_home', $data);
+    }
+
+    public function staff()
+    {
+        $data["events"] = [
+            [
+                "title" => "田中",
+                "start" => '2019-08-20T10:30',
+                "end" => '2019-08-20T11:00',
+                "color" => 'red'
+            ],
+            [
+                "title" => "鈴木",
+                "staff" => "鈴木",
+                "start" => '2019-08-20T10:30',
+                "end" => '2019-08-20T11:00',
+                "color" => "black"
+            ]
+        ];
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view('cms/pages/staff/view_staff_list', $data);
     }
 
     public function reserve()

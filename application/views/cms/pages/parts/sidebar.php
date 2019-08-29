@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="menu-toggle waves-effect waves-block">
+                <a href="staff" class="menu-toggle waves-effect waves-block">
                     <i class="material-icons">contacts</i>
                     <span>顧客管理</span>
                 </a>
@@ -48,6 +48,12 @@
                         <a href="../cl_total_list/cms">顧客一覧</a>
                     </li>
                 </ul>
+            </li>
+            <li id="reserve">
+                <a href="staff">
+                    <i class="material-icons">home</i>
+                    <span>スタッフ一覧</span>
+                </a>
             </li>
             <li>
                 <a href="../cl_pet_info/cms">
