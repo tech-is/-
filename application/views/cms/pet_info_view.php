@@ -6,55 +6,58 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>ペットカルテ</title>
     <!-- Favicon-->
-    <link rel="icon" href="/sub/assets/cms/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/cms/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+        type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="/sub/assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="/sub/assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="/sub/assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Sweet Alert Css -->
-    <link href="/sub/assets/cms/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Dropzone Css -->
-    <link href="/sub/assets/cms/plugins/dropzone/dropzone.css" rel="stylesheet">
+    <link href="../assets/cms/plugins/dropzone/dropzone.css" rel="stylesheet">
 
     <!-- Custom Css -->
-    <link href="/sub/assets/cms/css/style.css" rel="stylesheet">
+    <link href="../assets/cms/css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="/sub/assets/cms/css/themes/all-themes.css" rel="stylesheet" />
+    <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" />
 
     <!-- Bootstrap DatePicker Css -->
-    <link href="/sub/assets/cms/plugins/jquery-ui-1.12.1.custom/datepicker-ja.js" rel="stylesheet" />
-    
+    <link href="../assets/cms/plugins/jquery-ui-1.12.1.custom/datepicker-ja.js" rel="stylesheet" />
+
     <!-- Bootstrap Material Datetime Picker Css -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/ja.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
 
-    <link href="/sub/assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"
+        rel="stylesheet" />
 
     <!-- Bootstrap DatePicker Css -->
-    <link href="/sub/assets/cms/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 
     <style>
-            .thumb {
-              height: 175px;
-              border: 1px solid #000;
-              margin: 10px 5px 0 0;
-            }
+        .thumb {
+            height: 175px;
+            border: 1px solid #000;
+            margin: 10px 5px 0 0;
+        }
     </style>
-          
+
 
 </head>
     <section class="content">
@@ -113,12 +116,11 @@
                                      </div>
                                     <div class="help-info">犬、猫、鳥</div>
                                 </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="pet_type" required>
-                                        <label class="form-label">種類</label>
-                                    </div>
-                                    <div class="help-info">トイ・プードル</div>
+                            </div>
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="classification" required>
+                                    <label class="form-label">分類</label>
                                 </div>
                                 <div class="form-group">
                                   <div class="form-line">
@@ -180,81 +182,83 @@
                     </div>
                 </div>
             </div>
-            <!-- #END# Basic Validation -->
-           
         </div>
     </section>
     <?= isset($text)? $text: false; ?>
     <!-- Dropzone Plugin Js -->
-    <script src="/sub/assets/cms/plugins/dropzone/dropzone.js"></script>
 
-    <!-- Jquery Core Js -->
-    <script src="/sub/assets/cms/plugins/jquery/jquery.min.js"></script>
+    </div>
+</section>
+<!-- Dropzone Plugin Js -->
+<script src="../assets/cms/plugins/dropzone/dropzone.js"></script>
 
-    <!-- Bootstrap Core Js -->
-    <script src="/sub/assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+<!-- Jquery Core Js -->
+<script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
 
-    <!-- Select Plugin Js -->
-    <script src="/sub/assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!-- Bootstrap Core Js -->
+<script src="../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
-    <!-- Slimscroll Plugin Js -->
-    <script src="/sub/assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- Select Plugin Js -->
+<script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
-    <!-- Waves Effect Plugin Js -->
-    <script src="/sub/assets/cms/plugins/node-waves/waves.js"></script>
+<!-- Slimscroll Plugin Js -->
+<script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-    <!-- Autosize Plugin Js -->
-    <script src="/sub/assets/cms/plugins/autosize/autosize.js"></script>
+<!-- Waves Effect Plugin Js -->
+<script src="../assets/cms/plugins/node-waves/waves.js"></script>
 
-    <!-- Moment Plugin Js -->
-    <script src="/sub/assets/cms/plugins/momentjs/moment.js"></script>
+<!-- Autosize Plugin Js -->
+<script src="../assets/cms/plugins/autosize/autosize.js"></script>
 
-    <!-- Bootstrap Material Datetime Picker Plugin Js -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/ja.js"></script>
-    <script src="/sub/assets/cms/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<!-- Moment Plugin Js -->
+<script src="../assets/cms/plugins/momentjs/moment.js"></script>
 
-    <!-- Bootstrap Datepicker Plugin Js -->
-    <!-- <script src="/sub/assets/cms/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> -->
+<!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/ja.js"></script>
+<script src="../assets/cms/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
-    <!-- Custom Js -->
-    <script src="/sub/assets/cms/js/admin.js"></script>
-    <script src="/sub/assets/cms/js/pages/forms/basic-form-elements.js"></script>
-    <script src="/sub/assets/cms/js/pages/forms/advanced-form-elements.js"></script>
-    <script>
-            function handleFileSelect(evt) {
-              var files = evt.target.files; // FileList object
-          
-              // Loop through the FileList and render image files as thumbnails.
-              for (var i = 0, f; f = files[i]; i++) {
-          
-                // Only process image files.
-                if (!f.type.match('image.*')) {
-                  continue;
-                }
-          
-                var reader = new FileReader();
-          
-                // Closure to capture the file information.
-                reader.onload = (function(theFile) {
-                  return function(e) {
+<!-- Bootstrap Datepicker Plugin Js -->
+<!-- <script src="../assets/cms/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> -->
+
+<!-- Custom Js -->
+<script src="../assets/cms/js/admin.js"></script>
+<script src="../assets/cms/js/pages/forms/basic-form-elements.js"></script>
+<script src="../assets/cms/js/pages/forms/advanced-form-elements.js"></script>
+<script>
+    function handleFileSelect(evt) {
+        var files = evt.target.files; // FileList object
+
+        // Loop through the FileList and render image files as thumbnails.
+        for (var i = 0, f; f = files[i]; i++) {
+
+            // Only process image files.
+            if (!f.type.match('image.*')) {
+                continue;
+            }
+
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function (theFile) {
+                return function (e) {
                     // Render thumbnail.
                     var span = document.createElement('span');
                     span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                                      '" title="', escape(theFile.name), '"/>'].join('');
+                        '" title="', escape(theFile.name), '"/>'].join('');
                     document.getElementById('list').insertBefore(span, null);
-                  };
-                })(f);
-          
-                // Read in the image file as a data URL.
-                reader.readAsDataURL(f);
-              }
-            }
-          
-            document.getElementById('files').addEventListener('change', handleFileSelect, false);
-          </script>
+                };
+            })(f);
 
-    <!-- Demo Js -->
-    <script src="/sub/assets/cms/js/demo.js"></script>
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+        }
+    }
+
+    document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
+
+<!-- Demo Js -->
+<script src="../assets/cms/js/demo.js"></script>
 </body>
 
 </html>

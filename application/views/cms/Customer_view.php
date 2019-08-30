@@ -6,53 +6,56 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>顧客入力画面</title>
     <!-- Favicon-->
-    <link rel="icon" href="/sub/assets/cms/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/cms/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+        type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="/sub/assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="/sub/assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="/sub/assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Bootstrap Material Datetime Picker Css -->
-    <link href="/sub/assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"
+        rel="stylesheet" />
 
     <!-- Bootstrap DatePicker Css -->
-    <link href="/sub/assets/cms/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 
     <!-- Wait Me Css -->
-    <link href="/sub/assets/cms/plugins/waitme/waitMe.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/waitme/waitMe.css" rel="stylesheet" />
 
     <!-- Bootstrap Select Css -->
-    <link href="/sub/assets/cms/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="../assets/cms/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- Custom Css -->
-    <link href="/sub/assets/cms/css/style.css" rel="stylesheet">
+    <link href="../assets/cms/css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="/sub/assets/cms/css/themes/all-themes.css" rel="stylesheet" />
+    <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" />
 </head>
-    <section class="content">
-        <div class="container-fluid">
-            <div class="block-header">
-                <h2>顧客管理情報</h2>
-            </div>
-            <!-- Input -->
-            <form action="cl_customer/customer_validation" method="POST">
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>顧客管理情報</h2>
+        </div>
+        <!-- Input -->
+        <form action="cl_customer/customer_validation" method="POST">
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                        role="button" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons">more_vert</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
@@ -70,77 +73,84 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="customer_name" placeholder= >
+                                            <input type="text" class="form-control" name="customer_name" placeholder=>
                                             <label class="form-label">山田　太郎</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                <h2 class="card-inside-title">フリガナ(全角カナ)</h2>
-                                <div class="row clearfix">
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-float">
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" name="customer_kana" placeholder=>
-                                                <label class="form-label">ヤマダ　タロウ</label>
-                                            </div>
+                            <h2 class="card-inside-title">フリガナ(全角カナ)</h2>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="customer_kana" placeholder=>
+                                            <label class="form-label">ヤマダ　タロウ</label>
                                         </div>
                                     </div>
                                 </div>
-                            <h2 class="card-inside-title">メールアドレス（半角英数字)</h2>
-                                <div class="row clearfix">  
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-float">
-                                            <div class="form-line">
-                                                <input type="mail" class="form-control" name="customer_mail" placeholder=>
-                                                <label class="form-label">半角英数字</label>
-                                            </div>
+                            </div>
+                            <h2 class="card-inside-title">メールアドレス(半角英数字)</h2>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="mail" class="form-control" name="customer_mail" placeholder=>
+                                            <label class="form-label">半角英数字</label>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             <h2 class="card-inside-title">電話番号</h2>
                             <div class="row clearfix">
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="customer_tel" pattern="\d{2,4}-?\d{3,4}-?\d{3,4}" title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" placeholder="">
+                                            <input type="text" class="form-control" name="customer_tel"
+                                                pattern="\d{2,4}-?\d{3,4}-?\d{3,4}"
+                                                title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" placeholder="">
                                             <label class="form-label">半角数字</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <h2 class="card-inside-title">郵便番号</h2>
-                            <div class="row clearfix">  
+                            <div class="row clearfix">
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="customer_zip_address" pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。" placeholder=>
+                                            <input type="text" class="form-control" name="customer_zip_address"
+                                                pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。"
+                                                placeholder=>
                                             <label class="form-label">半角数字</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <h2 class="card-inside-title">住所(全角)</h2>
-                            <div class="row clearfix">  
+                            <div class="row clearfix">
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="customer_address" placeholder=>
+                                            <input type="text" class="form-control" name="customer_address"
+                                                placeholder=>
                                             <label class="form-label">(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)</label>
-                                        </div
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <h2 class="card-inside-title">メールマガジン</h2>
-                                <div class="switch">
-                                    <label>未希望<input type="checkbox" name="customer_magazine" checked="off" ><span class="lever switch-col-red"></span>希望</label>
-                                </div>
+                            <div class="switch">
+                                <label>未希望<input type="checkbox" name="customer_magazine" checked="off"><span
+                                        class="lever switch-col-red"></span>希望</label>
+                            </div>
                             <h2 class="card-inside-title">追加情報</h2>
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea rows="4" class="form-control no-resize" name="customer_add_info" placeholder="顧客に関する情報：例：夏に旅行をする"></textarea>
+                                            <textarea rows="4" class="form-control no-resize" name="customer_add_info"
+                                                placeholder="顧客に関する情報：例：夏に旅行をする"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -171,35 +181,36 @@
     <!-- Jquery Core Js -->
     <script src="/sub/assets/cms/plugins/jquery/jquery.min.js"></script>
 
-    <!-- Bootstrap Core Js -->
-    <script src="/sub/assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+<!-- Bootstrap Core Js -->
+<script src="../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
-    <!-- Select Plugin Js -->
-    <script src="/sub/assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!-- Select Plugin Js -->
+<script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
-    <!-- Slimscroll Plugin Js -->
-    <script src="/sub/assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- Slimscroll Plugin Js -->
+<script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-    <!-- Waves Effect Plugin Js -->
-    <script src="/sub/assets/cms/plugins/node-waves/waves.js"></script>
+<!-- Waves Effect Plugin Js -->
+<script src="../assets/cms/plugins/node-waves/waves.js"></script>
 
-    <!-- Autosize Plugin Js -->
-    <script src="/sub/assets/cms/plugins/autosize/autosize.js"></script>
+<!-- Autosize Plugin Js -->
+<script src="../assets/cms/plugins/autosize/autosize.js"></script>
 
-    <!-- Moment Plugin Js -->
-    <script src="/sub/assets/cms/plugins/momentjs/moment.js"></script>
+<!-- Moment Plugin Js -->
+<script src="../assets/cms/plugins/momentjs/moment.js"></script>
 
-    <!-- Bootstrap Material Datetime Picker Plugin Js -->
-    <script src="/sub/assets/cms/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script src="../assets/cms/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
-    <!-- Bootstrap Datepicker Plugin Js -->
-    <script src="/sub/assets/cms/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<!-- Bootstrap Datepicker Plugin Js -->
+<script src="../assets/cms/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
-    <!-- Custom Js -->
-    <script src="/sub/assets/cms/js/admin.js"></script>
-    <script src="/sub/assets/cms/js/pages/forms/basic-form-elements.js"></script>
+<!-- Custom Js -->
+<script src="../assets/cms/js/admin.js"></script>
+<script src="../assets/cms/js/pages/forms/basic-form-elements.js"></script>
 
-    <!-- Demo Js -->
-    <script src="/sub/assets/cms/js/demo.js"></script>
+<!-- Demo Js -->
+<script src="../assets/cms/js/demo.js"></script>
 </body>
+
 </html>

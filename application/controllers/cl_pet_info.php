@@ -6,7 +6,7 @@ class cl_pet_info extends CI_Controller {
 	/**
 	 * Undocumented function
 	 *
-	 * @return 
+	 * @return
 	 */
 	public function index()
 	{

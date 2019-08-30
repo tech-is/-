@@ -3,17 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class cl_customer extends CI_Controller {
 
-	/**
-	 * Undocumented function
-	 *
-	 * @return 
-	 */
-	public function index()
-	{
-		//mdl_customerの呼び出し
-    $this->load->model('mdl_customer');
-	
-		$this->load->helper(["url", "form"]);
+    /**
+     * Undocumented function
+     *
+     * @return
+     */
+    public function index()
+    {
+        //mdl_customerの呼び出し
+        $this->load->model('mdl_customer');
 
 		//顧客登録一覧
 		$this->load->view('cms/Customer_view');
@@ -46,81 +44,81 @@ class cl_customer extends CI_Controller {
   //           }
   //       }
   //   }
-	//入力後のミス確認からモデルへ
-	public function customer_validation(){
-		$c_test['customer_magazine'] ="";
-		$config=array(
-			array(
-			   'field' => 'customer_name',
-			   'label' => '名前',
-			   'rules' => 'required|trim',
-			   'errors' => array(
-				 'required' => '名前を入力してください'
-													 )
-				 ),
-			array(
-				'field' => 'customer_kana',
-				'label' => 'カナ',
-				'rules' => 'required|trim',
-				'errors' => array(
-				'required' => 'カナを入力してください'
-													)
-				),
-			array(
-				'field' => 'customer_mail',
-				'label' => 'メール',
-				'rules' => 'required',
-				'errors' => array(
-				'required' => 'メールを入力して下さい'
-														)
-				),
-			array(
-				'field' => 'customer_tel',
-				'label' => '電話',
-				'rules' => 'required|trim',
-				'errors' => array(
-				'required' => '番号を入力してください'
-														)
-				),
-			array(
-				'field' => 'customer_zip_address',
-				'label' => '郵便番号',
-				'rules' => 'required|trim',
-				'errors' => array(
-				'required' => '郵便番号を入力してください'
-														)
-				),
-			array(
-				'field' => 'customer_address',
-				'label' => '住所',
-				'rules' => 'required|trim',
-				'errors' => array(
-				'required' => '住所を入力してください'
-														)
-				),
-			array(
-				'field' => 'customer_magazine',
-				'label' => 'マガジン発行',
-				),
-			array(
-				'field' => 'customer_add_info',
-				'label' => '追加情報',
-				'rules' => 'required|trim',
-				),
-			array(
-				'field' => 'customer_group',
-				'label' => 'ランク',
-				'rules' => 'required|trim',
-				)
-		);
-			$this->load->library('form_validation');
-			$this->form_validation->set_rules($config);
-	if ($this->form_validation->run() !== false){
-				$this->load->model('mdl_customer');
-				$c_test = $this->input->post(NULL,true);
-		}else{
-			$this->load->view('cms/Customer_view.html');
-		}
+    //入力後のミス確認からモデルへ
+    public function customer_validation(){
+        $c_test['customer_magazine'] ="";
+        $config=array(
+            array(
+                'field' => 'customer_name',
+                'label' => '名前',
+                'rules' => 'required|trim',
+                'errors' => array(
+                    'required' => '名前を入力してください'
+                )
+            ),
+            array(
+                'field' => 'customer_kana',
+                'label' => 'カナ',
+                'rules' => 'required|trim',
+                'errors' => array(
+                'required' => 'カナを入力してください'
+                                                    )
+                ),
+            array(
+                'field' => 'customer_mail',
+                'label' => 'メール',
+                'rules' => 'required',
+                'errors' => array(
+                'required' => 'メールを入力して下さい'
+                                                        )
+                ),
+            array(
+                'field' => 'customer_tel',
+                'label' => '電話',
+                'rules' => 'required|trim',
+                'errors' => array(
+                'required' => '番号を入力してください'
+                                                        )
+                ),
+            array(
+                'field' => 'customer_zip_address',
+                'label' => '郵便番号',
+                'rules' => 'required|trim',
+                'errors' => array(
+                'required' => '郵便番号を入力してください'
+                                                        )
+                ),
+            array(
+                'field' => 'customer_address',
+                'label' => '住所',
+                'rules' => 'required|trim',
+                'errors' => array(
+                'required' => '住所を入力してください'
+                                                        )
+                ),
+            array(
+                'field' => 'customer_magazine',
+                'label' => 'マガジン発行',
+                ),
+            array(
+                'field' => 'customer_add_info',
+                'label' => '追加情報',
+                'rules' => 'required|trim',
+                ),
+            array(
+                'field' => 'customer_group',
+                'label' => 'ランク',
+                'rules' => 'required|trim',
+                )
+        );
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules($config);
+    if ($this->form_validation->run() !== false){
+                $this->load->model('mdl_customer');
+                $c_test = $this->input->post(NULL,true);
+        }else{
+            $this->load->view('cms/Customer_view.html');
+        }
 
 				//メールマガジンをintへ
 				if(isset($c_test['customer_magazine'])){
