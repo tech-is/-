@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class cl_customer extends CI_Controller {
+class Cl_customer extends CI_Controller {
 
     /**
      * Undocumented function
@@ -13,13 +13,26 @@ class cl_customer extends CI_Controller {
         //mdl_customerの呼び出し
         $this->load->model('mdl_customer');
 
-		//顧客登録一覧
-		$this->load->view('cms/Customer_view');
-		$this->load->view('cms/pages/parts/header');
-		$this->load->view('cms/pages/parts/sidebars');
-	}
-	
-	// public function check_customer()
+        //顧客登録一覧
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/Customer_view');
+    }
+
+    public function custmoer_form()
+    {
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/Customer_view');
+    }
+
+    public function custmoer_list()
+    {
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/vi_total_list.php');
+    }
+    // public function check_customer()
   //   {
   //       $config = [
   //           [
@@ -120,33 +133,33 @@ class cl_customer extends CI_Controller {
             $this->load->view('cms/Customer_view.html');
         }
 
-				//メールマガジンをintへ
-				if(isset($c_test['customer_magazine'])){
-					if($c_test['customer_magazine'] == 'null') {
-							$c_test['customer_magazine'] = 0; 
-						}else{
-							$c_test['customer_magazine'] = 1;
-					}
-				}
-				//グループをintへ
-					if($c_test['customer_group'] == 'gold') {
-							$c_test['customer_group'] = 0; 
-						}elseif ($c_test['customer_group'] == 'silver') {
-							$c_test['customer_group'] = 1;
-						}elseif($c_test['customer_group'] == 'bronze'){
-							$c_test['customer_group'] = 2;
-						}else{
-							$c_test['customer_group'] = 3;
-						}
-					//データベースの呼び出し	
+                //メールマガジンをintへ
+                if(isset($c_test['customer_magazine'])){
+                    if($c_test['customer_magazine'] == 'null') {
+                            $c_test['customer_magazine'] = 0;
+                        }else{
+                            $c_test['customer_magazine'] = 1;
+                    }
+                }
+                //グループをintへ
+                    if($c_test['customer_group'] == 'gold') {
+                            $c_test['customer_group'] = 0;
+                        }elseif ($c_test['customer_group'] == 'silver') {
+                            $c_test['customer_group'] = 1;
+                        }elseif($c_test['customer_group'] == 'bronze'){
+                            $c_test['customer_group'] = 2;
+                        }else{
+                            $c_test['customer_group'] = 3;
+                        }
+                    //データベースの呼び出し
 
-				if($this->mdl_customer->test($c_test) == true) {
-						$data["text"] = "<script>alert('お客様の登録が完了致しました。')</script>";
-						$this->load->view("cms/Customer_view",$data);
-					} else {
-						$data["text"]  = "<script>alert('登録失敗しました。以上の項目をご確認ください。')</script>";
-						$this->load->view("cms/Customer_view",$data);
-					}
-				}
-	
+                if($this->mdl_customer->test($c_test) == true) {
+                        $data["text"] = "<script>alert('お客様の登録が完了致しました。')</script>";
+                        $this->load->view("cms/Customer_view",$data);
+                    } else {
+                        $data["text"]  = "<script>alert('登録失敗しました。以上の項目をご確認ください。')</script>";
+                        $this->load->view("cms/Customer_view",$data);
+                    }
+                }
+
 }
