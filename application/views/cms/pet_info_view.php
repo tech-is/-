@@ -1,62 +1,10 @@
-﻿<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>ペットカルテ</title>
-    <!-- Favicon-->
-    <link rel="icon" href="../assets/cms/favicon.ico" type="image/x-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-        type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-
-    <!-- Bootstrap Core Css -->
-    <link href="../assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Waves Effect Css -->
-    <link href="../assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
-
-    <!-- Animation Css -->
-    <link href="../assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
-
-    <!-- Sweet Alert Css -->
-    <link href="../assets/cms/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
-
-    <!-- Dropzone Css -->
-    <link href="../assets/cms/plugins/dropzone/dropzone.css" rel="stylesheet">
-
-    <!-- Custom Css -->
-    <link href="../assets/cms/css/style.css" rel="stylesheet">
-
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" />
-
-    <!-- Bootstrap DatePicker Css -->
-    <link href="../assets/cms/plugins/jquery-ui-1.12.1.custom/datepicker-ja.js" rel="stylesheet" />
-
-    <!-- Bootstrap Material Datetime Picker Css -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/ja.js"></script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
-
-    <link href="../assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"
-        rel="stylesheet" />
-
-    <!-- Bootstrap DatePicker Css -->
-    <link href="../assets/cms/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
-
-    <style>
-        .thumb {
-            height: 175px;
-            border: 1px solid #000;
-            margin: 10px 5px 0 0;
-        }
-    </style>
+﻿<style>
+    .thumb {
+        height: 175px;
+        border: 1px solid #000;
+        margin: 10px 5px 0 0;
+    }
+</style>
 
 
 </head>
@@ -65,27 +13,15 @@
             <div class="block-header">
                 <h2>
                     ペット情報
-                    <small>顧客情報はここから->  <a href="https://jqueryvalidation.org/" target="_blank">jqueryvalidation.org</a></small>
+                    <!-- <small>顧客情報はここから->  <a href="https://jqueryvalidation.org/" target="_blank">jqueryvalidation.org</a></small> -->
                 </h2>
             </div>
             <!-- Basic Validation -->
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-6 col-sm-6 col-xs-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="header">
                             <h2>ペット詳細</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </div>
                         <div class="body">
                             <form action="cl_pet_info/pet_info_validation" id="form_validation" method="POST">
@@ -110,20 +46,15 @@
                                         </div>
                                     </div>
                                 <div class="form-group form-float">
-                                     <div class="form-line">
+                                    <div class="form-line">
                                         <input type="text" class="form-control" name="pet_classification" required>
                                         <label class="form-label">分類</label>
-                                     </div>
+                                    </div>
                                     <div class="help-info">犬、猫、鳥</div>
                                 </div>
-                            </div>
                             <div class="form-group form-float">
+                                <label class="form-label">性別</label>
                                 <div class="form-line">
-                                    <input type="text" class="form-control" name="classification" required>
-                                    <label class="form-label">分類</label>
-                                </div>
-                                <div class="form-group">
-                                  <div class="form-line">
                                     <input type="radio" name="pet_animal_gender" id="male" value="1" class="with-gap" checked/>
                                     <label for="male">オス</label>
 
@@ -132,20 +63,20 @@
 
                                     <input type="radio" name="pet_animal_gender" id="other" value="3" class="with-gap">
                                     <label for="other" class="m-l-20">その他</label>
-                                    </div>
                                 </div>
-                                      <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="date">生年月日</label>
-                                            <input id="date" name="pet_birthday" class="form-control" type="date" >
-                                        </div>
-                                      </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="date">生年月日</label>
+                                    <input id="date" name="pet_birthday" class="form-control" type="date" >
+                                </div>
+                            </div>
                                 <div class="form-group">
                                     <div class="form-line">
                                     <label class="with-gap">去勢</label>
-                                    <input type="radio" name="pet_contraception" id="on" value="1" class="with-gap">
+                                    <input type="radio" name="pet_contraception" id="on" value=1 class="with-gap">
                                     <label for="on">有</label>
-                                    <input type="radio" name="pet_contraception" id="off" value="2" class="with-gap" checked/>
+                                    <input type="radio" name="pet_contraception" id="off" value=2 class="with-gap" checked/>
                                     <label for="off">無</label>
                                     </div>
                                 </div>
@@ -171,13 +102,7 @@
                                 </div>
                                     <button class="btn btn-primary waves-effect" type="submit">新規登録</button>
                                     <button class="btn btn-primary waves-effect" type="reset">クリア</button>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                        <label class="">最終予約日：</label><br>
-                                            < class="reservation form-control" name="" type="date" placeholder="最終予約日">
-                                        </div>
-                                    </div>
-                             </form>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -185,7 +110,6 @@
         </div>
     </section>
     <?= isset($text)? $text: false; ?>
-    <!-- Dropzone Plugin Js -->
 
     </div>
 </section>
@@ -213,52 +137,8 @@
 <!-- Moment Plugin Js -->
 <script src="../assets/cms/plugins/momentjs/moment.js"></script>
 
-<!-- Bootstrap Material Datetime Picker Plugin Js -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/ja.js"></script>
-<script src="../assets/cms/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-
-<!-- Bootstrap Datepicker Plugin Js -->
-<!-- <script src="../assets/cms/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> -->
-
 <!-- Custom Js -->
 <script src="../assets/cms/js/admin.js"></script>
-<script src="../assets/cms/js/pages/forms/basic-form-elements.js"></script>
-<script src="../assets/cms/js/pages/forms/advanced-form-elements.js"></script>
-<script>
-    function handleFileSelect(evt) {
-        var files = evt.target.files; // FileList object
-
-        // Loop through the FileList and render image files as thumbnails.
-        for (var i = 0, f; f = files[i]; i++) {
-
-            // Only process image files.
-            if (!f.type.match('image.*')) {
-                continue;
-            }
-
-            var reader = new FileReader();
-
-            // Closure to capture the file information.
-            reader.onload = (function (theFile) {
-                return function (e) {
-                    // Render thumbnail.
-                    var span = document.createElement('span');
-                    span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                        '" title="', escape(theFile.name), '"/>'].join('');
-                    document.getElementById('list').insertBefore(span, null);
-                };
-            })(f);
-
-            // Read in the image file as a data URL.
-            reader.readAsDataURL(f);
-        }
-    }
-
-    document.getElementById('files').addEventListener('change', handleFileSelect, false);
-</script>
-
-<!-- Demo Js -->
-<script src="../assets/cms/js/demo.js"></script>
 </body>
 
 </html>
