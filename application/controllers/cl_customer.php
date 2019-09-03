@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class cl_customer extends CI_Controller {
+class Cl_customer extends CI_Controller {
 
     /**
      * Undocumented function
@@ -13,14 +13,25 @@ class cl_customer extends CI_Controller {
         //mdl_customerの呼び出し
         $this->load->model('mdl_customer');
 
-        $this->load->helper(["url", "form"]);
-
         //顧客登録一覧
-        $this->load->view('cms/Customer_view.html');
-        $this->load->view('cms/pages/parts/header.php');
-        $this->load->view('cms/pages/parts/sidebars.html');
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/Customer_view');
     }
 
+    public function custmoer_form()
+    {
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/Customer_view');
+    }
+
+    public function custmoer_list()
+    {
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/vi_total_list.php');
+    }
     // public function check_customer()
   //   {
   //       $config = [
@@ -122,12 +133,10 @@ class cl_customer extends CI_Controller {
             $this->load->view('cms/Customer_view.html');
         }
 
-
-
                 //メールマガジンをintへ
                 if(isset($c_test['customer_magazine'])){
                     if($c_test['customer_magazine'] == 'null') {
-                            $c_test['customer_magazine'] = 0; 
+                            $c_test['customer_magazine'] = 0;
                         }else{
                             $c_test['customer_magazine'] = 1;
                     }
@@ -142,23 +151,22 @@ class cl_customer extends CI_Controller {
                         }else{
                             $c_test['customer_group'] = 3;
                         }
+<<<<<<< HEAD
                     //データベースの呼び出
                 $this->mdl_customer->test($c_test);
         
     
+=======
+                    //データベースの呼び出し
 
-    // 	else{
-    // 		$this->data = $this->input->post();
-    // 		$this->last();
-    // 	}
-    // }
-  // if ($this->form_validation->run()) {
-    // 	//modelのクリエイトにpostに入ったtaskを引き渡す。
-    // 	$this->mdl_customer->create($this->input->post());
-    // 	$data['create']= true;
-    // }else{
-    // 	$data['create']= false;
-    // 	redirect("index.php/cl_customer/index");
-    // }
-    }
+                if($this->mdl_customer->test($c_test) == true) {
+                        $data["text"] = "<script>alert('お客様の登録が完了致しました。')</script>";
+                        $this->load->view("cms/Customer_view",$data);
+                    } else {
+                        $data["text"]  = "<script>alert('登録失敗しました。以上の項目をご確認ください。')</script>";
+                        $this->load->view("cms/Customer_view",$data);
+                    }
+                }
+>>>>>>> d452b05d924fc3cbed801ee9191222153cddbc70
+
 }
