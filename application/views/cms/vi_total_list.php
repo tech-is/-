@@ -12,9 +12,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>
-                            EXPORTABLE TABLE
-                        </h2>
+                        <h2>顧客一覧</h2>
                         <a href="customer_table">
                             <button type="btn" class="btn btn-primary m-t-15 waves-effect">新規登録</button>
                         </a>

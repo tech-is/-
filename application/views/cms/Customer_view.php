@@ -52,19 +52,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                        role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">オーナー情報登録</a></li>
-                                        <li><a href="javascript:void(0);">ペット情報登録</a></li>
-                                        <li><a href="javascript:void(0);">従業員管理登録</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            顧客管理
                         </div>
                         <div class="body">
                             <!-- <?php print_r('c_test'); ?> -->
@@ -167,16 +155,17 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">登録</button>
-                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">ホームへ戻る</button>
-        </form>
-    </div>
-    </div>
-    </div>
-    </div>
-    <!-- #END# Input -->
-    </div>
-</section>
-
+                            <button type="reset" class="btn btn-primary m-t-15 waves-effect">クリア</button>
+                            <button type="button" onclick="location.href='custmoer_list'" class="btn btn-primary m-t-15 waves-effect">ホームへ戻る</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Input -->
+        </div>
+    </section>
+    <?= isset($text)? $text: false; ?>
 <!-- Jquery Core Js -->
 <script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
 
