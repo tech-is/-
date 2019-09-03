@@ -10,13 +10,49 @@ class Cl_login extends CI_Controller
         $this->load->helper(["url", "form"]);
     }
 
+    public function login()
+    {
+        $this->load->view('register/view_sign-in');
+    }
+
+    public function registration_mail()
+    {
+        $this->load->view('register/view_registration_mail');
+    }
+
+    public function forgot_password()
+    {
+        $this->load->view("register/forgot-password");
+    }
+
+    public function register()
+    {
+        $code = $this->input->get("code");
+        if($code == null) {
+            header("HTTP/1.1 404 Not Found");
+            exit;
+            // $this->load->view("404.html");
+            // redirect("cl_landing/login");
+        } else {
+            $this->load->model("mdl_register");
+            $data = $this->mdl_register->select_code($code);
+            if($data) {
+                // var_dump($data);
+                // exit;
+                $this->load->view("register/view_register", $data);
+            } else {
+                header("HTTP/1.1 404 Not Found");
+            }
+        }
+    }
+
     /**
      * check_user
      * 
      * @param $_POST["email"] = ポストされたメールアドレス
      * @return メインページにリダイレクト
      */
-    public function login_chk()
+    public function chk_login()
     {
         if($this->vali_login_data() === true) {
             $data = $this->chk_login_data();
