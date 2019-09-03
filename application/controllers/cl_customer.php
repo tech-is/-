@@ -134,7 +134,7 @@ class cl_customer extends CI_Controller {
                 }
                 //グループをintへ
                     if($c_test['customer_group'] == 'gold') {
-                            $c_test['customer_group'] = 0; 
+                            $c_test['customer_group'] = 0;
                         }elseif ($c_test['customer_group'] == 'silver') {
                             $c_test['customer_group'] = 1;
                         }elseif($c_test['customer_group'] == 'bronze'){
@@ -142,7 +142,7 @@ class cl_customer extends CI_Controller {
                         }else{
                             $c_test['customer_group'] = 3;
                         }
-                    //データベースの呼び出し	
+                    //データベースの呼び出
                 $this->mdl_customer->test($c_test);
         
     

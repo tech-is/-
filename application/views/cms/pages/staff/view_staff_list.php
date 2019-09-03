@@ -13,9 +13,6 @@
                             <button type="button" class="btn bg-deep-purple waves-effect" id="staff_list">
                                 スタッフ一覧
                             </button>
-                            <button type="button" class="btn bg-deep-purple waves-effect" id="add_staff">
-                                新規スタッフ追加
-                            </button>
                             <button type="button" class="btn bg-deep-purple waves-effect" id="add_shift">
                                 シフト追加
                             </button>
@@ -198,7 +195,6 @@
     </div>
 </section>
 
-<!--  -->
 <div id="form" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered ">
         <div class="modal-content">
@@ -207,97 +203,37 @@
                 <h4 id="dialogTitle" class="modal-title">登録</h4>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">No</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-2">
-                                        <input type="text" class="form-control ime-disabled" id="inputNo" placeholder="No" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">名前</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-2">
-                                        <input type="text" class="form-control" id="inputName" placeholder="名前" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">性別</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-2">
-                                        <input type="text" class="form-control" id="inputSex" placeholder="性別">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">年齢</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-2">
-                                        <input type="text" class="form-control ime-disabled" id="inputAge" placeholder="年齢">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">種別</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-7">
-                                        <select id="inputKind" class="form-control" >
-                                            <option value="01">キジトラ</option>
-                                            <option value="02">長毛種（不明）</option>
-                                            <option value="03">ミケ（っぽい）</option>
-                                            <option value="04">サビ</option>
-                                            <option value="09">その他</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">好物</label>
-                                        <span class="label label-success pull-right">任意</span>
-                                    </div>
-                                    <div class="input-group col-sm-7">
-                                        <input type="text" class="form-control" id="inputFavorite" placeholder="好物">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                <form>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label for="new_staff">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
+                            <input type="text" class="form-control" name="new_staff" placeholder="例：田中太郎さん">
                         </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label for="customer">シフト用カラーラベル<span style="color: red; margin-left: 10px">必須</span></label>
+                            <input type="color" class="form-control" name="add_staff_color" value="#0080ff">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label for="customer">備考<span style="color: red; margin-left: 10px">必須</span></label>
+                            <textarea rows="4" class="form-control no-resize" name="add_staff_content"></textarea>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <div id="inputError" class="pull-left" style="color:red; padding:5px;"></div>
-                <button id="sendRegistButton" type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;登録</button>
-                <button id="sendUpdateButton" type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;修正</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>&nbsp;閉じる</button>
+                    <button id="sendRegistButton" type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;登録</button>
+                    <button id="sendUpdateButton" type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;修正</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>&nbsp;閉じる</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!--  -->
 
 <!-- モーダルエリアここまで -->
 
