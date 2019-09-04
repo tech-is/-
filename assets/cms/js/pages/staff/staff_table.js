@@ -1,17 +1,17 @@
 $('#datatable').DataTable({
-    'paging': true,
-    'pageLength': 5,
-    'lengthChange': false,
+    // 'paging': true,
+    // 'pageLength': 5,
+    'lengthChange': true,
     'searching': true,
-    'ordering': true,
-    'info': true,
-    'autoWidth': true,
-    "scrollCollapse": true,
+    // 'ordering': true,
+    // 'info': true,
+    // 'autoWidth': false,
+    // "scrollCollapse": true,
     // 'scrollX'     : true,
     // 'scrollY'     : '185px',
-    'tabIndex': -1,
-    'order': [[0, 'asc']],
-    'colReorder': true,
+    // 'tabIndex': -1,
+    // 'order': [[0, 'asc']],
+    // 'colReorder': true,
     // 'serverSide'  : false,
     // 'ajax'        : {
     //     'url'  : '/init',
@@ -20,11 +20,30 @@ $('#datatable').DataTable({
     //         d.searchName = $("#searchName").val();
     //     }
     // },
-    'data': json_data,
+    'data': table_json,
     'columns': [
-        { 'data': 'id', width: 40 },
-        { 'data': 'name', width: 60 },
-        { 'data': 'detail', width: 40 }
+        { 'data': "staff_id" },
+        { 'data': "staff_name"},
+        { 'data': "staff_color"},
+        { 'data': "staff_remarks" },
+        { 'data': "staff_created_at" },
+        { 'data': "staff_updated_at"}
+        // { 'data': 'detail', width: 40 }
+    ],
+    columnDefs: [
+        {
+            targets: 2,
+            render: function (data, type, full, meta) {
+                return "<div style='background-color:" + data + "; width: 150px; height: 50px'></div>";
+            }
+        },
+        {   
+            targets: 3,
+            'width': '20%',
+            // render: function (data, type, full, meta) {
+            //     return "<div class='line-break width-200'>"+ data + "</div>";
+            // },    
+        }
     ],
     'language': {
         'decimal': ".",
@@ -66,43 +85,41 @@ $("#searchButton").on("click", function () {
 });
 
 //
-$("#registButton").on("click", function () {
+$("#registButton").on("click", function (e) {
     // ダイアログ表示
-    $('#form').on('show.bs.modal', function (event) {
-
+    // $('#form').on('show.bs.modal', function (event) {
+    // $('#form').on('click', function () {
         // コントロール制御
-        $("#form #dialogTitle").text("新規登録");
-        $("#form #sendRegistButton").show();
-        $("#form #sendUpdateButton").hide();
-        $("#form #inputNo").prop("disabled", true);
-
+        // $("#form #dialogTitle").text("新規登録");
+        // $("#form #sendRegistButton").show();
+        // $("#form #sendUpdateButton").hide();
+        // $("#form #inputNo").prop("disabled", true);
         // フォーカス
-        setTimeout(function () {
-            $("#inputNo").focus();
-        }, 500);
-
-    }).modal("show");
+        // setTimeout(function () {
+        //     $("#inputNo").focus();
+        // }, 500);
+        
+        $('#modalArea_add_staff').fadeIn();
+    // })
+    // .modal("show");
 });
 
 $("#sendRegistButton").on("click", function () {
-    // var param = {
-
-    // }
-
     $.ajax({
         url: "../cl_staff/register_staff",
         type: "POST",
         data: {
-            staff_name: $("input[name = 'staff_name']").val(),
-            staff_color: $("input[name = 'staff_color']").val(),
-            staff_detail: $("input[name = 'staff_detail']").val()
+            staff_name: $("input[name='staff_name[0]']").val() + $("input[name= 'staff_name[1]']").val(),
+            staff_color: $("input[name='staff_color']").val(),
+            staff_remarks: $("textarea[name='staff_remarks']").val()
         },
-        success: function (jsonResponse) {
-            jsonResponse = jsonResponse.replace(/\\/g, "");
-            var data = JSON.parse(jsonResponse);
+        success: function (data) {
+            console.log(data);
+            // jsonResponse = jsonResponse.replace(/\\/g, "");
+            // var data = JSON.parse(jsonResponse);
             // テーブル更新
-            $('#myTable').DataTable().ajax.url("/search").load();
-            $('#myTable').DataTable().ajax.reload();
+            // $('#myTable').DataTable().ajax.url("/search").load();
+            $('datatable').DataTable().ajax.reload();
             // フォームを閉じる
             $("#form").modal("hide");
         },
@@ -119,24 +136,24 @@ $("#updateButton").on("click", function () {
         no: selectedRows[0].no
     }
 
-    // $.ajax({
-    //     url: "http://localhost:8080/getRecord",
-    //     type: "POST",
-    //     data: JSON.stringify(param),
-    //     success: function(jsonResponse) {
-    //         var data = JSON.parse(jsonResponse);
-    //         var cat = data[0];
+    $.ajax({
+        url: "../cl_staff/register_staff",
+        type: "POST",
+        data: JSON.stringify(param),
+        success: function(data) {
+            // var data = JSON.parse(jsonResponse);
+        var cat = data[0];
 
     // ダイアログ表示
-    $('#form').on('show.bs.modal', function (event) {
+        $('#form').on('show.bs.modal', function (event) {
 
         // 取得したデータのセット
-        // $("#inputNo").val(cat.no);
-        // $("#inputName").val(cat.name);
-        // $("#inputSex").val(cat.sex);
-        // $("#inputAge").val(cat.age);
-        // $("#inputKind").val(cat.kind_cd);
-        // $("#inputFavorite").val(cat.favorite);
+        $("#inputNo").val(cat.no);
+        $("#inputName").val(cat.name);
+        $("#inputSex").val(cat.sex);
+        $("#inputAge").val(cat.age);
+        $("#inputKind").val(cat.kind_cd);
+        $("#inputFavorite").val(cat.favorite);
 
         // コントロール制御
         $("#form #dialogTitle").text("更新");
@@ -147,13 +164,13 @@ $("#updateButton").on("click", function () {
             $("#inputName").focus();
         }, 500);
 
-
     }).modal("show");
 
     // },
     // error: function() {
     // }
-    // });
+    }
+    });
 });
 
 $("#sendUpdateButton").on("click", function () {
@@ -175,11 +192,11 @@ $("#sendUpdateButton").on("click", function () {
             var data = JSON.parse(jsonResponse);
 
             // テーブル更新
-            $('#myTable').DataTable().ajax.url("/search").load();
-            $('#myTable').DataTable().ajax.reload();
+            // $('#myTable').DataTable().ajax.url("/search").load();
+            // $('#myTable').DataTable().ajax.reload();
 
-            // フォームを閉じる
-            $("#form").modal("hide");
+            // // フォームを閉じる
+            // $("#form").modal("hide");
         },
         error: function () {
         }

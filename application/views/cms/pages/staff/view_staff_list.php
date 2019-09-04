@@ -29,14 +29,15 @@
 <section id="modalArea_staff_list" class="modalArea">
     <div id="modalBg_staff_list" class="modalBg"></div>
         <div class="modalWrapper_staff_list">
-        <table class="table table-striped table-bordered" id="datatable" >
+        <table id="datatable">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>名前</th>
+                <th>カラーラベル</th>
                 <th>備考</th>
-                <!-- <th>更新日時</th>
-                <th>作成日時</th> -->
+                <th>更新日時</th>
+                <th>作成日時</th>
             </tr>
         </thead>
         </table>
@@ -107,29 +108,44 @@
         <div class="modalWrapper">
             <form id="form_add_staff">
                 <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
-                    <h3 style="margin: 0px">スタッフ追加</h3>
+                    <h3 id="dialogTitle" style="margin: 0px">スタッフ追加</h3>
                 </div>
                 <div class="body">
-                    <div class="form-group">
-                        <div class="form-line">
-                            <label for="new_staff">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
-                            <input type="text" class="form-control" name="new_staff" placeholder="例：田中太郎さん">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="staff_name">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="staff_name">姓</label>
+                                    <input type="text" class="form-control" name="staff_name[0]" placeholder="例：田中太郎さん">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                <label for="staff_name">名前</label>
+                                    <input type="text" class="form-control" name="staff_name[1]" placeholder="例：田中太郎さん">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-line">
-                            <label for="customer">シフト用カラーラベル<span style="color: red; margin-left: 10px">必須</span></label>
-                            <input type="color" class="form-control" name="add_staff_color" value="#0080ff">
+                            <label for="staff_color">シフト用カラーラベル<span style="color: red; margin-left: 10px">必須</span></label>
+                            <input type="color" class="form-control" name="staff_color" value="#0080ff">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-line">
-                            <label for="customer">備考<span style="color: red; margin-left: 10px">必須</span></label>
-                            <textarea rows="4" class="form-control no-resize" name="add_staff_content"></textarea>
+                            <label for="staff_content">備考<span style="color: red; margin-left: 10px">必須</span></label>
+                            <textarea rows="4" class="form-control no-resize" name="staff_remarks"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-primary m-t-15 waves-effect">登録</button>
+                        <button type="button" id="sendRegistButton" class="btn btn-primary m-t-15 waves-effect">登録</button>
                         <button type="button" id="cancel_add_staff" class="btn btn-primary m-t-15 waves-effect" style="margin-left: 10px;">キャンセル</button>
                     </div>
                 </div>
@@ -270,8 +286,11 @@
 <script src="../assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
 
 <!-- Jquery-datatable -->
-<script src="../assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+<!-- <script src="../assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="../assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.min.js"></script> -->
 
 <!-- Custom Plugin Js -->
 <script src="../assets/cms/js/admin.js"></script>
@@ -298,6 +317,7 @@ var json_data =  [
         "detail": "かきくけこ"
     }
 ];
+var table_json = <?= json_encode($table, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
 </script>
 
 <script src="../assets/cms/js/pages/staff/staff_table.js"></script>

@@ -31,6 +31,8 @@ class Cl_main extends CI_Controller
 
     public function staff()
     {
+        $this->load->model("mdl_staff");
+        $data["table"] = $this->mdl_staff->get_staff_list();
         $data["events"] = [
             [
                 "title" => "田中",
@@ -43,7 +45,7 @@ class Cl_main extends CI_Controller
                 "staff" => "鈴木",
                 "start" => '2019-08-20T10:30',
                 "end" => '2019-08-20T11:00',
-                "color" => "black"
+                "color" => "blue"
             ]
         ];
         $this->load->view('cms/pages/parts/header');

@@ -78,8 +78,8 @@
     top: 50%;
     left: 50%;
     transform:translate(-50%,-50%);
-    width: 70%;
-    max-width: 90%;
+    width: 90%;
+    /* min-width: 620px; */
     padding: 10px 30px;
     background-color: #fff;
     }
@@ -123,7 +123,15 @@
     .table > tbody > tr.active > th {
         background-color: #e1f2fe;
     }
-</style>
+
+    table {
+        width: 300px;
+    }
+    table,th,td {
+        border: 1px solid #bbb;
+    }
+    
+    </style>
 </head>
 
 <body class="theme-red">
