@@ -115,8 +115,8 @@ class Cl_register extends CI_Controller
             'tmp_email' => $email,
             'tmp_code' => $code
         ];
-        $this->load->model("mdl_register");
-        $result = $this->mdl_register->insert_mail($data);
+        $this->load->model("mdl_shops");
+        $result = $this->mdl_shops->insert_mail($data);
         return $result;
     }
 
@@ -166,7 +166,7 @@ class Cl_register extends CI_Controller
     private function shop_registration($data)
     {
         $hash_pass = password_hash($data["password"], PASSWORD_DEFAULT);
-        $this->load->model("mdl_register");
+        $this->load->model("mdl_shops");
         $data = [
             "shop_name" => $data["name"],
             "shop_kana" => $data["kana"],
@@ -176,6 +176,6 @@ class Cl_register extends CI_Controller
             "shop_zip_address" => $data["zip_address"],
             "shop_password" => $hash_pass,
         ];
-        return $this->mdl_register->insert_shops($data);
+        return $this->mdl_shops->insert_shops($data);
     }
 }

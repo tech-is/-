@@ -29,15 +29,11 @@ class Cl_login extends CI_Controller
     {
         $code = $this->input->get("code");
         if($code == null) {
-            header("HTTP/1.1 404 Not Found");
             exit;
-            // $this->load->view("404.html");
-            // redirect("cl_landing/login");
         } else {
-            $this->load->model("mdl_register");
-            $data = $this->mdl_register->select_code($code);
+            $this->load->model("mdl_shops");
+            $data = $this->mdl_shops->select_code($code);
             if($data) {
-                // var_dump($data);
                 // exit;
                 $this->load->view("register/view_register", $data);
             } else {
@@ -46,16 +42,43 @@ class Cl_login extends CI_Controller
         }
     }
 
-    /**
-     * check_user
-     * 
-     * @param $_POST["email"] = ポストされたメールアドレス
-     * @return メインページにリダイレクト
-     */
+    public function password_reset()
+    {
+        $code = $this->input->get("code");
+        $this->load->view("view_password_reset");
+    }
+
+    public function send_token()
+    {
+        $email = $this->input->post("email");
+        if($this->chk_login_data() == true) {
+            try {
+                $this->load->library("email");
+                $this->email->from("example@example.com", "Animarlシステムメール");
+                $this->email->to($email);
+                $this->email->subject("Animarlログインパスワードリセット");
+                $msg = <<< EOM
+                いつもAnimarlをご利用いただきありがとうございます。\n
+                パスワードリセット用のURLを添付いたしましたので以下のリンクから変更をお願いいたします。\n
+                http://animarl.com/cl_login/password_reset?=
+                このメールに心当たりがない場合、他のお客様がパスワードをリセットする際に誤って\n
+                お客様のメールアドレスを入力した可能性がありますので、\n
+                その場合には何も行わずにこのメールを破棄してください。\n
+                EOM;
+                $this->email->message($msg);
+            } catch(extension $e) {
+                echo "メールの送信に失敗しました";
+            }
+        } else {
+            return false;
+        }
+    }
+
     public function chk_login()
     {
         if($this->vali_login_data() === true) {
-            $data = $this->chk_login_data();
+            $email = $this->input->post("email");
+            $data = $this->chk_login_data($email);
             if($data !== false) {
                 if($this->chk_password($data) === true) {
                     session_start();
@@ -90,10 +113,10 @@ class Cl_login extends CI_Controller
         return $this->form_validation->run();
     }
 
-    private function chk_login_data()
+    private function chk_login_data($email)
     {
         $data = [
-            "shop_email" => $this->input->post("email")
+            "shop_email" => $email
         ];
         $this->load->model("mdl_login");
         return $this->mdl_login->select_login_data($data);
@@ -103,5 +126,14 @@ class Cl_login extends CI_Controller
     {
         $password = $this->input->post("password");
         return password_verify($password, $data["shop_password"]);
+    }
+
+    private function update_password($data)
+    {
+        $hash_pass = password_hash($data["password"], PASSWORD_DEFAULT);
+        $data = [
+            "shop_password" => $hash_pass
+        ];
+        return $this->mdl_login->update_password($data);
     }
 }

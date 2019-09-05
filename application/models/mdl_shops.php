@@ -1,6 +1,6 @@
 <?php
 
-class Mdl_register extends CI_Model
+class Mdl_shops extends CI_Model
 {
     public function insert_mail($data)
     {
