@@ -13,9 +13,9 @@
                             <button type="button" class="btn bg-deep-purple waves-effect" id="staff_list">
                                 スタッフ一覧
                             </button>
-                            <button type="button" class="btn bg-deep-purple waves-effect" id="add_shift">
+                            <!-- <button type="button" class="btn bg-deep-purple waves-effect" id="add_shift">
                                 シフト追加
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                     <div id="calendar" style="padding: 10px"></div>
@@ -29,23 +29,25 @@
 <section id="modalArea_staff_list" class="modalArea">
     <div id="modalBg_staff_list" class="modalBg"></div>
         <div class="modalWrapper_staff_list">
-        <table id="datatable">
+        <h3>スタッフ一覧</h3>
+        <table id="datatable" style="width: 100%">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>名前</th>
+                <th>電話番号</th>
+                <th>メールアドレス</th>
                 <th>カラーラベル</th>
                 <th>備考</th>
-                <th>更新日時</th>
-                <th>作成日時</th>
             </tr>
         </thead>
         </table>
         <div>
             <hr>
             <div class="pull-left">
-                <button id="registButton" type="button" class="btn btn-primary">登録</button>
+                <button id="registButton" type="button" class="btn btn-primary">スタッフ追加</button>
                 <button id="updateButton" type="button" class="btn btn-success" disabled>更新</button>
+                <button id="shiftButton" type="button" class="btn bg-deep-purple waves-effect" disabled>シフト登録</button>
             </div>
             <div class="pull-right">
                 <button id="deleteButton" type="button" class="btn btn-danger" disabled>削除</button>
@@ -69,7 +71,7 @@
                     <div class="form-group">
                         <div class="form-line">
                             <label for="customer">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
-                            <input type="text" class="form-control" name="shift_staff" placeholder="例：田中太郎さん">
+                            <input type="text" class="form-control" name="shift_staff" placeholder="例：田中太郎さん" readonly >
                         </div>
                     </div>
                     <div class="row">
@@ -134,6 +136,18 @@
                     </div>
                     <div class="form-group">
                         <div class="form-line">
+                        <label for="staff_name">電話番号</label>
+                            <input type="text" class="form-control" name="staff_tel" placeholder="例：田中太郎さん">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-line">
+                        <label for="staff_name">メールアドレス</label>
+                            <input type="text" class="form-control" name="staff_email" placeholder="例：田中太郎さん">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-line">
                             <label for="staff_color">シフト用カラーラベル<span style="color: red; margin-left: 10px">必須</span></label>
                             <input type="color" class="form-control" name="staff_color" value="#0080ff">
                         </div>
@@ -146,6 +160,7 @@
                     </div>
                     <div class="form-group">
                         <button type="button" id="sendRegistButton" class="btn btn-primary m-t-15 waves-effect">登録</button>
+                        <button type="button" id="sendUpdateButton" class="btn btn-primary m-t-15 waves-effect">更新</button>
                         <button type="button" id="cancel_add_staff" class="btn btn-primary m-t-15 waves-effect" style="margin-left: 10px;">キャンセル</button>
                     </div>
                 </div>
@@ -298,30 +313,12 @@
 <script src="../assets/cms/js/sidebar.js"></script>
 
 <script>
+    var table_json = <?= json_encode($table, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
     var event_json = <?= json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
 </script>
 
 <script src="../assets/cms/js/pages/staff/staff_list.js"></script>
 <!-- <script src="../assets/cms/js/pages/staff/staff_table.js"></script> -->
-
-<script>
-var json_data =  [
-    {
-        "id": "1",
-        "name": "あいうえお",
-        "detail": "かきくけこ"
-    },
-    {
-        "id": "2",
-        "name": "あいうえお",
-        "detail": "かきくけこ"
-    }
-];
-var table_json = <?= json_encode($table, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
-</script>
-
-<script src="../assets/cms/js/pages/staff/staff_table.js"></script>
-
 </body>
 
 </html>

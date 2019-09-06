@@ -42,7 +42,6 @@ class Cl_main extends CI_Controller
             ],
             [
                 "title" => "鈴木",
-                "staff" => "鈴木",
                 "start" => '2019-08-20T10:30',
                 "end" => '2019-08-20T11:00',
                 "color" => "blue"

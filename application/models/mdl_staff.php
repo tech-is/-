@@ -15,7 +15,7 @@ class Mdl_staff extends CI_Model
     {
         $where = ['staff_shop_id' => 1, 'staff_state' => 1];
         $this->db->where($where);
-        $this->db->select("staff_id, staff_name, staff_color, staff_remarks, staff_created_at, staff_updated_at");
+        $this->db->select("staff_id, staff_name, staff_tel, staff_mail, staff_color, staff_remarks");
         $this->db->from('staff');
         $query = $this->db->get();
         return $query->result_array();
@@ -35,20 +35,18 @@ class Mdl_staff extends CI_Model
         return $query->result_array();
     }
 
-    public function update_reserve_data($data)
+    public function update_staff_data($id, $data)
     {
-        $upt_data = [
-            'event_customer' => $data['event_customer'],
-            'event_pet' => $data['event_pet'],
-            'event_start' => $data['event_start'],
-            'event_end' => $data['event_end'],
-            'event_content' => $data['event_content'],
-            'event_staff_id' => $data['event_staff']
-        ];
-        $this->db->set($upt_data);
-        $this->db->where('event_id', $data['event_id']);
-        $query = $this->db->update('calender_event');
-        return $query;
+        $this->db->set($data);
+        $this->db->where(['staff_id'=> $id['staff_id'], 'staff_shop_id' => $id['staff_shop_id']]);
+        return $this->db->update('staff');
+    }
+
+    public function delete_staff_data($id)
+    {
+        $this->db->set("staff_state", 999);
+        $this->db->where(['staff_id'=> $id['staff_id'], 'staff_shop_id' => $id['staff_shop_id']]);
+        return $this->db->update('staff');
     }
 
 }

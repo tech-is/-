@@ -14,10 +14,22 @@ class Cl_staff extends CI_Controller
     {
         if($this->check_staff_data() == true) {
             if($this->insert_staff() == true) {
-                // redirect("cl_main/reserve");
                 echo "success!";
             } else {
-                // redirect("cl_main/reserve");
+                echo "false…";
+            }
+        } else {
+            echo "hoge";
+        }
+    }
+
+    public function update_staff_list()
+    {
+        if($this->check_staff_data() == true) {
+            $result = $this->update_staff();
+            if($result == true) {
+                echo "success!";
+            } else {
                 echo "false…";
             }
         } else {
@@ -36,12 +48,22 @@ class Cl_staff extends CI_Controller
         $config = [
             [
                 'field' => 'staff_name',
+                'label' => '名前',
+                'rules' => 'required|trim'
+            ],
+            [
+                'field' => 'staff_tel',
+                'label' => '電話',
+                'rules' => 'required|trim'
+            ],
+            [
+                'field' => 'staff_email',
                 'label' => 'メールアドレス',
                 'rules' => 'required|trim'
             ],
             [
                 'field' => 'staff_color',
-                'label' => 'パスワード',
+                'label' => 'カラーラベル',
                 'rules' => 'required|trim'
             ],
             [
@@ -54,12 +76,14 @@ class Cl_staff extends CI_Controller
         return $this->form_validation->run();
     }
 
-    public function insert_staff()
+    private function insert_staff()
     {
         $data = [
-            // "staff_shop_id" => $_SESSION["shop_id"],
+            // "staff_shop_id" => $this->input->session("shop_id"),
             "staff_shop_id" => 1,
             "staff_name" => $this->input->post("staff_name"),
+            "staff_tel" => $this->input->post("staff_tel"),
+            "staff_mail" => $this->input->post("staff_email"),
             "staff_color" => $this->input->post("staff_color"),
             "staff_remarks" => $this->input->post("staff_remarks")
         ];
@@ -67,22 +91,36 @@ class Cl_staff extends CI_Controller
         return $this->mdl_staff->insert_staff_data($data);
     }
 
-    public function update_staff()
+    private function update_staff()
     {
-        $data = [
-            // "staff_shop_id" => $_SESSION["shop_id"],
+        $id = [
+            "staff_id" => $this->input->post("staff_id"),
             "staff_shop_id" => 1,
+        ];
+        $data = [
             "staff_name" => $this->input->post("staff_name"),
+            "staff_tel" => $this->input->post("staff_tel"),
+            "staff_mail" => $this->input->post("staff_email"),
             "staff_color" => $this->input->post("staff_color"),
-            "staff_detail" => $this->input->post("staff_detail")
+            "staff_remarks" => $this->input->post("staff_remarks")
         ];
         $this->load->model("mdl_staff");
-        return $this->mdl_staff->update_staff($data);
+        return $this->mdl_staff->update_staff_data($id, $data);
     }
 
     public function delete_staff()
     {
-        //
+        $id = [
+            "staff_id" => $this->input->post("staff_id"),
+            "staff_shop_id" => 1,
+            // "staff_shop_id" => $this->input->session("shop_id"),
+        ];
+        $this->load->model("mdl_staff");
+        if($this->mdl_staff->delete_staff_data($id) == true) {
+            echo "succsess!";
+        } else {
+            echo "false";
+        }
     }
 
     public function insert_shift()
@@ -97,7 +135,7 @@ class Cl_staff extends CI_Controller
 
     public function delete_shift()
     {
-
+        //
     }
 
 }

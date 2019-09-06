@@ -124,13 +124,14 @@
         background-color: #e1f2fe;
     }
 
-    table {
-        width: 300px;
+    table > tbody >tr > td {
+        max-width: 300px;
     }
+
     table,th,td {
         border: 1px solid #bbb;
     }
-    
+
     </style>
 </head>
 

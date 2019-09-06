@@ -151,12 +151,6 @@ class Cl_customer extends CI_Controller {
                         }else{
                             $c_test['customer_group'] = 3;
                         }
-<<<<<<< HEAD
-                    //データベースの呼び出
-                $this->mdl_customer->test($c_test);
-        
-    
-=======
                     //データベースの呼び出し
 
                 if($this->mdl_customer->test($c_test) == true) {
@@ -167,6 +161,5 @@ class Cl_customer extends CI_Controller {
                         $this->load->view("cms/Customer_view",$data);
                     }
                 }
->>>>>>> d452b05d924fc3cbed801ee9191222153cddbc70
 
 }
