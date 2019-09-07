@@ -108,7 +108,7 @@
 <section id="modalArea_add_staff" class="modalArea">
     <div id="modalBg_add_staff" class="modalBg"></div>
         <div class="modalWrapper">
-            <form id="form_add_staff">
+            <form>
                 <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
                     <h3 id="dialogTitle" style="margin: 0px">スタッフ追加</h3>
                 </div>
@@ -176,8 +176,8 @@
     <div id="modalBg" class="modalBg"></div>
     <div class="modalWrapper_event">
         <div class="modalContents" id="modalContents"></div>
-        <button id='update' class='btn btn-primary m-t-15 waves-effect'>変更</button>
-        <button id='delete' class='btn btn-primary m-t-15 waves-effect'>削除</button>
+        <button id='update_shift' class='btn btn-primary m-t-15 waves-effect'>変更</button>
+        <button id='sendDeleteButton' class='btn btn-primary m-t-15 waves-effect'>削除</button>
         <div id="closeModal" class="closeModal">
             ×
         </div>
@@ -193,10 +193,13 @@
             </div>
             <div class="body">
                 <div class="form-group">
-                    <div class="form-line">
-                        <label for="update_shift_staff">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
-                        <input type="text" class="form-control" name="update_shift_staff" placeholder="例：田中太郎さん" />
-                    </div>
+                    <label for="update_shift_staff">従業員<span style="color: red; margin-left: 10px">必須</span></label>
+                    <select id="update_shift_staff" class="form-control show-tick">
+                        <option value="">-- Please select --</option>
+                        <?php foreach($select_staff as $value) { ?>
+                        <option value="<?= $value['staff_id'] ?>"><?= $value['staff_name'] ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
@@ -216,7 +219,7 @@
                         </div>
                     </div>
                 </div>
-                <button id='update' class='btn btn-primary m-t-15 waves-effect'>変更</button>
+                <button type='button' id='sendUpdateshift' class='btn btn-primary m-t-15 waves-effect'>更新</button>
                 <button type='button' id='cancel_update_shift' class='btn btn-primary m-t-15 waves-effect'>キャンセル</button>
             </div>
         </form>
@@ -282,7 +285,7 @@
 <script src=" ../assets/cms/plugins/bootstrap/js/bootstrap.js"> </script>
 
 <!-- Select Plugin Js -->
-<script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!-- <script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script> -->
 
 <!-- Slimscroll Plugin Js -->
 <script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
@@ -304,17 +307,14 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
-<!-- <script src="../assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.min.js"></script> -->
-
 <!-- Custom Plugin Js -->
 <script src="../assets/cms/js/admin.js"></script>
 
 <script src="../assets/cms/js/sidebar.js"></script>
 
 <script>
-    var table_json = <?= json_encode($table, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
-    var event_json = <?= json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
+    var table_json = <?= json_encode($staff, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
+    var event_json = <?= json_encode($shift, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
 </script>
 
 <script src="../assets/cms/js/pages/staff/staff_list.js"></script>

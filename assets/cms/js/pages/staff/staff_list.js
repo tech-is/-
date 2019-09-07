@@ -1,3 +1,4 @@
+/**シフトカレンダー */
 $(document).ready(function () {
     $('#calendar').fullCalendar({
         height: window.innerHeight - 250,
@@ -28,7 +29,9 @@ $(document).ready(function () {
             });
         },
         eventClick: function (calEvent, jsEvent, view) {
-            var title = calEvent.title;
+            // var title = calEvent.title;
+            var staff_id = calEvent.staff_id;
+            sessionStorage.setItem('shift_id', calEvent.shift_id);
             // var start = $.fullCalendar.formatDate(calEvent.start, 'YYYY年MM月DD日 HH:mm');
             var update_start = $.fullCalendar.formatDate(calEvent.start, 'YYYY-MM-DD') + "T" + $.fullCalendar.formatDate(calEvent.start, "HH:mm");
             var update_end = $.fullCalendar.formatDate(calEvent.end, 'YYYY-MM-DD') + "T" + $.fullCalendar.formatDate(calEvent.end, "HH:mm");
@@ -37,14 +40,56 @@ $(document).ready(function () {
             contents += "<p>終業: " + $.fullCalendar.formatDate(calEvent.end, 'YYYY年MM月DD日 HH:mm') + "</p>";
             $('#modalContents').html(contents);
             $('#modalArea').fadeIn();
-            $('#update').click(function () {
-                $('input[name="update_shift_staff"]').val(title);
+            $('#update_shift').click(function () {
+                // $('input[name="update_shift_staff"]').val(title);
+                $('#update_shift_staff').val(staff_id);
                 $('input[name="update_shift_start"]').val(update_start);
                 $('input[name="update_shift_end"]').val(update_end);
                 $('#modalArea_update').fadeIn();
             })
         }
     });
+});
+
+/* シフト更新*/
+$("#sendUpdateshift").on("click", function() {
+    var param = {
+        shift_id: sessionStorage.getItem('shift_id'),
+        staff_id: $('#update_shift_staff').val(),
+        shift_start: $("input[name='update_shift_start']").val(),
+        shift_end: $("input[name='update_shift_end']").val(),
+    }
+    $.ajax({
+        url: "../cl_staff/update_shift_data",
+        type: "POST",
+        data: param,
+        success: function (data) {
+            alert(data);
+            // $('#datatable').DataTable().ajax.reload();
+            $("#modalArea_update").fadeOut();
+        },
+        error: function () {
+        }
+    });
+});
+
+/* シフト削除 */
+$("#sendDeleteButton").on("click", function () {
+    if (window.confirm("本当にシフトを削除しますか？")) {
+        var param = {
+            shift_id: sessionStorage.getItem('shift_id')
+        }
+        $.ajax({
+            url: "../cl_staff/delete_shift_data",
+            type: "POST",
+            data: param,
+            success: function (data) {
+                alert("削除しました")
+            },
+            error: function () {
+            }
+        });
+    }
 });
 
 /* イベント詳細モーダル */
@@ -189,7 +234,9 @@ $('#datatable tbody').on("click", "tr", function () {
     }
 });
 
-$("#registButton").on("click", function (e) {
+$("#registButton").on("click", function () {
+    $("#sendRegistButton").show();
+    $("#sendUpdateButton").hide();
     $("#dialogTitle").html("スタッフ追加");
     $('#modalArea_add_staff').fadeIn();
 });
