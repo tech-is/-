@@ -125,7 +125,14 @@ class Cl_staff extends CI_Controller
 
     public function insert_shift()
     {
-        //
+        $this->load->model("mdl_staff_shift");
+        $data = [
+            'shift_staff_id' => $staff,
+            'shift_start' => $_POST["start"],
+            'shift_end' => $_POST["end"]
+        ];
+        $result = $this->mdl_reserve->insert_reserve_data($data);
+        return $result;
     }
 
     public function update_shift()

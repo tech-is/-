@@ -3,14 +3,6 @@
 class Mdl_staff extends CI_Model
 {
 
-    public function get_staff($id)
-    {
-        // $this->db->where(["event_id" => $id]);
-        // $this->db->select('event_customer, event_content, event_start, event_end');
-        // $query = $this->db->get('calender_event');
-        // return $query->result_array();
-    }
-
     public function get_staff_list()
     {
         $where = ['staff_shop_id' => 1, 'staff_state' => 1];
@@ -25,14 +17,6 @@ class Mdl_staff extends CI_Model
     {
         $this->db->insert('staff', $data)? $result = true: $result = false;
         return $result;
-    }
-
-    public function select_reserve_data($event_id)
-    {
-        $this->db->where(['event_id' => $event_id]);
-        $this->db->select("event_id, event_customer, event_pet, event_start, event_end, event_content");
-        $query = $this->db->get('calender_event');
-        return $query->result_array();
     }
 
     public function update_staff_data($id, $data)
