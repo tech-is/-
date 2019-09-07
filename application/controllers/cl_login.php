@@ -5,19 +5,101 @@ class Cl_login extends CI_Controller
 {
 
     public function __construct()
-    {$this->load->helper(["url", "form"]);
+    {
         parent::__construct();
         $this->load->helper(["url", "form"]);
-        $this->load->model("mdl_members");
     }
 
-    /**
-     * check_user
-     * 
-     * @param $_POST["email"] = ポストされたメールアドレス
-     * @return メインページにリダイレクト
-     */
-    public function check_user()
+    public function login()
+    {
+        if($_SERVER["REQUEST_METHOD"] !== "POST" && $this->input->get("error") == 1) {
+            $data["error"] = "メールアドレスかパスワードが間違っています";
+            $this->load->view('login/view_sign-in', $data);
+        } else {
+            $this->load->view('login/view_sign-in');
+        }
+    }
+
+    public function registration_mail()
+    {
+        $this->load->view('login/view_registration_mail');
+    }
+
+    public function forgot_password()
+    {
+        $this->load->view("login/forgot-password");
+    }
+
+    public function register()
+    {
+        $code = $this->input->get("code");
+        if($code == null) {
+            exit;
+        } else {
+            $this->load->model("mdl_shops");
+            $data = $this->mdl_shops->select_code($code);
+            if($data) {
+                $this->load->view("login/view_register", $data);
+            } else {
+                exit;
+            }
+        }
+    }
+
+    public function password_reset()
+    {
+        $code = $this->input->get("code");
+        $this->load->view("view_password_reset");
+    }
+
+    public function send_token()
+    {
+        $email = $this->input->post("email");
+        if($this->chk_login_data() == true) {
+            try {
+                $this->load->library("email");
+                $this->email->from("example@example.com", "Animarlシステムメール");
+                $this->email->to($email);
+                $this->email->subject("Animarlログインパスワードリセット");
+                $msg = <<< EOM
+                いつもAnimarlをご利用いただきありがとうございます。\n
+                パスワードリセット用のURLを添付いたしましたので以下のリンクから変更をお願い致します。\n
+                http://animarl.com/cl_login/password_reset?=
+                このメールに心当たりがない場合、他のお客様がパスワードをリセットする際に誤って\n
+                お客様のメールアドレスを入力した可能性がありますので、\n
+                お手数ですがメールを破棄してくださいますようお願い致します。\n";
+                EOM;
+                $this->email->message($msg);
+            } catch(extension $e) {
+                echo "メールの送信に失敗しました";
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function chk_login()
+    {
+        if($this->vali_login_data() === true) {
+            $email = $this->input->post("email");
+            $data = $this->chk_login_data($email);
+            if($data == true) {
+                if($this->chk_password($data) === true) {
+                    session_start();
+                    $SESSION["shops_id"] = $data["shops_id"];
+                    redirect("cl_main/home");
+                } else {
+                    redirect("cl_login/login?error=1");
+                }
+            } else {
+                redirect("cl_login/login?error=1");
+            }
+        } else {
+            redirect("cl_login/login?error=1");
+        }
+    }
+
+    private function vali_login_data()
     {
         $config = [
             [
@@ -32,153 +114,30 @@ class Cl_login extends CI_Controller
             ],
         ];
         $this->load->library("form_validation", $config);
-        if($this->form_validation->run() == false) {
-            $this->load->view('sign-up');
-        } else {
-            if($this->mdl_members->chk_login()) {
-                redirect("index.php/cl_main/main");
-            } else {
-                redirect("index.php/cl_main/login");
-            }
-        }
+        return $this->form_validation->run();
     }
 
-    /**
-     * check_email
-     *
-     * @param $_POST["email"]
-     * @return
-     */
-    public function check_email()
+    private function chk_login_data($email)
     {
-        $this->load->library("form_validation");
-        $this->form_validation->set_rules('email', 'メールアドレス', 'required|valid_email',
-            [
-                "required" => "正しいメールアドレスを入力してください。",
-                "valid_email" => "正しいメールアドレスを入力してください。"
-            ]
-        );
-        if($this->form_validation->run() == false) {
-            $this->load->view('sign-up.html');
-        } else {
-            $email = $this->input->post("email");
-            $code = md5(uniqid(rand(), true));
-            if($this->tmp_db_registration($email, $code) == true) {
-                if($this->send_mail($email, $code) == true) {
-                    // redirect("cl_main/login");
-                    echo "登録完了しました！";
-                } else {
-                    $this->del_email($email);
-                    redirect("/cl_main/login");
-                }
-            } else {
-                redirect("cl_main/signup_db_error");
-            }
-        }
-    }
-
-    /**
-     * tmp_db_registration
-     *
-     * @param [str] $email
-     * @return true || false
-     */
-    private function tmp_db_registration($email, $code)
-    {
-        $result = $this->mdl_members->insert_mail($email, $code);
-        return $result;
-    }
-
-    /**
-     * del_email($email)
-     * 
-     * @param [str] $email
-     * @return 登録した行を削除
-     */
-    private function delete_email($email)
-    {
-        $this->mdl_members->delete_email($email);
-        return;
-    }
-
-    /**
-     * send_mail
-     *
-     * @return true or false
-     */
-    private function send_mail($email, $code)
-    {
-        $message = "このメールは、配信専用のアドレスで配信されています。\n";
-        $message .= "このメールに返信されても、返信内容の確認およびご返答ができません。\n";
-        $message .= "あらかじめご了承ください。\n";
-        $message .= "電子メールアドレスのご登録ありがとうございます。\n";
-        $message .= "電子メールアドレスを確認するには、次のリンクをクリックしてください。\n";
-        $message .= "http://localhost/cl_main/register?code=".$code."\n";
-        $message .= "このメールに覚えのない場合には、お手数ですがメールを破棄してくださいますようお願い致します。\n";
-        $this->load->library("email");
-        $this->email->from("system_animarl@niji-desk.work", "Animarlシステムメール");
-        $this->email->to($email);
-        $this->email->set_newline("\r\n");
-        $this->email->subject("会員本登録メール");
-        $this->email->message($message);
-        if($this->email->send()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * db_registration
-     *
-     * @return dbに登録後ログインページに遷移
-     */
-    private function db_registration()
-    {
-        $config = [
-            [
-                'field' => 'name',
-                'label' => 'ユーザ名',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'kana',
-                'label' => 'フリガナ',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'zip_adderss',
-                'label' => '住所',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'year',
-                'label' => '生年月日',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'password',
-                'label' => 'パスワード',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'passconf',
-                'label' => 'パスワード確認',
-                'rules' => 'required'
-            ]
+        $data = [
+            "shop_email" => $email
         ];
-        $this->load->library("form_validation", $config);
-        if($this->form_validation->run() == false) {
-            $this->load->view('sign-up.html');
-        } else {
-            $post = $this->input->post();
-            $post["password"] = password_hash($post["password"], PASSWORD_DEFAULT);
-            if($this->mdl_member->db_registration($post) == true) {
-                redirect("/cl_main/login");
-            } else {
-                redirect("/cl_main/login");
-                // 失敗ページ作成予定
-            }
-        }
+        $this->load->model("mdl_login");
+        return $this->mdl_login->select_login_data($data);
+    }
+
+    private function chk_password($data)
+    {
+        $password = $this->input->post("password");
+        return password_verify($password, $data["shop_password"]);
+    }
+
+    private function update_password($data)
+    {
+        $hash_pass = password_hash($data["password"], PASSWORD_DEFAULT);
+        $data = [
+            "shop_password" => $hash_pass
+        ];
+        return $this->mdl_login->update_password($data);
     }
 }
