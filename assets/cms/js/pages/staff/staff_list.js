@@ -63,6 +63,12 @@ $('#staff_list').click(function () {
 
 $('#closeModal_staff_list, #modalBg_staff_list, #cancel_staff_list').click(function () {
     $('#modalArea_staff_list').fadeOut();
+    if ($("tr").hasClass("active")) {
+        $("tr").removeClass("active");
+    }
+    $("#updateButton").prop("disabled", true);
+    $("#shiftButton").prop("disabled", true);
+    $("#deleteButton").prop("disabled", true);
 });
 
 /** スタッフ追加モーダル */
@@ -256,8 +262,27 @@ $("#sendUpdateButton").on("click", function () {
 
 $("#shiftButton").on("click", function () {
     var row = $('#datatable').DataTable().rows('.active').data();
+    sessionStorage.setItem('staff_id', row[0].staff_id)
     $("input[name='shift_staff']").val(row[0].staff_name);
     $('#modalArea_add_shift').fadeIn();
+});
+
+$("#register_add_shift").on("click", function () {
+    var param = {
+        staff_id: sessionStorage.getItem('staff_id'),
+        start: $("input[name='shift_start']").val(),
+        end: $("input[name='shift_end']").val()
+    }
+    $.ajax({
+        url: "../cl_staff/insert_shift",
+        type: "POST",
+        data: param,
+        success: function (data) {
+            alert(data);
+        },
+        error: function () {
+        }
+    });
 });
 
 $("#deleteButton").on("click", function () {

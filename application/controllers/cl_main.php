@@ -28,6 +28,7 @@ class Cl_main extends CI_Controller
     {
         $this->load->model("mdl_staff");
         $data["table"] = $this->mdl_staff->get_staff_list();
+        // $data["shifts"] = $this->mdl_staff->get_shift_list();
         $data["events"] = [
             [
                 "title" => "田中",

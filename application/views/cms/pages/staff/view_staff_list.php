@@ -79,7 +79,7 @@
                             <div class="form-group">
                                 <div class="form-line">
                                     <label for="start">始業日時<span style="color: red; margin-left: 10px">必須</span></label>
-                                    <input type="datetime-local" name="shift_start" class="form-control" placeholder="開始日時">
+                                    <input type="datetime-local" name="shift_start" class="form-control" placeholder="開始日時" required>
                                 </div>
                             </div>
                         </div>
@@ -87,13 +87,13 @@
                             <div class="form-group">
                                 <div class="form-line">
                                     <label for="end">終業日時<span style="color: red; margin-left: 10px">必須</span></label>
-                                    <input type="datetime-local" name="shift_end" class="form-control" placeholder="終了日時">
+                                    <input type="datetime-local" name="shift_end" class="form-control" placeholder="終了日時" required>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-primary m-t-15 waves-effect">登録</button>
+                        <button type="button" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect">登録</button>
                         <button type="button" id="cancel_add_shift" class="btn btn-primary m-t-15 waves-effect" style="margin-left: 10px;">キャンセル</button>
                     </div>
                 </div>

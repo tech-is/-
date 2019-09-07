@@ -125,14 +125,40 @@ class Cl_staff extends CI_Controller
 
     public function insert_shift()
     {
-        $this->load->model("mdl_staff_shift");
-        $data = [
-            'shift_staff_id' => $staff,
-            'shift_start' => $_POST["start"],
-            'shift_end' => $_POST["end"]
+        $config = [
+            [
+                'field' => 'staff_id',
+                'label' => '名前',
+                'rules' => 'required|trim'
+            ],
+            [
+                'field' => 'start',
+                'label' => '開始日時',
+                'rules' => 'required|trim'
+            ],
+            [
+                'field' => 'end',
+                'label' => '終了日時',
+                'rules' => 'required|trim'
+            ]
         ];
-        $result = $this->mdl_reserve->insert_reserve_data($data);
-        return $result;
+        $this->load->library("form_validation", $config);
+        if($this->form_validation->run()) {
+            $this->load->model("mdl_staff_shift");
+            $data = [
+                'shift_shop_id' => 1,
+                'shift_staff_id' => $this->input->post("staff_id"),
+                'shift_start' => $this->input->post("start"),
+                'shift_end' => $this->input->post("end")
+            ];
+            if($this->mdl_staff_shift->insert_shift_data($data)) {
+                echo "success!";
+            } else {
+                "登録に失敗しました。";
+            }
+        } else {
+            echo "入力に間違いがあります";
+        }
     }
 
     public function update_shift()

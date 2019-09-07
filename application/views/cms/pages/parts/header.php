@@ -41,10 +41,13 @@
     <!-- Datatable Css -->
     <link href="../assets/cms/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-    
+
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" />
     <style>
+    table.dataTable tbody tr.active{
+        background-color: #4caf50b0;
+    }
     /* モーダルCSS */
     .modalArea {
     display: none;

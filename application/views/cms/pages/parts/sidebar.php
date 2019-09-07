@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li>
-                <a href="staff" class="menu-toggle waves-effect waves-block">
+                <a href="#" class="menu-toggle waves-effect waves-block">
                     <i class="material-icons">contacts</i>
                     <span>顧客管理</span>
                 </a>
