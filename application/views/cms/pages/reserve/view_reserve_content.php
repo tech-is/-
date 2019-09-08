@@ -65,8 +65,6 @@ function select_staff()
 <!-- Moment Plugin Js -->
 <script src="../assets/cms/plugins/momentjs/moment.js"></script>
 
-<!-- Bootstrap Material Datetime Picker Plugin Js -->
-<script src="../assets/cms/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
 <!-- Custom Js -->
 <script src="../assets/cms/js/admin.js"></script>
