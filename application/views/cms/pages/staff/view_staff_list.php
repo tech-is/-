@@ -315,7 +315,6 @@
 </script>
 
 <script src="../assets/cms/js/pages/staff/staff_list.js"></script>
-<!-- <script src="../assets/cms/js/pages/staff/staff_table.js"></script> -->
 </body>
 
 </html>

@@ -46,6 +46,8 @@ class Cl_main extends CI_Controller
                 $data['shift'][$row]['end'] = $shift['shift_end'];
                 $data['shift'][$row]['color'] = $shift['staff_color'];
             }
+        } else {
+            $data["shift"] = null;
         }
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
