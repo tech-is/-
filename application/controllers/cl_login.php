@@ -12,17 +12,22 @@ class Cl_login extends CI_Controller
 
     public function login()
     {
-        $this->load->view('register/view_sign-in');
+        if($_SERVER["REQUEST_METHOD"] !== "POST" && $this->input->get("error") == 1) {
+            $data["error"] = "メールアドレスかパスワードが間違っています";
+            $this->load->view('login/view_sign-in', $data);
+        } else {
+            $this->load->view('login/view_sign-in');
+        }
     }
 
     public function registration_mail()
     {
-        $this->load->view('register/view_registration_mail');
+        $this->load->view('login/view_registration_mail');
     }
 
     public function forgot_password()
     {
-        $this->load->view("register/forgot-password");
+        $this->load->view("login/forgot-password");
     }
 
     public function register()
@@ -34,10 +39,9 @@ class Cl_login extends CI_Controller
             $this->load->model("mdl_shops");
             $data = $this->mdl_shops->select_code($code);
             if($data) {
-                // exit;
-                $this->load->view("register/view_register", $data);
+                $this->load->view("login/view_register", $data);
             } else {
-                header("HTTP/1.1 404 Not Found");
+                exit;
             }
         }
     }
@@ -59,11 +63,11 @@ class Cl_login extends CI_Controller
                 $this->email->subject("Animarlログインパスワードリセット");
                 $msg = <<< EOM
                 いつもAnimarlをご利用いただきありがとうございます。\n
-                パスワードリセット用のURLを添付いたしましたので以下のリンクから変更をお願いいたします。\n
+                パスワードリセット用のURLを添付いたしましたので以下のリンクから変更をお願い致します。\n
                 http://animarl.com/cl_login/password_reset?=
                 このメールに心当たりがない場合、他のお客様がパスワードをリセットする際に誤って\n
                 お客様のメールアドレスを入力した可能性がありますので、\n
-                その場合には何も行わずにこのメールを破棄してください。\n
+                お手数ですがメールを破棄してくださいますようお願い致します。\n";
                 EOM;
                 $this->email->message($msg);
             } catch(extension $e) {
@@ -79,19 +83,19 @@ class Cl_login extends CI_Controller
         if($this->vali_login_data() === true) {
             $email = $this->input->post("email");
             $data = $this->chk_login_data($email);
-            if($data !== false) {
+            if($data == true) {
                 if($this->chk_password($data) === true) {
                     session_start();
                     $SESSION["shops_id"] = $data["shops_id"];
                     redirect("cl_main/home");
                 } else {
-                    redirect("cl_landing/login");
+                    redirect("cl_login/login?error=1");
                 }
             } else {
-                redirect("cl_landing/login");
+                redirect("cl_login/login?error=1");
             }
         } else {
-            $this->load->view('cl_landing/login');
+            redirect("cl_login/login?error=1");
         }
     }
 

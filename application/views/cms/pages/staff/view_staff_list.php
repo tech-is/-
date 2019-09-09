@@ -13,12 +13,9 @@
                             <button type="button" class="btn bg-deep-purple waves-effect" id="staff_list">
                                 スタッフ一覧
                             </button>
-                            <button type="button" class="btn bg-deep-purple waves-effect" id="add_staff">
-                                新規スタッフ追加
-                            </button>
-                            <button type="button" class="btn bg-deep-purple waves-effect" id="add_shift">
+                            <!-- <button type="button" class="btn bg-deep-purple waves-effect" id="add_shift">
                                 シフト追加
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                     <div id="calendar" style="padding: 10px"></div>
@@ -32,22 +29,25 @@
 <section id="modalArea_staff_list" class="modalArea">
     <div id="modalBg_staff_list" class="modalBg"></div>
         <div class="modalWrapper_staff_list">
-        <table class="table table-striped table-bordered" id="datatable" >
+        <h3>スタッフ一覧</h3>
+        <table id="datatable" style="width: 100%">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>名前</th>
+                <th>電話番号</th>
+                <th>メールアドレス</th>
+                <th>カラーラベル</th>
                 <th>備考</th>
-                <!-- <th>更新日時</th>
-                <th>作成日時</th> -->
             </tr>
         </thead>
         </table>
         <div>
             <hr>
             <div class="pull-left">
-                <button id="registButton" type="button" class="btn btn-primary">登録</button>
+                <button id="registButton" type="button" class="btn btn-primary">スタッフ追加</button>
                 <button id="updateButton" type="button" class="btn btn-success" disabled>更新</button>
+                <button id="shiftButton" type="button" class="btn bg-deep-purple waves-effect" disabled>シフト登録</button>
             </div>
             <div class="pull-right">
                 <button id="deleteButton" type="button" class="btn btn-danger" disabled>削除</button>
@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <div class="form-line">
                             <label for="customer">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
-                            <input type="text" class="form-control" name="shift_staff" placeholder="例：田中太郎さん">
+                            <input type="text" class="form-control" name="shift_staff" placeholder="例：田中太郎さん" readonly >
                         </div>
                     </div>
                     <div class="row">
@@ -79,7 +79,7 @@
                             <div class="form-group">
                                 <div class="form-line">
                                     <label for="start">始業日時<span style="color: red; margin-left: 10px">必須</span></label>
-                                    <input type="datetime-local" name="shift_start" class="form-control" placeholder="開始日時">
+                                    <input type="datetime-local" name="shift_start" class="form-control" placeholder="開始日時" required>
                                 </div>
                             </div>
                         </div>
@@ -87,13 +87,13 @@
                             <div class="form-group">
                                 <div class="form-line">
                                     <label for="end">終業日時<span style="color: red; margin-left: 10px">必須</span></label>
-                                    <input type="datetime-local" name="shift_end" class="form-control" placeholder="終了日時">
+                                    <input type="datetime-local" name="shift_end" class="form-control" placeholder="終了日時" required>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-primary m-t-15 waves-effect">登録</button>
+                        <button type="button" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect">登録</button>
                         <button type="button" id="cancel_add_shift" class="btn btn-primary m-t-15 waves-effect" style="margin-left: 10px;">キャンセル</button>
                     </div>
                 </div>
@@ -108,31 +108,59 @@
 <section id="modalArea_add_staff" class="modalArea">
     <div id="modalBg_add_staff" class="modalBg"></div>
         <div class="modalWrapper">
-            <form id="form_add_staff">
+            <form>
                 <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
-                    <h3 style="margin: 0px">スタッフ追加</h3>
+                    <h3 id="dialogTitle" style="margin: 0px">スタッフ追加</h3>
                 </div>
                 <div class="body">
-                    <div class="form-group">
-                        <div class="form-line">
-                            <label for="new_staff">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
-                            <input type="text" class="form-control" name="new_staff" placeholder="例：田中太郎さん">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="staff_name">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="staff_name">姓</label>
+                                    <input type="text" class="form-control" name="staff_name[0]" placeholder="例：田中太郎さん">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                <label for="staff_name">名前</label>
+                                    <input type="text" class="form-control" name="staff_name[1]" placeholder="例：田中太郎さん">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-line">
-                            <label for="customer">シフト用カラーラベル<span style="color: red; margin-left: 10px">必須</span></label>
-                            <input type="color" class="form-control" name="add_staff_color" value="#0080ff">
+                        <label for="staff_name">電話番号</label>
+                            <input type="text" class="form-control" name="staff_tel" placeholder="例：田中太郎さん">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-line">
-                            <label for="customer">備考<span style="color: red; margin-left: 10px">必須</span></label>
-                            <textarea rows="4" class="form-control no-resize" name="add_staff_content"></textarea>
+                        <label for="staff_name">メールアドレス</label>
+                            <input type="text" class="form-control" name="staff_email" placeholder="例：田中太郎さん">
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-primary m-t-15 waves-effect">登録</button>
+                        <div class="form-line">
+                            <label for="staff_color">シフト用カラーラベル<span style="color: red; margin-left: 10px">必須</span></label>
+                            <input type="color" class="form-control" name="staff_color" value="#0080ff">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label for="staff_content">備考<span style="color: red; margin-left: 10px">必須</span></label>
+                            <textarea rows="4" class="form-control no-resize" name="staff_remarks"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="sendRegistButton" class="btn btn-primary m-t-15 waves-effect">登録</button>
+                        <button type="button" id="sendUpdateButton" class="btn btn-primary m-t-15 waves-effect">更新</button>
                         <button type="button" id="cancel_add_staff" class="btn btn-primary m-t-15 waves-effect" style="margin-left: 10px;">キャンセル</button>
                     </div>
                 </div>
@@ -148,8 +176,8 @@
     <div id="modalBg" class="modalBg"></div>
     <div class="modalWrapper_event">
         <div class="modalContents" id="modalContents"></div>
-        <button id='update' class='btn btn-primary m-t-15 waves-effect'>変更</button>
-        <button id='delete' class='btn btn-primary m-t-15 waves-effect'>削除</button>
+        <button id='update_shift' class='btn btn-primary m-t-15 waves-effect'>変更</button>
+        <button id='sendDeleteButton' class='btn btn-primary m-t-15 waves-effect'>削除</button>
         <div id="closeModal" class="closeModal">
             ×
         </div>
@@ -165,10 +193,13 @@
             </div>
             <div class="body">
                 <div class="form-group">
-                    <div class="form-line">
-                        <label for="update_shift_staff">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
-                        <input type="text" class="form-control" name="update_shift_staff" placeholder="例：田中太郎さん" />
-                    </div>
+                    <label for="update_shift_staff">従業員<span style="color: red; margin-left: 10px">必須</span></label>
+                    <select id="update_shift_staff" class="form-control show-tick">
+                        <option value="">-- Please select --</option>
+                        <?php foreach($select_staff as $value) { ?>
+                        <option value="<?= $value['staff_id'] ?>"><?= $value['staff_name'] ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
@@ -188,7 +219,7 @@
                         </div>
                     </div>
                 </div>
-                <button id='update' class='btn btn-primary m-t-15 waves-effect'>変更</button>
+                <button type='button' id='sendUpdateshift' class='btn btn-primary m-t-15 waves-effect'>更新</button>
                 <button type='button' id='cancel_update_shift' class='btn btn-primary m-t-15 waves-effect'>キャンセル</button>
             </div>
         </form>
@@ -198,7 +229,6 @@
     </div>
 </section>
 
-<!--  -->
 <div id="form" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered ">
         <div class="modal-content">
@@ -207,97 +237,37 @@
                 <h4 id="dialogTitle" class="modal-title">登録</h4>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">No</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-2">
-                                        <input type="text" class="form-control ime-disabled" id="inputNo" placeholder="No" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">名前</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-2">
-                                        <input type="text" class="form-control" id="inputName" placeholder="名前" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">性別</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-2">
-                                        <input type="text" class="form-control" id="inputSex" placeholder="性別">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">年齢</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-2">
-                                        <input type="text" class="form-control ime-disabled" id="inputAge" placeholder="年齢">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">種別</label>
-                                        <span class="label label-danger pull-right">必須</span>
-                                    </div>
-                                    <div class="input-group col-sm-7">
-                                        <select id="inputKind" class="form-control" >
-                                            <option value="01">キジトラ</option>
-                                            <option value="02">長毛種（不明）</option>
-                                            <option value="03">ミケ（っぽい）</option>
-                                            <option value="04">サビ</option>
-                                            <option value="09">その他</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-inline">
-                                    <div class="col-sm-4">
-                                        <label class="control-label">好物</label>
-                                        <span class="label label-success pull-right">任意</span>
-                                    </div>
-                                    <div class="input-group col-sm-7">
-                                        <input type="text" class="form-control" id="inputFavorite" placeholder="好物">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                <form>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label for="new_staff">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
+                            <input type="text" class="form-control" name="new_staff" placeholder="例：田中太郎さん">
                         </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label for="customer">シフト用カラーラベル<span style="color: red; margin-left: 10px">必須</span></label>
+                            <input type="color" class="form-control" name="add_staff_color" value="#0080ff">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label for="customer">備考<span style="color: red; margin-left: 10px">必須</span></label>
+                            <textarea rows="4" class="form-control no-resize" name="add_staff_content"></textarea>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <div id="inputError" class="pull-left" style="color:red; padding:5px;"></div>
-                <button id="sendRegistButton" type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;登録</button>
-                <button id="sendUpdateButton" type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;修正</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>&nbsp;閉じる</button>
+                    <button id="sendRegistButton" type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;登録</button>
+                    <button id="sendUpdateButton" type="button" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;修正</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>&nbsp;閉じる</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!--  -->
 
 <!-- モーダルエリアここまで -->
 
@@ -315,7 +285,7 @@
 <script src=" ../assets/cms/plugins/bootstrap/js/bootstrap.js"> </script>
 
 <!-- Select Plugin Js -->
-<script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!-- <script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script> -->
 
 <!-- Slimscroll Plugin Js -->
 <script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
@@ -334,8 +304,8 @@
 <script src="../assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
 
 <!-- Jquery-datatable -->
-<script src="../assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
 <!-- Custom Plugin Js -->
 <script src="../assets/cms/js/admin.js"></script>
@@ -343,29 +313,11 @@
 <script src="../assets/cms/js/sidebar.js"></script>
 
 <script>
-    var event_json = <?= json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
+    var table_json = <?= json_encode($staff, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
+    var event_json = <?= json_encode($shift, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
 </script>
 
 <script src="../assets/cms/js/pages/staff/staff_list.js"></script>
-<!-- <script src="../assets/cms/js/pages/staff/staff_table.js"></script> -->
-
-<script>
-var json_data =  [
-    {
-        "id": "1",
-        "name": "あいうえお",
-        "detail": "かきくけこ"
-    },
-    {
-        "id": "2",
-        "name": "あいうえお",
-        "detail": "かきくけこ"
-    }
-];
-</script>
-
-<script src="../assets/cms/js/pages/staff/staff_table.js"></script>
-
 </body>
 
 </html>

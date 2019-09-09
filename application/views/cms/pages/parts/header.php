@@ -33,21 +33,26 @@
     <link href="../assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
     <!-- full calender Css -->
-    <!-- <link href='../assets/cms/plugins/fullcalendar/packages/core/main.css' rel='stylesheet' />
-    <link href='../assets/cms/plugins/fullcalendar/packages/daygrid/main.css' rel='stylesheet' /> -->
     <link href='../assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.css' rel='stylesheet' />
 
     <!-- Custom Css -->
-    <link href="../assets/cms/css/style.css" rel="stylesheet">
+    <link href="../assets/cms/css/style.css" rel="stylesheet" />
+
+    <!-- Datatable Css -->
+    <link href="../assets/cms/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" />
     <style>
+    table.dataTable tbody tr.active{
+        background-color: #4caf50b0;
+    }
     /* モーダルCSS */
     .modalArea {
     display: none;
     position: fixed;
-    z-index: 10; /*サイトによってここの数値は調整 */
+    z-index: 11; /*サイトによってここの数値は調整 */
     top: 0;
     left: 0;
     width: 100%;
@@ -67,6 +72,28 @@
     transform:translate(-50%,-50%);
     width: 70%;
     max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+    }
+
+    .modalWrapper_staff_list {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 90%;
+    /* min-width: 620px; */
+    padding: 10px 30px;
+    background-color: #fff;
+    }
+
+    .modalWrapper_event {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 350px;
     padding: 10px 30px;
     background-color: #fff;
     }
@@ -94,7 +121,21 @@
     left: 50%;
     transform:translate(-50%,-50%);
     }
-</style>
+
+    .table > tbody > tr.active > td,
+    .table > tbody > tr.active > th {
+        background-color: #e1f2fe;
+    }
+
+    table > tbody >tr > td {
+        max-width: 300px;
+    }
+
+    table,th,td {
+        border: 1px solid #bbb;
+    }
+
+    </style>
 </head>
 
 <body class="theme-red">

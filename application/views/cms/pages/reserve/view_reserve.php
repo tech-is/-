@@ -11,15 +11,12 @@
                         </div>
                         <div class="pull-right">
                             <button type="button" class="btn bg-deep-purple waves-effect" id="register">
-                                <i class="material-icons">contact_mail</i>
-                                <span>new</span>
+                                <!-- <i class="material-icons">contact_mail</i> -->
+                                new
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> -->
                     <div id="calendar" style="padding: 10px"></div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cl_register extends CI_Controller
+class Cl_shops extends CI_Controller
 {
     public function register_email()
     {
@@ -30,10 +30,8 @@ class Cl_register extends CI_Controller
             $data = $this->input->post(null, true);
             if($this->shop_registration($data) == true) {
                 echo "登録が完了しました";
-                exit;
             } else {
                 echo "登録失敗しました";
-                exit;
             }
         } else {
             // return false;
@@ -112,8 +110,8 @@ class Cl_register extends CI_Controller
     private function tmp_db_registration($email, $code)
     {
         $data = [
-            'tmp_email' => $email,
-            'tmp_code' => $code
+            'tmp_shop_email' => $email,
+            'tmp_shop_code' => $code
         ];
         $this->load->model("mdl_shops");
         $result = $this->mdl_shops->insert_mail($data);
@@ -131,6 +129,7 @@ class Cl_register extends CI_Controller
         $this->mdl_members->delete_email($email);
         return;
     }
+
     /**
      * send_mail
      *
@@ -138,13 +137,16 @@ class Cl_register extends CI_Controller
      */
     private function send_mail($email, $code)
     {
-        $message = "このメールは、配信専用のアドレスで配信されています。\n";
-        $message .= "このメールに返信されても、返信内容の確認およびご返答ができません。\n";
-        $message .= "あらかじめご了承ください。\n";
-        $message .= "電子メールアドレスのご登録ありがとうございます。\n";
-        $message .= "電子メールアドレスを確認するには、次のリンクをクリックしてください。\n";
-        $message .= "http://localhost/cl_landing/register?code=".$code."\n";
-        $message .= "このメールに覚えのない場合には、お手数ですがメールを破棄してくださいますようお願い致します。\n";
+        $message = <<< EOM
+            "このメールは配信専用のアドレスで配信されています。\n
+            このメールに返信されても、返信内容の確認及び
+            ご返答ができません。\n
+            あらかじめご了承ください。\n
+            電子メールアドレスのご登録ありがとうございます。\n
+            電子メールアドレスを確認するには、次のリンクをクリックしてください。\n
+            http://localhost/cl_login/register?code={$code}\n
+            このメールに覚えのない場合には、お手数ですがメールを破棄してくださいますようお願い致します。\n
+        EOM;
         $this->load->library("email");
         $this->email->from("system_animarl@niji-desk.work", "Animarlシステムメール");
         $this->email->to($email);
@@ -173,7 +175,7 @@ class Cl_register extends CI_Controller
             "shop_tel" => $data["tel"],
             "shop_email" => $data["email"],
             "shop_zip_code" => $data["zip_code"],
-            "shop_zip_address" => $data["zip_address"],
+            "shop_address" => $data["zip_address"],
             "shop_password" => $hash_pass,
         ];
         return $this->mdl_shops->insert_shops($data);

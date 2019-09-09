@@ -72,7 +72,7 @@
                                 <i class="material-icons">mail</i>
                             </span> -->
                             <div class="form-line">
-                                <input type="mail" class="form-control" name="email" placeholder="メールアドレス" value="<?= $tmp_email ?>" required>
+                                <input type="mail" class="form-control" name="email" placeholder="メールアドレス" value="<?= $tmp_shop_email ?>" required>
                             </div>
                         </div>
                         <label for="tel">電話番号</label>
@@ -171,7 +171,7 @@
             const zip_address = $('input[name="zip_address[0]"]').val() + $('input[name="zip_address[1]"]').val() + $('input[name="zip_address[2]"]').val();
             const password = $('input[name="password"]').val();
             $.ajax({
-                url:'../cl_register/register_shop',
+                url:'../cl_shops/register_shop',
                 type:'POST',
                 data: {
                     'name': name,

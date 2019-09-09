@@ -33,8 +33,9 @@
         </div>
         <div class="card">
             <div class="body">
-                <form action="../cl_login/login_chk" method="POST">
+                <form action="chk_login" method="POST">
                     <div class="msg">メールアドレスとパスワードを入力してください</div>
+                    <div class="msg" style="color: red"><?= isset($error)? $error: false; ?></div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">email</i>
@@ -52,7 +53,7 @@
                             <input type="password" class="form-control" name="password" placeholder="Password" required>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row clearfix">
                         <div class="col-xs-8 p-t-5">
                             <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
                             <label for="rememberme">Remember Me</label>

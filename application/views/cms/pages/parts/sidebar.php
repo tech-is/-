@@ -49,6 +49,12 @@
                     </li>
                 </ul>
             </li>
+            <li id="reserve">
+                <a href="staff">
+                    <i class="material-icons">home</i>
+                    <span>スタッフ一覧</span>
+                </a>
+            </li>
             <li>
                 <a href="../cl_pet_info/cms">
                     <i class="material-icons">pets</i>
