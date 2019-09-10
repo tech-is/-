@@ -1,4 +1,15 @@
-﻿<section class="content">
+﻿<?php
+
+ //$segment_3 = $this->uri->segment(3);
+ // echo $segment_3;
+ $flg = $this->input->get('flg', TRUE);
+?>
+<head>
+  <!-- Custom Css -->
+  <link href="../../css/style.css" rel="stylesheet">
+
+</head>
+<section class="content">
     <div class="container-fluid">
         <div class="block-header">
             <h2>
@@ -13,23 +24,20 @@
                 <div class="card">
                     <div class="header">
                         <h2>顧客一覧</h2>
-                        <a href="customer_table">
+                        <a href="../cl_customer/">
                             <button type="btn" class="btn btn-primary m-t-15 waves-effect">新規登録</button>
                         </a>
-                        <ul class="header-dropdown m-r--5">
-                            <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                    role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                        <a href="../cl_reserve/">
+                            <button type="btn" class="btn btn-primary m-t-15 waves-effect">スケジュール</button>
+                        </a>
+                                <?php if(isset($flg)){
+                                if($flg == "2"){
+                                    echo "<div class=\"body\"><div class=\"alert alert-success\">登録しました</div></div>";
+                                }else{
+                                    echo "<div class=\"body\"><div class=\"alert alert-danger\">削除しました</div></div>";
+                                }
+                            }
+                        ?>
                     <form action="customer_validation" method="POST">
                         <div class="body">
                             <div class="table-responsive">
@@ -42,50 +50,32 @@
                                             <th>住所</th>
                                             <th>電話番号</th>
                                             <th>メールアドレス</th>
+                                            <th>担当スタッフ</th>                                      
                                             <th>最終予約日</th>
                                             <th>設定</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>孫悟空</td>
-                                            <td>忍者わんわん</td>
-                                            <td>荒野町1-1</td>
-                                            <td>090-0000-1111</td>
-                                            <td>kakarot@kamehouse.com</td>
-                                            <td>2019-07-01</td>
-                                            <td>
-                                                <button type="btn"
-                                                    class="btn btn-primary m-t-15 waves-effect">詳細</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>カリン様</td>
-                                            <td>ヤジロベー</td>
-                                            <td>カリン塔1-1</td>
-                                            <td>080-0000-1111</td>
-                                            <td>karin@karintower.com</td>
-                                            <td>2019-07-01</td>
-                                            <td>
-                                                <button type="btn"
-                                                    class="btn btn-primary m-t-15 waves-effect">詳細</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>神様</td>
-                                            <td>ミスターポポ</td>
-                                            <td>神殿1－1</td>
-                                            <td>070-0000-1111</td>
-                                            <td>got@gothouse.com</td>
-                                            <td>2019-07-01</td>
-                                            <td>
-                                                <button type="btn"
-                                                    class="btn btn-primary m-t-15 waves-effect">詳細</button>
-                                            </td>
-                                        </tr>
+                                    <?php
+                                    print_r($customers);
+                                    for($i = 0; $i < count($customers); $i++){
+                                        $customer = $customers[$i];
+                                        echo "<tr>";
+                                        echo "<td></td>";
+                                        echo "<td>カリン様</td>";
+                                        echo "<td>ヤジロベー</td>";
+                                        echo "<td>カリン塔1-1</td>";
+                                        echo "<td>080-0000-1111</td>";
+                                        echo "<td>karin@karintower.com</td>";
+                                        echo "<td>若林 朋</td>";
+                                        echo "<td>2019-07-01</td>";
+                                        echo "<td>";
+                                        echo "<button type=\"btn\" class=\"btn btn-primary m-t-15 waves-effect\">予約</button>";
+                                        echo "<button type=\"btn\" class=\"btn btn-primary m-t-15 waves-effect\">削除</button>";
+                                        echo "</td>";
+                                        echo "</tr>";
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>

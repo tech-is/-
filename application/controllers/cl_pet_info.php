@@ -4,14 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class cl_pet_info extends CI_Controller {
 
     /**
+     *
      * Undocumented function
      *
      * @return
      */
     public function index()
     {
-        //mdl_customerの呼び出し
-        // $this->load->model('mdl_pet_info');
         $this->load->helper(["url", "form"]);
         //ペットカルテ
         $this->load->view('cms/pages/parts/header');
@@ -20,8 +19,13 @@ class cl_pet_info extends CI_Controller {
     }
 
     //入力後のミス確認からモデルへ
-    public function pet_info_validation(){
-        $p_test['pet_contraception'] ="";
+    public function pet_info_validation()
+    {
+        $this->load->helper(['form', 'url']);
+        $this->load->library('form_validation');
+        $this->load->model('mdl_pet_info');
+        $p_data['pet_contraception'] ="";
+        $p_data['pet_type'] ="";
         $config = [
             [
                 'field' => 'pet_name',
@@ -38,23 +42,23 @@ class cl_pet_info extends CI_Controller {
                 'errors' => [
                     'required' => '入力してください'
                 ]
-            ],
+                ],
             [
                 'field' => 'pet_type',
                 'label' => '種類',
-                'rules' => 'required',
+                'rules' => 'required|trim',
                 'errors' => [
-                    'required' => '入力して下さい'
+                    'required' => '入力してください'
                 ]
-            ],
+                ],
             [
                 'field' => 'pet_animal_gender',
                 'label' => '性別',
-                'rules' => 'required|trim',
+                'rules' => '',
                 'errors' => [
                     'required' => '選択してください'
                 ]
-            ],
+                ],
             [
                 'field' => 'pet_birthday',
                 'label' => '生年月日',
@@ -66,15 +70,12 @@ class cl_pet_info extends CI_Controller {
             [
                 'field' => 'pet_contraception',
                 'label' => '避妊',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => '入力してください'
-                ]
+                'rules' => ''
             ],
             [
                 'field' => 'pet_body_height',
                 'label' => '体高',
-                'rules' => 'required|trim',
+                'rules' => 'trim',
                 'errors' => [
                     'required' => '入力してください'
                 ]
@@ -82,7 +83,7 @@ class cl_pet_info extends CI_Controller {
             [
                 'field' => 'pet_body_weight',
                 'label' => '体重',
-                'rules' => 'required|trim',
+                'rules' => 'trim',
                 'errors' => [
                     'required' => '入力してください'
                 ]
@@ -90,34 +91,45 @@ class cl_pet_info extends CI_Controller {
             [
                 'field' => 'pet_information',
                 'label' => '備考',
-                'rules' => 'required|trim',
+                'rules' => 'trim',
             ]
         ];
-        $this->load->library('form_validation');
+        // $p_data = $this->input->post();
+        // var_dump($p_data);
         $this->form_validation->set_rules($config);
-        // $this->form_validation->set_rules('files[]', '写真', 'required');
-        if ($this->form_validation->run() !== false){
-            $this->load->model('mdl_pet_info');
-            $p_test = $this->input->post();
-        } else {
-            // $this->index();
-        }
-
-        //避妊をintへ
-        if(isset($p_test['pet_contraception'])){
-            if($p_test['pet_contraception'] == 'null') {
-                $p_test['pet_contraception'] = 1;
-            }else{
-                $p_test['pet_contraception'] = 2;
+        if ($this->form_validation->run() == true){
+            $p_data = $this->input->post();
+                    //避妊をintへ
+            if(isset($p_data['pet_contraception'])){
+                if($p_data['pet_contraception'] == 'on') {
+                    $p_data['pet_contraception'] = 1;
+                } else {
+                    $p_data['pet_contraception'] = 2;
+                }
+                //モデルへ
+                if($this->mdl_pet_info->insert_pet_model($p_data) == true) {
+                    redirect('http://localhost/sub/cl_total_list/?flg=2');
+                } else {
+                    // echo "hoooooooooooooooooooooge";
+                    $data['comment'] = "※登録に失敗しました。再度ご入力をお願いします。";
+                    $this->load->view('cms/pages/parts/header');
+                    $this->load->view('cms/pages/parts/sidebars');
+                    $this->load->view('cms/pet_info_view',$data);
+                }
             }
+        } else {
+            //バリデーション
+            // echo "huuuuuuuuuuu";
+            $this->load->view('cms/pages/parts/header');
+            $this->load->view('cms/pages/parts/sidebars');
+            $this->load->view('cms/pet_info_view');
         }
 
-        if($this->mdl_pet_info->test($p_test) == true) {
-            $data["text"] = "<script>alert('お客様の登録が完了致しました。')</script>";
-            $this->load->view("cms/pet_info_view",$data);
-        } else {
-            $data["text"]  = "<script>alert('登録失敗しました。以上の項目をご確認ください。')</script>";
-            $this->load->view("cms/pet_info_view",$data);
-        }
+                //リダイレクトでGETを飛ばす。vi_total_listの新規登録の横あたりにif echo
+                // を出す
+                // $this->mdl_pet_info->insert_pet_model($p_data);
+                // $this->load->library('session');
+
     }
+
 }
