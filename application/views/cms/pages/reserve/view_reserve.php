@@ -2,7 +2,7 @@
 
 function select_staff($staffs)
 {
-    if(isset($staffs)) {
+    if (isset($staffs)) {
         foreach($staffs as $row => $staff) {
             $select = "<select id='staff_id' name='staff_id' class='form-control show-tick'>";
             $select .= "<option value='{$staff['staff_id']}'>{$staff['staff_name']}</option>";
@@ -227,12 +227,13 @@ $(document).ready(function () {
             sessionStorage.setItem('reserve_id', calEvent.reserve_id);
             var update_start = $.fullCalendar.formatDate(calEvent.start, 'YYYY-MM-DD') + "T" + $.fullCalendar.formatDate(calEvent.start, "HH:mm");
             var update_end = $.fullCalendar.formatDate(calEvent.end, 'YYYY-MM-DD') + "T" + $.fullCalendar.formatDate(calEvent.end, "HH:mm");
-            var contents = "<h3 style='margin-bottom:10px'>従業員名:" + calEvent.title + "</h3>"
-            contents += "<p>始業: " + $.fullCalendar.formatDate(calEvent.start, 'YYYY年MM月DD日 HH:mm') + "</p>";
-            contents += "<p>終業: " + $.fullCalendar.formatDate(calEvent.end, 'YYYY年MM月DD日 HH:mm') + "</p>";
+            var contents = "<h2>予約名:"+ calEvent.title + "</h2>"
+                contents += "<p>開始日時:" + $.fullCalendar.formatDate(calEvent.start, 'YYYY年MM月DD日 HH:mm') + "<p>";
+                contents += "<p>終了日時:" + $.fullCalenda.formatDate(calEvent.end, 'YYYY年MM月DD日 HH:mm') + "<p>";
+                contents += "<p>予約内容:" + calEvent.content + "</p>";
             $('#modalContents').html(contents);
             $('#modalArea').fadeIn();
-            $('#update_shift').on('click',function(){ 
+            $('#update_shift').on('click',function() {
                 // $('input[name="update_shift_staff"]').val(title);
                 $('#update_shift_staff').val(staff_id);
                 $('input[name="update_shift_start"]').val(update_start);
@@ -246,20 +247,20 @@ $(document).ready(function () {
 <!-- モーダルウィンドウを閉じる -->
 <script>
 $(function () {
-    $('#closeModal , #modalBg').on('click',function(){ 
+    $('#closeModal , #modalBg').on('click',function() {
         $('#modalArea').fadeOut();
     });
 
-    $('#closeModal_register , #modalBg_register').on('click',function(){ 
+    $('#closeModal_register , #modalBg_register').on('click',function() {
         $('#modalArea_register').fadeOut();
     });
 
-    $('#register').on('click',function(){ 
+    $('#register').on('click',function() {
         // $('#modalContents_register').load("../assets/cms/html_parts/reserve_form_parts.php");
         $('#modalArea_register').fadeIn();
     });
 
-    $('#update').on('click',function(){ 
+    $('#update').on('click',function() {
         var reserve_id = sessionStorage.getItem('reserve_id');
         $.ajax({
             url:'../cl_reserve/get_reserve_data',
@@ -277,15 +278,15 @@ $(function () {
         })
     });
 
-    $('#closeModal_update , #modalBg_update').on('click',function() { 
+    $('#closeModal_update , #modalBg_update').on('click', function() {
         $('#modalArea_update').fadeOut();
     });
 });
 
 </script>
 <script>
-    $('#sendResisterReserve').on('click',function() {
-        var param = {
+    $('#sendResisterReserve').on('click', function() {
+        let param = {
             customer_name : $('#customer_name').val(),
             customer_pet : $('#customer_pet').val(),
             staff_id : $('#staff_id').val(),

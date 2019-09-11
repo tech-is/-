@@ -52,7 +52,7 @@
     .modalArea {
     display: none;
     position: fixed;
-    z-index: 11; /*サイトによってここの数値は調整 */
+    z-index: 13; /*サイトによってここの数値は調整 */
     top: 0;
     left: 0;
     width: 100%;

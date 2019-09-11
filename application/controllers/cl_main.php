@@ -67,7 +67,6 @@ class Cl_main extends CI_Controller
 
     public function reserve_view()
     {
-        
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/reserve/view_reserve_content', $data);
