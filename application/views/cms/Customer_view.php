@@ -110,8 +110,8 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                        <?php echo form_error('customer_zip_address'); ?>
-                                            <input type="text" class="form-control" name="customer_zip_address"
+                                        <?php echo form_error('customer_zip_adress'); ?>
+                                            <input type="text" class="form-control" name="customer_zip_adress"
                                                 pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。"
                                                 required >
                                             <label class="form-label">半角数字</label>
@@ -124,7 +124,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                        <?php echo form_error('customer_adress'); ?>
+                                        <?php echo form_error('customer_address'); ?>
                                             <input type="text" class="form-control" name="customer_address"
                                             required>
                                             <label class="form-label">(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)</label>

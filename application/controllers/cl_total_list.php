@@ -12,7 +12,7 @@ class cl_total_list extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper('url');
+        $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
         //GET.POST.インサート分の中身を確認。コンストラクタ内で利用する
         // $this->output->enable_profiler();
@@ -27,7 +27,7 @@ class cl_total_list extends CI_Controller {
         //print_r($data);
         
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars.php');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/vi_total_list', $data);
     }
 

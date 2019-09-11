@@ -50,30 +50,39 @@
     }
     /* モーダルCSS */
     .modalArea {
-    display: none;
+    /* display: none; */
     position: fixed;
-    z-index: 11; /*サイトによってここの数値は調整 */
+    z-index: 13;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    }
+    overflow-y: scroll;
+    background-color: rgba(30,30,30,0.9);
+}
 
-    .modalBg {
+
+
+.modalBg {
+    display: none;
+    /* position: fixed; */
+    z-index: 13;
     width: 100%;
     height: 100%;
-    background-color: rgba(30,30,30,0.9);
-    }
+    overflow-y:scroll;
+    /* background-color: rgba(30,30,30,0.9); */
+}
 
     .modalWrapper {
     position: absolute;
-    top: 50%;
+    z-index: 13;
+    top: 100%;
     left: 50%;
-    transform:translate(-50%,-50%);
+    transform: translate(-50%,-50%);
     width: 70%;
     max-width: 500px;
     padding: 10px 30px;
-    background-color: #fff;
+    background-color: #333;
     }
 
     .modalWrapper_staff_list {

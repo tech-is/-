@@ -19,21 +19,21 @@ class Cl_customer extends CI_Controller {
 
         //顧客登録一覧
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/Customer_view');
     }
 
     public function custmoer_form()
     {
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/Customer_view');
     }
 
     public function custmoer_list()
     {
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/vi_total_list.php');
     }
 
@@ -49,60 +49,60 @@ class Cl_customer extends CI_Controller {
                     'required' => '名前を入力してください'
                 )
             ),
-            array(
-                'field' => 'customer_kana',
-                'label' => 'カナ',
-                'rules' => 'required|trim',
-                'errors' => array(
-                'required' => 'カナを入力してください'
-                                                    )
-                ),
-            array(
-                'field' => 'customer_mail',
-                'label' => 'メール',
-                'rules' => 'required',
-                'errors' => array(
-                'required' => 'メールを入力して下さい'
-                                                        )
-                ),
-            array(
-                'field' => 'customer_tel',
-                'label' => '電話',
-                'rules' => 'required|trim',
-                'errors' => array(
-                'required' => '番号を入力してください'
-                                                        )
-                ),
-            array(
-                'field' => 'customer_zip_address',
-                'label' => '郵便番号',
-                'rules' => 'required|trim',
-                'errors' => array(
-                'required' => '郵便番号を入力してください'
-                                                        )
-                ),
-            array(
-                'field' => 'customer_address',
-                'label' => '住所',
-                'rules' => 'required|trim',
-                'errors' => array(
-                'required' => '住所を入力してください'
-                                                        )
-                ),
-            array(
-                'field' => 'customer_magazine',
-                'label' => 'マガジン発行',
-                ),
-            array(
-                'field' => 'customer_add_info',
-                'label' => '追加情報',
-                'rules' => 'required|trim',
-                ),
-            array(
-                'field' => 'customer_group',
-                'label' => 'ランク',
-                'rules' => 'required|trim',
-                )
+            // array(
+            //     'field' => 'customer_kana',
+            //     'label' => 'カナ',
+            //     'rules' => 'required|trim',
+            //     'errors' => array(
+            //     'required' => 'カナを入力してください'
+            //                                         )
+            //     ),
+            // array(
+            //     'field' => 'customer_mail',
+            //     'label' => 'メール',
+            //     'rules' => 'required',
+            //     'errors' => array(
+            //     'required' => 'メールを入力して下さい'
+            //                                             )
+            //     ),
+            // array(
+            //     'field' => 'customer_tel',
+            //     'label' => '電話',
+            //     'rules' => 'required|trim',
+            //     'errors' => array(
+            //     'required' => '番号を入力してください'
+            //                                             )
+            //     ),
+            // array(
+            //     'field' => 'customer_zip_adress',
+            //     'label' => '郵便番号',
+            //     'rules' => 'required|trim',
+            //     'errors' => array(
+            //     'required' => '郵便番号を入力してください'
+            //                                             )
+            //     ),
+            // array(
+            //     'field' => 'customer_address',
+            //     'label' => '住所',
+            //     'rules' => 'required|trim',
+            //     'errors' => array(
+            //     'required' => '住所を入力してください'
+            //                                             )
+            //     ),
+            // array(
+            //     'field' => 'customer_magazine',
+            //     'label' => 'マガジン発行',
+            //     ),
+            // array(
+            //     'field' => 'customer_add_info',
+            //     'label' => '追加情報',
+            //     'rules' => 'required|trim',
+            //     ),
+            // array(
+            //     'field' => 'customer_group',
+            //     'label' => 'ランク',
+            //     'rules' => 'required|trim',
+            //     )
         );
             $this->load->library('form_validation');
             $this->form_validation->set_rules($config);
@@ -110,7 +110,9 @@ class Cl_customer extends CI_Controller {
                 $this->load->model('mdl_customer');
                 $c_test = $this->input->post(NULL,true);
         }else{
-            $this->load->view('cms/Customer_view.html');
+            // $this->load->view('cms/Customer_view');
+            echo "入力値に不正";
+            exit;
         }
 
                 //メールマガジンをintへ
@@ -140,14 +142,14 @@ class Cl_customer extends CI_Controller {
                 
                     //データベースの呼び出し
                 if($this->mdl_customer->m_insert_customer($c_test) == true) {
-                        redirect('http://localhost/sub/cl_total_list/?flg=2');
-                      
+                    echo "success!";
+                    exit;
+                        // redirect('http://localhost/sub/cl_total_list/?flg=2');
                     } else {
-                    
-                        $data['comment'] = "※登録に失敗しました。再度ご入力をお願いします。";
-                        $this->load->view('cms/pages/parts/header');
-                        $this->load->view('cms/pages/parts/sidebars');
-                        $this->load->view('cms/pet_info_view',$data);
+                        $data['comment'] = '※登録に失敗しました。再度ご入力をお願いします。';
+                        // $this->load->view('cms/pages/parts/header');
+                        // $this->load->view('cms/pages/parts/sidebar');
+                        // $this->load->view('cms/pet_info_view',$data);
                     }
                 }
 }

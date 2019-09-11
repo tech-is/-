@@ -17,7 +17,6 @@
             <div class="block-header">
                 <h2>
                     ペット情報
-                    <!-- <small>顧客情報はここから->  <a href="https://jqueryvalidation.org/" target="_blank">jqueryvalidation.org</a></small> -->
                 </h2>
             </div>
             <!-- Basic Validation -->
@@ -25,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="header">
-                            <h2>ペット詳細</h2>
+                            <h2>ペット登録</h2>
                             <?= isset($comment)? $comment: false; ?>
                         </div>
                         <div class="body">

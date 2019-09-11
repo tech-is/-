@@ -25,7 +25,7 @@ class Mdl_staff_shift extends CI_Model
         $this->db->set($data);
         $this->db->where(['shift_id'=> $id['shift_id'], 'shift_shop_id' => $id['shift_shop_id']]);
         return $this->db->update('staff_shift');
-    }
+}
 
     public function delete_shift_data($id)
     {

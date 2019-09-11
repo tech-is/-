@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class cl_pet_info extends CI_Controller {
+class Cl_pet_info extends CI_Controller {
 
     /**
      *
@@ -14,7 +14,7 @@ class cl_pet_info extends CI_Controller {
         $this->load->helper(["url", "form"]);
         //ペットカルテ
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebars');
+        $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pet_info_view');
     }
 
@@ -113,7 +113,7 @@ class cl_pet_info extends CI_Controller {
                     // echo "hoooooooooooooooooooooge";
                     $data['comment'] = "※登録に失敗しました。再度ご入力をお願いします。";
                     $this->load->view('cms/pages/parts/header');
-                    $this->load->view('cms/pages/parts/sidebars');
+                    $this->load->view('cms/pages/parts/sidebar');
                     $this->load->view('cms/pet_info_view',$data);
                 }
             }
@@ -121,7 +121,7 @@ class cl_pet_info extends CI_Controller {
             //バリデーション
             // echo "huuuuuuuuuuu";
             $this->load->view('cms/pages/parts/header');
-            $this->load->view('cms/pages/parts/sidebars');
+            $this->load->view('cms/pages/parts/sidebar');
             $this->load->view('cms/pet_info_view');
         }
 
