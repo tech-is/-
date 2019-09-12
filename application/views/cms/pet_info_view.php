@@ -112,7 +112,6 @@
                                         <label class="form-label">備考：</label>
                                     </div>
                                 </div>
-                                    <input type="hidden" name="pet_customer_id" value="pet_customer_id">
                                     <button class="btn btn-primary waves-effect" type="submit">新規登録</button>
                                     <button class="btn btn-primary waves-effect" type="reset">クリア</button>
                             </form>

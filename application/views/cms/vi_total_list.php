@@ -4,11 +4,6 @@
  // echo $segment_3;
  $flg = $this->input->get('flg', TRUE);
 ?>
-<head>
-  <!-- Custom Css -->
-  <link href="../../css/style.css" rel="stylesheet">
-
-</head>
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -26,9 +21,7 @@
                         <h2>顧客・ペット一覧</h2>
                             <button id="register" type="btn" class="btn btn-primary m-t-15 waves-effect">顧客登録</button>
                             <button id="register2" type="btn" class="btn btn-primary m-t-15 waves-effect">ペット登録</button>
-                        <a href="../cl_reserve/">
-                            <button type="btn" class="btn btn-primary m-t-15 waves-effect">スケジュール</button>
-                        </a>
+                            <button id="register3" type="btn" class="btn btn-primary m-t-15 waves-effect">予約登録</button>
                                 <?php if(isset($flg)){
                                 if($flg == "2"){
                                     echo "<div class=\"body\"><div class=\"alert alert-success\">登録しました</div></div>";
@@ -69,7 +62,7 @@
                                         echo "<td>未設定若林 朋</td>";
                                         echo "<td>未設定019-07-01</td>";
                                         echo "<td>";
-                                        echo "<button type=\"btn\" class=\"btn btn-primary m-t-15 waves-effect\">予約</button>";
+                                        echo "<button type=\"btn\" class=\"btn btn-primary m-t-15 waves-effect\">更新</button>";
                                         echo "<button type=\"btn\" class=\"btn btn-primary m-t-15 waves-effect\">削除</button>";
                                         echo "</td>";
                                         echo "</tr>";
@@ -88,18 +81,14 @@
     </div>
 </section>
 <!-- モーダルウィンドウ カスタマー -->
-<section id="modalArea" class="modalBg">
-            <div id="modalBg" class="modalArea"></div>
-    <div class="modalWrapper">
+<section id="modalArea" class="modalBgTotal">
+            <div id="modalBg" class="modalAreaTotal"></div>
+    <div class="modalWrapperTotal">
             <div class="modalContents" id="modalContents"></div>
             <div id="closeModal" class="closeModal">
                 ×
             </div>
-            <div class="block-header">
-                    <h2>顧客管理情報</h2>
-            </div>
-        <!-- Input -->
-    <form>
+        <form>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -225,9 +214,9 @@
 <!-- #END# Input -->
 </section>
 <!-- モーダルウィンドウのペット -->
-<section id="modalPetArea" class="modalBg">
-            <div id="modalPetBg" class="modalArea"></div>
-    <div class="modalWrapper">
+<section id="modalPetArea" class="modalBgTotal">
+            <div id="modalPetBg" class="modalAreaTotal"></div>
+    <div class="modalWrapperTotal">
             <div class="modalContents" id="modalPetContents"></div>
             <div id="closePetModal" class="closeModal">
                 ×
@@ -335,6 +324,67 @@
         </div>
     </section>
 <!-- #END# Input -->
+<section id="modalArea_register" class="modalArea">
+    <div id="modalBg_register" class="modalBg"></div>
+    <div class="modalWrapper">
+        <div class="modalContents" id="modalContents_register"></div>
+        <div id="closeModal_register" class="closeModal">
+            ×
+        </div>
+        <form action="" id="reserve">
+            <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
+                <h2 class="pull-left" style="font-weight: bold; line-height: 37px; margin: 0px">新規予約</h2>
+            </div>
+            <div class="body">
+                <div class="form-group">
+                    <div class="form-line">
+                        <label for="customer_name">お客様名<span style="color: red; margin-left: 10px">必須</span></label>
+                        <input type="text" id="customer_name" class="form-control" name="customer" placeholder="例：田中太郎さん">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-line">
+                        <label for="customer_pet">ペット名<span style="color: red; margin-left: 10px">必須</span></label>
+                        <input type="text" id="customer_pet" class="form-control" name="customer_pet" placeholder="例：ポチくん">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="staff">担当者</label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="reserve_start">開始日時<span style="color: red; margin-left: 10px">必須</span></label>
+                                <input type="datetime-local" id="reserve_start"name="start" class="form-control" placeholder="開始日時" value="<?= date("Y-m-d")."T00:00" ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="reserve_end">終了日時<span style="color: red; margin-left: 10px">必須</span></label>
+                                <input type="time" id="reserve_end" name="reserve_end" class="form-control" placeholder="終了日時">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-line">
+                        <label for="from_name">予約内容</label>
+                        <textarea rows=4 id="reserve_content" class="form-control no-resize" name="content" placeholder="トリミング"></textarea>
+                    </div>
+                </div>
+                <button type="button" id="sendResisterReserve" class="btn bg-pink waves-effect">
+                    登録
+                </button>
+                <button type="reset" id="R_cancel" class="btn bg-orange waves-effect" style="margin-right: 10px">
+                    キャンセル
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
 
 <!-- Jquery Core Js -->
 <script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
@@ -371,6 +421,9 @@
 
 <!-- モーダルウィンドウ・顧客、ペット登録 -->
 <script>
+
+// カスタマーデータ登録
+
 $('#register').on('click', function(){
     $('#modalArea').fadeIn();
 });
@@ -378,15 +431,6 @@ $('#modalBg, #C_cancel').on('click', function(){
     $('#modalArea').fadeOut();
 });
 
-
-$('#register2').on('click', function(){
-    $('#modalPetArea').fadeIn();
-});
-$('#modalPetBg, #P_cancel').on('click', function(){
-    $('#modalPetArea').fadeOut();
-});
-
-// カスタマーデータ登録
 $('#sendCustomerData').on('click', function(){
     let param = {
         customer_name : $("input[name='customer_name']").val(),
@@ -400,31 +444,42 @@ $('#sendCustomerData').on('click', function(){
         customer_group : $("select[name='customer_group']").val()
     }
     $.ajax({
-        url: '../Cl_customer/customer_validation',
+        url: '../Cl_customer/insert_customer',
         type: 'POST',
         data: param
+        
     })
     .done(function(data, textStatus, jqXHR) {
         // alert("success!");
         console.log(data);
+        location.reload();
+
     })
     .fail(function(data, textStatus, errorThrown) {
         console.log(data);
     })
 });
 // ペットデータ登録
+$('#register2').on('click', function(){
+    $('#modalPetArea').fadeIn();
+});
+$('#modalPetBg, #P_cancel').on('click', function(){
+    $('#modalPetArea').fadeOut();
+});
 
 $('#sendPetData').on('click', function(){
     let param = {
         pet_name : $("input[name='pet_name']").val(),
-        customer_kana : $("input[name='customer_kana']").val(),
-        customer_mail : $("input[name='customer_mail']").val(),
-        customer_tel : $("input[name='customer_tel']").val(),
-        customer_zip_adress : $("input[name='customer_zip_adress']").val(),
-        customer_address : $("input[name='customer_address']").val(),
-        customer_magazine : $("[name='customer_magazine']:checked").val(),
-        customer_add_info : $("textarea[name='customer_add_info']").val(),
-        customer_group : $("select[name='customer_group']").val()
+        pet_classification : $("input[name='pet_classification']").val(),
+        pet_type : $("input[name='pet_type']").val(),
+        pet_animal_gender : $("[name='pet_animal_gender']:checked").val(),
+        pet_contraception : $("[name='pet_contraception']:checked").val(),
+        pet_body_height : $("input[name='pet_body_height']").val(),
+        pet_body_weight : $("input[name='pet_body_weight']").val(),
+        pet_birthday : $("input[name='pet_birthday']").val(),
+        pet_last_reservdate : $("input[name='pet_last_reservdate']").val(),
+        pet_information : $("textarea[name='pet_information']").val()
+
     }
     $.ajax({
         url: '../Cl_pet_info/pet_info_validation',
@@ -434,12 +489,43 @@ $('#sendPetData').on('click', function(){
     .done(function(data, textStatus, jqXHR) {
         // alert("success!");
         console.log(data);
+        location.reload();
     })
     .fail(function(data, textStatus, errorThrown) {
         console.log(data);
     })
 });
+//予約登録
+$('#register3').on('click', function(){
+    $('#modalArea_register').fadeIn();
+});
 
+$('#modalBg_register, #R_cancel').on('click', function(){
+    $('#modalArea_register').fadeOut();
+});
+
+$('#sendResisterReserve').on('click', function() {
+        let param = {
+            customer_name : $('#customer_name').val(),
+            customer_pet : $('#customer_pet').val(),
+            staff_id : $('#staff_id').val(),
+            reserve_start : $('#reserve_start').val(),
+            reserve_end : $('#reserve_start').val().slice(0 , -5) + $('#reserve_end').val(),
+            reserve_content:  $('#reserve_content').val()
+        };
+        $.ajax({
+            url:'../cl_reserve/register_reserve_data',
+            type:'POST',
+            data: param
+        })
+        .done( (data) => {
+            console.log(data);
+            location.reload();
+        })
+        .fail( (data) => {
+            alert("失敗しました");
+        })
+    });
 </script>
 </body>
 

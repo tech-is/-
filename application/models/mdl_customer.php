@@ -9,17 +9,6 @@ class mdl_customer extends CI_Model
         $this->load->database();
     }
 
-    //データの登録
-    //登録するデータを第一引数で持つ
-    // public function ses_insert_customer($sesdata) {
-    //     if($this->db->insert('customer',$sesdata)) {
-    //         return true;
-    //     }else{
-    //         echo "セッション失敗";
-    //         // return false;
-    //     }
-    // }
-
     public function m_insert_customer($c_test)
     {
         // var_dump($c_test);
@@ -34,22 +23,19 @@ class mdl_customer extends CI_Model
         }
     }
 
-    // private function insert_magazine_data()
-    // {
-    //     $post_data = $this->input->post(null, true);
-    //     $data = [
-    //         "mail_shop_id" => $_SESSION["shops_id"],
-    //         "mail_from_name" => $post_data["from_name"],
-    //         "mail_shop_mail" => $post_data["mail"],
-    //         "mail_subject" => $post_data["subject"],
-    //         "mail_detail" => $post_data["detail"]
-    //     ];
-    //     $this->load->model("mdl_magazine");
-    //     return $this->mdl_magazine->insert_magazine($data);
-    // }
-    /**
-     * get_customer_table
-     * custmoerテーブルからデータを配列で取得
-     * @return $query->result();
-     */
+    public function update_customer_data($id, $data)
+    {
+        //update customer set where = customer_id and customer_shop_id;
+        $this->db->set($data);
+        $this->db->where(['customer_id'=> $id['customer_id'], 'customer_shop_id' => $id['customer_shop_id']]);
+        return $this->db->update('customer');
+    }
+
+    public function delete_staff_data($id)
+    {
+        $this->db->set("customer_state", 999);
+        $this->db->where(['customer_id'=> $id['customer_id'], 'customer_shop_id' => $id['customer_shop_id']]);
+        return $this->db->update('customer');
+    }
+
 }

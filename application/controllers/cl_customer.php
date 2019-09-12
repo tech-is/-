@@ -8,7 +8,7 @@ class Cl_customer extends CI_Controller {
         parent::__construct();
         $this->load->helper(["url", "form"]);
         $this->load->library('session');
-        // session_start();
+        session_start();
         $_SESSION["shops_id"] = 1;
     }
    
@@ -18,9 +18,9 @@ class Cl_customer extends CI_Controller {
         $this->load->model('mdl_customer');
 
         //顧客登録一覧
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/Customer_view');
+        // $this->load->view('cms/pages/parts/header');
+        // $this->load->view('cms/pages/parts/sidebar');
+        // $this->load->view('cms/Customer_view');
     }
 
     public function custmoer_form()
@@ -36,19 +36,17 @@ class Cl_customer extends CI_Controller {
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/vi_total_list.php');
     }
-
-    //入力後のミス確認からモデルへ
-    public function customer_validation(){
-        $c_test['customer_magazine'] ="";
-        $config=array(
-            array(
+    private function check_customer_data()
+    {
+        $config = [
+            [
                 'field' => 'customer_name',
                 'label' => '名前',
                 'rules' => 'required|trim',
                 'errors' => array(
                     'required' => '名前を入力してください'
                 )
-            ),
+            ],
             // array(
             //     'field' => 'customer_kana',
             //     'label' => 'カナ',
@@ -103,53 +101,106 @@ class Cl_customer extends CI_Controller {
             //     'label' => 'ランク',
             //     'rules' => 'required|trim',
             //     )
-        );
-            $this->load->library('form_validation');
-            $this->form_validation->set_rules($config);
-    if ($this->form_validation->run() !== false){
-                $this->load->model('mdl_customer');
-                $c_test = $this->input->post(NULL,true);
-        }else{
-            // $this->load->view('cms/Customer_view');
-            echo "入力値に不正";
-            exit;
+        ];
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules($config);
+        return $this->form_validation->run();
+    }
+    // customerデータに入れていないキーの処理
+    public function c_check()
+    {
+        $c_test['customer_magazine'] ="";
+        if ($this->check_customer_data() == true) {
+            $c_test = $this->input->post(NULL,true);
         }
-
-                //メールマガジンをintへ
-                if(isset($c_test['customer_magazine'])){
-                    if($c_test['customer_magazine'] == 'null') {
-                            $c_test['customer_magazine'] = 0;
-                        }else{
-                            $c_test['customer_magazine'] = 1;
-                    }
+            //メールマガジンをintへ
+            if(isset($c_test['customer_magazine'])) {
+                if($c_test['customer_magazine'] == 'null') {
+                        $c_test['customer_magazine'] = 0;
+                    }else{
+                        $c_test['customer_magazine'] = 1;
                 }
-                //グループをintへ
-                    if($c_test['customer_group'] == 'gold') {
-                            $c_test['customer_group'] = 0;
-                        }elseif ($c_test['customer_group'] == 'silver') {
-                            $c_test['customer_group'] = 1;
-                        }elseif($c_test['customer_group'] == 'bronze'){
-                            $c_test['customer_group'] = 2;
-                        }else{
-                            $c_test['customer_group'] = 3;
-                        }
+            }
+            //グループをintへ
+            if($c_test['customer_group'] == 'gold') {
+                    $c_test['customer_group'] = 0;
+                } elseif ($c_test['customer_group'] == 'silver') {
+                    $c_test['customer_group'] = 1;
+                } elseif($c_test['customer_group'] == 'bronze'){
+                    $c_test['customer_group'] = 2;
+                } else{
+                    $c_test['customer_group'] = 3;
+            }
+            $c_test["customer_shop_id"] = $_SESSION["shops_id"];
+            return $c_test;
+    }
 
-                        
-                    $this->session;
-                    $c_test["customer_shop_id"] = $_SESSION["shops_id"];
-                    $this->load->model("mdl_customer");
-                    
-                
-                    //データベースの呼び出し
-                if($this->mdl_customer->m_insert_customer($c_test) == true) {
-                    echo "success!";
-                    exit;
-                        // redirect('http://localhost/sub/cl_total_list/?flg=2');
-                    } else {
-                        $data['comment'] = '※登録に失敗しました。再度ご入力をお願いします。';
-                        // $this->load->view('cms/pages/parts/header');
-                        // $this->load->view('cms/pages/parts/sidebar');
-                        // $this->load->view('cms/pet_info_view',$data);
-                    }
-                }
+    //新規登録
+    public function insert_customer($c_test)
+    {
+        $this->load->model("mdl_customer");
+        if($this->mdl_customer->m_insert_customer($c_test) == true) {
+            echo "success!";
+        exit;
+        // redirect('http://localhost/sub/cl_total_list/?flg=2');
+        } else {
+        $data['comment'] = '※登録に失敗しました。再度ご入力をお願いします。';
+        } //else {
+        // $this->load->view('cms/Customer_view');
+        //echo "入力値に不正";
+        //exit;
+        //}
+    }
+    
+    //vi_total_listの更新の起点はここ
+    public function update_customer_list()
+    {
+        $result = $this->c_check();
+        echo $result;
+        exit;
+        if($this->check_customer_data() == true) {
+            
+            $result = $this->update_customer();
+            if($result == true) {
+                echo "success!";
+            } else {
+                echo "false…";
+            }
+        } else {
+            echo "hoge";
+        }
+    }
+
+    private function update_customer()
+    {
+        $id = [
+            "staff_id" => $this->input->post("staff_id"),
+            "staff_shop_id" => $_SESSION['shops_id'],
+        ];
+        $data = [
+            "staff_name" => $this->input->post("staff_name"),
+            "staff_tel" => $this->input->post("staff_tel"),
+            "staff_mail" => $this->input->post("staff_email"),
+            "staff_color" => $this->input->post("staff_color"),
+            "staff_remarks" => $this->input->post("staff_remarks")
+        ];
+        $this->load->model("mdl_staff");
+        return $this->mdl_staff->update_staff_data($id, $data);
+    }
+
+    public function delete_staff()
+    {
+        $id = [
+            "staff_id" => $this->input->post("staff_id"),
+            "staff_shop_id" => $_SESSION["shop_id"],
+            // "staff_shop_id" => $this->input->session("shop_id"),
+        ];
+        $this->load->model("mdl_staff");
+        if($this->mdl_staff->delete_staff_data($id) == true) {
+            echo "succsess!";
+        } else {
+            echo "false";
+        }
+    }
+
 }
