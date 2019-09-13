@@ -22,7 +22,13 @@ class Cl_customer extends CI_Controller {
         // $this->load->view('cms/pages/parts/sidebar');
         // $this->load->view('cms/Customer_view');
     }
+    //呼び出し
+    public function select_customer() 
+    {
+        $this->load->model('mdl_customer');
+        $this->mdl_customer->m_select_customer();
 
+    }
     public function custmoer_form()
     {
         $this->load->view('cms/pages/parts/header');
@@ -109,94 +115,97 @@ class Cl_customer extends CI_Controller {
     // customerデータに入れていないキーの処理
     public function c_check()
     {
-        $c_test['customer_magazine'] ="";
+        // $c_test['customer_magazine'] ="";
         if ($this->check_customer_data() == true) {
             $c_test = $this->input->post(NULL,true);
-        }
             //メールマガジンをintへ
-            if(isset($c_test['customer_magazine'])) {
-                if($c_test['customer_magazine'] == 'null') {
-                        $c_test['customer_magazine'] = 0;
-                    }else{
-                        $c_test['customer_magazine'] = 1;
-                }
+            if(empty($this->input->post("customer_magazine"))) {
+                $c_test['customer_magazine'] = 1;
+            } else {
+                $c_test['customer_magazine'] = 0;
             }
             //グループをintへ
             if($c_test['customer_group'] == 'gold') {
-                    $c_test['customer_group'] = 0;
-                } elseif ($c_test['customer_group'] == 'silver') {
-                    $c_test['customer_group'] = 1;
-                } elseif($c_test['customer_group'] == 'bronze'){
-                    $c_test['customer_group'] = 2;
-                } else{
-                    $c_test['customer_group'] = 3;
+                $c_test['customer_group'] = 0;
+            } elseif ($c_test['customer_group'] == 'silver') {
+                $c_test['customer_group'] = 1;
+            } elseif($c_test['customer_group'] == 'bronze'){
+                $c_test['customer_group'] = 2;
+            } else{
+                $c_test['customer_group'] = 3;
             }
             $c_test["customer_shop_id"] = $_SESSION["shops_id"];
             return $c_test;
+        } else {
+            return false;
+        }
     }
 
     //新規登録
-    public function insert_customer($c_test)
+    public function insert_customer()
     {
-        $this->load->model("mdl_customer");
-        if($this->mdl_customer->m_insert_customer($c_test) == true) {
-            echo "success!";
-        exit;
-        // redirect('http://localhost/sub/cl_total_list/?flg=2');
+        if($this->c_check() == true) {
+            $newresult = $this->c_check();
+            $this->load->model("mdl_customer");
+            if($this->mdl_customer->m_insert_customer($newresult) == true) {
+                echo "success!";
+                exit;
+            } else {
+                echo "fail..";
+                exit;
+            }
         } else {
-        $data['comment'] = '※登録に失敗しました。再度ご入力をお願いします。';
-        } //else {
-        // $this->load->view('cms/Customer_view');
-        //echo "入力値に不正";
-        //exit;
-        //}
+            echo "入力値に不正";
+            exit;
+        }
     }
     
     //vi_total_listの更新の起点はここ
     public function update_customer_list()
     {
-        $result = $this->c_check();
-        echo $result;
-        exit;
-        if($this->check_customer_data() == true) {
-            
-            $result = $this->update_customer();
-            if($result == true) {
+        if($this->c_check() == true) {
+            $result = $this->c_check();
+            if($this->update_customer($result) == true) {
                 echo "success!";
+                exit;
             } else {
                 echo "false…";
+                exit;
             }
         } else {
-            echo "hoge";
+            echo "入力値に不正";
         }
     }
 
     private function update_customer()
     {
         $id = [
-            "staff_id" => $this->input->post("staff_id"),
-            "staff_shop_id" => $_SESSION['shops_id'],
+            "customer_id" => $this->input->post("customer_id"),
+            "customer_shop_id" => $_SESSION['shops_id'],
         ];
         $data = [
-            "staff_name" => $this->input->post("staff_name"),
-            "staff_tel" => $this->input->post("staff_tel"),
-            "staff_mail" => $this->input->post("staff_email"),
-            "staff_color" => $this->input->post("staff_color"),
-            "staff_remarks" => $this->input->post("staff_remarks")
+            "customer_name" => $this->input->post("customer_name"),
+            "customer_kana" => $this->input->post("customer_kana"),
+            "customer_mail" => $this->input->post("customer_mail"),
+            "customer_tel" => $this->input->post("customer_tel"),
+            "customer_zip_adress" => $this->input->post("customer_zip_adress"),
+            "customer_address" => $this->input->post("customer_address"),
+            "customer_magazine" => $this->input->post("customer_magazine"),
+            "customer_add_info" => $this->input->post("customer_add_info"),
+            "customer_group" => $this->input->post("customer_group"),
         ];
-        $this->load->model("mdl_staff");
-        return $this->mdl_staff->update_staff_data($id, $data);
+        $this->load->model("mdl_customer");
+        return $this->mdl_customer->update_customer_data($id, $data);
     }
 
-    public function delete_staff()
+    public function delete_customer()
     {
         $id = [
-            "staff_id" => $this->input->post("staff_id"),
-            "staff_shop_id" => $_SESSION["shop_id"],
-            // "staff_shop_id" => $this->input->session("shop_id"),
+            "customer_id" => $this->input->post("customer_id"),
+            "customer_shop_id" => $_SESSION["shop_id"],
         ];
-        $this->load->model("mdl_staff");
-        if($this->mdl_staff->delete_staff_data($id) == true) {
+        $this->load->model("mdl_customer");
+        if($this->mdl_customer->delete_customer_data($id) == true) {
             echo "succsess!";
         } else {
             echo "false";

@@ -22,6 +22,7 @@
                             <button id="register" type="btn" class="btn btn-primary m-t-15 waves-effect">顧客登録</button>
                             <button id="register2" type="btn" class="btn btn-primary m-t-15 waves-effect">ペット登録</button>
                             <button id="register3" type="btn" class="btn btn-primary m-t-15 waves-effect">予約登録</button>
+                            <button id="register4" type="btn" class="btn btn-primary m-t-15 waves-effect" disabled>顧客更新</button>
                                 <?php if(isset($flg)){
                                 if($flg == "2"){
                                     echo "<div class=\"body\"><div class=\"alert alert-success\">登録しました</div></div>";
@@ -30,49 +31,43 @@
                                 }
                             }
                         ?>
-                    <form action="customer_validation" method="POST">
-                        <div class="body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>顧客名</th>
-                                            <th>ペット名</th>
-                                            <th>住所</th>
-                                            <th>電話番号</th>
-                                            <th>メールアドレス</th>
-                                            <th>担当スタッフ</th>                                      
-                                            <th>最終予約日</th>
-                                            <th>設定</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    // print_r($customers);
-                                    for($i = 0; $i < count($customers); $i++){
-                                        $customer = $customers[$i];
-                                        echo "<tr>";
-                                        echo "<td></td>";
-                                        echo "<td>$customer[customer_name]</td>";
-                                        echo "<td>未設定ヤジロベー</td>";
-                                        echo "<td>$customer[customer_address]</td>";
-                                        echo "<td>$customer[customer_tel]</td>";
-                                        echo "<td>$customer[customer_mail]</td>";
-                                        echo "<td>未設定若林 朋</td>";
-                                        echo "<td>未設定019-07-01</td>";
-                                        echo "<td>";
-                                        echo "<button type=\"btn\" class=\"btn btn-primary m-t-15 waves-effect\">更新</button>";
-                                        echo "<button type=\"btn\" class=\"btn btn-primary m-t-15 waves-effect\">削除</button>";
-                                        echo "</td>";
-                                        echo "</tr>";
-                                    }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>ID</th> -->
+                                        <th>顧客名</th>
+                                        <th>ペット名</th>
+                                        <th>電話番号</th>
+                                        <th>メールアドレス</th>
+                                        <th>最終予約日</th>
+                                        <!-- <th>設定</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                // print_r($customers);
+                                for($i = 0; $i < count($list); $i++){
+                                    $disply = $list[$i];
+                                    echo "<tr>";
+                                    // echo "<td>$customer[customer_id]</td>";
+                                    echo "<td>$disply[customer_name]</td>";
+                                    echo "<td>$disply[pet_name]</td>";
+                                    echo "<td>$disply[customer_tel]</td>";
+                                    echo "<td>$disply[customer_mail]</td>";
+                                    echo "<td>$disply[reserve_start]</td>";
+                                    // echo "<td>";
+                                    // echo "<button type=\"btn\" id=\"updateButton\" class=\"btn btn-primary m-t-15 waves-effect\">更新</button>";
+                                    // echo "<button type=\"btn\" id=\"deleteButton\" class=\"btn btn-primary m-t-15 waves-effect\">削除</button>";
+                                    // echo "</td>";
+                                    echo "</tr>";
+                                }
+                                ?>
+                                </tbody>
+                            </table>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -526,6 +521,37 @@ $('#sendResisterReserve').on('click', function() {
             alert("失敗しました");
         })
     });
+
+// テーブル行クリックの設定
+// $('#datatable tbody').on("click", "tr", function () {
+//     if ($(this).find('.dataTables_empty').length == 0) {
+//         var owner = $(this);
+//         $("#datatable tr").removeClass("active");
+//         owner.addClass("active");
+//         $("#register4").prop("disabled", false);
+//         // $("#shiftButton").prop("disabled", false);
+//         // $("#deleteButton").prop("disabled", false);
+//     }
+// });
+
+//顧客更新
+$("#register4").on("click", function () {
+    let row = $('#datatable').DataTable().rows('.active').data();
+    let column = row[0];
+    // let str = row[0].staff_name;
+    sessionStorage.setItem('customer_id', column[0])
+    // let staff_name = str.split(' ');
+    // $("#dialogTitle").html("スタッフ更新");
+    $("input[name='customer_name[0]']").val(column[1]);
+    $("input[name='staff_tel']").val(row[0].staff_tel);
+    $("input[name='staff_email']").val(row[0].staff_mail);
+    $("input[name='staff_color']").val(row[0].staff_color);
+    $("textarea[name='staff_remarks']").val(row[0].staff_remarks);
+    $('#modalArea_add_staff').fadeIn();
+    $('#sendRegistButton').hide();
+    $('#sendUpdateButton').show();
+});
+
 </script>
 </body>
 
