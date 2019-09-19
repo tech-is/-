@@ -109,6 +109,15 @@
     padding: 10px 30px;
     background-color: #333;
     }
+    .modalWrapperTotalCustomer {
+    position: absolute;
+    z-index: 13;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 90%;
+    /* background-color: #fff; */
+    }
 
     .modalWrapper_staff_list {
     position: absolute;

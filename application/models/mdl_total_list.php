@@ -11,9 +11,9 @@ class Mdl_total_list extends CI_Model {
   }
 
   //カスタマーのセレクトの分をとってくる
-  public function m_get_total_list(){
+  public function m_get_total_list($shop_id){
     //print_r($_SESSION);
-        $where = ['customer_state ' => 1, 'customer_shop_id '=> 1];
+        $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id]; 
         $this->db->where($where);
         $this->db->select("customer_name , pet_name , customer_tel , customer_mail , reserve_start ");
         $this->db->from('customer');
@@ -23,35 +23,20 @@ class Mdl_total_list extends CI_Model {
         return $query->result_array(); //結果を配列で返す。
   }
 
-//ペット名をとってくる
-  // public function m_get_pet(){
-  //   $where = ['pet_state ' => 1];
-  //   $this->db->where($where);
-  //   $this->db->select('pet_name');
-  //   $this->db->from('pet');
-  //   $query = $this->db->get();
-  //   return $query->result_array();
-  // }
-
-//担当スタッフをとってくる
-  // public function m_get_staff(){
-  //   $where = ['staff_state ' => 1];
-  //   $this->db->where($where);
-  //   $this->db->select('staff_name');
-  //   $this->db->from('staff');
-  //   $query = $this->db->get();
-  //   return $query->result_array();
-  // }
-
-  //最終予約日をとってくる
-  // public function m_get_reserve(){
-  //   $where = ['event_state ' => 1];
-  //   $this->db->where($where);
-  //   $this->db->select('event_start');
-  //   $this->db->from('calender_event');
-  //   $query = $this->db->get();
-  //   return $query->result_array();
-  // }
+  public function m_insert_total_list($pet_data, $customer_data)
+  {
+    $this->db->trans_start();
+    $this->db->insert('pet',$pet_data);
+    $this->db->insert('customer', $customer_data);
+    $this->db->trans_complete();
+    if ($this->db->trans_status() === FALSE) {
+      $this->db->trans_rollback();
+        return false;
+    } else {
+      $this->db->trans_commit();
+        return true;
+    }
+  }
 
 
 

@@ -1,5 +1,7 @@
 $(function () {
-    $('.js-basic-example').DataTable({
-        responsive: true
+    $('#datatable').DataTable({
+        'responsive': true,
+        'searching': true,
+        'paging': true
     });
 });
