@@ -27,7 +27,7 @@ class Cl_main extends CI_Controller
     public function staff()
     {
         $this->load->model('mdl_staff');
-        $this->load->model('mdl_staff_shift');
+        $this->load->model('Mdl_shift');
         $data['staff'] = $this->mdl_staff->get_staff_list();
         if($data['staff']) {
             foreach($data['staff'] as $row => $staff) {
@@ -35,7 +35,7 @@ class Cl_main extends CI_Controller
                 $data['select_staff'][$row]['staff_name'] = $staff['staff_name'];
             }
         }
-        $shifts = $this->mdl_staff_shift->select_shift_data();
+        $shifts = $this->Mdl_shift->select_shift_data();
         if($shifts) {
             foreach($shifts as $row => $shift) {
                 $data['shift'][$row]['staff_id'] = $shift['staff_id'];
@@ -50,6 +50,7 @@ class Cl_main extends CI_Controller
         }
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
+        // $data["shift"] =  [["event_id" => 1, "title" => 'トリミング', "start" => '2019-09-03T10:30', "end" => '2019-09-03T11:00', "color" => '#FF0000']];
         $this->load->view('cms/pages/staff/view_staff_list', $data);
     }
 

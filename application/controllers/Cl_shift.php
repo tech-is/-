@@ -8,58 +8,79 @@ class Cl_shift extends CI_Controller
     {
         parent::__construct();
         session_start();
+        isset($_SESSION["shop_id"])? true : exit;
         $this->load->helper(["url", "form"]);
     }
 
     public function insert_shift()
     {
-        $config = [
-            [
-                'field' => 'staff_id',
-                'label' => 'スタッフID',
-                'rules' => 'required|trim'
-            ],
-            [
-                'field' => 'start',
-                'label' => '開始日時',
-                'rules' => 'required|trim'
-            ],
-            [
-                'field' => 'end',
-                'label' => '終了日時',
-                'rules' => 'required|trim'
-            ]
-        ];
-        $this->load->library("form_validation", $config);
-        if($this->form_validation->run()) {
-            $this->load->model("mdl_staff_shift");
+        if($this->shift_validation() === true) {
+            $this->load->model("Mdl_shift");
             $data = [
                 'shift_shop_id' => $_SESSION['shop_id'],
                 'shift_staff_id' => $this->input->post("staff_id"),
-                'shift_start' => $this->input->post("start"),
-                'shift_end' => $this->input->post("end")
+                'shift_start' => $this->input->post("shift_start"),
+                'shift_end' => $this->input->post("shift_end")
             ];
-            if($this->mdl_staff_shift->insert_shift_data($data)) {
+            if($this->Mdl_shift->insert_shift_data($data)) {
                 echo "success";
+                exit;
             } else {
                 echo "dberror";
+                exit;
             }
         } else {
-            echo "入力に間違いがあります";
+            echo "valierr";
+            exit;
         }
     }
 
     public function update_shift_data()
     {
+        if($this->shift_validation() === true) {
+            $this->load->model("Mdl_shift");
+            $id = [
+                'shift_shop_id' => $_SESSION["shop_id"],
+                'shift_id' => $this->input->post("shift_id")
+            ];
+            $data = [
+                'shift_staff_id' => $this->input->post("staff_id"),
+                'shift_start' => $this->input->post("shift_start"),
+                'shift_end' => $this->input->post("shift_end")
+            ];
+            if($this->Mdl_shift->update_shift_data($id, $data)) {
+                echo "success";
+                exit;
+            } else {
+                echo "dberror";
+                exit;
+            }
+        } else {
+            echo "valierr";
+            exit;
+        }
+    }
+
+    public function delete_shift_data()
+    {
+        $id = [
+            "shift_id" => $this->input->post("shift_id"),
+            "shift_shop_id" =>  $_SESSION["shop_id"]
+        ];
+        $this->load->model("Mdl_shift");
+        if($this->Mdl_shift->delete_shift_data($id) == true) {
+            echo "success";
+        } else {
+            echo "dberror";
+        }
+    }
+
+    private function shift_validation()
+    {
         $config = [
             [
-                'field' => 'shift_id',
-                'label' => '名前',
-                'rules' => 'required|trim'
-            ],
-            [
                 'field' => 'staff_id',
-                'label' => '名前',
+                'label' => 'スタッフID',
                 'rules' => 'required|trim'
             ],
             [
@@ -74,40 +95,8 @@ class Cl_shift extends CI_Controller
             ]
         ];
         $this->load->library("form_validation", $config);
-        if($this->form_validation->run()) {
-            $this->load->model("mdl_staff_shift");
-            $id = [
-                'shift_shop_id' => $_SESSION["shop_id"],
-                'shift_id' => $this->input->post("shift_id")
-            ];
-            $data = [
-                'shift_staff_id' => $this->input->post("staff_id"),
-                'shift_start' => $this->input->post("shift_start"),
-                'shift_end' => $this->input->post("shift_end")
-            ];
-            if($this->mdl_staff_shift->update_shift_data($id, $data)) {
-                echo "success";
-                exit;
-            } else {
-                echo "dberror";
-                exit;
-            }
-        } else {
-            echo "入力に間違いがあります";
-        }
+        $result = $this->form_validation->run();
+        return $result;
     }
 
-    public function delete_shift_data()
-    {
-        $id = [
-            "shift_id" => $this->input->post("shift_id"),
-            "shift_shop_id" =>  $_SESSION["shop_id"]
-        ];
-        $this->load->model("mdl_staff_shift");
-        if($this->mdl_staff_shift->delete_shift_data($id) == true) {
-            echo "succsess";
-        } else {
-            echo "false";
-        }
-    }
 }

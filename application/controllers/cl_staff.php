@@ -18,7 +18,7 @@ class Cl_staff extends CI_Controller
                     echo "success";
                     exit;
                 } else {
-                    echo "false…";
+                    echo "false";
                     exit;
                 }
             } else {
@@ -36,10 +36,10 @@ class Cl_staff extends CI_Controller
         if ($this->check_staff_data() == true) {
             $result = $this->update_staff();
             if ($result == true) {
-                echo "success!";
+                echo "success";
                 exit;
             } else {
-                echo "false…";
+                echo "false";
                 exit;
             }
         } else {
@@ -118,13 +118,19 @@ class Cl_staff extends CI_Controller
         return $this->mdl_staff->update_staff_data($id, $data);
     }
 
-    private function delete_staff()
+    public function delete_staff()
     {
         $id = [
             "staff_id" => $this->input->post("staff_id"),
             "staff_shop_id" => $_SESSION["shop_id"],
         ];
         $this->load->model("mdl_staff");
-        return $this->mdl_staff->delete_staff_data($id);
+        if($this->mdl_staff->delete_staff_data($id) === true) {
+            echo "success";
+            exit;
+        } else {
+            echo "dberror";
+            exit;
+        }
     }
 }
