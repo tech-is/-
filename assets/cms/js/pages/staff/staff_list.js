@@ -427,6 +427,39 @@ $(function() {
     });
 });
 
+$(function() {
+    $("#form_shift").validate({
+        rules: {
+            shift_start: { required: true },
+            shift_end: { required: true },
+        },
+        messages: {
+            shift_start: { required: "入力してください。" },
+            shift_end: { required: "入力してください。" },
+        },
+        highlight: function (input) {
+            // console.log(input);
+            $(input).parents('.form-line').addClass('error');
+        },
+        unhighlight: function (input) {
+            $(input).parents('.form-line').removeClass('error');
+        },
+        errorPlacement: function (error, element) {
+            $(element).parents('.input-group').append(error);
+            $(element).parents('.form-group').append(error);
+        },
+        submitHandler: function(form) {
+            if($("#shift_id").val() == ""){
+                register_shift();
+                return false;
+            } else {
+                update_shift();
+                return false;
+            }
+        }
+    });
+});
+
 /******************************************************************** */
 /** SweetAlert  **/
 /******************************************************************** */
