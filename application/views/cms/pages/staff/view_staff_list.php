@@ -101,7 +101,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="end">終業日時<span style="color: red; margin-left: 10px">必須</span></label>
+                                    <input type="time" name="shift_start_time" class="form-control" placeholder="終了日時" required>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <input type="hidden" name="shift_id" id="shift_id">
                     <div class="pull-left">
                         <?php if(isset($select_staff)){ ?>
                             <button type="button" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect">登録</button>
@@ -319,6 +328,9 @@
 <!-- Jquery-datatable -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+<!-- flatpicker -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <!-- SweetAlert Plugin Js -->
 <!-- <script src="../assets/cms/plugins/sweetalert/sweetalert.min.js"></script> -->

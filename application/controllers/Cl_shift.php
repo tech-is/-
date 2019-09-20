@@ -40,9 +40,9 @@ class Cl_shift extends CI_Controller
                 'shift_end' => $this->input->post("end")
             ];
             if($this->mdl_staff_shift->insert_shift_data($data)) {
-                echo "success!";
+                echo "success";
             } else {
-                "登録に失敗しました。";
+                echo "dberror";
             }
         } else {
             echo "入力に間違いがあります";
@@ -101,12 +101,11 @@ class Cl_shift extends CI_Controller
     {
         $id = [
             "shift_id" => $this->input->post("shift_id"),
-            "shift_shop_id" => 1,
-            // "staff_shop_id" => $this->input->session("shop_id"),
+            "shift_shop_id" =>  $_SESSION["shop_id"]
         ];
         $this->load->model("mdl_staff_shift");
         if($this->mdl_staff_shift->delete_shift_data($id) == true) {
-            echo "succsess!";
+            echo "succsess";
         } else {
             echo "false";
         }

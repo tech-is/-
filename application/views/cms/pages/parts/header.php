@@ -44,6 +44,9 @@
     <!-- Datatable Css -->
     <link href="../assets/cms/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
+    <!-- flatpicker Css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" /><style>
     

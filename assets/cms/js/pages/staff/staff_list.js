@@ -39,6 +39,7 @@ $(document).ready(function () {
             $('#send_Delete_shift').show();
             $('#register_add_shift').hide();
             $('#select_shift_staff').val(eventObj.staff_id);
+            $('#shift_id').val(eventObj.shift_id);
             $('input[name="shift_start"]').val(start);
             $('input[name="shift_end"]').val(end);
             $('#modalArea_add_shift').fadeIn();
@@ -65,7 +66,7 @@ $("#register_add_shift").on("click", function () {
         end: $("input[name='shift_end']").val()
     }
     $.ajax({
-        url: "../cl_shift/insert_shift",
+        url: "../Cl_shift/insert_shift",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -108,23 +109,26 @@ $("#send_Update_shift").on("click", function () {
 /******************************************************************** */
 $("#send_Delete_shift").on("click", function () {
     if (SweetAlertMessage("confirm_delete") == true) {
-        var param = {
-            shift_id: sessionStorage.getItem('shift_id')
-        }
-        $.ajax({
-            url: "../cl_staff/delete_shift_data",
-            type: "POST",
-            data: param,
-        }).done(function (data) {
-            if (data == "success") {
-                SweetAlertMessage("success_update");
-            }
-        }).fail(function (xhr, textStatus, errorThrown) {
-            alert("505");
-        });
     }
 });
 
+function shift_delete() {
+    var param = {
+        shift_id: $('#shift_id').val()
+    }
+    $.ajax({
+        url: "../Cl_shift/delete_shift_data",
+        type: "POST",
+        data: param,
+    }).done(function (data) {
+        if (data == "success") {
+            SweetAlertMessage("success_update");
+            $("#modalArea_add_shift").fadeOut();
+        }
+    }).fail(function (xhr, textStatus, errorThrown) {
+        SweetAlertMessage("success_update");
+    });
+}
 /******************************************************************** */
 /* イベント詳細モーダル */
 /******************************************************************** */
@@ -411,7 +415,7 @@ function SweetAlertMessage(key) {
             icon: "success",
             button: {
                 text: "OK",
-                value: true,
+                value: "success",
                 visible: true,
                 className: "",
                 closeModal: true,
@@ -445,19 +449,33 @@ function SweetAlertMessage(key) {
         },
         confirm_delete: {
             title: "削除しますか？",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "削除",
-            closeOnConfirm: false
+            icon: "warning",
+            buttons: {
+                OK: {
+                    text: "OK",
+                    value: "shift_delete",
+                    closeModal: false
+                },
+                Cancel: {
+                    text: "Cancel",
+                    value: false
+                }
+            }
         }
     }
     let swal_data = message_json[key];
     swal(
         swal_data
-    ).then((isConfirm) => {
-        if (isConfirm === true) {
-            location.reload(true);
+    ).then((value) => {
+        switch (value) {
+            case "success":
+                location.reload(true);
+                break;
+            case "shift_delete":
+                shift_delete();
+                break;
+            case false:
+                return false;
         }
     })
 }
