@@ -13,7 +13,7 @@ class Cl_main extends CI_Controller
         parent::__construct();
         $this->load->helper(["url", "form"]);
         session_start();
-        $_SESSION["shops_id"] = 1;
+        $_SESSION["shop_id"] = 1;
     }
 
     public function home()

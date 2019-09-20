@@ -35,24 +35,23 @@
     <!-- full calender Css -->
     <link href='../assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.css' rel='stylesheet' />
 
+    <!-- Sweetalert Css -->
+    <link href="../assets/cms/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="../assets/cms/css/style.css" rel="stylesheet" />
 
     <!-- Datatable Css -->
     <link href="../assets/cms/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" />
-    <style>
-    table.dataTable tbody tr.active{
-        background-color: #4caf50b0;
-    }
+    <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" /><style>
+    
     /* モーダルCSS */
     .modalArea {
     display: none;
     position: fixed;
-    z-index: 11; /*サイトによってここの数値は調整 */
+    z-index: 12; /*サイトによってここの数値は調整 */
     top: 0;
     left: 0;
     width: 100%;
@@ -178,7 +177,7 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="main">Animarl CRM Program</a>
+                <a class="navbar-brand" href="home">Animarl CRM Program</a>
             </div>
         </div>
     </nav>

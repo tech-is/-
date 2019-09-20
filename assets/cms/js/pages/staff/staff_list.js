@@ -1,4 +1,6 @@
-/**シフトカレンダー */
+/******************************************************************** */
+/*シフトカレンダー */
+/******************************************************************** */
 $(document).ready(function () {
     $('#calendar').fullCalendar({
         height: window.innerHeight - 250,
@@ -11,7 +13,7 @@ $(document).ready(function () {
             center: 'title',
             right: 'month,agendaWeek,agendaDay,listMonth'
         },
-        // timeFormat: 'HH:mm',
+        timeFormat: 'HH:mm',
         timezone: 'Asia/Tokyo',
         navLinks: true, // can click day/week names to navigate views
         editable: true,
@@ -28,54 +30,84 @@ $(document).ready(function () {
                 container: 'body'
             });
         },
-        eventClick: function (calEvent, jsEvent, view) {
-            // var title = calEvent.title;
-            var staff_id = calEvent.staff_id;
-            sessionStorage.setItem('shift_id', calEvent.shift_id);
-            // var start = $.fullCalendar.formatDate(calEvent.start, 'YYYY年MM月DD日 HH:mm');
-            var update_start = $.fullCalendar.formatDate(calEvent.start, 'YYYY-MM-DD') + "T" + $.fullCalendar.formatDate(calEvent.start, "HH:mm");
-            var update_end = $.fullCalendar.formatDate(calEvent.end, 'YYYY-MM-DD') + "T" + $.fullCalendar.formatDate(calEvent.end, "HH:mm");
-            var contents = "<h3 style='margin-bottom:10px'>従業員名:" + calEvent.title + "</h3>"
-            contents += "<p>始業: " + $.fullCalendar.formatDate(calEvent.start, 'YYYY年MM月DD日 HH:mm') + "</p>";
-            contents += "<p>終業: " + $.fullCalendar.formatDate(calEvent.end, 'YYYY年MM月DD日 HH:mm') + "</p>";
-            $('#modalContents').html(contents);
-            $('#modalArea').fadeIn();
-            $('#update_shift').click(function () {
-                // $('input[name="update_shift_staff"]').val(title);
-                $('#update_shift_staff').val(staff_id);
-                $('input[name="update_shift_start"]').val(update_start);
-                $('input[name="update_shift_end"]').val(update_end);
-                $('#modalArea_update').fadeIn();
-            })
+        eventClick: function (eventObj, jsEvent, view) {
+            let start = $.fullCalendar.formatDate(eventObj.start, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(eventObj.start, 'HH:mm');
+            var end = $.fullCalendar.formatDate(eventObj.end, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(eventObj.end, 'HH:mm');
+            update_shift_id = eventObj.shift_id
+            $('#modal_shift_title').html("シフト更新・削除");
+            $('#send_Update_shift').show();
+            $('#send_Delete_shift').show();
+            $('#register_add_shift').hide();
+            $('#select_shift_staff').val(eventObj.staff_id);
+            $('input[name="shift_start"]').val(start);
+            $('input[name="shift_end"]').val(end);
+            $('#modalArea_add_shift').fadeIn();
+        },
+        dayClick: function (date, jsEvent, view) {
+            $('#modal_shift_title').html("シフト登録");
+            $('#register_add_shift').show();
+            $('#send_Update_shift').hide();
+            $('#send_Delete_shift').hide();
+            let day = $.fullCalendar.formatDate(date, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(date, 'HH:mm');
+            $("input[name='shift_start']").val(day);
+            $('#modalArea_add_shift').fadeIn();
         }
     });
 });
 
-/* シフト更新*/
-$("#sendUpdateshift").on("click", function() {
-    var param = {
-        shift_id: sessionStorage.getItem('shift_id'),
-        staff_id: $('#update_shift_staff').val(),
-        shift_start: $("input[name='update_shift_start']").val(),
-        shift_end: $("input[name='update_shift_end']").val(),
+/******************************************************************** */
+/** シフト登録 **/
+/******************************************************************** */
+$("#register_add_shift").on("click", function () {
+    let param = {
+        staff_id: $('#select_shift_staff').val(),
+        start: $("input[name='shift_start']").val(),
+        end: $("input[name='shift_end']").val()
     }
     $.ajax({
-        url: "../cl_staff/update_shift_data",
+        url: "../cl_shift/insert_shift",
         type: "POST",
         data: param,
-        success: function (data) {
-            alert(data);
-            // $('#datatable').DataTable().ajax.reload();
-            $("#modalArea_update").fadeOut();
-        },
-        error: function () {
+    }).done(function (data) {
+        if (data == "success") {
+            SweetAlertMessage("success_register");
+        } else {
+            SweetAlertMessage("failed_register");
         }
+    }).fail(function (xhr, textStatus, errorThrown) {
+        SweetAlertMessage("failed_register");
     });
 });
 
+
+/******************************************************************** */
+/* シフト更新*/
+/******************************************************************** */
+$("#send_Update_shift").on("click", function () {
+    var param = {
+        shift_id: update_shift_id,
+        staff_id: $('#select_shift_staff').val(),
+        shift_start: $("input[name='shift_start']").val(),
+        shift_end: $("input[name='shift_end']").val(),
+    }
+    $.ajax({
+        url: "../cl_shift/update_shift_data",
+        type: "POST",
+        data: param,
+    }).done(function (data) {
+        if (data == "success") {
+            SweetAlertMessage("success_update");
+        }
+    }).fail(function (xhr, textStatus, errorThrown) {
+        alert("505");
+    });
+});
+
+/******************************************************************** */
 /* シフト削除 */
-$("#sendDeleteButton").on("click", function () {
-    if (window.confirm("本当にシフトを削除しますか？")) {
+/******************************************************************** */
+$("#send_Delete_shift").on("click", function () {
+    if (SweetAlertMessage("confirm_delete") == true) {
         var param = {
             shift_id: sessionStorage.getItem('shift_id')
         }
@@ -83,16 +115,19 @@ $("#sendDeleteButton").on("click", function () {
             url: "../cl_staff/delete_shift_data",
             type: "POST",
             data: param,
-            success: function (data) {
-                alert("削除しました")
-            },
-            error: function () {
+        }).done(function (data) {
+            if (data == "success") {
+                SweetAlertMessage("success_update");
             }
+        }).fail(function (xhr, textStatus, errorThrown) {
+            alert("505");
         });
     }
 });
 
+/******************************************************************** */
 /* イベント詳細モーダル */
+/******************************************************************** */
 $('#closeModal , #modalBg').click(function () {
     $('#modalArea').fadeOut();
 });
@@ -101,7 +136,9 @@ $('#closeModal_update , #modalBg_update , #cancel_update_shift').click(function 
     $('#modalArea_update').fadeOut();
 });
 
+/******************************************************************** */
 /*スタッフ一覧モーダル */
+/******************************************************************** */
 $('#staff_list').click(function () {
     $('#modalArea_staff_list').fadeIn();
 });
@@ -116,7 +153,9 @@ $('#closeModal_staff_list, #modalBg_staff_list, #cancel_staff_list').click(funct
     $("#deleteButton").prop("disabled", true);
 });
 
+/******************************************************************** */
 /** スタッフ追加モーダル */
+/******************************************************************** */
 $('#add_staff').click(function () {
     $('#modalArea_add_staff').fadeIn();
 });
@@ -131,19 +170,24 @@ $('#closeModal_add_staff, #modalBg_add_staff, #cancel_add_staff').click(function
     $("textarea[name='staff_remarks']").val("");
 });
 
+/******************************************************************** */
 /** シフト追加モーダル */
+/******************************************************************** */
 $('#add_shift').click(function () {
     $('#modalArea_add_shift').fadeIn();
 });
 
 $('#closeModal_add_shift , #modalBg_add_shift, #cancel_add_shift').click(function () {
     $('#modalArea_add_shift').fadeOut();
+    $('#select_shift_staff').val(0);
     $('input[name="shift_staff"]').val("");
     $('input[name="shift_start"]').val("");
     $('input[name="shift_end"]').val("");
 });
 
+/******************************************************************** */
 /* jquery.validate */
+/******************************************************************** */
 $("staff").validate({
     rules: {
         customer: { required: true },
@@ -172,6 +216,9 @@ $("staff").validate({
     }
 });
 
+/******************************************************************** */
+/**スタッフ一覧テーブル */
+/******************************************************************** */
 $('#datatable').DataTable({
     'paging': true,
     'pageLength': 10,
@@ -194,11 +241,16 @@ $('#datatable').DataTable({
     ],
     columnDefs: [
         {
-            targets: 4,
+            "targets": 0,
+            "visible": false,
+            "searchable": false
+        },
+        {
+            "targets": 4,
             render: function (data, type, full, meta) {
                 return "<div style='background-color:" + data + "; width: 100%; height: 24px'></div>";
             }
-        },
+        }
     ],
     'language': {
         'decimal': ".",
@@ -234,6 +286,10 @@ $('#datatable tbody').on("click", "tr", function () {
     }
 });
 
+
+/******************************************************************** */
+/* スタッフ登録 */
+/******************************************************************** */
 $("#registButton").on("click", function () {
     $("#sendRegistButton").show();
     $("#sendUpdateButton").hide();
@@ -243,7 +299,7 @@ $("#registButton").on("click", function () {
 
 $("#sendRegistButton").on("click", function () {
     $.ajax({
-        url: "../cl_staff/register_staff",
+        url: "../Cl_staff/register_staff",
         type: "POST",
         data: {
             staff_name: $("input[name='staff_name[0]']").val() + " " + $("input[name= 'staff_name[1]']").val(),
@@ -252,21 +308,27 @@ $("#sendRegistButton").on("click", function () {
             staff_color: $("input[name='staff_color']").val(),
             staff_remarks: $("textarea[name='staff_remarks']").val()
         },
-        success: function (data) {
-            console.log(data);
-            // $('#datatable').DataTable().ajax.reload();
-            $("#modalArea_add_staff").fadeOut();
-        },
-        error: function () {
+    }).done(function (data) {
+        if (data == "success") {
+            SweetAlertMessage("success_register");
+        } else {
+            SweetAlertMessage("failed_register");
         }
+    }).fail(function (xhr, textStatus, errorThrown) {
+        SweetAlertMessage("failed_register");
     });
 });
 
-//スタッフ更新
+
+
+/******************************************************************** */
+/** スタッフ更新
+/******************************************************************** */
 $("#updateButton").on("click", function () {
     let row = $('#datatable').DataTable().rows('.active').data();
     let str = row[0].staff_name;
-    sessionStorage.setItem('staff_id', row[0].staff_id)
+    row_staff_id = row[0].staff_id;
+    // sessionStorage.setItem('staff_id', row[0].staff_id)
     let staff_name = str.split(' ');
     $("#dialogTitle").html("スタッフ更新");
     $("input[name='staff_name[0]']").val(staff_name[0]) + " " + $("input[name= 'staff_name[1]']").val(staff_name[1]);
@@ -280,8 +342,9 @@ $("#updateButton").on("click", function () {
 });
 
 $("#sendUpdateButton").on("click", function () {
-    var param = {
-        staff_id: sessionStorage.getItem('staff_id'),
+    let param = {
+        // staff_id: sessionStorage.getItem('staff_id'),
+        staff_id: row_staff_id,
         staff_name: $("input[name='staff_name[0]']").val() + " " + $("input[name= 'staff_name[1]']").val(),
         staff_tel: $("input[name='staff_tel']").val(),
         staff_email: $("input[name='staff_email']").val(),
@@ -292,46 +355,28 @@ $("#sendUpdateButton").on("click", function () {
         url: "../cl_staff/update_staff_list",
         type: "POST",
         data: param,
-        success: function (data) {
-            alert("更新しました！");
-            sessionStorage.removeItem('staff_id');
-            // テーブル更新
-            // $('#myTable').DataTable().ajax.url("/search").load();
-            // $('#myTable').DataTable().ajax.reload();
-
-            // // フォームを閉じる
-            // $("#form").modal("hide");
-        },
-        error: function () {
+    }).done(function (data) {
+        if (data == "success") {
+            SweetAlertMessage("success_update");
+        } else {
+            SweetAlertMessage("failed_register");
         }
+    }).fail(function (xhr, textStatus, errorThrown) {
+        SweetAlertMessage("failed_register");
     });
 });
 
+
 $("#shiftButton").on("click", function () {
-    var row = $('#datatable').DataTable().rows('.active').data();
+    let row = $('#datatable').DataTable().rows('.active').data();
     sessionStorage.setItem('staff_id', row[0].staff_id)
     $("input[name='shift_staff']").val(row[0].staff_name);
     $('#modalArea_add_shift').fadeIn();
 });
 
-$("#register_add_shift").on("click", function () {
-    var param = {
-        staff_id: sessionStorage.getItem('staff_id'),
-        start: $("input[name='shift_start']").val(),
-        end: $("input[name='shift_end']").val()
-    }
-    $.ajax({
-        url: "../cl_staff/insert_shift",
-        type: "POST",
-        data: param,
-        success: function (data) {
-            alert(data);
-        },
-        error: function () {
-        }
-    });
-});
-
+/******************************************************************** */
+/** スタッフ削除  **/
+/******************************************************************** */
 $("#deleteButton").on("click", function () {
     if (window.confirm("本当にこの従業員を削除しますか？")) {
         var selectedRows = $('#datatable').DataTable().rows('.active').data();
@@ -342,13 +387,77 @@ $("#deleteButton").on("click", function () {
             url: "../cl_staff/delete_staff",
             type: "POST",
             data: param,
-            success: function (data) {
-                alert("削除しました")
-                // $('#myTable').DataTable().ajax.url("/search").load();
-                // $('#myTable').DataTable().ajax.reload();
-            },
-            error: function () {
+        }).done(function (data) {
+            if (data == "success") {
+                SweetAlertMessage("success_register");
+            } else {
+                SweetAlertMessage("failed_register");
             }
+        }).fail(function (xhr, textStatus, errorThrown) {
+            SweetAlertMessage("failed_register");
         });
     }
 });
+    
+
+/******************************************************************** */
+/** SweetAlert設定  **/
+/******************************************************************** */
+function SweetAlertMessage(key) {
+    let message_json = {
+        success_register: {
+            title: "登録が完了しました！",
+            text: "ボタンをクリックして画面を閉じてください",
+            icon: "success",
+            button: {
+                text: "OK",
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: true,
+            },
+        },
+        failed_register: {
+            title: "登録に失敗しました…",
+            text: "また後ほどお試しください",
+            icon: "warning",
+            button: {
+                text: "OK",
+                value: false,
+            },
+        },
+        success_update: {
+            title: "更新が完了しました！",
+            icon: "success",
+            button: {
+                text: "OK",
+                value: true,
+            }
+        },
+        failed_update: {
+            title: "登録に失敗しました…",
+            text: "また後ほどお試しください",
+            icon: "warning",
+            button: {
+                text: "OK",
+                value: false,
+            },
+        },
+        confirm_delete: {
+            title: "削除しますか？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "削除",
+            closeOnConfirm: false
+        }
+    }
+    let swal_data = message_json[key];
+    swal(
+        swal_data
+    ).then((isConfirm) => {
+        if (isConfirm === true) {
+            location.reload(true);
+        }
+    })
+}

@@ -13,9 +13,6 @@
                             <button type="button" class="btn bg-deep-purple waves-effect" id="staff_list">
                                 スタッフ一覧
                             </button>
-                            <!-- <button type="button" class="btn bg-deep-purple waves-effect" id="add_shift">
-                                シフト追加
-                            </button> -->
                         </div>
                     </div>
                     <div id="calendar" style="padding: 10px"></div>
@@ -25,23 +22,25 @@
     </div>
 </section>
 
+<!-- シフト入力フォーム -->
+
 <!-- スタッフ一覧テーブル -->
 <section id="modalArea_staff_list" class="modalArea">
     <div id="modalBg_staff_list" class="modalBg"></div>
         <div class="modalWrapper_staff_list">
         <h3>スタッフ一覧</h3>
-        <table id="datatable" style="width: 100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>名前</th>
-                <th>電話番号</th>
-                <th>メールアドレス</th>
-                <th>カラーラベル</th>
-                <th>備考</th>
-            </tr>
-        </thead>
-        </table>
+            <table id="datatable" class="table table-bordered table-striped table-hover js-basic-example dataTable" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名前</th>
+                    <th>電話番号</th>
+                    <th>メールアドレス</th>
+                    <th>カラーラベル</th>
+                    <th>備考</th>
+                </tr>
+            </thead>
+            </table>
         <div>
             <hr>
             <div class="pull-left">
@@ -65,13 +64,24 @@
         <div class="modalWrapper">
             <form id="form_add_shift">
                 <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
-                    <h3 style="margin: 0px">シフト追加</h3>
+                    <h3 id ="modal_shift_title" style="margin: 0px">シフト追加</h3>
                 </div>
                 <div class="body">
                     <div class="form-group">
                         <div class="form-line">
-                            <label for="customer">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
-                            <input type="text" class="form-control" name="shift_staff" placeholder="例：田中太郎さん" readonly >
+                            <label for="start">始業日時<span style="color: red; margin-left: 10px">必須</span></label>
+                            <?php 
+                            if(isset($select_staff)) {
+                                echo '<select id="select_shift_staff" class="form-control show-tick">';
+                                echo '<option value=0>-- スタッフを選択してください --</option>';
+                                foreach($select_staff as $value) {
+                                    echo "<option value={$value['staff_id']}>{$value['staff_name']}</option>";
+                                }
+                            } else {
+                                echo '<select id="update_shift_staff" class="form-control show-tick" disabled>';
+                                echo "<option value=0>スタッフが登録されていません</option>";
+                            } ?>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -92,9 +102,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <button type="button" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect">登録</button>
+                    <div class="pull-left">
+                        <?php if(isset($select_staff)){ ?>
+                            <button type="button" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect">登録</button>
+                        <?php } else { ?>
+                            <button type="button" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect" disabled>登録</button>
+                        <?php } ?>
+                        <button type='button' id='send_Update_shift' class='btn btn-primary m-t-15 waves-effect'>更新</button>
                         <button type="button" id="cancel_add_shift" class="btn btn-primary m-t-15 waves-effect" style="margin-left: 10px;">キャンセル</button>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" id="send_Delete_shift" class='btn btn-primary m-t-15 waves-effect'>削除</button>
                     </div>
                 </div>
             </form>
@@ -120,30 +138,28 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <label for="staff_name">姓</label>
-                                    <input type="text" class="form-control" name="staff_name[0]" placeholder="例：田中太郎さん">
+                                    <input type="text" class="form-control" name="staff_name[0]" placeholder="姓名">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="form-line">
-                                <label for="staff_name">名前</label>
-                                    <input type="text" class="form-control" name="staff_name[1]" placeholder="例：田中太郎さん">
+                                    <input type="text" class="form-control" name="staff_name[1]" placeholder="名前">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-line">
-                        <label for="staff_name">電話番号</label>
-                            <input type="text" class="form-control" name="staff_tel" placeholder="例：田中太郎さん">
+                        <label for="staff_name">電話番号<span style="color: red; margin-left: 10px">必須</span></label>
+                            <input type="text" class="form-control" name="staff_tel" placeholder="ハイフンなし" maxlength="11">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-line">
-                        <label for="staff_name">メールアドレス</label>
-                            <input type="text" class="form-control" name="staff_email" placeholder="例：田中太郎さん">
+                        <label for="staff_name">メールアドレス<span style="color: red; margin-left: 10px">必須</span></label>
+                            <input type="text" class="form-control" name="staff_email" placeholder="...@...">
                         </div>
                     </div>
                     <div class="form-group">
@@ -154,7 +170,7 @@
                     </div>
                     <div class="form-group">
                         <div class="form-line">
-                            <label for="staff_content">備考<span style="color: red; margin-left: 10px">必須</span></label>
+                            <label for="staff_content">備考<span style="color: red; margin-left: 10px"></span></label>
                             <textarea rows="4" class="form-control no-resize" name="staff_remarks"></textarea>
                         </div>
                     </div>
@@ -197,7 +213,7 @@
                     <select id="update_shift_staff" class="form-control show-tick">
                         <option value="">-- Please select --</option>
                         <?php foreach($select_staff as $value) { ?>
-                        <option value="<?= $value['staff_id'] ?>"><?= $value['staff_name'] ?></option>
+                        <option value="<?php echo $value['staff_id'] ?>"><?php echo $value['staff_name'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -284,9 +300,6 @@
 <!-- Bootstrap Core Js -->
 <script src=" ../assets/cms/plugins/bootstrap/js/bootstrap.js"> </script>
 
-<!-- Select Plugin Js -->
-<!-- <script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script> -->
-
 <!-- Slimscroll Plugin Js -->
 <script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
@@ -307,14 +320,19 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
+<!-- SweetAlert Plugin Js -->
+<!-- <script src="../assets/cms/plugins/sweetalert/sweetalert.min.js"></script> -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 <!-- Custom Plugin Js -->
 <script src="../assets/cms/js/admin.js"></script>
 
 <script src="../assets/cms/js/sidebar.js"></script>
 
 <script>
-    var table_json = <?= json_encode($staff, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
-    var event_json = <?= json_encode($shift, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
+    var table_json = <?php echo json_encode($staff, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
+    var event_json = <?php echo json_encode($shift, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
 </script>
 
 <script src="../assets/cms/js/pages/staff/staff_list.js"></script>
