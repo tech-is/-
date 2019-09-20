@@ -78,9 +78,10 @@ class Cl_staff extends CI_Controller
 
     private function insert_staff()
     {
+        session_start();
         $data = [
             // "staff_shop_id" => $this->input->session("shop_id"),
-            "staff_shop_id" => 1,
+            "staff_shop_id" => $_SESSION['shops_id'],
             "staff_name" => $this->input->post("staff_name"),
             "staff_tel" => $this->input->post("staff_tel"),
             "staff_mail" => $this->input->post("staff_email"),
@@ -93,9 +94,10 @@ class Cl_staff extends CI_Controller
 
     private function update_staff()
     {
+        session_start();
         $id = [
             "staff_id" => $this->input->post("staff_id"),
-            "staff_shop_id" => 1,
+            "staff_shop_id" => $_SESSION['shops_id'],
         ];
         $data = [
             "staff_name" => $this->input->post("staff_name"),
@@ -112,7 +114,7 @@ class Cl_staff extends CI_Controller
     {
         $id = [
             "staff_id" => $this->input->post("staff_id"),
-            "staff_shop_id" => 1,
+            "staff_shop_id" => $_SESSION["shop_id"],
             // "staff_shop_id" => $this->input->session("shop_id"),
         ];
         $this->load->model("mdl_staff");
@@ -146,7 +148,7 @@ class Cl_staff extends CI_Controller
         if($this->form_validation->run()) {
             $this->load->model("mdl_staff_shift");
             $data = [
-                'shift_shop_id' => 1,
+                'shift_shop_id' => $_SESSION['shop_id'],
                 'shift_staff_id' => $this->input->post("staff_id"),
                 'shift_start' => $this->input->post("start"),
                 'shift_end' => $this->input->post("end")

@@ -13,9 +13,6 @@
                             <button type="button" class="btn bg-deep-purple waves-effect" id="staff_list">
                                 スタッフ一覧
                             </button>
-                            <!-- <button type="button" class="btn bg-deep-purple waves-effect" id="add_shift">
-                                シフト追加
-                            </button> -->
                         </div>
                     </div>
                     <div id="calendar" style="padding: 10px"></div>
