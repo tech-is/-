@@ -89,6 +89,7 @@ class Cl_staff extends CI_Controller
 
     private function insert_staff()
     {
+        session_start();
         $data = [
         "staff_shop_id" => $_SESSION['shop_id'],
         "staff_name" => $this->input->post("staff_name"),
@@ -103,6 +104,7 @@ class Cl_staff extends CI_Controller
 
     private function update_staff()
     {
+        session_start();
         $id = [
             "staff_id" => $this->input->post("staff_id"),
             "staff_shop_id" => $_SESSION["shop_id"]

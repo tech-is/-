@@ -1,19 +1,22 @@
-﻿<style>
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Animarl pet登録ページ</title>
+    <style>
     .thumb {
         height: 175px;
         border: 1px solid #000;
         margin: 10px 5px 0 0;
     }
 </style>
-
-
 </head>
+<body>
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
                 <h2>
                     ペット情報
-                    <!-- <small>顧客情報はここから->  <a href="https://jqueryvalidation.org/" target="_blank">jqueryvalidation.org</a></small> -->
                 </h2>
             </div>
             <!-- Basic Validation -->
@@ -21,10 +24,12 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="header">
-                            <h2>ペット詳細</h2>
+                            <h2>ペット登録</h2>
+                            <?= isset($comment)? $comment: false; ?>
                         </div>
                         <div class="body">
-                            <form action="cl_pet_info/pet_info_validation" id="form_validation" method="POST">
+                            <form action="pet_info_validation" id="form_validation" method="POST">
+                            <?php echo form_error('pet_name'); ?>
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <input type="text" class="form-control" name="pet_name" required>
@@ -52,6 +57,13 @@
                                     </div>
                                     <div class="help-info">犬、猫、鳥</div>
                                 </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="pet_type" required>
+                                        <label class="form-label">種類</label>
+                                    </div>
+                                    <div class="help-info">トイ・プードル</div>
+                                </div>
                             <div class="form-group form-float">
                                 <label class="form-label">性別</label>
                                 <div class="form-line">
@@ -68,35 +80,35 @@
                             <div class="form-group">
                                 <div class="form-line">
                                     <label for="date">生年月日</label>
-                                    <input id="date" name="pet_birthday" class="form-control" type="date" >
+                                    <input id="date" name="pet_birthday" class="form-control" type="date">
                                 </div>
                             </div>
                                 <div class="form-group">
                                     <div class="form-line">
                                     <label class="with-gap">去勢</label>
-                                    <input type="radio" name="pet_contraception" id="on" value=1 class="with-gap">
+                                    <input type="radio" name="pet_contraception" id="on" value= "on" class="with-gap">
                                     <label for="on">有</label>
-                                    <input type="radio" name="pet_contraception" id="off" value=2 class="with-gap" checked/>
+                                    <input type="radio" name="pet_contraception" id="off" value="off" class="with-gap" checked/>
                                     <label for="off">無</label>
                                     </div>
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="number" class="form-control" name="pet_body_height" required>
+                                        <input type="number" class="form-control" name="pet_body_height" >
                                         <label class="form-label">体高</label>
                                     </div>
                                     <div class="help-info">cm</div>
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="number" class="form-control" name="pet_body_weight" required>
+                                        <input type="number" class="form-control" name="pet_body_weight" >
                                         <label class="form-label">体重</label>
                                     </div>
                                     <div class="help-info">kg</div>
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <textarea name="pet_information" cols="30" rows="5" class="form-control no-resize" required></textarea>
+                                        <textarea name="pet_information" cols="30" rows="5" class="form-control no-resize" ></textarea>
                                         <label class="form-label">備考：</label>
                                     </div>
                                 </div>
@@ -109,8 +121,6 @@
             </div>
         </div>
     </section>
-    <?= isset($text)? $text: false; ?>
-
     </div>
 </section>
 <!-- Dropzone Plugin Js -->
@@ -139,6 +149,7 @@
 
 <!-- Custom Js -->
 <script src="../assets/cms/js/admin.js"></script>
-</body>
 
+
+</body>
 </html>

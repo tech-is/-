@@ -14,26 +14,17 @@ class Mdl_reserve extends CI_Model
     public function get_reserve_list()
     {
         // $this->db->where('calender_event', ['shop_id' => $_SESSION["shop_id"]]);
-        $where = ['event_shop_id' => 1, 'event_state' => 1];
-        $this->db->where($where);
-        $this->db->select("event_id, event_customer, event_start, event_end, event_content");
+        $this->db->where(['event_shop_id' => 1, 'event_state' => 1]);
+        $this->db->select("event_id, event_customer, event_start, event_end, event_content, staff_id, staff_name, staff_color");
         $this->db->from('calender_event');
+        $this->db->join('staff', 'staff_id = event_staff_id', 'left');
         $query = $this->db->get();
         return $query->result_array();
     }
 
     public function insert_reserve_data($data)
     {
-        $data = [
-            'event_customer' => $data['event_customer'],
-            'event_pet' => $data['event_pet'],
-            'event_start' => $data['event_start'],
-            'event_end' => $data['event_end'],
-            'event_content' => $data['event_content'],
-            'event_staff_id' => $data['event_staff']
-        ];
-        $this->db->insert('calender_event', $data)? $result = true: $result = false;
-        return $result;
+        return $this->db->insert('calender_event', $data);
     }
 
     public function select_reserve_data($event_id)

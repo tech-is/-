@@ -52,76 +52,146 @@
     
     /* モーダルCSS */
     .modalArea {
-    display: none;
-    position: fixed;
-    z-index: 12; /*サイトによってここの数値は調整 */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+        display: none;
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
-
     .modalBg {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(30,30,30,0.9);
+        width: 100%;
+        height: 100%;
+        background-color: rgba(30,30,30,0.9);
+    }
+    .modalWrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 90%;
+        /* max-width: 500px; */
+        padding: 10px 30px;
+        background-color: #fff;
     }
 
-    .modalWrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%,-50%);
-    width: 70%;
-    max-width: 500px;
-    padding: 10px 30px;
-    background-color: #fff;
+    /* シフト登録モーダル *************************** */
+    .modalArea_shift {
+        display: none;
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .modalBg_shift {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(30,30,30,0.9);
+    }
+
+    .modalWrapper_shift {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 70%;
+        max-width: 500px;
+        padding: 10px 30px;
+        background-color: #fff;
+    }
+    /* ******************************************** */
+
+    .modalAreaTotal {
+        /* display: none; */
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        background-color: rgba(30,30,30,0.9);
+    }
+
+.modalBgTotal {
+        display: none;
+        /* position: fixed; */
+        z-index: 13;
+        width: 100%;
+        height: 100%;
+        overflow-y:scroll;
+        /* background-color: rgba(30,30,30,0.9); */
+}
+
+    .modalWrapperTotal {
+        position: absolute;
+        z-index: 13;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 70%;
+        max-width: 500px;
+        padding: 10px 30px;
+        background-color: #333;
+    }
+    .modalWrapperTotalCustomer {
+        position: absolute;
+        z-index: 13;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 90%;
+        /* background-color: #fff; */
     }
 
     .modalWrapper_staff_list {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%,-50%);
-    width: 90%;
-    /* min-width: 620px; */
-    padding: 10px 30px;
-    background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 90%;
+        /* min-width: 620px; */
+        padding: 10px 30px;
+        background-color: #fff;
     }
 
     .modalWrapper_event {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%,-50%);
-    width: 70%;
-    max-width: 350px;
-    padding: 10px 30px;
-    background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 70%;
+        max-width: 350px;
+        padding: 10px 30px;
+        background-color: #fff;
     }
 
     .closeModal {
-    position: absolute;
-    top: 0.5rem;
-    right: 1rem;
-    cursor: pointer;
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+        cursor: pointer;
     }
 
 
     /* 以下ボタンスタイル */
     button {
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #282828;
-    border-radius: 2px;
-    cursor: pointer;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #282828;
+        border-radius: 2px;
+        cursor: pointer;
     }
 
     #openModal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%,-50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
     }
 
     .table > tbody > tr.active > td,

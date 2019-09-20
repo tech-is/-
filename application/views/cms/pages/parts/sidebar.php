@@ -30,7 +30,7 @@
                 </a>
             </li>
             <li id="reserve">
-                <a href="reserve">
+                <a href="../cl_main/reserve">
                     <i class="material-icons">home</i>
                     <span>予約一覧</span>
                 </a>

@@ -47,7 +47,7 @@
             <h2>顧客管理情報</h2>
         </div>
         <!-- Input -->
-        <form action="cl_customer/customer_validation" method="POST">
+        <form action="../cl_customer/customer_validation" method="POST">
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -55,13 +55,13 @@
                             顧客管理
                         </div>
                         <div class="body">
-                            <!-- <?php print_r('c_test'); ?> -->
                             <h2 class="card-inside-title">お名前（漢字）</h2>
                             <div class="row clearfix">
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="customer_name" placeholder=>
+                                        <?php echo form_error('customer_name'); ?>
+                                            <input type="text" class="form-control" name="customer_name" required >
                                             <label class="form-label">山田　太郎</label>
                                         </div>
                                     </div>
@@ -72,7 +72,8 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="customer_kana" placeholder=>
+                                        <?php echo form_error('customer_kana'); ?>
+                                            <input type="text" class="form-control" name="customer_kana" required>
                                             <label class="form-label">ヤマダ　タロウ</label>
                                         </div>
                                     </div>
@@ -83,7 +84,8 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="mail" class="form-control" name="customer_mail" placeholder=>
+                                        <?php echo form_error('customer_mail'); ?>
+                                            <input type="mail" class="form-control" name="customer_mail" required>
                                             <label class="form-label">半角英数字</label>
                                         </div>
                                     </div>
@@ -94,9 +96,10 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
+                                        <?php echo form_error('customer_tel'); ?>
                                             <input type="text" class="form-control" name="customer_tel"
                                                 pattern="\d{2,4}-?\d{3,4}-?\d{3,4}"
-                                                title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" placeholder="">
+                                                title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" required >
                                             <label class="form-label">半角数字</label>
                                         </div>
                                     </div>
@@ -107,9 +110,10 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="customer_zip_address"
+                                        <?php echo form_error('customer_zip_adress'); ?>
+                                            <input type="text" class="form-control" name="customer_zip_adress"
                                                 pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。"
-                                                placeholder=>
+                                                required >
                                             <label class="form-label">半角数字</label>
                                         </div>
                                     </div>
@@ -120,8 +124,9 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
+                                        <?php echo form_error('customer_address'); ?>
                                             <input type="text" class="form-control" name="customer_address"
-                                                placeholder=>
+                                            required>
                                             <label class="form-label">(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)</label>
                                         </div>
                                     </div>
@@ -156,7 +161,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">登録</button>
                             <button type="reset" class="btn btn-primary m-t-15 waves-effect">クリア</button>
-                            <button type="button" onclick="location.href='custmoer_list'" class="btn btn-primary m-t-15 waves-effect">ホームへ戻る</button>
+                            <button type="reset" onclick="location.href='custmoer_list'" class="btn btn-primary m-t-15 waves-effect">ホームへ戻る</button>
                         </form>
                         </div>
                     </div>
@@ -165,7 +170,7 @@
             <!-- #END# Input -->
         </div>
     </section>
-    <?= isset($text)? $text: false; ?>
+    <?php  //isset($text)? $text: false; ?>
 <!-- Jquery Core Js -->
 <script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
 

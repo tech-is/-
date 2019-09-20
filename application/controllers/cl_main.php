@@ -12,6 +12,7 @@ class Cl_main extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(["url", "form"]);
+        date_default_timezone_set('Asia/Tokyo');
         session_start();
         $_SESSION["shop_id"] = 1;
     }
@@ -56,29 +57,21 @@ class Cl_main extends CI_Controller
 
     public function reserve()
     {
-        $this->load->model('mdl_reserve');
-        $result = $this->mdl_reserve->get_reserve_list();
-        for($i=0; $i <count($result); $i++) {
-            $data["events"][$i]["event_id"] = $result[$i]['event_id'];
-            $data["events"][$i]["title"] = $result[$i]['event_customer'];
-            $data["events"][$i]["start"] = $result[$i]['event_start'];
-            $data["events"][$i]["end"] = $result[$i]['event_end'];
-            $data["events"][$i]["content"] = $result[$i]['event_content'];
-        }
+        $data = $this->get_reserve();
+        $id = $this->input->get('id');
+        $data["content"] = $this->mdl_reserve->get_reserve_data($id);
+        $data['staffs'] = $this->get_staff_data();
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/reserve/view_reserve', $data);
     }
 
-    public function reserve_view()
-    {
-        $id = $this->input->get('id');
-        $this->load->model('mdl_reserve');
-        $data["content"] = $this->mdl_reserve->get_reserve_data($id);
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/pages/reserve/view_reserve_content', $data);
-    }
+    // public function reserve_view()
+    // {
+    //     $this->load->view('cms/pages/parts/header');
+    //     $this->load->view('cms/pages/parts/sidebar');
+    //     $this->load->view('cms/pages/reserve/view_reserve_content', $data);
+    // }
 
     public function reserve_new_form()
     {
@@ -140,63 +133,29 @@ class Cl_main extends CI_Controller
 
     private function get_reserve()
     {
-        $data["events"] = [
-            ["event_id" => 1, "title" => 'トリミング', "start" => '2019-08-03T10:30', "end" => '2019-08-03T11:00', "color" => '#FF0000'],
-            [
-                "event_id" => 2,
-                "title" => 'シャンプー',
-                "start" => '2019-08-20T10:30',
-                "end" => '2019-08-20T12:30',
-                "color" => '#9c27b0'
-            ],
-            [
-                "event_id" => 3,
-                "title" => 'トリミング',
-                "start" => '2019-08-12T10:30',
-                "end" => '2019-08-12T11:00',
-                "color" => '#ffc107'
-            ],
-            [
-                "title" => 'トリミング',
-                "start" => '2019-08-12T12:30',
-                "end" => '2019-08-12T13:30',
-                "color" => 'blue'
-            ],
-            [
-                "title" => 'カラー',
-                "start" => '2019-08-16T15:30',
-                "end" => '2019-08-16T16:30',
-                "color" => 'green'
-            ],
-            [
-                "title" => 'シャンプー',
-                "start" => '2019-08-28T10:30',
-                "end" => '2019-08-28T12:30',
-                "color" => 'green'
-            ],
-            [
-                "title" => 'シャンプー',
-                "start" => '2019-08-07T10:30',
-                "end" => '2019-08-07T12:30',
-                "color" => '#9c27b0'
-            ],
-            [
-                "title" => 'シャンプー',
-                "start" => '2019-08-29T10:30',
-                "end" => '2019-08-29T12:30',
-                "color" => '#ffc107'
-            ]
-        ];
-        // $this->load->model('mdl_reserve');
-        // $result = $this->mdl_reserve->get_reserve_list();
-        // for($i=0; $i <count($result); $i++) {
-        //     $data["events"][$i]["event_id"] = $result[$i]['event_id'];
-        //     $data["events"][$i]["title"] = $result[$i]['event_customer'];
-        //     $data["events"][$i]["start"] = $result[$i]['event_start'];
-        //     $data["events"][$i]["end"] = $result[$i]['event_end'];
-        //     $data["events"][$i]["content"] = $result[$i]['event_content'];
-        // }
+        $this->load->model('mdl_reserve');
+        $reserves = $this->mdl_reserve->get_reserve_list();
+        if($reserves) {
+            foreach($reserves as $row => $reserve) {
+                $data["events"][$row]["event_id"] = $reserve['event_id'];
+                $data["events"][$row]["title"] = $reserve['event_customer'];
+                $data["events"][$row]["start"] = $reserve['event_start'];
+                $data["events"][$row]["end"] = $reserve['event_end'];
+                $data["events"][$row]["color"] = $reserve['staff_color'];
+                $data["events"][$row]["content"] = $reserve['event_content'];
+            }
+        } else {
+            $data["events"] = null;
+        }
         return $data;
+    }
+
+    private function get_staff_data()
+    {
+        $this->load->model('mdl_staff');
+        $result = $this->mdl_staff->get_staff_data();
+        $result == true? $result: $result = null;
+        return $result;
     }
 
     private function get_magazine()

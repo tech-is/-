@@ -60,7 +60,7 @@
 <!-- シフト入力フォーム -->
 <section id="modalArea_add_shift" class="modalArea">
     <div id="modalBg_add_shift" class="modalBg"></div>
-        <div class="modalWrapper">
+        <div class="modalWrapper_shift">
             <form id="form_shift" action="POST">
                 <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
                     <h3 id ="modal_shift_title" style="margin: 0px">シフト追加</h3>
@@ -123,9 +123,9 @@
 </section>
 
 <!-- スタッフ入力フォーム -->
-<section id="modalArea_add_staff" class="modalArea">
-    <div id="modalBg_add_staff" class="modalBg"></div>
-        <div class="modalWrapper">
+<section id="modalArea_add_staff" class="modalArea_shift">
+    <div id="modalBg_add_staff" class="modalBg_shift"></div>
+        <div class="modalWrapper_shift">
             <form>
                 <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
                     <h3 id="dialogTitle" style="margin: 0px">スタッフ追加</h3>
