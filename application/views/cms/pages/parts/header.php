@@ -37,8 +37,6 @@
 
     <!-- Custom Css -->
     <link href="../assets/cms/css/style.css" rel="stylesheet" />
-      <!-- Custom Css -->
-  <!-- <link href="../../css/style.css" rel="stylesheet"> -->
 
     <!-- Datatable Css -->
     <link href="../assets/cms/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -53,29 +51,31 @@
     /* モーダルCSS */
 
     .modalArea {
-   display: none;
-   position: fixed;
-   z-index: 13;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   }
-   .modalBg {
-   width: 100%;
-   height: 100%;
-   background-color: rgba(30,30,30,0.9);
-   }
-   .modalWrapper {
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform:translate(-50%,-50%);
-   width: 70%;
-   max-width: 500px;
-   padding: 10px 30px;
-   background-color: #fff;
-   }
+    display: none;
+    position: fixed;
+    z-index: 13;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    }
+    .modalBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+    }
+    .modalWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 90%;
+    /* max-width: 500px; */
+    padding: 10px 30px;
+    background-color: #fff;
+    }
+
+
     .modalAreaTotal {
     /* display: none; */
     position: fixed;
@@ -86,7 +86,7 @@
     height: 100%;
     overflow-y: scroll;
     background-color: rgba(30,30,30,0.9);
-}
+    }
 
 .modalBgTotal {
     display: none;
