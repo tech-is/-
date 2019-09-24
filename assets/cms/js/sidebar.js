@@ -6,7 +6,7 @@ $(window).bind("load", function () {
     if (document.URL.match("reserve")) {
         $("#reserve").toggleClass("active");
     }
-    // if (document.URL.match("reserve")) {
-    //     $("#reserve").toggleClass("active");
-    // }
+    if (document.URL.match("staff")) {
+        $("#staff").toggleClass("active");
+    }
 });

@@ -35,134 +35,163 @@
     <!-- full calender Css -->
     <link href='../assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.css' rel='stylesheet' />
 
+    <!-- Sweetalert Css -->
+    <link href="../assets/cms/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="../assets/cms/css/style.css" rel="stylesheet" />
 
     <!-- Datatable Css -->
     <link href="../assets/cms/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
+    <!-- flatpicker Css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" />
-    <style>
-    table.dataTable tbody tr.active{
-        background-color: #4caf50b0;
-    }
+    <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" /><style>
+    
     /* モーダルCSS */
-
     .modalArea {
-    display: none;
-    position: fixed;
-    z-index: 13;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+        display: none;
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
     .modalBg {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(30,30,30,0.9);
+        width: 100%;
+        height: 100%;
+        background-color: rgba(30,30,30,0.9);
     }
     .modalWrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%,-50%);
-    width: 90%;
-    /* max-width: 500px; */
-    padding: 10px 30px;
-    background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 90%;
+        /* max-width: 500px; */
+        padding: 10px 30px;
+        background-color: #fff;
     }
 
+    /* シフト登録モーダル *************************** */
+    .modalArea_shift {
+        display: none;
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .modalBg_shift {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(30,30,30,0.9);
+    }
+
+    .modalWrapper_shift {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 70%;
+        max-width: 500px;
+        padding: 10px 30px;
+        background-color: #fff;
+    }
+    /* ******************************************** */
 
     .modalAreaTotal {
-    /* display: none; */
-    position: fixed;
-    z-index: 13;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-    background-color: rgba(30,30,30,0.9);
+        /* display: none; */
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        background-color: rgba(30,30,30,0.9);
     }
 
 .modalBgTotal {
-    display: none;
-    /* position: fixed; */
-    z-index: 13;
-    width: 100%;
-    height: 100%;
-    overflow-y:scroll;
-    /* background-color: rgba(30,30,30,0.9); */
+        display: none;
+        /* position: fixed; */
+        z-index: 13;
+        width: 100%;
+        height: 100%;
+        overflow-y:scroll;
+        /* background-color: rgba(30,30,30,0.9); */
 }
 
     .modalWrapperTotal {
-    position: absolute;
-    z-index: 13;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 70%;
-    max-width: 500px;
-    padding: 10px 30px;
-    background-color: #333;
+        position: absolute;
+        z-index: 13;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 70%;
+        max-width: 500px;
+        padding: 10px 30px;
+        background-color: #333;
     }
     .modalWrapperTotalCustomer {
-    position: absolute;
-    z-index: 13;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 90%;
-    /* background-color: #fff; */
+        position: absolute;
+        z-index: 13;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 90%;
+        /* background-color: #fff; */
     }
 
     .modalWrapper_staff_list {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%,-50%);
-    width: 90%;
-    /* min-width: 620px; */
-    padding: 10px 30px;
-    background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 90%;
+        /* min-width: 620px; */
+        padding: 10px 30px;
+        background-color: #fff;
     }
 
     .modalWrapper_event {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%,-50%);
-    width: 70%;
-    max-width: 350px;
-    padding: 10px 30px;
-    background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 70%;
+        max-width: 350px;
+        padding: 10px 30px;
+        background-color: #fff;
     }
 
     .closeModal {
-    position: absolute;
-    top: 0.5rem;
-    right: 1rem;
-    cursor: pointer;
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+        cursor: pointer;
     }
 
 
     /* 以下ボタンスタイル */
     button {
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #282828;
-    border-radius: 2px;
-    cursor: pointer;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #282828;
+        border-radius: 2px;
+        cursor: pointer;
     }
 
     #openModal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%,-50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
     }
 
     .table > tbody > tr.active > td,
@@ -221,7 +250,7 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="main">Animarl CRM Program</a>
+                <a class="navbar-brand" href="home">Animarl CRM Program</a>
             </div>
         </div>
     </nav>

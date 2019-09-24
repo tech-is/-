@@ -13,16 +13,6 @@ class Mdl_staff extends CI_Model
         return $query->result_array();
     }
 
-    public function get_staff_data()
-    {
-        $where = ['staff_shop_id' => 1, 'staff_state' => 1];
-        $this->db->where($where);
-        $this->db->select("staff_id, staff_name");
-        $this->db->from('staff');
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-
     public function insert_staff_data($data)
     {
         $this->db->insert('staff', $data)? $result = true: $result = false;
@@ -39,8 +29,7 @@ class Mdl_staff extends CI_Model
     public function delete_staff_data($id)
     {
         $this->db->set("staff_state", 999);
-        // $this->db->where(['staff_id'=> $id['staff_id'], 'staff_shop_id' => $id['staff_shop_id']]);
-        $this->db->where(['staff_id'=> $id['staff_id'], 'staff_shop_id' => 1]);
+        $this->db->where(['staff_id'=> $id['staff_id'], 'staff_shop_id' => $id['staff_shop_id']]);
         return $this->db->update('staff');
     }
 

@@ -49,10 +49,10 @@
                     </li>
                 </ul>
             </li>
-            <li id="reserve">
+            <li id="staff">
                 <a href="staff">
                     <i class="material-icons">home</i>
-                    <span>スタッフ一覧</span>
+                    <span>スタッフ管理</span>
                 </a>
             </li>
             <li>
