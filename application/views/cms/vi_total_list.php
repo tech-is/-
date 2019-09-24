@@ -31,7 +31,7 @@ $flg = $this->input->get('flg', TRUE);
                                         <th>ペット名</th>
                                         <th>電話番号</th>
                                         <th>メールアドレス</th>
-                                        <th>最終予約日</th>
+                                        <!-- <th>最終予約日</th> -->
                                         <!-- <th>設定</th> -->
                                     </tr>
                                 </thead>
@@ -46,7 +46,7 @@ $flg = $this->input->get('flg', TRUE);
                                     echo "<td>$disply[pet_name]</td>";
                                     echo "<td>$disply[customer_tel]</td>";
                                     echo "<td>$disply[customer_mail]</td>";
-                                    echo "<td>$disply[reserve_start]</td>";
+                                    // echo "<td>$disply[reserve_start]</td>";
                                     // echo "<td>";
                                     // echo "<button type=\"btn\" id=\"updateButton\" class=\"btn btn-primary m-t-15 waves-effect\">更新</button>";
                                     // echo "<button type=\"btn\" id=\"deleteButton\" class=\"btn btn-primary m-t-15 waves-effect\">削除</button>";
@@ -80,231 +80,7 @@ $flg = $this->input->get('flg', TRUE);
     </div>
 </section>
 <!-- モーダルウィンドウ カスタマー -->
-<section id="modalArea" class="modalBgTotal">
-    <div id="modalBg" class="modalAreaTotal"></div>
-    <div class="modalWrapperTotalCustomer">
-        <div class="modalContents" id="modalContents"></div>
-        <div id="closeModal" class="closeModal">
-            ×
-        </div>
-            <div class="card">
-                <div class="header">顧客新規登録</div>
-                <div class="body">
-                <form>
-                <div class="row clearfix">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <h3>顧客新規登録</h3>
-                        <h2 class="card-inside-title">お名前（漢字）</h2>
-                        <div class="row clearfix">
-                            <div class="col-sm-6">
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                    <?php echo form_error('customer_name'); ?>
-                                        <input type="text" class="form-control" name="customer_name" required >
-                                        <label class="form-label">山田　太郎</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 class="card-inside-title">フリガナ(全角カナ)</h2>
-                        <div class="row clearfix">
-                            <div class="col-sm-6">
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                    <?php echo form_error('customer_kana'); ?>
-                                        <input type="text" class="form-control" name="customer_kana" required>
-                                        <label class="form-label">ヤマダ　タロウ</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 class="card-inside-title">メールアドレス(半角英数字)</h2>
-                        <div class="row clearfix">
-                            <div class="col-sm-6">
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                    <?php echo form_error('customer_mail'); ?>
-                                        <input type="mail" class="form-control" name="customer_mail" required>
-                                        <label class="form-label">半角英数字</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 class="card-inside-title">電話番号</h2>
-                        <div class="row clearfix">
-                            <div class="col-sm-6">
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                    <?php echo form_error('customer_tel'); ?>
-                                        <input type="text" class="form-control" name="customer_tel"
-                                            pattern="\d{2,4}-?\d{3,4}-?\d{3,4}"
-                                            title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" required >
-                                        <label class="form-label">半角数字</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 class="card-inside-title">郵便番号</h2>
-                        <div class="row clearfix">
-                            <div class="col-sm-6">
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                    <?php echo form_error('customer_zip_adress'); ?>
-                                        <input type="text" class="form-control" name="customer_zip_adress"
-                                            pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。"
-                                            required >
-                                        <label class="form-label">半角数字</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 class="card-inside-title">住所(全角)</h2>
-                        <div class="row clearfix">
-                            <div class="col-sm-12">
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                    <?php echo form_error('customer_address'); ?>
-                                        <input type="text" class="form-control" name="customer_address"
-                                        required>
-                                        <label class="form-label">(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 class="card-inside-title">メールマガジン</h2>
-                        <div class="switch">
-                            <label>未希望
-                            <input type="checkbox" id="customer_magazine" name="customer_magazine" value=1>
-                            <span class="lever switch-col-red"></span>希望</label>
-                        </div>
-                        <h2 class="card-inside-title">追加情報</h2>
-                        <div class="row clearfix">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <textarea rows="4" class="form-control no-resize" name="customer_add_info"
-                                            placeholder="顧客に関する情報：例：夏に旅行をする"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 class="card-inside-title">GROUP</h2>
-                        <div class="row clearfix">
-                            <div class="col-sm-6">
-                                <select class="form-control show-tick" name="customer_group">
-                                    <option value="gold">金</option>
-                                    <option value="silver">銀</option>
-                                    <option value="bronze">銅</option>
-                                    <option value="black">黒</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- <button id="sendCustomerData" type="button" class="btn btn-primary m-t-15 waves-effect">登録</button>
-                        <button id="register2" type="btn" class="btn btn-primary m-t-15 waves-effect">次へ</button>
-                        <button type="reset" class="btn btn-primary m-t-15 waves-effect">クリア</button>
-                        <button type="reset" id="C_cancel" class="btn btn-primary m-t-15 waves-effect">キャンセル</button> -->
-                    
-                </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <!-- <div class="body"> -->
-                    <h3>ペット登録</h3>
-                    <?php echo form_error('pet_name'); ?>
-                    <div class="form-group form-float">
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="pet_name" required>
-                            <label class="form-label">名前</label>
-                        </div>
-                    </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <div class="card">
-                                    <div class="header">
-                                        <h2>写真</h2>
-                                    </div>
-                                    <div class="body">
-                                        <input type="file" id="files" name="" multiple />
-                                        <output id="list"></output>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <div class="form-group form-float">
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="pet_classification" required>
-                            <label class="form-label">分類</label>
-                        </div>
-                        <div class="help-info">犬、猫、鳥</div>
-                    </div>
-                    <div class="form-group form-float">
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="pet_type" required>
-                            <label class="form-label">種類</label>
-                        </div>
-                        <div class="help-info">トイ・プードル</div>
-                    </div>
-                <div class="form-group form-float">
-                    <label class="form-label">性別</label>
-                    <div class="form-line">
-                        <input type="radio" name="pet_animal_gender" id="male" value="1" class="with-gap" checked/>
-                        <label for="male">オス</label>
 
-                        <input type="radio" name="pet_animal_gender" id="female" value="2" class="with-gap">
-                        <label for="female" class="m-l-20">メス</label>
-
-                        <input type="radio" name="pet_animal_gender" id="other" value="3" class="with-gap">
-                        <label for="other" class="m-l-20">その他</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-line">
-                        <label for="date">生年月日</label>
-                        <input id="date" name="pet_birthday" class="form-control" type="date">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-line">
-                        <label class="with-gap">去勢</label>
-                        <input type="radio" name="pet_contraception" id="on" value= "1" class="with-gap">
-                        <label for="1">有</label>
-                        <input type="radio" name="pet_contraception" id="off" value="2" class="with-gap" checked/>
-                        <label for="2">無</label>
-                    </div>
-                </div>
-                <div class="form-group form-float">
-                    <div class="form-line">
-                        <input type="number" class="form-control" name="pet_body_height" >
-                        <label class="form-label">体高</label>
-                    </div>
-                    <div class="help-info">cm</div>
-                </div>
-                <div class="form-group form-float">
-                    <div class="form-line">
-                        <input type="number" class="form-control" name="pet_body_weight" >
-                        <label class="form-label">体重</label>
-                    </div>
-                    <div class="help-info">kg</div>
-                </div>
-                <div class="form-group form-float">
-                    <div class="form-line">
-                        <textarea name="pet_information" cols="30" rows="5" class="form-control no-resize" ></textarea>
-                        <label class="form-label">備考：</label>
-                    </div>
-                </div>
-                <!-- <input type="hidden" name="pet_customer_id" value="pet_customer_id">
-                <button  id="sendPetData" type="button" class="btn btn-primary waves-effect">登録</button>
-                <button class="btn btn-primary waves-effect" type="reset">クリア</button>
-                <button type="reset" id="P_cancel" class="btn btn-primary waves-effect">キャンセル</button> -->
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <input type="hidden" name="pet_customer_id" value="pet_customer_id">
-                <button  id="sendPCdata" type="button" class="btn btn-primary waves-effect">登録</button>
-                <button class="btn btn-primary waves-effect" type="reset">クリア</button>
-                <button type="reset" id="P_cancel" class="btn btn-primary waves-effect">キャンセル</button>
-            </div>
-            </form>
-        </div>
-<!-- #END# Input -->
-</section>
 <!-- モーダルウィンドウのペット -->
 <section id="modalPetArea" class="modalBgTotal">
             <div id="modalPetBg" class="modalAreaTotal"></div>
@@ -447,9 +223,9 @@ $flg = $this->input->get('flg', TRUE);
                             <div class="form-group">
                                 <div class="form-line">
                                     <label class="with-gap">去勢</label>
-                                    <input type="radio" name="pet_contraception" id="on" value= "on" class="with-gap">
+                                    <input type="radio" name="pet_contraception" id="on" value= "1" class="with-gap">
                                     <label for="on">有</label>
-                                    <input type="radio" name="pet_contraception" id="off" value="off" class="with-gap" checked/>
+                                    <input type="radio" name="pet_contraception" id="off" value="2" class="with-gap" checked/>
                                     <label for="off">無</label>
                                 </div>
                             </div>
@@ -483,7 +259,7 @@ $flg = $this->input->get('flg', TRUE);
                 </div>
             </div>
             <div class="pull-right">
-                <button  id="sendPetData" type="button" class="btn btn-primary waves-effect">登録</button>
+                <button  id="sendPCdata" type="button" class="btn btn-primary waves-effect">登録</button>
                 <button class="btn btn-primary waves-effect" type="reset">クリア</button>
                 <button type="reset" id="P_cancel" class="btn btn-primary waves-effect">キャンセル</button>
             </div>
@@ -565,7 +341,7 @@ $('#sendPCdata').on('click', function(){
     .done(function(data, textStatus, jqXHR) {
         alert("success!");
         console.log(data);
-        location.reload();
+        // location.reload();
 
     })
     .fail(function(data, textStatus, errorThrown) {

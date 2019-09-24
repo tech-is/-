@@ -67,6 +67,8 @@
     }
     .modalWrapper {
         position: absolute;
+        overflow-y: scroll;
+        height: 95vh;
         top: 50%;
         left: 50%;
         transform:translate(-50%,-50%);
