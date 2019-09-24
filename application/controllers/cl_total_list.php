@@ -36,8 +36,8 @@ class Cl_total_list extends CI_Controller {
         $this->load->helper(['form', 'url']);
         $this->load->library('form_validation');
         $this->load->model('mdl_pet_info');
-        $p_data['pet_contraception'] ="";
-        $p_data['pet_type'] ="";
+        // $p_data['pet_contraception'] ="";
+        // $p_data['pet_type'] ="";
         $config = [
             [
                 'field' => 'pet_name',
@@ -110,17 +110,18 @@ class Cl_total_list extends CI_Controller {
         if ($this->form_validation->run() == true){
             $p_data = $this->input->post();
                     //避妊をintへ
-            if(isset($p_data['pet_contraception'])){
-                if($p_data['pet_contraception'] == 'on') {
-                    $p_data['pet_contraception'] = 1;
-                } else {
-                    $p_data['pet_contraception'] = 2;
-                }
-            }
+            // if(isset($p_data['pet_contraception'])){
+            //     if($p_data['pet_contraception'] == 'on') {
+            //         $p_data['pet_contraception'] = 1;
+            //     } else {
+            //         $p_data['pet_contraception'] = 2;
+            //     }
+            // }
             return $p_data;
-        } else {
-            echo "ペットデータが不正です";
             exit;
+        // } else {
+        //     echo "ペットデータが不正です";
+        //     exit;
         }    
     }
 
@@ -237,25 +238,31 @@ class Cl_total_list extends CI_Controller {
         return $this->Mdl_total_list->m_get_total_list($shop_id);
     }
     //ペットと顧客の登録
-    public function insert_total_data()
-    {
+    public function insert_total_data(){
+        $data['debug'] = var_export($_POST, true);
+        echo "a";
         //顧客の登録
-        if($this->c_check() == true) {
-            $customer_data = $this->c_check();
-
-            $pet_data = $this->pet_info_validation();
-            $this->load->model("Mdl_total_list");
+        if(isset($_POST['customer_name']) == true) {
+            echo "i";
+            if($this->c_check() == true) {
+                echo "u";
+                $customer_data = $this->c_check();
+            }
+            if(isset($_POST['pet_name']) == true) {
+                echo "e";
+                $pet_data = $this->pet_info_validation();
+                $pet_data["pet_customer_id"] = $c_test["customer_shop_id"];
+                $this->load->model("Mdl_total_list");
+            }
             if($this->Mdl_total_list->m_insert_total_list($pet_data, $customer_data) == true) {
-                echo "success!";
+                echo "成功!";
                 exit;
             } else {
                 echo "fail..";
                 exit;
-            }
-        } else {
-            echo "入力値に不正";
-            exit;
+            } 
         }
+
 
     }
 }

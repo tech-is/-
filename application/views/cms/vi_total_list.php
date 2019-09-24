@@ -264,10 +264,10 @@ $flg = $this->input->get('flg', TRUE);
                 <div class="form-group">
                     <div class="form-line">
                         <label class="with-gap">去勢</label>
-                        <input type="radio" name="pet_contraception" id="on" value= "on" class="with-gap">
-                        <label for="on">有</label>
-                        <input type="radio" name="pet_contraception" id="off" value="off" class="with-gap" checked/>
-                        <label for="off">無</label>
+                        <input type="radio" name="pet_contraception" id="on" value= "1" class="with-gap">
+                        <label for="1">有</label>
+                        <input type="radio" name="pet_contraception" id="off" value="2" class="with-gap" checked/>
+                        <label for="2">無</label>
                     </div>
                 </div>
                 <div class="form-group form-float">
@@ -297,7 +297,7 @@ $flg = $this->input->get('flg', TRUE);
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <input type="hidden" name="pet_customer_id" value="pet_customer_id">
-                <button  id="sendPetData" type="button" class="btn btn-primary waves-effect">登録</button>
+                <button  id="sendPCdata" type="button" class="btn btn-primary waves-effect">登録</button>
                 <button class="btn btn-primary waves-effect" type="reset">クリア</button>
                 <button type="reset" id="P_cancel" class="btn btn-primary waves-effect">キャンセル</button>
             </div>
@@ -535,7 +535,7 @@ $('#modalBg, #C_cancel').on('click', function(){
         return false;
 });
 
-$('#sendCustomerData').on('click', function(){
+$('#sendPCdata').on('click', function(){
     let param = {
         customer_name : $("input[name='customer_name']").val(),
         customer_kana : $("input[name='customer_kana']").val(),
@@ -545,36 +545,7 @@ $('#sendCustomerData').on('click', function(){
         customer_address : $("input[name='customer_address']").val(),
         customer_magazine : $("[name='customer_magazine']:checked").val(),
         customer_add_info : $("textarea[name='customer_add_info']").val(),
-        customer_group : $("select[name='customer_group']").val()
-    }
-    $.ajax({
-        url: '../Cl_total_list/insert_total_data',
-        type: 'POST',
-        data: param
-        
-    })
-    .done(function(data, textStatus, jqXHR) {
-        // alert("success!");
-        console.log(data);
-        location.reload();
-
-    })
-    .fail(function(data, textStatus, errorThrown) {
-        console.log(data);
-    })
-});
-// ペットデータ登録
-$('#register2').on('click', function(){
-    $('#modalPetArea').fadeIn();
-    return false;
-});
-$('#modalPetBg, #P_cancel').on('click', function(){
-    $('#modalPetArea').fadeOut();
-    return false;
-});
-
-$('#sendPetData').on('click', function(){
-    let param = {
+        customer_group : $("select[name='customer_group']").val(),
         pet_name : $("input[name='pet_name']").val(),
         pet_classification : $("input[name='pet_classification']").val(),
         pet_type : $("input[name='pet_type']").val(),
@@ -585,22 +556,60 @@ $('#sendPetData').on('click', function(){
         pet_birthday : $("input[name='pet_birthday']").val(),
         pet_last_reservdate : $("input[name='pet_last_reservdate']").val(),
         pet_information : $("textarea[name='pet_information']").val()
-
     }
     $.ajax({
-        url: '../Cl_pet_info/pet_info_validation',
+        url: '../Cl_total_list/insert_total_data',
         type: 'POST',
-        data: param
+        data : param
     })
     .done(function(data, textStatus, jqXHR) {
-        // alert("success!");
+        alert("success!");
         console.log(data);
         location.reload();
+
     })
     .fail(function(data, textStatus, errorThrown) {
         console.log(data);
     })
 });
+// ペットデータ登録
+// $('#register2').on('click', function(){
+//     $('#modalPetArea').fadeIn();
+//     return false;
+// });
+// $('#modalPetBg, #P_cancel').on('click', function(){
+//     $('#modalPetArea').fadeOut();
+//     return false;
+// });
+
+// $('#sendPetData').on('click', function(){
+//     let param = {
+//         pet_name : $("input[name='pet_name']").val(),
+//         pet_classification : $("input[name='pet_classification']").val(),
+//         pet_type : $("input[name='pet_type']").val(),
+//         pet_animal_gender : $("[name='pet_animal_gender']:checked").val(),
+//         pet_contraception : $("[name='pet_contraception']:checked").val(),
+//         pet_body_height : $("input[name='pet_body_height']").val(),
+//         pet_body_weight : $("input[name='pet_body_weight']").val(),
+//         pet_birthday : $("input[name='pet_birthday']").val(),
+//         pet_last_reservdate : $("input[name='pet_last_reservdate']").val(),
+//         pet_information : $("textarea[name='pet_information']").val()
+
+//     }
+//     $.ajax({
+//         url: '../Cl_pet_info/pet_info_validation',
+//         type: 'POST',
+//         data: param
+//     })
+//     .done(function(data, textStatus, jqXHR) {
+//         // alert("success!");
+//         console.log(data);
+//         location.reload();
+//     })
+//     .fail(function(data, textStatus, errorThrown) {
+//         console.log(data);
+//     })
+// });
 //予約登録
 $('#register3').on('click', function(){
     $('#modalArea_register').fadeIn();
@@ -651,7 +660,7 @@ $('#sendResisterReserve').on('click', function() {
 // });
 
 //顧客更新
-$("#register4").on("click", function () {
+$('#datatable tbody').on("click", function () {
     let row = $('#datatable').DataTable().rows('.active').data();
     let column = row[0];
     // let str = row[0].staff_name;
