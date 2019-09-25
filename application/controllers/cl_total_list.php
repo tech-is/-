@@ -16,7 +16,8 @@ class Cl_total_list extends CI_Controller {
         $this->load->model('Mdl_total_list');
         // $this->load->driver('session');
         session_start();
-        $_SESSION["shop_id"] = 1;
+        !isset($_SESSION["shop_id"])? exit: false;
+        // $_SESSION["shop_id"] = 1;
         //GET.POST.インサート分の中身を確認。コンストラクタ内で利用するie
         // $this->output->enable_profiler();
     }
@@ -35,6 +36,22 @@ class Cl_total_list extends CI_Controller {
         $_SESSION["shop_id"] = 1;
         $shop_id = $_SESSION["shop_id"];
         return $this->Mdl_total_list->m_get_total_list($shop_id);
+    }
+
+    //更新時、全件取得
+    public function get_total_all_data()
+    {
+        $pet_id = $this->input->post("id");
+        $this->load->model("Mdl_total_list");
+        $return = $this->Mdl_total_list->m_get_total_all($pet_id);
+        if($return) {
+            header("Content-type: application/json; charset=UTF-8");
+            echo json_encode($return);
+            exit;
+        } else {
+            echo "dberror";
+            exit;
+        }
     }
 
     //ペットと顧客の登録
@@ -65,8 +82,12 @@ class Cl_total_list extends CI_Controller {
             exit;
         }
     }
-            
-        
+    //更新処理
+    public function update_total_data()
+    {
+
+    }
+
     private function total_validation()
     {
         $config = [

@@ -10,12 +10,25 @@ class Mdl_total_list extends CI_Model {
       $this->load->database();
   }
 
+  //更新処理
+  public function m_get_total_all($pet_id)
+  {
+      $where = ['customer_state ' => 1, 'pet_state ' => 1, 'pet_id '=> $pet_id];
+      $this->db->where($where);
+      $this->db->select('*');
+      $this->db->from('customer');
+      $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
+      $query = $this->db->get();
+      return $query->row_array(); //結果を配列で返す。
+  }
+
+
   //画面表示分カスタマーのセレクトの分をとってくる
   public function m_get_total_list($shop_id){
     //print_r($_SESSION);
-        $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id]; 
+        $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
         $this->db->where($where);
-        $this->db->select("customer_name , pet_name , customer_tel , customer_mail");
+        $this->db->select("pet_id , customer_name , pet_name , customer_tel , customer_mail");
         $this->db->from('customer');
         $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
         $query = $this->db->get();

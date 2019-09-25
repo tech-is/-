@@ -18,42 +18,40 @@ $flg = $this->input->get('flg', TRUE);
                 <div class="card">
                     <div class="header">
                         <h2>顧客・ペット一覧</h2>
-                            <button id="register" type="btn" class="btn btn-primary m-t-15 waves-effect">顧客登録</button>
-                            <button id="register3" type="btn" class="btn btn-primary m-t-15 waves-effect">予約登録</button>
-                            <button id="register4" type="btn" class="btn btn-primary m-t-15 waves-effect" disabled>顧客更新</button>
-                    <div class="body">
-                        <div class="table-responsive">
-                            <table id="datatable" class="table table-bordered table-striped table-hover dataTable">
-                                <thead>
-                                    <tr>
-                                        <!-- <th>ID</th> -->
-                                        <th>顧客名</th>
-                                        <th>ペット名</th>
-                                        <th>電話番号</th>
-                                        <th>メールアドレス</th>
-                                        <!-- <th>最終予約日</th> -->
-                                        <!-- <th>設定</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                // print_r($customers);
-                                for($i = 0; $i < count($list); $i++){
-                                    $disply = $list[$i];
-                                    echo "<tr>";
-                                    // echo "<td>$customer[customer_id]</td>";
-                                    echo "<td>$disply[customer_name]</td>";
-                                    echo "<td>$disply[pet_name]</td>";
-                                    echo "<td>$disply[customer_tel]</td>";
-                                    echo "<td>$disply[customer_mail]</td>";
-                                    // echo "<td>$disply[reserve_start]</td>";
-                                    // echo "<td>";
-                                    // echo "<button type=\"btn\" id=\"updateButton\" class=\"btn btn-primary m-t-15 waves-effect\">更新</button>";
-                                    // echo "<button type=\"btn\" id=\"deleteButton\" class=\"btn btn-primary m-t-15 waves-effect\">削除</button>";
-                                    // echo "</td>";
-                                    echo "</tr>";
-                                }
-                                /*
+                        <button id="register" type="btn" class="btn btn-primary m-t-15 waves-effect">顧客登録</button>
+                        <button id="register3" type="btn" class="btn btn-primary m-t-15 waves-effect">予約登録</button>
+                        <button id="register4" type="btn" class="btn btn-primary m-t-15 waves-effect" disabled>顧客更新</button>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-bordered table-striped table-hover dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ペットID</th>
+                                            <th>顧客名</th>
+                                            <th>ペット名</th>
+                                            <th>電話番号</th>
+                                            <th>メールアドレス</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // print_r($customers);
+                                        for ($i = 0; $i < count($list); $i++) {
+                                            $disply = $list[$i];
+                                            echo "<tr>";
+                                            echo "<td>$disply[pet_id]</td>";
+                                            echo "<td>$disply[customer_name]</td>";
+                                            echo "<td>$disply[pet_name]</td>";
+                                            echo "<td>$disply[customer_tel]</td>";
+                                            echo "<td>$disply[customer_mail]</td>";
+                                            // echo "<td>$disply[reserve_start]</td>";
+                                            // echo "<td>";
+                                            // echo "<button type=\"btn\" id=\"updateButton\" class=\"btn btn-primary m-t-15 waves-effect\">更新</button>";
+                                            // echo "<button type=\"btn\" id=\"deleteButton\" class=\"btn btn-primary m-t-15 waves-effect\">削除</button>";
+                                            // echo "</td>";
+                                            echo "</tr>";
+                                        }
+                                        /*
                                 上記のfor文のリファクタリング
                                 foreach($list as $display){
                                     ?>
@@ -67,32 +65,32 @@ $flg = $this->input->get('flg', TRUE);
                                     <?php
                                 }
                                 */
-                                ?>
-                                </tbody>
-                            </table>
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- #END# Exportable Table -->
-    </div>
+            <!-- #END# Exportable Table -->
+        </div>
 </section>
 <!-- モーダルウィンドウ カスタマー -->
 
 <!-- モーダルウィンドウのペット -->
 <section id="modalPetArea" class="modalBgTotal">
-            <div id="modalPetBg" class="modalAreaTotal"></div>
+    <div id="modalPetBg" class="modalAreaTotal"></div>
     <div class="modalWrapperTotal">
-            <div class="modalContents" id="modalPetContents"></div>
-            <div id="closePetModal" class="closeModal">
-                ×
-            </div>
-            
-            </div>
+        <div class="modalContents" id="modalPetContents"></div>
+        <div id="closePetModal" class="closeModal">
+            ×
         </div>
-    </section>
+
+    </div>
+    </div>
+</section>
 <!-- #END# Input -->
 <section id="modalArea_register" class="modalArea">
     <div id="modalBg_register" class="modalBg"></div>
@@ -108,7 +106,7 @@ $flg = $this->input->get('flg', TRUE);
                     <div class="form-group">
                         <label for="customer_name">名前<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="customer_name" required >
+                            <input type="text" class="form-control" name="customer_name" required>
                             <label class="form-label">山田　太郎</label>
                         </div>
                     </div>
@@ -127,28 +125,23 @@ $flg = $this->input->get('flg', TRUE);
                         </div>
                     </div>
                     <div class="form-group form-float">
-                    <label for="customer_tel">電話番号<span style="color: red; margin-left: 10px">必須</span></label>
+                        <label for="customer_tel">電話番号<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="customer_tel"
-                                pattern="\d{2,4}-?\d{3,4}-?\d{3,4}"
-                                title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" required >
+                            <input type="text" class="form-control" name="customer_tel" pattern="\d{2,4}-?\d{3,4}-?\d{3,4}" title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" required>
                             <label class="form-label">半角数字</label>
                         </div>
                     </div>
                     <div class="form-group form-float">
                         <label for="customer_zip_adress">郵便番号<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="customer_zip_adress"
-                                pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。"
-                                required >
+                            <input type="text" class="form-control" name="customer_zip_adress" pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。" required>
                             <label class="form-label">半角数字</label>
                         </div>
                     </div>
                     <div class="form-group form-float">
                         <label for="customer_zip_adress">住所<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="customer_address"
-                            required>
+                            <input type="text" class="form-control" name="customer_address" required>
                             <label class="form-label">(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)</label>
                         </div>
                     </div>
@@ -156,8 +149,8 @@ $flg = $this->input->get('flg', TRUE);
                         <label for="customer_magazine">メールマガジン<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="switch">
                             <label>未希望
-                            <input type="checkbox" id="customer_magazine" name="customer_magazine" value=1>
-                            <span class="lever switch-col-red"></span>希望</label>
+                                <input type="checkbox" id="customer_magazine" name="customer_magazine" value=1>
+                                <span class="lever switch-col-red"></span>希望</label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -206,7 +199,7 @@ $flg = $this->input->get('flg', TRUE);
                             <div class="form-group form-float">
                                 <label class="form-label">性別</label>
                                 <div class="form-line">
-                                    <input type="radio" name="pet_animal_gender" id="male" value="1" class="with-gap" checked/>
+                                    <input type="radio" name="pet_animal_gender" id="male" value="1" class="with-gap" checked />
                                     <label for="male">オス</label>
                                     <input type="radio" name="pet_animal_gender" id="female" value="2" class="with-gap">
                                     <label for="female" class="m-l-20">メス</label>
@@ -223,9 +216,9 @@ $flg = $this->input->get('flg', TRUE);
                             <div class="form-group">
                                 <div class="form-line">
                                     <label class="with-gap">去勢</label>
-                                    <input type="radio" name="pet_contraception" id="on" value= "1" class="with-gap">
+                                    <input type="radio" name="pet_contraception" id="on" value="1" class="with-gap">
                                     <label for="on">有</label>
-                                    <input type="radio" name="pet_contraception" id="off" value="2" class="with-gap" checked/>
+                                    <input type="radio" name="pet_contraception" id="off" value="2" class="with-gap" checked />
                                     <label for="off">無</label>
                                 </div>
                             </div>
@@ -234,7 +227,7 @@ $flg = $this->input->get('flg', TRUE);
                             <div class="form-group form-float">
                                 <label for="pet_body_height">体高</label>
                                 <div class="form-line">
-                                    <input type="number" class="form-control" name="pet_body_height" >
+                                    <input type="number" class="form-control" name="pet_body_height">
                                     <label class="form-label">体高</label>
                                 </div>
                                 <div class="help-info">cm</div>
@@ -242,7 +235,7 @@ $flg = $this->input->get('flg', TRUE);
                             <div class="form-group form-float">
                                 <label for="pet_body_height">体重</label>
                                 <div class="form-line">
-                                    <input type="number" class="form-control" name="pet_body_weight" >
+                                    <input type="number" class="form-control" name="pet_body_weight">
                                     <label class="form-label">体重</label>
                                 </div>
                                 <div class="help-info">kg</div>
@@ -250,7 +243,7 @@ $flg = $this->input->get('flg', TRUE);
                             <div class="form-group form-float">
                                 <label for="pet_information">備考</label>
                                 <div class="form-line">
-                                    <textarea name="pet_information" cols="30" rows="5" class="form-control no-resize" ></textarea>
+                                    <textarea name="pet_information" cols="30" rows="5" class="form-control no-resize"></textarea>
                                     <label class="form-label">備考：</label>
                                 </div>
                             </div>
@@ -259,7 +252,7 @@ $flg = $this->input->get('flg', TRUE);
                 </div>
             </div>
             <div class="pull-right">
-                <button  id="sendPCdata" type="button" class="btn btn-primary waves-effect">登録</button>
+                <button id="sendPCdata" type="button" class="btn btn-primary waves-effect">登録</button>
                 <button class="btn btn-primary waves-effect" type="reset">クリア</button>
                 <button type="reset" id="P_cancel" class="btn btn-primary waves-effect">キャンセル</button>
             </div>
@@ -299,160 +292,191 @@ $flg = $this->input->get('flg', TRUE);
 
 <!-- モーダルウィンドウ・顧客、ペット登録 -->
 <script>
+    // カスタマーデータ登録
+    $(function() {
+        $('#register').on('click', function() {
+            $('#modalArea_register').fadeIn();
+            return false;
+        });
+        $('#modalBg, #C_cancel').on('click', function() {
+            $('#modalArea_register').fadeOut();
+            return false;
+        });
 
-// カスタマーデータ登録
+        $('#sendPCdata').on('click', function() {
+            let param = {
+                customer_name: $("input[name='customer_name']").val(),
+                customer_kana: $("input[name='customer_kana']").val(),
+                customer_mail: $("input[name='customer_mail']").val(),
+                customer_tel: $("input[name='customer_tel']").val(),
+                customer_zip_adress: $("input[name='customer_zip_adress']").val(),
+                customer_address: $("input[name='customer_address']").val(),
+                customer_magazine: $("[name='customer_magazine']:checked").val(),
+                customer_add_info: $("textarea[name='customer_add_info']").val(),
+                customer_group: $("select[name='customer_group']").val(),
+                pet_name: $("input[name='pet_name']").val(),
+                pet_classification: $("input[name='pet_classification']").val(),
+                pet_type: $("input[name='pet_type']").val(),
+                pet_animal_gender: $("[name='pet_animal_gender']:checked").val(),
+                pet_contraception: $("[name='pet_contraception']:checked").val(),
+                pet_body_height: $("input[name='pet_body_height']").val(),
+                pet_body_weight: $("input[name='pet_body_weight']").val(),
+                pet_birthday: $("input[name='pet_birthday']").val(),
+                pet_last_reservdate: $("input[name='pet_last_reservdate']").val(),
+                pet_information: $("textarea[name='pet_information']").val()
+            }
+            $.ajax({
+                    url: '../Cl_total_list/insert_total_data',
+                    type: 'POST',
+                    data: param
+                })
+                .done(function(data, textStatus, jqXHR) {
+                    alert("success!");
+                    console.log(data);
+                    // location.reload();
 
-$('#register').on('click', function(){
-    $('#modalArea_register').fadeIn();
+                })
+                .fail(function(data, textStatus, errorThrown) {
+                    console.log(data);
+                })
+        });
+
+    // ペットデータ登録
+    // $('#register2').on('click', function(){
+    //     $('#modalPetArea').fadeIn();
+    //     return false;
+    // });
+    // $('#modalPetBg, #P_cancel').on('click', function(){
+    //     $('#modalPetArea').fadeOut();
+    //     return false;
+    // });
+
+    // $('#sendPetData').on('click', function(){
+    //     let param = {
+    //         pet_name : $("input[name='pet_name']").val(),
+    //         pet_classification : $("input[name='pet_classification']").val(),
+    //         pet_type : $("input[name='pet_type']").val(),
+    //         pet_animal_gender : $("[name='pet_animal_gender']:checked").val(),
+    //         pet_contraception : $("[name='pet_contraception']:checked").val(),
+    //         pet_body_height : $("input[name='pet_body_height']").val(),
+    //         pet_body_weight : $("input[name='pet_body_weight']").val(),
+    //         pet_birthday : $("input[name='pet_birthday']").val(),
+    //         pet_last_reservdate : $("input[name='pet_last_reservdate']").val(),
+    //         pet_information : $("textarea[name='pet_information']").val()
+
+    //     }
+    //     $.ajax({
+    //         url: '../Cl_pet_info/pet_info_validation',
+    //         type: 'POST',
+    //         data: param
+    //     })
+    //     .done(function(data, textStatus, jqXHR) {
+    //         // alert("success!");
+    //         console.log(data);
+    //         location.reload();
+    //     })
+    //     .fail(function(data, textStatus, errorThrown) {
+    //         console.log(data);
+    //     })
+    // });
+    //予約登録
+    $('#register3').on('click', function() {
+        $('#modalArea_register').fadeIn();
         return false;
-});
-$('#modalBg, #C_cancel').on('click', function(){
-    $('#modalArea_register').fadeOut();
+    });
+
+    $('#modalBg_register, #R_cancel').on('click', function() {
+        $('#modalArea_register').fadeOut();
         return false;
-});
+    });
 
-$('#sendPCdata').on('click', function(){
-    let param = {
-        customer_name : $("input[name='customer_name']").val(),
-        customer_kana : $("input[name='customer_kana']").val(),
-        customer_mail : $("input[name='customer_mail']").val(),
-        customer_tel : $("input[name='customer_tel']").val(),
-        customer_zip_adress : $("input[name='customer_zip_adress']").val(),
-        customer_address : $("input[name='customer_address']").val(),
-        customer_magazine : $("[name='customer_magazine']:checked").val(),
-        customer_add_info : $("textarea[name='customer_add_info']").val(),
-        customer_group : $("select[name='customer_group']").val(),
-        pet_name : $("input[name='pet_name']").val(),
-        pet_classification : $("input[name='pet_classification']").val(),
-        pet_type : $("input[name='pet_type']").val(),
-        pet_animal_gender : $("[name='pet_animal_gender']:checked").val(),
-        pet_contraception : $("[name='pet_contraception']:checked").val(),
-        pet_body_height : $("input[name='pet_body_height']").val(),
-        pet_body_weight : $("input[name='pet_body_weight']").val(),
-        pet_birthday : $("input[name='pet_birthday']").val(),
-        pet_last_reservdate : $("input[name='pet_last_reservdate']").val(),
-        pet_information : $("textarea[name='pet_information']").val()
-    }
-    $.ajax({
-        url: '../Cl_total_list/insert_total_data',
-        type: 'POST',
-        data : param
-    })
-    .done(function(data, textStatus, jqXHR) {
-        alert("success!");
-        console.log(data);
-        // location.reload();
-
-    })
-    .fail(function(data, textStatus, errorThrown) {
-        console.log(data);
-    })
-});
-// ペットデータ登録
-// $('#register2').on('click', function(){
-//     $('#modalPetArea').fadeIn();
-//     return false;
-// });
-// $('#modalPetBg, #P_cancel').on('click', function(){
-//     $('#modalPetArea').fadeOut();
-//     return false;
-// });
-
-// $('#sendPetData').on('click', function(){
-//     let param = {
-//         pet_name : $("input[name='pet_name']").val(),
-//         pet_classification : $("input[name='pet_classification']").val(),
-//         pet_type : $("input[name='pet_type']").val(),
-//         pet_animal_gender : $("[name='pet_animal_gender']:checked").val(),
-//         pet_contraception : $("[name='pet_contraception']:checked").val(),
-//         pet_body_height : $("input[name='pet_body_height']").val(),
-//         pet_body_weight : $("input[name='pet_body_weight']").val(),
-//         pet_birthday : $("input[name='pet_birthday']").val(),
-//         pet_last_reservdate : $("input[name='pet_last_reservdate']").val(),
-//         pet_information : $("textarea[name='pet_information']").val()
-
-//     }
-//     $.ajax({
-//         url: '../Cl_pet_info/pet_info_validation',
-//         type: 'POST',
-//         data: param
-//     })
-//     .done(function(data, textStatus, jqXHR) {
-//         // alert("success!");
-//         console.log(data);
-//         location.reload();
-//     })
-//     .fail(function(data, textStatus, errorThrown) {
-//         console.log(data);
-//     })
-// });
-//予約登録
-$('#register3').on('click', function(){
-    $('#modalArea_register').fadeIn();
-    return false;
-});
-
-$('#modalBg_register, #R_cancel').on('click', function(){
-    $('#modalArea_register').fadeOut();
-    return false;
-});
-
-$('#sendResisterReserve').on('click', function() {
+    $('#sendResisterReserve').on('click', function() {
         let param = {
-            customer_name : $('#customer_name').val(),
-            customer_pet : $('#customer_pet').val(),
-            staff_id : $('#staff_id').val(),
-            reserve_start : $('#reserve_start').val(),
-            reserve_end : $('#reserve_start').val().slice(0 , -5) + $('#reserve_end').val(),
-            reserve_content:  $('#reserve_content').val()
+            customer_name: $('#customer_name').val(),
+            customer_pet: $('#customer_pet').val(),
+            staff_id: $('#staff_id').val(),
+            reserve_start: $('#reserve_start').val(),
+            reserve_end: $('#reserve_start').val().slice(0, -5) + $('#reserve_end').val(),
+            reserve_content: $('#reserve_content').val()
         }
         //投げる
         $.ajax({
-            url:'../cl_reserve/register_reserve_data',
-            type:'POST',
-            data: param
-        })
-        //成功したとき
-        .done( (data) => {
-            console.log(data);
-            location.reload();
-        })
-        //失敗したとき
-        .fail( (data) => {
-            alert("失敗しました");
-        })
+                url: '../cl_reserve/register_reserve_data',
+                type: 'POST',
+                data: param
+            })
+            //成功したとき
+            .done((data) => {
+                console.log(data);
+                location.reload();
+            })
+            //失敗したとき
+            .fail((data) => {
+                alert("失敗しました");
+            })
     });
 
-// テーブル行クリックの設定
-// $('#datatable tbody').on("click", "tr", function () {
-//     if ($(this).find('.dataTables_empty').length == 0) {
-//         var owner = $(this);
-//         $("#datatable tr").removeClass("active");
-//         owner.addClass("active");
-//         $("#register4").prop("disabled", false);
-//         // $("#shiftButton").prop(da"disabled", false);
-//         // $("#deleteButton").prop("disabled", false);
-//     }
-// });
+    /*************************************************************************** */
+    /** Total更新 **/
+    /*************************************************************************** */
+    // テーブル行クリックの設定
+    $('#datatable tbody').on("click", "tr", function() {
+        if ($(this).find('.dataTables_empty').length == 0) {
+            var owner = $(this);
+            $("#datatable tr").removeClass("active");
+            owner.addClass("active");
+            $("#register4").prop("disabled", false);
+        }
+    });
 
-//顧客更新
-$('#datatable tbody').on("click", function () {
-    let row = $('#datatable').DataTable().rows('.active').data();
-    let column = row[0];
-    // let str = row[0].staff_name;
-    sessionStorage.setItem('customer_id', column[0])
-    // let staff_name = str.split(' ');
-    // $("#dialogTitle").html("スタッフ更新");
-    $("input[name='customer_name[0]']").val(column[1]);
-    $("input[name='staff_tel']").val(row[0].staff_tel);
-    $("input[name='staff_email']").val(row[0].staff_mail);
-    $("input[name='staff_color']").val(row[0].staff_color);
-    $("textarea[name='staff_remarks']").val(row[0].staff_remarks);
-    $('#modalArea_add_staff').fadeIn();
-    $('#sendRegistButton').hide();
-    $('#sendUpdateButton').show();
-});
+    //顧客更新
+    // $('#datatable tbody').on("click", function () {
+    //     let row = $('#datatable').DataTable().rows('.active').data();
+    //     let column = row[0][0];
 
+    // });
+
+    $('#register4').on("click", function() {
+        let row = $('#datatable').DataTable().rows('.active').data();
+        let column = row[0][0];
+        // console.log(column);
+        $.ajax({
+                url: '../cl_total_list/get_total_all_data',
+                type: 'POST',
+                data: {
+                    id: column
+                }
+            })
+            //成功したとき
+            .done((data) => {
+                console.log(data);
+                $("input[name='customer_name']").val(data['customer_name']);
+                $("input[name='customer_kana']").val(data['customer_kana']);
+                $("input[name='customer_mail']").val(data['customer_mail']);
+                $("input[name='customer_tel']").val(data['customer_tel']);
+                $("input[name='customer_zip_adress']").val(data['customer_zip_adress']);
+                $("input[name='customer_address']").val(data['customer_address']);
+                $("[name='customer_magazine']:checked").val(data['customer_magazine']);
+                $("textarea[name='customer_add_info']").val(data['customer_add_info']);
+                $("select[name='customer_group']").val(data['customer_group']);
+                $("input[name='pet_name']").val(data['pet_name']);
+                $("input[name='pet_classification']").val(data['pet_classification']);
+                $("input[name='pet_type']").val(data['pet_type']);
+                $("[name='pet_animal_gender']:checked").val(data['pet_animal_gender']);
+                $("[name='pet_contraception']:checked").val(data['pet_contraception']);
+                $("input[name='pet_body_height']").val(data['pet_contraception']);
+                $("input[name='pet_body_weight']").val(data['pet_body_weight']);
+                $("input[name='pet_birthday']").val(data['pet_birthday']);
+                $("input[name='pet_last_reservdate']").val(data['pet_last_reservdate']);
+                $("textarea[name='pet_information']").val(data['pet_information']);
+                $('#modalArea_register').fadeIn();
+            })
+            //失敗したとき
+            .fail((data) => {
+                alert("失敗しました");
+            })
+        })
+    });
 </script>
 </body>
 
