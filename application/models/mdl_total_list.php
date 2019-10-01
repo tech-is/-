@@ -10,7 +10,7 @@ class Mdl_total_list extends CI_Model {
       $this->load->database();
   }
 
-  //更新処理
+  //更新の中身を取得
   public function m_get_total_all($pet_id)
   {
       $where = ['customer_state ' => 1, 'pet_state ' => 1, 'pet_id '=> $pet_id];
@@ -36,7 +36,7 @@ class Mdl_total_list extends CI_Model {
   }
 
   //新規登録のペットと顧客をここで登録
-  public function m_insert_total_list($customer_data, $pet_data)
+  public function m_insert_total_list($customer_data,$pet_data)
   {
     $this->db->trans_start();
     $this->db->insert('customer', $customer_data);
@@ -55,9 +55,26 @@ class Mdl_total_list extends CI_Model {
         return true;
     }
   }
+//更新内容を処理
+  public function m_update_total_list($id, $customer_data, $pet_data)
+  {
+    $this->db->trans_start();
 
+    $this->db->set($customer_data);
+    $this->db->where(['customer_id'=> $id['customer_id']]);
+    $this->db->update('customer');
 
+    $this->db->set($pet_data);
+    $this->db->where(['pet_id'=> $id['pet_id']]);
+    $this->db->update('pet');
 
-
-
+    $this->db->trans_complete();
+    if ($this->db->trans_status() === FALSE) {
+      $this->db->trans_rollback();
+        return false;
+    } else {
+      $this->db->trans_commit();
+        return true;
+    }
+  }
 }

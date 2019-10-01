@@ -57,35 +57,64 @@ class Cl_total_list extends CI_Controller {
     //ペットと顧客の登録
     public function insert_total_data()
     {
+        var_dump($_POST);
+        exit;
         // $data['debug'] = var_export($_POST, true);
         //顧客の登録
         if($this->total_validation() == true) {
-            $post = $this->input->post(null, true);
-            foreach($post as $key => $val) {
-                if(strpos($key,'customer_') !== false) {
-                    $customer_data[$key] = $val;
-                    $customer_data["customer_shop_id"] = $_SESSION["shop_id"];
-                } else {
-                    $pet_data[$key] = $val;
-                }
-            }
-            // $this->load->model("Mdl_total_list");
-            if($this->Mdl_total_list->m_insert_total_list($customer_data, $pet_data) == true) {
-                echo "成功!";
+            $data = $this->escape_xss();
+            $this->load->model("Mdl_total_list");  
+            if($this->Mdl_total_list->m_insert_total_list($data["customer_data"],$data["pet_data"]) == true) {
+                echo "success";
                 exit;
             } else {
-                echo "fail..";
+                echo "dberror";
                 exit;
             }
         } else {
-            echo "vali_erro";
+            echo "vali_err";
             exit;
         }
+        
     }
     //更新処理
     public function update_total_data()
     {
-
+        if($this->total_validation() == true) {
+            $data = $this->escape_xss();
+            $this->load->model("Mdl_total_list");  
+            if($this->Mdl_total_list->m_update_total_list($data["id"], $data["customer_data"], $data["pet_data"]) == true) {
+                echo "success";
+                exit;
+            } else {
+                echo "dberror";
+                exit;
+            }
+        } else {
+            echo "vali_err";
+            exit;
+        }
+    }
+    private function escape_xss()
+    {
+        $post = $this->input->post(null, true);
+        if(isset($post["pet_id"]) && isset($post["customer_id"])) {
+            $id = ["customer_id" => $post["customer_id"], "pet_id" => $post["pet_id"]];
+            unset($post["customer_id"], $post["pet_id"]);
+        }
+        foreach($post as $key => $val) {
+            if(strpos($key,'customer_') !== false) {
+                $customer_data[$key] = $val;
+                $customer_data["customer_shop_id"] = $_SESSION["shop_id"];
+            } else {
+                $pet_data[$key] = $val;
+            }
+        }
+        if(isset($id)) {
+            return ["id" => $id, "customer_data" => $customer_data, "pet_data" => $pet_data];
+        } else {
+            return ["customer_data" => $customer_data, "pet_data" => $pet_data];
+        }
     }
 
     private function total_validation()
@@ -215,4 +244,28 @@ class Cl_total_list extends CI_Controller {
         // $this->form_validation->set_rules($config);
         return $this->form_validation->run();
     }
+
+    //ペットファイルの画像アップ
+    function do_upload()
+    {
+        $config['upload_path'] = '../upload/img/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']	= '3072';
+        $config['max_width']  = '';
+        $config['max_height']  = '';
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload())
+        {   //falseを返したときにエラーを表示してくれる
+            $error = array('error' => $this->upload->display_errors());
+
+            // $this->load->view('upload_form', $error);
+        }
+        else
+        {
+            return $data = array('upload_data' => $this->upload->data());
+
+            // $this->load->view('upload_success', $data);
+        }
+    }
+
 }
