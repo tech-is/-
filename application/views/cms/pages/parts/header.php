@@ -49,7 +49,7 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" /><style>
-    
+
     /* モーダルCSS */
     .modalArea {
         display: none;
@@ -67,6 +67,8 @@
     }
     .modalWrapper {
         position: absolute;
+        overflow-y: scroll;
+        height: 95vh;
         top: 50%;
         left: 50%;
         transform:translate(-50%,-50%);
@@ -117,7 +119,7 @@
         background-color: rgba(30,30,30,0.9);
     }
 
-.modalBgTotal {
+    .modalBgTotal {
         display: none;
         /* position: fixed; */
         z-index: 13;
@@ -125,7 +127,7 @@
         height: 100%;
         overflow-y:scroll;
         /* background-color: rgba(30,30,30,0.9); */
-}
+    }
 
     .modalWrapperTotal {
         position: absolute;
@@ -159,7 +161,7 @@
         background-color: #fff;
     }
 
-    .modalWrapper_event {
+    .modalWrapper_Total {
         position: absolute;
         top: 50%;
         left: 50%;

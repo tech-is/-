@@ -1,13 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cl_total_list extends CI_Controller {
-
-    /**
-     * Undocumented function
-     *
-     * @return 
-     */
+class Cl_total_list extends CI_Controller
+{
 
     public function __construct()
     {
@@ -16,29 +11,193 @@ class Cl_total_list extends CI_Controller {
         $this->load->model('Mdl_total_list');
         // $this->load->driver('session');
         session_start();
-        // $_SESSION["shops_id"] = 1;
+        !isset($_SESSION["shop_id"])? exit: false;
+        // $_SESSION["shop_id"] = 1;
         //GET.POST.インサート分の中身を確認。コンストラクタ内で利用するie
         // $this->output->enable_profiler();
     }
 
     public function index()
-    {       
+    {
         $data["list"] = $this->get_total_list();
-        //print_r($data);
-        
+        $data["group"] = $this->get_kind_group();
+        // var_dump($data);
+        // exit;
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/vi_total_list', $data);
     }
-    //pet登録
-    public function pet_info_validation()
+
+    //一覧を表示させる
+    private function get_total_list()
     {
-        $this->load->helper(['form', 'url']);
-        $this->load->library('form_validation');
-        $this->load->model('mdl_pet_info');
-        $p_data['pet_contraception'] ="";
-        $p_data['pet_type'] ="";
+        $_SESSION["shop_id"] = 1;
+        $shop_id = $_SESSION["shop_id"];
+        return $this->Mdl_total_list->m_get_total_list($shop_id);
+    }
+     //グループを顧客登録のリストへ表示させる
+    private function get_kind_group()
+    {
+        $shop_id = $_SESSION["shop_id"];
+        return $this->Mdl_total_list->m_get_kind_group($shop_id);
+    }
+    //グループ管理インサート
+    public function insert_kind_group()
+    {
+        $data = [
+        "kind_group_shop_id " => $_SESSION['shop_id'],
+        "kind_group_name" => $this->input->post("kind_group_name")
+                 ];
+        $this->load->model("Mdl_total_list");
+        return $this->Mdl_total_list->insert_model_data($data);
+    }
+    
+    //更新時、全件取得
+    public function get_total_all_data()
+    {
+        $pet_id = $this->input->post("id");
+        $this->load->model("Mdl_total_list");
+        $return = $this->Mdl_total_list->m_get_total_all($pet_id);
+        if($return) {
+            header("Content-type: application/json; charset=UTF-8");
+            echo json_encode($return);
+            exit;
+        } else {
+            echo "dberror";
+            exit;
+        }
+    }
+
+    //ペットと顧客の登録
+    public function insert_total_data()
+    {
+        // $data['debug'] = var_export($_POST, true);
+        //顧客の登録
+        if($this->total_validation() === true) {
+            $data = $this->escape_xss();
+            if($_FILES["pet_img"]["error"] === 0) { //エラーがなく正常
+                $result_upload = $this->img_upload();
+                if($result_upload === false) {
+                    echo "upload_err";
+                    exit;
+                } else {
+                    $data["pet_data"]["pet_img"] = $result_upload;
+                }
+            } elseif($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理
+                echo "upload_err";
+                exit;
+            }
+            $this->load->model("Mdl_total_list");
+            if($this->Mdl_total_list->m_insert_total_list($data["customer_data"], $data["pet_data"]) === true) {
+                echo "success";
+                exit;
+            } else {
+                echo "dberror";
+                exit;
+            }
+        } else {
+            echo "vali_err";
+            exit;
+        }
+    }
+
+    //更新処理
+    public function update_total_data()
+    {
+        if($this->total_validation() == true) {
+            $data = $this->escape_xss();
+            $this->load->model("Mdl_total_list");
+            if($this->Mdl_total_list->m_update_total_list($data["id"], $data["customer_data"], $data["pet_data"]) == true) {
+                echo "success";
+                exit;
+            } else {
+                echo "dberror";
+                exit;
+            }
+        } else {
+            echo "vali_err";
+            exit;
+        }
+    }
+
+    private function escape_xss()
+    {
+        $post = $this->input->post(null, true); //ajaxでｃーテーブルとテーブルを一緒に登録
+        if(isset($post["pet_id"]) && isset($post["customer_id"])) {
+            $id = ["customer_id" => $post["customer_id"], "pet_id" => $post["pet_id"]];
+            unset($post["customer_id"], $post["pet_id"]);
+        }
+        foreach($post as $key => $val) { //カスタマーとペットに分ける処理
+            if(strpos($key,'customer_') !== false) {
+                $customer_data[$key] = $val;
+                $customer_data["customer_shop_id"] = $_SESSION["shop_id"];
+            } else {
+                $pet_data[$key] = $val;
+            }
+        }
+        if(isset($id)) {
+            return ["id" => $id, "customer_data" => $customer_data, "pet_data" => $pet_data];
+        } else {
+            return ["customer_data" => $customer_data, "pet_data" => $pet_data];
+        }
+    }
+
+    private function total_validation()
+    {
         $config = [
+            [
+                'field' => 'customer_name',
+                'label' => '名前',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '名前を入力してください'
+                ]
+            ],
+            [
+                'field' => 'customer_kana',
+                'label' => 'カナ',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => 'カナを入力してください'
+                ]
+            ],
+            [
+                'field' => 'customer_mail',
+                'label' => 'メール',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'メールを入力して下さい'
+                ]
+            ],
+            [
+                'field' => 'customer_tel',
+                'label' => '電話',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '番号を入力してください'
+                ]
+            ],
+            [
+                'field' => 'customer_zip_adress',
+                'label' => '郵便番号',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '郵便番号を入力してください'
+                ]
+            ],
+            [
+                'field' => 'customer_address',
+                'label' => '住所',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '住所を入力してください'
+                ]
+            ],
+            [
+                'field' => 'customer_add_info',
+                'label' => '追加情報',
+                'rules' => 'trim',
+            ],
             [
                 'field' => 'pet_name',
                 'label' => '名前',
@@ -54,7 +213,7 @@ class Cl_total_list extends CI_Controller {
                 'errors' => [
                     'required' => '入力してください'
                 ]
-                ],
+            ],
             [
                 'field' => 'pet_type',
                 'label' => '種類',
@@ -62,15 +221,15 @@ class Cl_total_list extends CI_Controller {
                 'errors' => [
                     'required' => '入力してください'
                 ]
-                ],
+            ],
             [
                 'field' => 'pet_animal_gender',
                 'label' => '性別',
-                'rules' => '',
+                'rules' => 'required',
                 'errors' => [
                     'required' => '選択してください'
                 ]
-                ],
+            ],
             [
                 'field' => 'pet_birthday',
                 'label' => '生年月日',
@@ -82,7 +241,7 @@ class Cl_total_list extends CI_Controller {
             [
                 'field' => 'pet_contraception',
                 'label' => '避妊',
-                'rules' => ''
+                'rules' => 'trim'
             ],
             [
                 'field' => 'pet_body_height',
@@ -106,156 +265,45 @@ class Cl_total_list extends CI_Controller {
                 'rules' => 'trim',
             ]
         ];
-        $this->form_validation->set_rules($config);
-        if ($this->form_validation->run() == true){
-            $p_data = $this->input->post();
-                    //避妊をintへ
-            if(isset($p_data['pet_contraception'])){
-                if($p_data['pet_contraception'] == 'on') {
-                    $p_data['pet_contraception'] = 1;
-                } else {
-                    $p_data['pet_contraception'] = 2;
-                }
-            }
-            return $p_data;
-        } else {
-            echo "ペットデータが不正です";
-            exit;
-        }    
-    }
-
-    private function check_customer_data()
-    {
-        $config = [
-            [
-                'field' => 'customer_name',
-                'label' => '名前',
-                'rules' => 'required|trim',
-                'errors' => array(
-                    'required' => '名前を入力してください'
-                )
-            ],
-            array(
-                'field' => 'customer_kana',
-                'label' => 'カナ',
-                'rules' => 'required|trim',
-                'errors' => array(
-                'required' => 'カナを入力してください'
-                                                    )
-                ),
-            array(
-                'field' => 'customer_mail',
-                'label' => 'メール',
-                'rules' => 'required',
-                'errors' => array(
-                'required' => 'メールを入力して下さい'
-                                                        )
-                ),
-            array(
-                'field' => 'customer_tel',
-                'label' => '電話',
-                'rules' => 'required|trim',
-                'errors' => array(
-                'required' => '番号を入力してください'
-                                                        )
-                ),
-            array(
-                'field' => 'customer_zip_adress',
-                'label' => '郵便番号',
-                'rules' => 'required|trim',
-                'errors' => array(
-                'required' => '郵便番号を入力してください'
-                                                        )
-                ),
-            array(
-                'field' => 'customer_address',
-                'label' => '住所',
-                'rules' => 'required|trim',
-                'errors' => array(
-                'required' => '住所を入力してください'
-                                                        )
-                ),
-            array(
-                'field' => 'customer_magazine',
-                'label' => 'マガジン発行',
-                ),
-            array(
-                'field' => 'customer_add_info',
-                'label' => '追加情報',
-                'rules' => 'required|trim',
-                ),
-            array(
-                'field' => 'customer_group',
-                'label' => 'ランク',
-                'rules' => 'required|trim',
-                )
-        ];
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules($config);
+        $this->load->library('form_validation', $config);
+        // $this->form_validation->set_rules($config);
         return $this->form_validation->run();
     }
-    // customerデータに入れていないキーの処理
-    public function c_check()
+
+    //ペットファイルの画像アップ
+    private function img_upload()
     {
-        // $c_test['customer_magazine'] ="";
-        if ($this->check_customer_data() == true) {
-            $c_test = $this->input->post(NULL,true);
-            //メールマガジンをintへ
-            if(empty($this->input->post("customer_magazine"))) {
-                $c_test['customer_magazine'] = 1;
+        $filename = time();
+        $config['upload_path'] = './upload/tmp';//リサイズ前
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['file_name'] = $filename;
+        $config['max_size']	= '3072';
+        $config['max_width']  = '';
+        $config['max_height']  = '';
+        $this->load->library('upload', $config);
+        $result = $this->upload->do_upload('pet_img');
+        if ($result === true) {
+            $resize_path = './upload/img/thumbs';//リサイズ後
+            $image_data = $this->upload->data();
+            $imgfile = $image_data['file_name'];
+            $config['source_image'] = $image_data["full_path"];
+            // リサイズされるときや、固定の値を指定したとき、もとの画像のアスペクト比を維持するかどうかを指定する
+            $config['maintain_ration'] = true;
+            $config['new_image'] = $resize_path; //サムネイル保存フォルダ
+            $config['width'] = 640;
+            $config['height'] = 360;
+            $this->load->library("image_lib", $config);
+            if($this->image_lib->resize() === true) {
+                $fullpath = realpath($resize_path);
+                return $fullpath."\".$imgfile";
             } else {
-                $c_test['customer_magazine'] = 0;
+                return false;
             }
-            //グループをintへ
-            if($c_test['customer_group'] == 'gold') {
-                $c_test['customer_group'] = 0;
-            } elseif ($c_test['customer_group'] == 'silver') {
-                $c_test['customer_group'] = 1;
-            } elseif($c_test['customer_group'] == 'bronze'){
-                $c_test['customer_group'] = 2;
-            } else{
-                $c_test['customer_group'] = 3;
-            }
-            $c_test["customer_shop_id"] = $_SESSION["shop_id"];
-            return $c_test;
         } else {
+            // $error = array('error' => $this->upload->display_errors());
+            // return $error;
             return false;
         }
     }
 
-    //新規登録
-    public function insert_customer()
-    {
-      
-    }
-    
-    //一覧を表示させる
-    private function get_total_list()
-    {
-        $_SESSION["shop_id"] = 1;
-        $shop_id = $_SESSION["shop_id"];
-        return $this->Mdl_total_list->m_get_total_list($shop_id);
-    }
-    //ペットと顧客の登録
-    public function insert_total_data()
-    {
-        //顧客の登録
-        if($this->c_check() == true) {
-            $customer_data = $this->c_check();
-
-            $pet_data = $this->pet_info_validation();
-            $this->load->model("Mdl_total_list");
-            if($this->Mdl_total_list->m_insert_total_list($pet_data, $customer_data) == true) {
-                echo "success!";
-                exit;
-            } else {
-                echo "fail..";
-                exit;
-            }
-        } else {
-            echo "入力値に不正";
-            exit;
-        }
-
-    }
 }
