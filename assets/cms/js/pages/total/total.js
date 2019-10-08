@@ -15,32 +15,33 @@
         });
 
         $('#sendPCdata').on('click', function() { //顧客登録画面内の登録ボタンをクリック時
-            let fd = new FormData();
-            fd.append = "file", $("#files").prop("files")[0];
-            let param = {
-                customer_name: $("input[name='customer_name']").val(),
-                customer_kana: $("input[name='customer_kana']").val(),
-                customer_mail: $("input[name='customer_mail']").val(),
-                customer_tel: $("input[name='customer_tel']").val(),
-                customer_zip_adress: $("input[name='customer_zip_adress']").val(),
-                customer_address: $("input[name='customer_address']").val(),
-                customer_magazine: $("[name='customer_magazine']:checked").val(),
-                customer_add_info: $("textarea[name='customer_add_info']").val(),
-                customer_group: $("select[name='customer_group']").val(),
-                pet_name: $("input[name='pet_name']").val(),
-                pet_classification: $("input[name='pet_classification']").val(),
-                pet_type: $("input[name='pet_type']").val(),
-                pet_animal_gender: $("[name='pet_animal_gender']:checked").val(),
-                pet_contraception: $("[name='pet_contraception']:checked").val(),
-                pet_body_height: $("input[name='pet_body_height']").val(),
-                pet_body_weight: $("input[name='pet_body_weight']").val(),
-                pet_birthday: $("input[name='pet_birthday']").val(),
-                pet_last_reservdate: $("input[name='pet_last_reservdate']").val(),
-                pet_information: $("textarea[name='pet_information']").val()
-            };
+            let fd = new FormData($('#total_form_data').get(0));
+            // console.log(fd);
+            // let param = {
+            //     customer_name: $("input[name='customer_name']").val(),
+            //     customer_kana: $("input[name='customer_kana']").val(),
+            //     customer_mail: $("input[name='customer_mail']").val(),
+            //     customer_tel: $("input[name='customer_tel']").val(),
+            //     customer_zip_adress: $("input[name='customer_zip_adress']").val(),
+            //     customer_address: $("input[name='customer_address']").val(),
+            //     customer_magazine: $("[name='customer_magazine']:checked").val(),
+            //     customer_add_info: $("textarea[name='customer_add_info']").val(),
+            //     customer_group: $("select[name='customer_group']").val(),
+            //     pet_name: $("input[name='pet_name']").val(),
+            //     pet_classification: $("input[name='pet_classification']").val(),
+            //     pet_type: $("input[name='pet_type']").val(),
+            //     pet_animal_gender: $("[name='pet_animal_gender']:checked").val(),
+            //     pet_contraception: $("[name='pet_contraception']:checked").val(),
+            //     pet_body_height: $("input[name='pet_body_height']").val(),
+            //     pet_body_weight: $("input[name='pet_body_weight']").val(),
+            //     pet_birthday: $("input[name='pet_birthday']").val(),
+            //     pet_last_reservdate: $("input[name='pet_last_reservdate']").val(),
+            //     pet_information: $("textarea[name='pet_information']").val()
+            // };
             $.ajax({
                     url: '../Cl_total_list/insert_total_data',
                     type: 'POST',
+                    dataType : "text",
                     processData: false,
                     contentType: false,
                     data: fd
@@ -57,6 +58,38 @@
                 })
                 .fail(function(data, textStatus, errorThrown) {
                     SweetAlertMessage("failed_register");
+                    console.log(data);
+                });
+        });
+
+        //グループ登録ボタンをクリック時
+        $('#group_register').on('click', function() {
+            let group = $("#select_group").val();
+            if(group.match(/金/)) {
+                console.log("hoge");
+                return false;
+            }
+            let fd = new FormData($('#kind_group_data').get(0));
+            $.ajax({
+                    url: '../Cl_total_list/insert_kind_group',
+                    type: 'POST',
+                    dataType : "text",
+                    processData: false,
+                    contentType: false,
+                    data: fd
+                })
+                .done(function(data, textStatus, jqXHR) {
+                    if (data == "success") {
+                        SweetAlertMessage("success_register");
+                        console.log(data);
+                    } else {
+                        SweetAlertMessage("failed_register");
+                        console.log(key);
+                        // location.reload();
+                    }
+                })
+                .fail(function(data, textStatus, errorThrown) {
+                    // SweetAlertMessage("failed_register");
                     console.log(data);
                 });
         });
@@ -157,7 +190,7 @@ $('#datatable tbody').on("click", "tr", function() {
         let pet_id = row[0][0];
         // console.log(column);
         $.ajax({
-                url: '../cl_total_list/get_total_all_data', //双方向通信
+                url: '../cl_total_list/get_total_all_data',
                 type: 'POST',
                 data: {
                     id: pet_id
@@ -177,7 +210,6 @@ $('#datatable tbody').on("click", "tr", function() {
                 $("textarea[name='customer_add_info']").val(data['customer_add_info']);
                 $("#customer_id").val(data['customer_id']);
                 $("#pet_id").val(data['pet_id']);
-                // $("select[name='customer_group']").val(data['customer_group']);
                 $("input[name='pet_name']").val(data['pet_name']);
                 $("input[name='pet_classification']").val(data['pet_classification']);
                 $("input[name='pet_type']").val(data['pet_type']);
@@ -198,32 +230,33 @@ $('#datatable tbody').on("click", "tr", function() {
 });
 
 $("#sendUpdateData").on("click", function() {
-    let param = {
-        customer_name: $("input[name='customer_name']").val(),
-        customer_kana: $("input[name='customer_kana']").val(),
-        customer_mail: $("input[name='customer_mail']").val(),
-        customer_tel: $("input[name='customer_tel']").val(),
-        customer_zip_adress: $("input[name='customer_zip_adress']").val(),
-        customer_address: $("input[name='customer_address']").val(),
-        customer_magazine: $("[name='customer_magazine']:checked").val(),
-        customer_add_info: $("textarea[name='customer_add_info']").val(),
-        customer_id: $("#customer_id").val(),
-        pet_id: $("#pet_id").val(),
-        pet_name: $("input[name='pet_name']").val(),
-        pet_classification: $("input[name='pet_classification']").val(),
-        pet_type: $("input[name='pet_type']").val(),
-        pet_animal_gender: $("[name='pet_animal_gender']:checked").val(),
-        pet_contraception: $("[name='pet_contraception']:checked").val(),
-        pet_body_height: $("input[name='pet_body_height']").val(),
-        pet_body_weight: $("input[name='pet_body_weight']").val(),
-        pet_birthday: $("input[name='pet_birthday']").val(),
-        pet_last_reservdate: $("input[name='pet_last_reservdate']").val(),
-        pet_information: $("textarea[name='pet_information']").val()
-    }
+    let fd = new FormData($('#total_form_data').get(0));
+    // let param = {
+    //     customer_name: $("input[name='customer_name']").val(),
+    //     customer_kana: $("input[name='customer_kana']").val(),
+    //     customer_mail: $("input[name='customer_mail']").val(),
+    //     customer_tel: $("input[name='customer_tel']").val(),
+    //     customer_zip_adress: $("input[name='customer_zip_adress']").val(),
+    //     customer_address: $("input[name='customer_address']").val(),
+    //     customer_magazine: $("[name='customer_magazine']:checked").val(),
+    //     customer_add_info: $("textarea[name='customer_add_info']").val(),
+    //     customer_id: $("#customer_id").val(),
+    //     pet_id: $("#pet_id").val(),
+    //     pet_name: $("input[name='pet_name']").val(),
+    //     pet_classification: $("input[name='pet_classification']").val(),
+    //     pet_type: $("input[name='pet_type']").val(),
+    //     pet_animal_gender: $("[name='pet_animal_gender']:checked").val(),
+    //     pet_contraception: $("[name='pet_contraception']:checked").val(),
+    //     pet_body_height: $("input[name='pet_body_height']").val(),
+    //     pet_body_weight: $("input[name='pet_body_weight']").val(),
+    //     pet_birthday: $("input[name='pet_birthday']").val(),
+    //     pet_last_reservdate: $("input[name='pet_last_reservdate']").val(),
+    //     pet_information: $("textarea[name='pet_information']").val()
+    // }
     $.ajax({
             url: '../Cl_total_list/update_total_data',
             type: 'POST',
-            data: param
+            data: fd
         })
         .done(function(data, textStatus, jqXHR) {
             if (data == "success") {
@@ -362,5 +395,24 @@ $(function(){
         enableTime: true,
         dateFormat: "Y-m-dTH:i",
         time_24hr: true
+    });
+});
+
+$(function() {
+    $('#files').on("change", function() {// upするinputのID
+        let file = $(this).prop('files')[0];
+        if (! file.type.match('image.*')) {//こちらでjpg フィルタ処理
+            $(this).val('');
+            $('#img > img').css({'width': '', 'height':''});
+            $('#img > img').attr('src', '');
+            return;
+        }
+
+        let reader = new FileReader();
+        reader.onload = function() {//OKならこちらでリサイズ処理して表示
+            $('#img > img').css({'width':'100px', 'height': '100px'});
+            $('#img > img').attr('src', reader.result);
+        }
+        reader.readAsDataURL(file);
     });
 });

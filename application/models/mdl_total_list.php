@@ -10,6 +10,24 @@ class Mdl_total_list extends CI_Model {
       $this->load->database();
   }
 
+  //kind_groupをインサート
+  public function insert_model_data($data)
+  {
+      $this->db->insert('kind_group', $data)? $result = true: $result = false;
+      return $result;
+  }
+
+  //グループの登録の中身を取得
+  public function m_get_kind_group($shop_id)
+  {
+      $where = ['kind_group_shop_id ' => $shop_id];
+      $this->db->where($where);
+      $this->db->select('kind_group_name');
+      $this->db->from('kind_group');
+      $query = $this->db->get();
+      return $query->result_array(); //結果を配列で返す。
+  }
+
   //更新の中身を取得
   public function m_get_total_all($pet_id)
   {
@@ -36,7 +54,7 @@ class Mdl_total_list extends CI_Model {
   }
 
   //新規登録のペットと顧客をここで登録
-  public function m_insert_total_list($customer_data,$pet_data)
+  public function m_insert_total_list($customer_data, $pet_data)
   {
     $this->db->trans_start();
     $this->db->insert('customer', $customer_data);
