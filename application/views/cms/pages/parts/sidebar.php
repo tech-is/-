@@ -24,7 +24,7 @@
         <ul class="list">
             <li class="header">MAIN NAVIGATION</li>
             <li class=active>
-                <a href="home">
+                <a href="../cl_main/home">
                     <i class="material-icons">home</i>
                     <span>Home</span>
                 </a>
@@ -35,28 +35,14 @@
                     <span>予約一覧</span>
                 </a>
             </li>
-            <li>
-                <a href="#" class="menu-toggle waves-effect waves-block">
-                    <i class="material-icons">contacts</i>
-                    <span>顧客管理</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="#">新規顧客登録</a>
-                    </li>
-                    <li>
-                        <a href="../cl_total_list/cms">顧客一覧</a>
-                    </li>
-                </ul>
-            </li>
             <li id="staff">
-                <a href="staff">
+                <a href="../cl_main/staff">
                     <i class="material-icons">home</i>
                     <span>スタッフ管理</span>
                 </a>
             </li>
             <li>
-                <a href="../cl_pet_info/cms">
+                <a href="../cl_total_list/">
                     <i class="material-icons">pets</i>
                     <span>顧客・ペット管理</span>
                 </a>

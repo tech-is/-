@@ -10,74 +10,76 @@
                         <button id="register3" type="btn" class="btn btn-primary m-t-15 waves-effect" disabled>予約登録</button>
                         <button id="reg
                         ister4" type="btn" class="btn btn-primary m-t-15 waves-effect" disabled>顧客更新</button>
-            <form id="kind_group_data">
-            <p><div class="row"></p>
-            <div class="col-sm-4">
-                    <p>グループ登録</p>
-                    <button id="group_register" type="button" class="btn btn-primary waves-effect">登録</button>
-                    <div class="form-group ">
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="kind_group_name" id="select_group" placeholder="例：金・銀・銅&#13;&#10;例：多・中・少" >
-                            <label class="form-label"></label>
+                    </div>
+                    <div class="body">
+                    <form id="kind_group_data">
+                <div class="row clearfix">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <p><b>グループ登録</b></p>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="kind_group_name" id="select_group" placeholder="例：金・銀・銅&#13;&#10;例：多・中・少" >
+                                <label class="form-label"></label>
+                            </div>
+                            <button id="group_register" type="button" class="btn btn-primary waves-effect">登録</button>
                         </div>
                     </div>
-            </div>
-        </div>
-                    <div class="form-group form-float">
-                        <div class="body">
-                            <div class="table-responsive">
-                                <table id="datatable" class="table table-bordered table-striped table-hover dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>ペットID</th>
-                                            <th>顧客名</th>
-                                            <th>ペット名</th>
-                                            <th>電話番号</th>
-                                            <th>メールアドレス</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        // print_r($customers);
-                                        for ($i = 0; $i < count($list); $i++) {
-                                            $disply = $list[$i];
-                                            echo "<tr>";
-                                            echo "<td>$disply[pet_id]</td>";
-                                            echo "<td>$disply[customer_name]</td>";
-                                            echo "<td>$disply[pet_name]</td>";
-                                            echo "<td>$disply[customer_tel]</td>";
-                                            echo "<td>$disply[customer_mail]</td>";
-                                            // echo "<td>$disply[reserve_start]</td>";
-                                            // echo "<td>";
-                                            // echo "<button type=\"btn\" id=\"updateButton\" class=\"btn btn-primary m-t-15 waves-effect\">更新</button>";
-                                            // echo "<button type=\"btn\" id=\"deleteButton\" class=\"btn btn-primary m-t-15 waves-effect\">削除</button>";
-                                            // echo "</td>";
-                                            echo "</tr>";
-                                        }
-                                        /*
-                                上記のfor文のリファクタリング
-                                foreach($list as $display){
-                                    ?>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <p><b>グループ削除</b></p>
+                        <select name="kind_group_name"  id="select-1" class="form-control">
+                        <?php foreach($group as $val=>$key): ?>
+                        <?php echo"<option>$key[kind_group_name]</option>" ?>
+                        <?php endforeach; ?>
+                        </select>
+                        <button id="delete_group_register" type="button" class="btn btn-primary waves-effect">削除</button>
+                    </div>
+                    </div>
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-bordered table-striped table-hover dataTable">
+                                <thead>
                                     <tr>
-                                        <td><?php echo $disply[customer_name]; ?></td>
-                                        <td><?php echo $disply[pet_name]; ?></td>
-                                        <td><?php echo $disply[customer_tel]; ?></td>
-                                        <td><?php echo $disply[customer_mail]; ?></td>
-                                        <td><?php echo $disply[reserve_start]; ?></td>
+                                        <th>ペットID</th>
+                                        <th>顧客名</th>
+                                        <th>ペット名</th>
+                                        <th>電話番号</th>
+                                        <th>メールアドレス</th>
+                                        <th>グループ</th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <?php
-                                }
-                                */
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    for ($i = 0; $i < count($list); $i++) {
+                                        $disply = $list[$i];
+                                        echo "<tr>";
+                                        echo "<td>$disply[pet_id]</td>";
+                                        echo "<td>$disply[customer_name]</td>";
+                                        echo "<td>$disply[pet_name]</td>";
+                                        echo "<td>$disply[customer_tel]</td>";
+                                        echo "<td>$disply[customer_mail]</td>";
+                                        echo isset($disply["kind_group_name"])? "<td>$disply[kind_group_name]</td>": "<td></td>";
+                                        echo "</tr>";
+                                    }
+                                    /*
+                            上記のfor文のリファクタリング
+                            foreach($list as $display){
+                                ?>
+                                <tr>
+                                    <td><?php echo $disply[customer_name]; ?></td>
+                                    <td><?php echo $disply[pet_name]; ?></td>
+                                    <td><?php echo $disply[customer_tel]; ?></td>
+                                    <td><?php echo $disply[customer_mail]; ?></td>
+                                    <td><?php echo $disply[reserve_start]; ?></td>
+                                </tr>
+                                <?php
+                            }
+                            */
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- #END# Exportable Table -->
         </div>
 </section>
 <!-- モーダルウィンドウ カスタマー -->
@@ -183,18 +185,17 @@
                         <div class="form-line">
                             <textarea rows="4" class="form-control no-resize" name="customer_add_info" placeholder="顧客に関する情報：例：夏に旅行をする"></textarea>
                         </div><br>
-                        <div class="row clearfix">
-                        <div class="col-md-6">
+                            <div class="row clearfix">
+                                <div class="col-md-6">
                                     <p><b>グループ選択</b></p>
-                                    <select name="kind_group_name  id="select-1" "class="form-control show-tick">
+                                    <select name="kind_group_name"  id="" "class="form-control show-tick">
                                     <?php foreach($group as $val=>$key): ?>
                                     <?php echo"<option>$key[kind_group_name]</option>" ?>
                                     <?php endforeach; ?>
                                     </select>
-                                    
                                 </div>
                             </div>
-                        </div>
+                    </div>
                     <input type="hidden" id="customer_id">
                     <input type="hidden" id="pet_id">
                 </div>
@@ -335,7 +336,6 @@
 
 <!-- Custom Js -->
 <script src="../assets/cms/js/admin.js"></script>
-<script src="../assets/cms/js/pages/tables/jquery-datatable.js"></script>
 <script src="../assets/cms/js/pages/total/total.js"></script>
 
 </body>

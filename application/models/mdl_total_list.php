@@ -16,11 +16,18 @@ class Mdl_total_list extends CI_Model {
       $this->db->insert('kind_group', $data)? $result = true: $result = false;
       return $result;
   }
+  //kind_groupを削除
+  public function delete_kind_group_data($id)
+  {
+    $this->db->set("kind_group", 999);
+    $this->db->where(['kind_group_id'=> $id['kind_group_id'], 'kind_group_shop_id ' => $id['kind_group_shop_id ']]);
+    return $this->db->update('kind_group');
+  }
 
   //グループの登録の中身を取得
-  public function m_get_kind_group($shop_id)
+  public function m_get_kind_group($id)
   {
-      $where = ['kind_group_shop_id ' => $shop_id];
+      $where = ['kind_group_shop_id ' => $id, 'kind_group_state ' => 1];
       $this->db->where($where);
       $this->db->select('kind_group_name');
       $this->db->from('kind_group');
@@ -46,9 +53,10 @@ class Mdl_total_list extends CI_Model {
     //print_r($_SESSION);
         $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
         $this->db->where($where);
-        $this->db->select("pet_id , customer_name , pet_name , customer_tel , customer_mail");
+        $this->db->select("pet_id , customer_name , pet_name , customer_tel , customer_mail , kind_group_name");
         $this->db->from('customer');
         $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
+        $this->db->join('kind_group', 'customer_group_id = kind_group_shop_id', 'left');
         $query = $this->db->get();
         return $query->result_array(); //結果を配列で返す。
   }
