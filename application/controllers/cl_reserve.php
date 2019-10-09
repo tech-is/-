@@ -11,23 +11,23 @@ class Cl_reserve extends CI_Controller
 
     public function get_reserve_data()
     {
-        $event_id = $this->input->post("event_id");
-        $data = $this->get_reserve($event_id);
+        $reserve_id = $this->input->post("reserve_id");
+        $data = $this->get_reserve($reserve_id);
         echo $result;
     }
 
     public function register_reserve_data()
     {
-        if($this->chk_reserve_data() == true) {
+        if($this->resereve_validation() == true) {
             if($this->insert_reserve() == true) {
-                echo "success!";
+                echo "success";
             } else {
-                echo "false...";
+                echo "dberr";
             }
         } else {
-            echo "hoge";
-            // redirect("cl_main/reserve_new_form");
+            echo "valierr";
         }
+        exit;
     }
 
     public function update_reserve_data()
@@ -39,34 +39,20 @@ class Cl_reserve extends CI_Controller
                 return false;
             }
         }
+        exit;
     }
 
-    private function chk_reserve_data()
+    private function resereve_validation()
     {
         $config = [
             [
-                'field' => 'customer_name',
-                'label' => 'お客様名',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'customer_pet',
+                'field' => 'reserve_pet_id',
                 'label' => 'ペット名',
                 'rules' => 'required'
             ],
             [
                 'field' => 'reserve_start',
-                'label' => '開始日',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'reserve_end',
-                'label' => '終了日',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'reserve_content',
-                'label' => '内容',
+                'label' => '来店予定日',
                 'rules' => 'required'
             ]
         ];
@@ -77,22 +63,18 @@ class Cl_reserve extends CI_Controller
     private function insert_reserve()
     {
         $this->load->model("mdl_reserve");
-        isset($_POST['staff_id']) && $_POST['staff_id'] == ""? $staff = null: $staff = $this->input->post('staff_id');
         $data = [
-            'event_customer' => $this->input->post('customer_name'),
-            'event_pet' => $this->input->post('customer_pet'),
-            'event_start' => $this->input->post('reserve_start'),
-            'event_end' => $this->input->post('reserve_end'),
-            'event_content' => $this->input->post('reserve_content'),
-            'event_staff_id' => $staff
+            'reserve_pet_id' => $this->input->post('reserve_pet_id'),
+            'reserve_start' => $this->input->post('reserve_start'),
+            'reserve_content' => $this->input->post('reserve_content')
         ];
         return $this->mdl_reserve->insert_reserve_data($data);
     }
 
-    private function get_reserve($event_id)
+    private function get_reserve($reserve_id)
     {
         $this->load->model("mdl_reserve");
-        $result = $this->mdl_reserve->select_reserve_data($event_id);
+        $result = $this->mdl_reserve->select_reserve_data($reserve_id);
         return $result;
     }
 
@@ -101,12 +83,12 @@ class Cl_reserve extends CI_Controller
         $this->load->model("mdl_reserve");
         isset($_POST["staff_id"]) == ""? $staff = null: $staff = $_POST["staff_id"];
         $data = [
-            'event_customer' => $_POST["customer"],
-            'event_pet' => $_POST["pet"],
-            'event_start' => $_POST["start"],
-            'event_end' => $_POST["end"],
-            'event_content' => $_POST["content"],
-            'event_staff_id' => $staff
+            'reserve_customer' => $_POST["customer"],
+            'reserve_pet' => $_POST["pet"],
+            'reserve_start' => $_POST["start"],
+            'reserve_end' => $_POST["end"],
+            'reserve_content' => $_POST["content"],
+            'reserve_staff_id' => $staff
         ];
         $result = $this->mdl_reserve->update_reserve_data($data);
         return $result;
