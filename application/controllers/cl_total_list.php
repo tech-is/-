@@ -10,9 +10,9 @@ class Cl_total_list extends CI_Controller
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
         // $this->load->driver('session');
-        session_start();
-        !isset($_SESSION["shop_id"])? exit: false;
-        // $_SESSION["shop_id"] = 1;
+        // session_start();
+        // !isset($_SESSION["shop_id"])? exit: false;
+        $_SESSION["shop_id"] = 1;
         //GET.POST.インサート分の中身を確認。コンストラクタ内で利用するie
         // $this->output->enable_profiler();
     }
@@ -38,19 +38,31 @@ class Cl_total_list extends CI_Controller
      //グループを顧客登録のリストへ表示させる
     private function get_kind_group()
     {
-        $shop_id = $_SESSION["shop_id"];
-        return $this->Mdl_total_list->m_get_kind_group($shop_id);
+        $_SESSION["shop_id"] = 1;
+        $id = $_SESSION["shop_id"];
+        return $this->Mdl_total_list->m_get_kind_group($id);
     }
+
+     //グループを削除リストへ表示させる
+    private function delete_kind_group()
+    {
+        $id = $_SESSION["shop_id"];
+        return $this->Mdl_total_list->delete_kind_group_data($id);
+    }
+
     //グループ管理インサート
     public function insert_kind_group()
     {
         $data = [
-        "kind_group_shop_id " => $_SESSION['shop_id'],
-        "kind_group_name" => $this->input->post("kind_group_name")
-                 ];
+            "kind_group_shop_id " => $_SESSION['shop_id'],
+            "kind_group_name" => $this->input->post("kind_group_name")
+        ];
         $this->load->model("Mdl_total_list");
-        return $this->Mdl_total_list->insert_model_data($data);
-    }
+        $result = $this->Mdl_total_list->insert_model_data($data);
+        if($result === true) {
+            echo "success";
+        }
+    } 
     
     //更新時、全件取得
     public function get_total_all_data()

@@ -1,3 +1,19 @@
+//datatable
+$(function () {
+    $('#datatable').DataTable({
+        'responsive': true,
+        'searching': true,
+        'paging': true,
+        'columnDefs': [
+            {
+                "targets": 0,
+                "visible": false,
+                "searchable": false
+            }
+        ]
+    });
+});
+
 // カスタマーデータ登録
     $(function() {
         $('#register').on('click', function() { //顧客登録 ボタンタグにid
@@ -61,22 +77,45 @@
                     console.log(data);
                 });
         });
+/******************************************************************** */
+/**グループ項目削除  **/
+/******************************************************************** */
+$("#select-1").on("click", function () {
+    SweetAlertMessage("confirm_delete");
+});
+
+function kind_group_delete() {
+    var selectedRows = $('#delete_group_register').DataTable().rows('.active').data();
+    var param = {
+        kind_group_shop_id : selectedRows[0].kind_group_shop_id 
+    }
+    $.ajax({
+        url: "../Cl_total_list/delete_kind_group",
+        type: "POST",
+        data: param,
+    }).done(function (data) {
+        if (data === 1) {
+            SweetAlertMessage("success_delete");
+        } else {
+            SweetAlertMessage("failed_delete");
+        }
+    }).fail(function (xhr, textStatus, errorThrown) {
+        SweetAlertMessage("failed_register");
+    });
+}
 
         //グループ登録ボタンをクリック時
         $('#group_register').on('click', function() {
-            let group = $("#select_group").val();
-            if(group.match(/金/)) {
-                console.log("hoge");
-                return false;
-            }
-            let fd = new FormData($('#kind_group_data').get(0));
+            // let group = $("#select-1").val();
+            // if(group.match(/金/)) {
+            //     console.log("hoge");
+            //     return false;
+            // }
+            let param = {kind_group_name: $('#select_group').val()}
             $.ajax({
                     url: '../Cl_total_list/insert_kind_group',
                     type: 'POST',
-                    dataType : "text",
-                    processData: false,
-                    contentType: false,
-                    data: fd
+                    data: param
                 })
                 .done(function(data, textStatus, jqXHR) {
                     if (data == "success") {
@@ -84,7 +123,7 @@
                         console.log(data);
                     } else {
                         SweetAlertMessage("failed_register");
-                        console.log(key);
+                        console.log(data);
                         // location.reload();
                     }
                 })
