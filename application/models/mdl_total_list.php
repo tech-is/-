@@ -38,7 +38,7 @@ class Mdl_total_list extends CI_Model {
 	{
 		$where = ['kind_group_shop_id ' => $id, 'kind_group_state ' => 1];
 		$this->db->where($where);
-		$this->db->select('kind_group_name');
+		$this->db->select('kind_group_id, kind_group_name');
 		$this->db->from('kind_group');
 		$query = $this->db->get();
 		return $query->result_array(); //結果を配列で返す。
@@ -61,10 +61,11 @@ class Mdl_total_list extends CI_Model {
 		//print_r($_SESSION);
 			$where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
 			$this->db->where($where);
-			$this->db->select("pet_id , customer_name , pet_name , customer_tel , customer_mail , kind_group_name");
+      $this->db->select("customer_id, pet_id , customer_name , pet_name , customer_tel , customer_mail , kind_group_name");
+      // $this->db->select("pet_id , customer_name , pet_name , customer_tel , customer_mail");
 			$this->db->from('customer');
 			$this->db->join('pet', 'customer_id = pet_customer_id', 'left');
-			$this->db->join('kind_group', 'customer_group_id = kind_group_shop_id', 'left');
+			$this->db->join('kind_group', 'customer_group_id = kind_group_id', 'left');
 			$query = $this->db->get();
 			return $query->result_array(); //結果を配列で返す。
 	}

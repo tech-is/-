@@ -12,7 +12,6 @@
 							ister4" type="btn" class="btn btn-primary m-t-15 waves-effect" disabled>顧客更新</button>
 				</div>
 				<div class="body">
-					<form id="kind_group_data">
 						<div class="row clearfix">
 							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 								<p><b>グループ登録</b></p>
@@ -26,11 +25,11 @@
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 								<p><b>グループ削除</b></p>
-								<select name="kind_group_name" id="select-1" class="form-control">
-									<?php foreach ($group as $val => $key) : ?>
-										<?php echo "<option>$key[kind_group_name]</option>" ?>
-									<?php endforeach; ?>
-								</select>
+								<select name="" id="select_1" class=" form-control show-tick">
+                                <?php foreach ($groups as $group) : ?>
+									<option value="<?php echo $group["kind_group_id"]; ?>"><?php echo $group["kind_group_name"]; ?></option>"
+                                <?php endforeach; ?>
+							</select>
 								<button id="delete_group_register" type="button" class="btn btn-primary waves-effect">削除</button>
 							</div>
 						</div>
@@ -173,10 +172,10 @@
 					<div class="row clearfix">
 						<div class="col-md-6">
 							<p><b>グループ選択</b></p>
-							<select name="kind_group_name" id="" "class=" form-control show-tick">
-								<?php foreach ($group as $val => $key) : ?>
-									<?php echo "<option>$key[kind_group_name]</option>" ?>
-								<?php endforeach; ?>
+							<select name="customer_group_id" class=" form-control show-tick">
+                                <?php foreach ($groups as $group) : ?>
+									<option value="<?php echo $group["kind_group_id"]; ?>"><?php echo $group["kind_group_name"]; ?></option>"
+                                <?php endforeach; ?>
 							</select>
 						</div>
 					</div>

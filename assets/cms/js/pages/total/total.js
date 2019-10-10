@@ -32,28 +32,6 @@ $(function () {
 
         $('#sendPCdata').on('click', function() { //顧客登録画面内の登録ボタンをクリック時
             let fd = new FormData($('#total_form_data').get(0));
-            // console.log(fd);
-            // let param = {
-            //     customer_name: $("input[name='customer_name']").val(),
-            //     customer_kana: $("input[name='customer_kana']").val(),
-            //     customer_mail: $("input[name='customer_mail']").val(),
-            //     customer_tel: $("input[name='customer_tel']").val(),
-            //     customer_zip_adress: $("input[name='customer_zip_adress']").val(),
-            //     customer_address: $("input[name='customer_address']").val(),
-            //     customer_magazine: $("[name='customer_magazine']:checked").val(),
-            //     customer_add_info: $("textarea[name='customer_add_info']").val(),
-            //     customer_group: $("select[name='customer_group']").val(),
-            //     pet_name: $("input[name='pet_name']").val(),
-            //     pet_classification: $("input[name='pet_classification']").val(),
-            //     pet_type: $("input[name='pet_type']").val(),
-            //     pet_animal_gender: $("[name='pet_animal_gender']:checked").val(),
-            //     pet_contraception: $("[name='pet_contraception']:checked").val(),
-            //     pet_body_height: $("input[name='pet_body_height']").val(),
-            //     pet_body_weight: $("input[name='pet_body_weight']").val(),
-            //     pet_birthday: $("input[name='pet_birthday']").val(),
-            //     pet_last_reservdate: $("input[name='pet_last_reservdate']").val(),
-            //     pet_information: $("textarea[name='pet_information']").val()
-            // };
             $.ajax({
                     url: '../Cl_total_list/insert_total_data',
                     type: 'POST',
@@ -80,15 +58,16 @@ $(function () {
 /******************************************************************** */
 /**グループ項目削除  **/
 /******************************************************************** */
-$("#select-1").on("click", function () {
-    SweetAlertMessage("confirm_delete");
-});
+
 
 function kind_group_delete() {
-    var selectedRows = $('#delete_group_register').DataTable().rows('.active').data();
+    var selectedRows = $('#select_1').DataTable().rows('.active').data();
     var param = {
         kind_group_shop_id : selectedRows[0].kind_group_shop_id 
     }
+    $("#delete_group_register").on("click", function () {
+        SweetAlertMessage("confirm_delete");
+    
     $.ajax({
         url: "../Cl_total_list/delete_kind_group",
         type: "POST",
@@ -102,15 +81,12 @@ function kind_group_delete() {
     }).fail(function (xhr, textStatus, errorThrown) {
         SweetAlertMessage("failed_register");
     });
+});
 }
 
         //グループ登録ボタンをクリック時
         $('#group_register').on('click', function() {
-            // let group = $("#select-1").val();
-            // if(group.match(/金/)) {
-            //     console.log("hoge");
-            //     return false;
-            // }
+          
             let param = {kind_group_name: $('#select_group').val()}
             $.ajax({
                     url: '../Cl_total_list/insert_kind_group',
