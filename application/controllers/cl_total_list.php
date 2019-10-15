@@ -1,41 +1,45 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+/*
+ * タイトル：顧客・ペット管理
+ * 説明    ：顧客・ペットの登録・変更・削除を行う
+ *
+ * 著作権  ：Copyright(c) 2019 TECH I.S
+ * 会社名  ：TECH I.S
+ *
+ * 変更履歴：2019.8 開発
+ */
 
 class Cl_total_list extends CI_Controller
 {
-
+    //コンストラクタ
     public function __construct()
     {
         parent::__construct();
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
-        // $this->load->driver('session');
-        // session_start();
-        // !isset($_SESSION["shop_id"])? exit: false;
         $_SESSION["shop_id"] = 1;
-        //GET.POST.インサート分の中身を確認。コンストラクタ内で利用するie
-        // $this->output->enable_profiler();
     }
 
+    //TOPページ
     public function index()
     {
         $data["list"] = $this->get_total_list();
-        $data["group"] = $this->get_kind_group();
-        // var_dump($data);
-        // exit;
+        $data["groups"] = $this->get_kind_group();
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/vi_total_list', $data);
     }
 
-    //一覧を表示させる
+    //一覧取得
     private function get_total_list()
     {
         $_SESSION["shop_id"] = 1;
         $shop_id = $_SESSION["shop_id"];
         return $this->Mdl_total_list->m_get_total_list($shop_id);
     }
-     //グループを顧客登録のリストへ表示させる
+
+    //グループ検索
     private function get_kind_group()
     {
         $_SESSION["shop_id"] = 1;
@@ -43,7 +47,7 @@ class Cl_total_list extends CI_Controller
         return $this->Mdl_total_list->m_get_kind_group($id);
     }
 
-     //グループを削除リストへ表示させる
+    //グループを削除リストへ表示させる
     private function delete_kind_group()
     {
         $id = $_SESSION["shop_id"];
@@ -87,28 +91,31 @@ class Cl_total_list extends CI_Controller
         //顧客の登録
         if($this->total_validation() === true) {
             $data = $this->escape_xss();
-            if($_FILES["pet_img"]["error"] === 0) { //エラーがなく正常
-                $result_upload = $this->img_upload();
-                if($result_upload === false) {
+            if(isset($_FILES["pet_img"])) {
+                if($_FILES["pet_img"]["error"] === 0) { //エラーがなく正常
+                        $result_upload = $this->img_upload();
+                        if($result_upload === false) {
+                            echo "upload_err";
+                            exit;
+                        } else {
+                            $data["pet_data"]["pet_img"] = $result_upload;
+                        }
+                } elseif($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理
                     echo "upload_err";
                     exit;
-                } else {
-                    $data["pet_data"]["pet_img"] = $result_upload;
                 }
-            } elseif($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理
-                echo "upload_err";
-                exit;
             }
             $this->load->model("Mdl_total_list");
             if($this->Mdl_total_list->m_insert_total_list($data["customer_data"], $data["pet_data"]) === true) {
-                echo "success";
-                exit;
+                    echo "success";
+                    exit;
             } else {
-                echo "dberror";
-                exit;
+                    echo "dberror";
+                    exit;
             }
         } else {
-            echo "vali_err";
+            // echo "vali_err";
+            echo validation_errors();
             exit;
         }
     }
@@ -120,11 +127,11 @@ class Cl_total_list extends CI_Controller
             $data = $this->escape_xss();
             $this->load->model("Mdl_total_list");
             if($this->Mdl_total_list->m_update_total_list($data["id"], $data["customer_data"], $data["pet_data"]) == true) {
-                echo "success";
-                exit;
+                    echo "success";
+                    exit;
             } else {
-                echo "dberror";
-                exit;
+                    echo "dberror";
+                    exit;
             }
         } else {
             echo "vali_err";
@@ -132,6 +139,7 @@ class Cl_total_list extends CI_Controller
         }
     }
 
+    //XSS前処理
     private function escape_xss()
     {
         $post = $this->input->post(null, true); //ajaxでｃーテーブルとテーブルを一緒に登録
@@ -141,10 +149,10 @@ class Cl_total_list extends CI_Controller
         }
         foreach($post as $key => $val) { //カスタマーとペットに分ける処理
             if(strpos($key,'customer_') !== false) {
-                $customer_data[$key] = $val;
-                $customer_data["customer_shop_id"] = $_SESSION["shop_id"];
+                    $customer_data[$key] = $val;
+                    $customer_data["customer_shop_id"] = $_SESSION["shop_id"];
             } else {
-                $pet_data[$key] = $val;
+                    $pet_data[$key] = $val;
             }
         }
         if(isset($id)) {
@@ -154,77 +162,78 @@ class Cl_total_list extends CI_Controller
         }
     }
 
+    //入力チェック
     private function total_validation()
     {
         $config = [
             [
-                'field' => 'customer_name',
-                'label' => '名前',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => '名前を入力してください'
-                ]
+                    'field' => 'customer_name',
+                    'label' => '名前',
+                    'rules' => 'required|trim',
+                    'errors' => [
+                        'required' => '名前を入力してください'
+                    ]
             ],
             [
-                'field' => 'customer_kana',
-                'label' => 'カナ',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => 'カナを入力してください'
-                ]
+                    'field' => 'customer_kana',
+                    'label' => 'カナ',
+                    'rules' => 'required|trim',
+                    'errors' => [
+                        'required' => 'カナを入力してください'
+                    ]
             ],
             [
-                'field' => 'customer_mail',
-                'label' => 'メール',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'メールを入力して下さい'
-                ]
+                    'field' => 'customer_mail',
+                    'label' => 'メール',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'メールを入力して下さい'
+                    ]
             ],
             [
-                'field' => 'customer_tel',
-                'label' => '電話',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => '番号を入力してください'
-                ]
+                    'field' => 'customer_tel',
+                    'label' => '電話',
+                    'rules' => 'required|trim',
+                    'errors' => [
+                        'required' => '番号を入力してください'
+                    ]
             ],
             [
-                'field' => 'customer_zip_adress',
-                'label' => '郵便番号',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => '郵便番号を入力してください'
-                ]
+                    'field' => 'customer_zip_adress',
+                    'label' => '郵便番号',
+                    'rules' => 'required|trim',
+                    'errors' => [
+                        'required' => '郵便番号を入力してください'
+                    ]
             ],
             [
-                'field' => 'customer_address',
-                'label' => '住所',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => '住所を入力してください'
-                ]
+                    'field' => 'customer_address',
+                    'label' => '住所',
+                    'rules' => 'required|trim',
+                    'errors' => [
+                        'required' => '住所を入力してください'
+                    ]
             ],
             [
-                'field' => 'customer_add_info',
-                'label' => '追加情報',
-                'rules' => 'trim',
+                    'field' => 'customer_add_info',
+                    'label' => '追加情報',
+                    'rules' => 'trim',
             ],
             [
-                'field' => 'pet_name',
-                'label' => '名前',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => '名前を入力してください'
-                ]
+                    'field' => 'pet_name',
+                    'label' => '名前',
+                    'rules' => 'required|trim',
+                    'errors' => [
+                        'required' => '名前を入力してください'
+                    ]
             ],
             [
-                'field' => 'pet_classification',
-                'label' => '分類',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => '入力してください'
-                ]
+                    'field' => 'pet_classification',
+                    'label' => '分類',
+                    'rules' => 'required|trim',
+                    'errors' => [
+                        'required' => '入力してください'
+                    ]
             ],
             [
                 'field' => 'pet_type',
@@ -299,23 +308,19 @@ class Cl_total_list extends CI_Controller
             $image_data = $this->upload->data();
             $imgfile = $image_data['file_name'];
             $config['source_image'] = $image_data["full_path"];
-            // リサイズされるときや、固定の値を指定したとき、もとの画像のアスペクト比を維持するかどうかを指定する
             $config['maintain_ration'] = true;
             $config['new_image'] = $resize_path; //サムネイル保存フォルダ
             $config['width'] = 640;
             $config['height'] = 360;
             $this->load->library("image_lib", $config);
             if($this->image_lib->resize() === true) {
-                $fullpath = realpath($resize_path);
-                return $fullpath."\".$imgfile";
+                    $fullpath = realpath($resize_path);
+                    return $fullpath."\".$imgfile";
             } else {
-                return false;
+                    return false;
             }
         } else {
-            // $error = array('error' => $this->upload->display_errors());
-            // return $error;
             return false;
         }
     }
-
 }
