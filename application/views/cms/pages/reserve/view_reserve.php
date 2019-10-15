@@ -3,8 +3,8 @@
 function select_staff($staffs)
 {
     if (isset($staffs)) {
+        $select = "<select id='staff_id' name='staff_id' class='form-control show-tick'>";
         foreach($staffs as $row => $staff) {
-            $select = "<select id='staff_id' name='staff_id' class='form-control show-tick'>";
             $select .= "<option value='{$staff['staff_id']}'>{$staff['staff_name']}</option>";
         }
     } else {
@@ -24,7 +24,7 @@ function select_staff($staffs)
                 <div class="card">
                     <div class="header clearfix">
                         <div class="pull-left">
-                            <h2 class="card-inside-title" style="line-height: 37px">予定一覧</h2>
+                            <h2 class="card-inside-title" style="line-height: 37px">予約一覧</h2>
                         </div>
                         <div class="pull-right">
                             <button type="button" class="btn bg-deep-purple waves-effect" id="register">
@@ -66,15 +66,15 @@ function select_staff($staffs)
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="staff">担当者</label>
-                    <?= select_staff($staffs)?>
+                    <label for="staff">担当スタッフ</label>
+                    <?php echo select_staff($staffs)?>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="form-line">
                                 <label for="reserve_start">開始日時<span style="color: red; margin-left: 10px">必須</span></label>
-                                <input type="datetime-local" id="reserve_start"name="start" class="form-control" placeholder="開始日時" value="<?= date("Y-m-d")."T00:00" ?>">
+                                <input type="datetime-local" id="reserve_start"name="start" class="form-control" placeholder="開始日時" value="<?php echo date("Y-m-d")."T00:00" ?>">
                             </div>
                         </div>
                     </div>
@@ -162,37 +162,9 @@ function select_staff($staffs)
 <script src="../assets/cms/js/sidebar.js"></script>
 
 <script>
-    var event_json = <?= isset($events)? json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT): 0;?>
+    var event_json = <?php echo isset($events)? json_encode($events, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT): 0;?>
 </script>
 <script>
-// $(document).ready(function() {
-//     $('#calendar').fullCalendar({
-//         locale: 'ja',
-//         header: {
-//         left: 'prev,next today',
-//         center: 'title',
-//         // right: 'month,basicWeek,basicDay'
-//         right: 'month,agendaWeek,agendaDay,listMonth'
-//         },
-//         // timeFormat: 'HH:mm',
-//         timezone: 'Asia/Tokyo',
-//         navLinks: true, // can click day/week names to navigate views
-//         editable: true,
-//         eventLimit: true, // allow "more" link when too many events
-//         event: event_json,
-//         eventClick: function(calEvent, jsEvent, view) {
-//                 var contents = "<h2>予約名:"+ calEvent.title + "</h2>"
-//                 contents += "<p>開始日時:" + $.fullCalendar.formatDate(calEvent.start, 'YYYY年MM月DD日 HH:mm') + "<p>";
-//                 contents += "<p>終了日時:" + $.fullCalendar.formatDate(calEvent.end, 'YYYY年MM月DD日 HH:mm') + "<p>";
-//                 contents += "<p>予約内容:" + calEvent.content + "</p>";
-//                 localStorage.setItem('event_id', calEvent.event_id);
-//                 // contents += calEvent.staff
-//                 // $('#modalContents').html(calEvent.title);
-//                 $('#modalContents').html(contents);
-//                 $('#modalArea').fadeIn();
-//         }
-//     });
-// });
 $(document).ready(function () {
     $('#calendar').fullCalendar({
         height: window.innerHeight - 250,

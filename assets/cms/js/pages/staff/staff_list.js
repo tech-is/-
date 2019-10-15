@@ -1,7 +1,7 @@
 /******************************************************************** */
 /** flatpickr */
 /******************************************************************** */
-$(function(){
+$(function () {
     $("input[name='shift_start']").flatpickr({
         minDate: "today",
         enableTime: true,
@@ -17,9 +17,9 @@ $(function(){
 });
 
 /******************************************************************** */
-/**スタッフ一覧テーブル */
+/** スタッフ一覧テーブル */
 /******************************************************************** */
-$(function() {
+$(function () {
     $('#datatable').DataTable({
         'paging': true,
         'pageLength': 10,
@@ -76,7 +76,7 @@ $(function() {
     });
 });
 // テーブル行クリックの設定
-$('#datatable').on('click', 'tr', function() {
+$('#datatable').on('click', 'tr', function () {
     if ($(this).find('.dataTables_empty').length == 0) {
         var owner = $(this);
         $("#datatable tr").removeClass("active");
@@ -89,7 +89,7 @@ $('#datatable').on('click', 'tr', function() {
 /******************************************************************** */
 /*シフトカレンダー */
 /******************************************************************** */
-$(function(){
+$(function () {
     $('#calendar').fullCalendar({
         height: window.innerHeight - 250,
         windowResize: function () {
@@ -172,7 +172,7 @@ function register_shift() {
 
 
 /******************************************************************** */
-/* シフト更新*/
+/** シフト更新*/
 /******************************************************************** */
 function update_shift() {
     var param = {
@@ -189,7 +189,7 @@ function update_shift() {
         if (data == "success") {
             SweetAlertMessage("success_update");
         } else {
-            SweetAlertMessage("failed_update");    
+            SweetAlertMessage("failed_update");
         }
     }).fail(function (xhr, textStatus, errorThrown) {
         SweetAlertMessage("failed_update");
@@ -201,43 +201,43 @@ function update_shift() {
 /******************************************************************** */
 /* シフト削除 */
 /******************************************************************** */
-    $("#send_Delete_shift").on("click", function () {
-        SweetAlertMessage("confirm_delete")
-    });
+$("#send_Delete_shift").on("click", function () {
+    SweetAlertMessage("confirm_delete")
+});
 
-    function shift_delete() {
-        var param = {
-            shift_id: $('#shift_id').val()
-        }
-        $.ajax({
-            url: "../Cl_shift/delete_shift_data",
-            type: "POST",
-            data: param,
-        }).done(function (data) {
-            if (data == "success") {
-                SweetAlertMessage("success_update");
-                $("#modalArea_add_shift").fadeOut();
-            }
-        }).fail(function (xhr, textStatus, errorThrown) {
-            SweetAlertMessage("success_update");
-        });
+function shift_delete() {
+    var param = {
+        shift_id: $('#shift_id').val()
     }
+    $.ajax({
+        url: "../Cl_shift/delete_shift_data",
+        type: "POST",
+        data: param,
+    }).done(function (data) {
+        if (data == "success") {
+            SweetAlertMessage("success_update");
+            $("#modalArea_add_shift").fadeOut();
+        }
+    }).fail(function (xhr, textStatus, errorThrown) {
+        SweetAlertMessage("success_update");
+    });
+}
 
 /******************************************************************** */
 /*スタッフ一覧モーダル */
 /******************************************************************** */
-    $('#staff_list').click(function () {
-        $('#modalArea_staff_list').fadeIn();
-    });
+$('#staff_list').click(function () {
+    $('#modalArea_staff_list').fadeIn();
+});
 
-    $('#closeModal_staff_list, #modalBg_staff_list, #cancel_staff_list').click(function () {
-        $('#modalArea_staff_list').fadeOut();
-        if ($("tr").hasClass("active")) {
-            $("tr").removeClass("active");
-        }
-        $("#updateButton").prop("disabled", true);
-        $("#deleteButton").prop("disabled", true);
-    });
+$('#closeModal_staff_list, #modalBg_staff_list, #cancel_staff_list').click(function () {
+    $('#modalArea_staff_list').fadeOut();
+    if ($("tr").hasClass("active")) {
+        $("tr").removeClass("active");
+    }
+    $("#updateButton").prop("disabled", true);
+    $("#deleteButton").prop("disabled", true);
+});
 
 /******************************************************************** */
 /** スタッフ追加モーダル */
@@ -259,17 +259,17 @@ $('#closeModal_add_staff, #modalBg_add_staff, #cancel_add_staff').click(function
 /******************************************************************** */
 /** シフト追加モーダル */
 /******************************************************************** */
-    $('#add_shift').click(function () {
-        $('#modalArea_add_shift').fadeIn();
-    });
+$('#add_shift').click(function () {
+    $('#modalArea_add_shift').fadeIn();
+});
 
-    $('#closeModal_add_shift , #modalBg_add_shift, #cancel_add_shift').click(function () {
-        $('#modalArea_add_shift').fadeOut();
-        $('#select_shift_staff').val(0);
-        $('input[name="shift_staff"]').val("");
-        $('input[name="shift_start"]').val("");
-        $('input[name="shift_end"]').val("");
-    });
+$('#closeModal_add_shift , #modalBg_add_shift, #cancel_add_shift').click(function () {
+    $('#modalArea_add_shift').fadeOut();
+    $('#select_shift_staff').val(0);
+    $('input[name="shift_staff"]').val("");
+    $('input[name="shift_start"]').val("");
+    $('input[name="shift_end"]').val("");
+});
 
 
 /******************************************************************** */
@@ -307,8 +307,8 @@ $("#sendRegistButton").on("click", function () {
 /******************************************************************** */
 /** スタッフ更新
 /******************************************************************** */
-$(function() {
-    $('#datatable').DataTable().rows('.active').on("dblclick", function() {
+$(function () {
+    $('#datatable').DataTable().rows('.active').on("dblclick", function () {
         let row = $('#datatable').DataTable().rows('.active').data();
         let str = row[0].staff_name;
         row_staff_id = row[0].staff_id;
@@ -362,7 +362,7 @@ $(function() {
         }).fail(function (xhr, textStatus, errorThrown) {
             SweetAlertMessage("failed_register");
         });
-});
+    });
 });
 /******************************************************************** */
 /** スタッフ削除  **/
@@ -394,7 +394,7 @@ function staff_delete() {
 /******************************************************************** */
 /* jquery.validate */
 /******************************************************************** */
-$(function() {
+$(function () {
     $("#form_shift").validate({
         rules: {
             shift_start: { required: true },
@@ -415,8 +415,8 @@ $(function() {
             $(element).parents('.input-group').append(error);
             $(element).parents('.form-group').append(error);
         },
-        submitHandler: function(form) {
-            if($("#shift_id").val() == ""){
+        submitHandler: function (form) {
+            if ($("#shift_id").val() == "") {
                 register_shift();
                 return false;
             } else {
@@ -427,7 +427,7 @@ $(function() {
     });
 });
 
-$(function() {
+$(function () {
     $("#form_shift").validate({
         rules: {
             shift_start: { required: true },
@@ -448,8 +448,8 @@ $(function() {
             $(element).parents('.input-group').append(error);
             $(element).parents('.form-group').append(error);
         },
-        submitHandler: function(form) {
-            if($("#shift_id").val() == ""){
+        submitHandler: function (form) {
+            if ($("#shift_id").val() == "") {
                 register_shift();
                 return false;
             } else {
@@ -463,109 +463,109 @@ $(function() {
 /******************************************************************** */
 /** SweetAlert  **/
 /******************************************************************** */
-    function SweetAlertMessage(key) {
-        let message_json = {
-            success_register: {
-                title: "登録が完了しました！",
-                text: "ボタンをクリックして画面を閉じてください",
-                icon: "success",
-                button: {
-                    text: "OK",
-                    value: "success",
-                    visible: true,
-                    className: "",
-                    closeModal: true,
-                },
+function SweetAlertMessage(key) {
+    let message_json = {
+        success_register: {
+            title: "登録が完了しました！",
+            text: "ボタンをクリックして画面を閉じてください",
+            icon: "success",
+            button: {
+                text: "OK",
+                value: "success",
+                visible: true,
+                className: "",
+                closeModal: true,
             },
-            failed_register: {
-                title: "登録に失敗しました…",
-                text: "また後ほどお試しください",
-                icon: "warning",
-                button: {
-                    text: "OK",
-                    value: false,
-                },
+        },
+        failed_register: {
+            title: "登録に失敗しました…",
+            text: "また後ほどお試しください",
+            icon: "warning",
+            button: {
+                text: "OK",
+                value: false,
             },
-            success_update: {
-                title: "更新が完了しました！",
-                icon: "success",
-                button: {
+        },
+        success_update: {
+            title: "更新が完了しました！",
+            icon: "success",
+            button: {
+                text: "OK",
+                value: true,
+            }
+        },
+        failed_update: {
+            title: "更新に失敗しました…",
+            text: "また後ほどお試しください",
+            icon: "warning",
+            button: {
+                text: "OK",
+                value: false,
+            },
+        },
+        success_delete: {
+            title: "削除が完了しました！",
+            icon: "success",
+            button: {
+                text: "OK",
+                value: true,
+            }
+        },
+        failed_delete: {
+            title: "削除に失敗しました…",
+            text: "また後ほどお試しください",
+            icon: "warning",
+            button: {
+                text: "OK",
+                value: false,
+            },
+        },
+        confirm_delete: {
+            title: "削除しますか？",
+            icon: "warning",
+            buttons: {
+                OK: {
                     text: "OK",
-                    value: true,
+                    value: "shift_delete",
+                    closeModal: false
+                },
+                Cancel: {
+                    text: "Cancel",
+                    value: false
                 }
-            },
-            failed_update: {
-                title: "更新に失敗しました…",
-                text: "また後ほどお試しください",
-                icon: "warning",
-                button: {
+            }
+        },
+        confirm_staff_delete: {
+            title: "削除しますか？",
+            icon: "warning",
+            buttons: {
+                OK: {
                     text: "OK",
-                    value: false,
+                    value: "staff_delete",
+                    closeModal: false
                 },
-            },
-            success_delete: {
-                title: "削除が完了しました！",
-                icon: "success",
-                button: {
-                    text: "OK",
-                    value: true,
-                }
-            },
-            failed_delete: {
-                title: "削除に失敗しました…",
-                text: "また後ほどお試しください",
-                icon: "warning",
-                button: {
-                    text: "OK",
-                    value: false,
-                },
-            },
-            confirm_delete: {
-                title: "削除しますか？",
-                icon: "warning",
-                buttons: {
-                    OK: {
-                        text: "OK",
-                        value: "shift_delete",
-                        closeModal: false
-                    },
-                    Cancel: {
-                        text: "Cancel",
-                        value: false
-                    }
-                }
-            },
-            confirm_staff_delete: {
-                title: "削除しますか？",
-                icon: "warning",
-                buttons: {
-                    OK: {
-                        text: "OK",
-                        value: "staff_delete",
-                        closeModal: false
-                    },
-                    Cancel: {
-                        text: "Cancel",
-                        value: false
-                    }
+                Cancel: {
+                    text: "Cancel",
+                    value: false
                 }
             }
         }
-        let swal_data = message_json[key];
-        swal(
-            swal_data
-        ).then((value) => {
-            switch (value) {
-                case "success":
-                    location.reload(true);
-                    break;
-                case "shift_delete":
-                    shift_delete();
-                    break;
-                case "staff_delete":
-                    staff_delete();
-                case false:
-                    return false;
-            }
-        })
     }
+    let swal_data = message_json[key];
+    swal(
+        swal_data
+    ).then((value) => {
+        switch (value) {
+            case "success":
+                location.reload(true);
+                break;
+            case "shift_delete":
+                shift_delete();
+                break;
+            case "staff_delete":
+                staff_delete();
+            case false:
+                return false;
+        }
+    })
+}

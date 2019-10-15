@@ -153,7 +153,7 @@ class Cl_main extends CI_Controller
     private function get_staff_data()
     {
         $this->load->model('mdl_staff');
-        $result = $this->mdl_staff->get_staff_data();
+        $result = $this->mdl_staff->get_staff_list();
         $result == true? $result: $result = null;
         return $result;
     }
