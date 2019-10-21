@@ -15,65 +15,69 @@ $(function () {
 });
 
 // カスタマーデータ登録
-    $(function() {
-        $('#register').on('click', function() { //顧客登録 ボタンタグにid
-            $("#sendUpdateData").hide(); //顧客登録画面内の更新ボタン
-            $("#sendPCdata").show(); //顧客登録画面内の登録ボタン
-            $('#modalArea_register').fadeIn();//モーダルエリアそのもの
-        });
-        //カスタマー登録の×のイベント
-        $('#modalBg, #C_cancel').on('click', function() {
-            $('#modalArea_register').fadeOut();//モーダルエリアを閉じる
-        });
+$(function () {
+    $('#register').on('click', function () { //顧客登録 ボタンタグにid
+        $('#img > img').css({ 'width': '', 'height': '' });
+        $('#img > img').attr('src', '');
+        $("#sendUpdateData").hide(); //顧客登録画面内の更新ボタン
+        $("#sendPCdata").show(); //顧客登録画面内の登録ボタン
+        $('#modalArea_register').fadeIn();//モーダルエリアそのもの
+    });
+    //カスタマー登録の×のイベント
+    $('#modalBg, #C_cancel').on('click', function () {
+        $('#modalArea_register').fadeOut();//モーダルエリアを閉じる
+    });
 
-        $('#modalBg, #P_cancel').on('click', function(){
-            $('#modalArea_register').fadeOut();
-        });
+    $('#modalBg, #P_cancel').on('click', function () {
+        $('#modalArea_register').fadeOut();
+    });
 
-        $('#sendPCdata').on('click', function() { //顧客登録画面内の登録ボタンをクリック時
-            let fd = new FormData($('#total_form_data').get(0));
-            $.ajax({
-                    url: '../Cl_total_list/insert_total_data',
-                    type: 'POST',
-                    dataType : "text",
-                    processData: false,
-                    contentType: false,
-                    data: fd
-                })
-                .done(function(data, textStatus, jqXHR) {
-                    if (data == "success") {
-                        SweetAlertMessage("success_register");
-                        console.log(data);
-                    } else {
-                        SweetAlertMessage("failed_register");
-                        console.log(data);
-                        // location.reload();
-                    }
-                })
-                .fail(function(data, textStatus, errorThrown) {
+    $('#sendPCdata').on('click', function () { //顧客登録画面内の登録ボタンをクリック時
+        let fd = new FormData($('#total_form_data').get(0));
+        $.ajax({
+            url: '../Cl_total_list/insert_total_data',
+            type: 'POST',
+            dataType: "text",
+            processData: false,
+            contentType: false,
+            data: fd
+        })
+            .done(function (data, textStatus, jqXHR) {
+                if (data == "success") {
+                    SweetAlertMessage("success_register");
+                    console.log(data);
+                } else {
                     SweetAlertMessage("failed_register");
                     console.log(data);
-                });
-        });
-/******************************************************************** */
-/**グループ項目削除  **/
-/******************************************************************** */
+                    // location.reload();
+                }
+            })
+            .fail(function (data, textStatus, errorThrown) {
+                SweetAlertMessage("failed_register");
+                console.log(data);
+            });
+    });
 
+    /******************************************************************** */
+    /**グループ項目削除  **/
+    /******************************************************************** */
+
+    $("#delete_group_register").on("click", function () {
+        // var selectedRows = $('#select_1').DataTable().rows('.active').data();
+        SweetAlertMessage("confirm_kind_group_delete");
+    });
+});
 
 function kind_group_delete() {
-    var selectedRows = $('#select_1').DataTable().rows('.active').data();
     var param = {
-        kind_group_shop_id : selectedRows[0].kind_group_shop_id 
+        kind_group_id: $("#select_1").val()
     }
-    $("#delete_group_register").on("click", function () {
-        SweetAlertMessage("confirm_delete");
-    
     $.ajax({
         url: "../Cl_total_list/delete_kind_group",
         type: "POST",
         data: param,
     }).done(function (data) {
-        if (data === 1) {
+        if (data == 1) {
             SweetAlertMessage("success_delete");
         } else {
             SweetAlertMessage("failed_delete");
@@ -81,136 +85,136 @@ function kind_group_delete() {
     }).fail(function (xhr, textStatus, errorThrown) {
         SweetAlertMessage("failed_register");
     });
-});
 }
 
-        //グループ登録ボタンをクリック時
-        $('#group_register').on('click', function() {
-          
-            let param = {kind_group_name: $('#select_group').val()}
-            $.ajax({
-                    url: '../Cl_total_list/insert_kind_group',
-                    type: 'POST',
-                    data: param
-                })
-                .done(function(data, textStatus, jqXHR) {
-                    if (data == "success") {
-                        SweetAlertMessage("success_register");
-                        console.log(data);
-                    } else {
-                        SweetAlertMessage("failed_register");
-                        console.log(data);
-                        // location.reload();
-                    }
-                })
-                .fail(function(data, textStatus, errorThrown) {
-                    // SweetAlertMessage("failed_register");
+$(function () {
+    //グループ登録ボタンをクリック時
+    $('#group_register').on('click', function () {
+
+        let param = { kind_group_name: $('#select_group').val() }
+        $.ajax({
+            url: '../Cl_total_list/insert_kind_group',
+            type: 'POST',
+            data: param
+        })
+            .done(function (data, textStatus, jqXHR) {
+                if (data == "success") {
+                    SweetAlertMessage("success_register");
                     console.log(data);
-                });
-        });
-
-        // ペットデータ登録
-        // $('#register2').on('click', function(){
-        //     $('#modalPetArea').fadeIn();
-        //     return false;
-        // });
-        // $('#modalPetBg, #P_cancel').on('click', function(){
-        //     $('#modalPetArea').fadeOut();
-        //     return false;
-        // });
-
-        // $('#sendPetData').on('click', function(){
-        //     let param = {
-        //         pet_name : $("input[name='pet_name']").val(),
-        //         pet_classification : $("input[name='pet_classification']").val(),
-        //         pet_type : $("input[name='pet_type']").val(),
-        //         pet_animal_gender : $("[name='pet_animal_gender']:checked").val(),
-        //         pet_contraception : $("[name='pet_contraception']:checked").val(),
-        //         pet_body_height : $("input[name='pet_body_height']").val(),
-        //         pet_body_weight : $("input[name='pet_body_weight']").val(),
-        //         pet_birthday : $("input[name='pet_birthday']").val(),
-        //         pet_last_reservdate : $("input[name='pet_last_reservdate']").val(),
-        //         pet_information : $("textarea[name='pet_information']").val()
-
-        //     }
-        //     $.ajax({
-        //         url: '../Cl_pet_info/pet_info_validation',
-        //         type: 'POST',
-        //         data: param
-        //     })
-        //     .done(function(data, textStatus, jqXHR) {
-        //         // alert("success!");
-        //         console.log(data);
-        //         location.reload();
-        //     })
-        //     .fail(function(data, textStatus, errorThrown) {
-        //         console.log(data);
-        //     })
-        // });
-        //予約登録
-        $('#register3').on('click', function() { //予約登録ボタンを押したら
-            $('#modalReserveArea').fadeIn();
-        });
-        //予約登録で×を押したときのイベント
-        $('#modalBg_register, #R_cancel').on('click', function() { 
-            $('#modalReserveArea').fadeOut();
-        });
-        //ポスト値
-        $('#sendResisterReserve').on('click', function() {
-            let param = {
-                pet_name: $('#pet_name').val(),
-                reserve_start: $('#reserve_start').val()
-            }
-            //投げる
-            $.ajax({
-                    url: '../cl_reserve/register_reserve_data',
-                    type: 'POST',
-                    data: param
-                })
-                //成功したとき
-                .done((data) => {
-                    if (data == "success") {
-                        SweetAlertMessage("success_register");
-                        console.log(data);
-                    } else {
-                        SweetAlertMessage("failed_register");
-                        console.log(data);
-                        // location.reload();
-                    }
-                })
-                //失敗したとき
-                .fail((data) => {
+                } else {
                     SweetAlertMessage("failed_register");
                     console.log(data);
-                });
-        });
+                    // location.reload();
+                }
+            })
+            .fail(function (data, textStatus, errorThrown) {
+                // SweetAlertMessage("failed_register");
+                console.log(data);
+            });
+    });
 
-/*************************************************************************** */
-/** Total更新 **/
-/*************************************************************************** */
-// テーブル行クリックの設定 id=データテーブル tbody要素に対して
-$('#datatable tbody').on("click", "tr", function() {
-    if ($(this).find('.dataTables_empty').length == 0) {
-        var owner = $(this);
-        $("#datatable tr").removeClass("active");
-        owner.addClass("active");
-        $("#register3").prop("disabled", false); //予約ボタン
-        $("#register4").prop("disabled", false); //更新ボタン false で既存のdiabledを外す。
-    }
-});
+    // ペットデータ登録
+    // $('#register2').on('click', function(){
+    //     $('#modalPetArea').fadeIn();
+    //     return false;
+    // });
+    // $('#modalPetBg, #P_cancel').on('click', function(){
+    //     $('#modalPetArea').fadeOut();
+    //     return false;
+    // });
+
+    // $('#sendPetData').on('click', function(){
+    //     let param = {
+    //         pet_name : $("input[name='pet_name']").val(),
+    //         pet_classification : $("input[name='pet_classification']").val(),
+    //         pet_type : $("input[name='pet_type']").val(),
+    //         pet_animal_gender : $("[name='pet_animal_gender']:checked").val(),
+    //         pet_contraception : $("[name='pet_contraception']:checked").val(),
+    //         pet_body_height : $("input[name='pet_body_height']").val(),
+    //         pet_body_weight : $("input[name='pet_body_weight']").val(),
+    //         pet_birthday : $("input[name='pet_birthday']").val(),
+    //         pet_last_reservdate : $("input[name='pet_last_reservdate']").val(),
+    //         pet_information : $("textarea[name='pet_information']").val()
+
+    //     }
+    //     $.ajax({
+    //         url: '../Cl_pet_info/pet_info_validation',
+    //         type: 'POST',
+    //         data: param
+    //     })
+    //     .done(function(data, textStatus, jqXHR) {
+    //         // alert("success!");
+    //         console.log(data);
+    //         location.reload();
+    //     })
+    //     .fail(function(data, textStatus, errorThrown) {
+    //         console.log(data);
+    //     })
+    // });
+    //予約登録
+    $('#register3').on('click', function () { //予約登録ボタンを押したら
+        $('#modalReserveArea').fadeIn();
+    });
+    //予約登録で×を押したときのイベント
+    $('#modalBg_register, #R_cancel').on('click', function () {
+        $('#modalReserveArea').fadeOut();
+    });
+    //ポスト値
+    $('#sendResisterReserve').on('click', function () {
+        let param = {
+            pet_name: $('#pet_name').val(),
+            reserve_start: $('#reserve_start').val()
+        }
+        //投げる
+        $.ajax({
+            url: '../cl_reserve/register_reserve_data',
+            type: 'POST',
+            data: param
+        })
+            //成功したとき
+            .done((data) => {
+                if (data == "success") {
+                    SweetAlertMessage("success_register");
+                    console.log(data);
+                } else {
+                    SweetAlertMessage("failed_register");
+                    console.log(data);
+                    // location.reload();
+                }
+            })
+            //失敗したとき
+            .fail((data) => {
+                SweetAlertMessage("failed_register");
+                console.log(data);
+            });
+    });
+
+    /*************************************************************************** */
+    /** Total更新 **/
+    /*************************************************************************** */
+    // テーブル行クリックの設定 id=データテーブル tbody要素に対して
+    $('#datatable tbody').on("click", "tr", function () {
+        if ($(this).find('.dataTables_empty').length == 0) {
+            var owner = $(this);
+            $("#datatable tr").removeClass("active");
+            owner.addClass("active");
+            $("#register3").prop("disabled", false); //予約ボタン
+            $("#register4").prop("disabled", false); //更新ボタン false で既存のdiabledを外す。
+        }
+    });
 
     //更新ボタンを押す、押した後のイベント
-    $('#register4').on("click", function() { //更新ボタン
+    $('#register4').on("click", function () { //更新ボタン
         let row = $('#datatable').DataTable().rows('.active').data(); //pet_idの情報の取得
         let pet_id = row[0][0];
         // console.log(column);
         $.ajax({
-                url: '../cl_total_list/get_total_all_data',
-                type: 'POST',
-                data: {
-                    id: pet_id
-                }
-            })
+            url: '../cl_total_list/get_total_all_data',
+            type: 'POST',
+            data: {
+                id: pet_id
+            }
+        })
             //成功したとき、返ってきたデータ
             .done((data) => {
                 $("#sendUpdateData").show();
@@ -223,6 +227,10 @@ $('#datatable tbody').on("click", "tr", function() {
                 $("input[name='customer_address']").val(data['customer_address']);
                 $("[name='customer_magazine']:checked").val(data['customer_magazine']);
                 $("textarea[name='customer_add_info']").val(data['customer_add_info']);
+                if (data['pet_img'] !== "") {
+                    $('#img').children('img').attr('src', data['pet_img']);
+                    $('#img > img').css({ 'width': '100px', 'height': '100px' });
+                }
                 $("#customer_id").val(data['customer_id']);
                 $("#pet_id").val(data['pet_id']);
                 $("input[name='pet_name']").val(data['pet_name']);
@@ -244,36 +252,22 @@ $('#datatable tbody').on("click", "tr", function() {
     })
 });
 
-$("#sendUpdateData").on("click", function() {
+$("#sendUpdateData").on("click", function () {
     let fd = new FormData($('#total_form_data').get(0));
-    // let param = {
-    //     customer_name: $("input[name='customer_name']").val(),
-    //     customer_kana: $("input[name='customer_kana']").val(),
-    //     customer_mail: $("input[name='customer_mail']").val(),
-    //     customer_tel: $("input[name='customer_tel']").val(),
-    //     customer_zip_adress: $("input[name='customer_zip_adress']").val(),
-    //     customer_address: $("input[name='customer_address']").val(),
-    //     customer_magazine: $("[name='customer_magazine']:checked").val(),
-    //     customer_add_info: $("textarea[name='customer_add_info']").val(),
-    //     customer_id: $("#customer_id").val(),
-    //     pet_id: $("#pet_id").val(),
-    //     pet_name: $("input[name='pet_name']").val(),
-    //     pet_classification: $("input[name='pet_classification']").val(),
-    //     pet_type: $("input[name='pet_type']").val(),
-    //     pet_animal_gender: $("[name='pet_animal_gender']:checked").val(),
-    //     pet_contraception: $("[name='pet_contraception']:checked").val(),
-    //     pet_body_height: $("input[name='pet_body_height']").val(),
-    //     pet_body_weight: $("input[name='pet_body_weight']").val(),
-    //     pet_birthday: $("input[name='pet_birthday']").val(),
-    //     pet_last_reservdate: $("input[name='pet_last_reservdate']").val(),
-    //     pet_information: $("textarea[name='pet_information']").val()
+    // for (let value of fd.entries()) {
+    //     console.log(value);
     // }
+    // return false;
+    fd.append("customer_id", $("#customer_id").val());
+    fd.append("pet_id", $("#pet_id").val());
     $.ajax({
-            url: '../Cl_total_list/update_total_data',
-            type: 'POST',
-            data: fd
-        })
-        .done(function(data, textStatus, jqXHR) {
+        url: '../Cl_total_list/update_total_data',
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        data: fd
+    })
+        .done(function (data, textStatus, jqXHR) {
             if (data == "success") {
                 SweetAlertMessage("success_register");
             } else {
@@ -282,7 +276,7 @@ $("#sendUpdateData").on("click", function() {
                 // location.reload();
             }
         })
-        .fail(function(data, textStatus, errorThrown) {
+        .fail(function (data, textStatus, errorThrown) {
             SweetAlertMessage("failed_register");
             console.log(data);
         });
@@ -348,18 +342,18 @@ function SweetAlertMessage(key) {
                 value: false,
             },
         },
-        confirm_delete: {
+        confirm_kind_group_delete: {
             title: "削除しますか？",
             icon: "warning",
             buttons: {
                 OK: {
                     text: "OK",
-                    value: "shift_delete",
-                    closeModal: false
+                    value: "kind_group_delete",
+                    closeModal: "false"
                 },
                 Cancel: {
                     text: "Cancel",
-                    value: false
+                    value: "false"
                 }
             }
         },
@@ -387,18 +381,14 @@ function SweetAlertMessage(key) {
             case "success":
                 location.reload(true);
                 break;
-            case "shift_delete":
-                shift_delete();
+            case "kind_group_delete":
+                kind_group_delete();
                 break;
-            case "staff_delete":
-                staff_delete();
-            case false:
-                return false;
         }
     })
 }
 
-$(function(){
+$(function () {
     $("#reserve_start").flatpickr({
         minDate: "today",
         enableTime: true,
@@ -413,21 +403,22 @@ $(function(){
     });
 });
 
-$(function() {
-    $('#files').on("change", function() {// upするinputのID
+$(function () {
+    $('#files').on("change", function () { // upするinputのID
         let file = $(this).prop('files')[0];
-        if (! file.type.match('image.*')) {//こちらでjpg フィルタ処理
+        if ($(this).prop('files')[0] === "undefined") {
+            // if (!file.type.match('image.*')) { //こちらでjpg フィルタ処理
             $(this).val('');
-            $('#img > img').css({'width': '', 'height':''});
+            $('#img > img').css({ 'width': '', 'height': '' });
             $('#img > img').attr('src', '');
             return;
+        } else {
+            let reader = new FileReader();
+            reader.onload = function () {//OKならこちらでリサイズ処理して表示
+                $('#img > img').css({ 'width': '100px', 'height': '100px' });
+                $('#img > img').attr('src', reader.result);
+            }
+            reader.readAsDataURL(file);
         }
-
-        let reader = new FileReader();
-        reader.onload = function() {//OKならこちらでリサイズ処理して表示
-            $('#img > img').css({'width':'100px', 'height': '100px'});
-            $('#img > img').attr('src', reader.result);
-        }
-        reader.readAsDataURL(file);
     });
 });
