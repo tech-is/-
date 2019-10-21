@@ -18,7 +18,8 @@ class Cl_total_list extends CI_Controller
         parent::__construct();
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
-        $_SESSION["shop_id"] = 1;
+        session_start();
+        // $_SESSION["shop_id"] = 1;
     }
 
     //TOPページ
@@ -34,7 +35,6 @@ class Cl_total_list extends CI_Controller
     //一覧取得
     private function get_total_list()
     {
-        $_SESSION["shop_id"] = 1;
         $shop_id = $_SESSION["shop_id"];
         return $this->Mdl_total_list->m_get_total_list($shop_id);
     }
@@ -42,16 +42,23 @@ class Cl_total_list extends CI_Controller
     //グループ検索
     private function get_kind_group()
     {
-        $_SESSION["shop_id"] = 1;
         $id = $_SESSION["shop_id"];
         return $this->Mdl_total_list->m_get_kind_group($id);
     }
 
     //グループを削除リストへ表示させる
-    private function delete_kind_group()
+    public function delete_kind_group()
     {
-        $id = $_SESSION["shop_id"];
-        return $this->Mdl_total_list->delete_kind_group_data($id);
+        if($this->request_ajax_check() === true) {
+            $kind_group_id = @$this->input->post("kind_group_id")?: exit;
+            $id = [
+                "kind_group_id" => $kind_group_id,
+                "shop_id" => $_SESSION["shop_id"]
+            ];
+            $result = $this->Mdl_total_list->delete_kind_group_data($id);
+            echo $result===true? 1: "dberror";
+        }
+        exit;
     }
 
     //グループ管理インサート
@@ -66,11 +73,14 @@ class Cl_total_list extends CI_Controller
         if($result === true) {
             echo "success";
         }
-    } 
-    
+    }
+
     //更新時、全件取得
     public function get_total_all_data()
     {
+        $_SESSION["shop_id"] = 1;
+        // var_dump($_SESSION);
+        // exit;
         $pet_id = $this->input->post("id");
         $this->load->model("Mdl_total_list");
         $return = $this->Mdl_total_list->m_get_total_all($pet_id);
@@ -93,13 +103,13 @@ class Cl_total_list extends CI_Controller
             $data = $this->escape_xss();
             if(isset($_FILES["pet_img"])) {
                 if($_FILES["pet_img"]["error"] === 0) { //エラーがなく正常
-                        $result_upload = $this->img_upload();
-                        if($result_upload === false) {
-                            echo "upload_err";
-                            exit;
-                        } else {
-                            $data["pet_data"]["pet_img"] = $result_upload;
-                        }
+                    $result_upload = $this->img_upload();
+                    if($result_upload === false) {
+                        echo "upload_err";
+                        exit;
+                    } else {
+                        $data["pet_data"]["pet_img"] = $result_upload;
+                    }
                 } elseif($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理
                     echo "upload_err";
                     exit;
@@ -107,11 +117,11 @@ class Cl_total_list extends CI_Controller
             }
             $this->load->model("Mdl_total_list");
             if($this->Mdl_total_list->m_insert_total_list($data["customer_data"], $data["pet_data"]) === true) {
-                    echo "success";
-                    exit;
+                echo "success";
+                exit;
             } else {
-                    echo "dberror";
-                    exit;
+                echo "dberror";
+                exit;
             }
         } else {
             // echo "vali_err";
@@ -120,11 +130,35 @@ class Cl_total_list extends CI_Controller
         }
     }
 
+    private function request_ajax_check()
+    {
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+            $ref = @$_SERVER["HTTP_REFERER"]?: exit;
+            $req_url = parse_url($ref);
+            $req_url["host"].$req_url["path"] === "animarl.com/cl_total_list/"? $result = true: $result = false;
+            return $result;
+        }
+    }
+
     //更新処理
     public function update_total_data()
     {
         if($this->total_validation() == true) {
             $data = $this->escape_xss();
+            if(isset($_FILES["pet_img"])) {
+                if($_FILES["pet_img"]["error"] === 0) { //エラーがなく正常
+                    $result_upload = $this->img_upload();
+                    if($result_upload === false) {
+                        echo "upload_err";
+                        exit;
+                    } else {
+                        $data["pet_data"]["pet_img"] = $result_upload;
+                    }
+                } elseif($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理
+                    echo "upload_err";
+                    exit;
+                }
+            }
             $this->load->model("Mdl_total_list");
             if($this->Mdl_total_list->m_update_total_list($data["id"], $data["customer_data"], $data["pet_data"]) == true) {
                     echo "success";
@@ -314,10 +348,11 @@ class Cl_total_list extends CI_Controller
             $config['height'] = 360;
             $this->load->library("image_lib", $config);
             if($this->image_lib->resize() === true) {
-                    $fullpath = realpath($resize_path);
-                    return $fullpath."\".$imgfile";
+                $fullpath = realpath($resize_path);
+                return base_url().'upload/img/thumbs/'.$imgfile; //本番環境では "\" を　"/" に変更
+                // echo "<script src=\"\">";
             } else {
-                    return false;
+                return false;
             }
         } else {
             return false;
