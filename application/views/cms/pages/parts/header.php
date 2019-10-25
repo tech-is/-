@@ -177,8 +177,8 @@
         top: 0.5rem;
         right: 1rem;
         cursor: pointer;
+        z-index: 14;
     }
-
 
     /* 以下ボタンスタイル */
     button {

@@ -30,7 +30,7 @@
                 </a>
             </li>
             <li id="reserve">
-                <a href="../cl_main/reserve">
+                <a href="<?php echo base_url(); ?>cl_reserve">
                     <i class="material-icons">home</i>
                     <span>予約一覧</span>
                 </a>

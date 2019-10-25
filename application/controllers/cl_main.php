@@ -12,13 +12,14 @@ class Cl_main extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(["url", "form"]);
-        date_default_timezone_set('Asia/Tokyo');
+        // date_default_timezone_set('Asia/Tokyo');
         session_start();
-        $_SESSION["shop_id"] = 1;
     }
 
     public function home()
     {
+        // var_dump($_SESSION);
+        // exit;
         $data = $this->get_reserve();
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
@@ -55,35 +56,40 @@ class Cl_main extends CI_Controller
         $this->load->view('cms/pages/staff/view_staff_list', $data);
     }
 
-    public function reserve()
+    private function get_reserve()
     {
-        $data = $this->get_reserve();
-        $id = $this->input->get('id');
-        $data["content"] = $this->mdl_reserve->get_reserve_data($id);
-        $data['staffs'] = $this->get_staff_data();
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/pages/reserve/view_reserve', $data);
+        $this->load->model('mdl_reserve');
+        $reserves = $this->mdl_reserve->get_reserve_list();
+        if($reserves) {
+            foreach($reserves as $row => $reserve) {
+                foreach($reserve as $column => $value) {
+                    $data["events"][$row][$column] = $value;
+                }
+            }
+            // foreach($reserves as $row => $reserve) {
+            //     $data["events"][$row]["event_id"] = $reserve['event_id'];
+            //     $data["events"][$row]["title"] = $reserve['event_customer'];
+            //     $data["events"][$row]["start"] = $reserve['event_start'];
+            //     $data["events"][$row]["end"] = $reserve['event_end'];
+            //     $data["events"][$row]["color"] = $reserve['staff_color'];
+            //     $data["events"][$row]["content"] = $reserve['event_content'];
+            // }
+        } else {
+            $data["events"] = null;
+        }
+        return $data;
     }
 
-    // public function reserve_view()
+    // public function reserve()
     // {
+    //     $data = $this->get_reserve();
+    //     $id = $this->input->get('id');
+    //     $data["content"] = $this->mdl_reserve->get_reserve_data($id);
+    //     $data['staffs'] = $this->get_staff_data();
     //     $this->load->view('cms/pages/parts/header');
     //     $this->load->view('cms/pages/parts/sidebar');
-    //     $this->load->view('cms/pages/reserve/view_reserve_content', $data);
+    //     $this->load->view('cms/pages/reserve/view_reserve', $data);
     // }
-
-    public function reserve_new_form()
-    {
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/pages/reserve/view_new_reserve_form');
-    }
-
-    public function pet_table()
-    {
-        $this->load->view('view_pet.html');
-    }
 
     public function magazine()
     {
@@ -129,25 +135,6 @@ class Cl_main extends CI_Controller
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/magazine/view_magazine_form', $data);
-    }
-
-    private function get_reserve()
-    {
-        $this->load->model('mdl_reserve');
-        $reserves = $this->mdl_reserve->get_reserve_list();
-        if($reserves) {
-            foreach($reserves as $row => $reserve) {
-                $data["events"][$row]["event_id"] = $reserve['event_id'];
-                $data["events"][$row]["title"] = $reserve['event_customer'];
-                $data["events"][$row]["start"] = $reserve['event_start'];
-                $data["events"][$row]["end"] = $reserve['event_end'];
-                $data["events"][$row]["color"] = $reserve['staff_color'];
-                $data["events"][$row]["content"] = $reserve['event_content'];
-            }
-        } else {
-            $data["events"] = null;
-        }
-        return $data;
     }
 
     private function get_staff_data()

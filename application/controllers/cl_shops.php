@@ -6,6 +6,8 @@ class Cl_shops extends CI_Controller
     public function register_email()
     {
         if($this->check_email() == true) {
+        // if($this->check_email() === true) {
+        // if($this->check_email()) {
             $email = $this->input->post("email");
             $code = md5(uniqid(rand(), true));
             if($this->tmp_db_registration($email, $code) == true) {
@@ -13,7 +15,7 @@ class Cl_shops extends CI_Controller
                     // redirect("cl_main/login");
                     echo "仮登録が完了しました！メールを送信しましたのでご確認ください。";
                 } else {
-                    $this->del_email($email);
+                    $this->delete_email($email);
                     redirect("/cl_landing/login");
                 }
             } else {
@@ -26,13 +28,15 @@ class Cl_shops extends CI_Controller
 
     public function register_shop()
     {
-        if($this->check_shop_data() == true) {
+        // if($this->check_shop_data() == true) {
+        if($this->check_shop_data()) {
             $data = $this->input->post(null, true);
-            if($this->shop_registration($data) == true) {
-                echo "登録が完了しました";
-            } else {
-                echo "登録失敗しました";
-            }
+            echo $this->shop_registration($data)?"登録が完了しました": "登録失敗しました";
+            // if($this->shop_registration($data) == true) {
+            //     echo "登録が完了しました";
+            // } else {
+            //     echo "登録失敗しました";
+            // }
         } else {
             // return false;
             echo "入力したデータが不正です。";
@@ -153,11 +157,12 @@ class Cl_shops extends CI_Controller
         $this->email->set_newline("\r\n");
         $this->email->subject("会員本登録メール");
         $this->email->message($message);
-        if($this->email->send()) {
-            return true;
-        } else {
-            return false;
-        }
+        // if($this->email->send()) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        return $this->email->send();
     }
 
     /**

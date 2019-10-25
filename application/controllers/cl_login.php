@@ -80,13 +80,13 @@ class Cl_login extends CI_Controller
 
     public function chk_login()
     {
-        if($this->vali_login_data() === true) {
+        if($this->vali_login_data()) {
             $email = $this->input->post("email");
             $data = $this->chk_login_data($email);
-            if($data == true) {
-                if($this->chk_password($data) === true) {
+            if(!empty($data)) {
+                if($this->chk_password($data)) {
                     session_start();
-                    $SESSION["shops_id"] = $data["shops_id"];
+                    $_SESSION["shop_id"] = $data["shop_id"];
                     redirect("cl_main/home");
                 } else {
                     redirect("cl_login/login?error=1");

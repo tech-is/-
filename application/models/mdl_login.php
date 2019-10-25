@@ -7,7 +7,7 @@ class Mdl_login extends CI_Model
         $this->db->select("shop_id, shop_password");
         $query = $this->db->get('shops');
         if($query->num_rows() == 1) {
-            return $query->row(0, "array");
+            return $query->row_array();;
         } else {
             return false;
         }

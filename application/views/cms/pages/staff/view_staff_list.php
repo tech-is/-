@@ -69,17 +69,18 @@
                     <div class="form-group">
                         <div class="form-line">
                             <label for="start">担当スタッフ<span style="color: red; margin-left: 10px">必須</span></label>
-                            <?php 
-                            if(isset($select_staff)) {
-                                echo '<select id="select_shift_staff" class="form-control show-tick" value="">';
-                                echo '<option value="">-- スタッフを選択してください --</option>';
-                                foreach($select_staff as $value) {
-                                    echo "<option value={$value['staff_id']}>{$value['staff_name']}</option>";
+                            <?php
+                                if(isset($select_staff)) {
+                                    echo '<select id="select_shift_staff" class="form-control show-tick" value="">';
+                                    echo '<option value="">-- スタッフを選択してください --</option>';
+                                    foreach($select_staff as $value) {
+                                        echo "<option value={$value['staff_id']}>{$value['staff_name']}</option>";
+                                    }
+                                } else {
+                                    echo '<select id="update_shift_staff" class="form-control show-tick" disabled value="">';
+                                    echo '<option value="">スタッフが登録されていません</option>';
                                 }
-                            } else {
-                                echo '<select id="update_shift_staff" class="form-control show-tick" disabled value="">';
-                                echo '<option value="">スタッフが登録されていません</option>';
-                            } ?>
+                            ?>
                             </select>
                         </div>
                     </div>

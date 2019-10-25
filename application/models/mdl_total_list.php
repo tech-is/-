@@ -62,7 +62,6 @@ class Mdl_total_list extends CI_Model {
         $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
         $this->db->where($where);
         $this->db->select("customer_id, pet_id , customer_name , pet_name , customer_tel , customer_mail , kind_group_name");
-        // $this->db->select("pet_id , customer_name , pet_name , customer_tel , customer_mail");
         $this->db->from('customer');
         $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
         $this->db->join('kind_group', 'customer_group_id = kind_group_id', 'left');
