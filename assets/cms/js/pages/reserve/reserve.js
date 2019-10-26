@@ -1,3 +1,10 @@
+// $(function () {
+//     if (result = SweetAlertMessage("success_register")) {
+//         console.log(result);
+//     }
+// })
+
+
 /******************************************************************** */
 /** flatpickr */
 /******************************************************************** */
@@ -16,6 +23,7 @@ $(function () {
         time_24hr: true
     });
 });
+
 /******************************************************************** */
 /** スタッフ一覧テーブル */
 /******************************************************************** */
@@ -77,7 +85,7 @@ $(function () {
 });
 
 /******************************************************************** */
-/*シフトカレンダー */
+/*予約カレンダー */
 /******************************************************************** */
 $(function () {
     $('#calendar').fullCalendar({
@@ -93,9 +101,9 @@ $(function () {
         },
         timeFormat: 'HH:mm',
         timezone: 'Asia/Tokyo',
-        navLinks: true, // can click day/week names to navigate views
+        navLinks: true,
         editable: true,
-        eventLimit: true, // allow "more" link when too many events
+        eventLimit: true,
         events: reserve,
         eventRender: function (eventObj, $el, calEvent) {
             var start = $.fullCalendar.formatDate(eventObj.start, 'MM月DD日 HH:mm');
@@ -110,14 +118,16 @@ $(function () {
         },
         eventClick: function (eventObj, jsEvent, view) {
             let start = $.fullCalendar.formatDate(eventObj.start, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(eventObj.start, 'HH:mm');
-            var end = $.fullCalendar.formatDate(eventObj.end, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(eventObj.end, 'HH:mm');
-            update_shift_id = eventObj.shift_id
-            $('#modal_shift_title').html("シフト更新・削除");
+            let end = $.fullCalendar.formatDate(eventObj.end, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(eventObj.end, 'HH:mm');
+            $('#sendResisterReserve').hide();
+            $('#modal_title').text('予約更新・削除');
+            $('#reserve_customer').val(eventObj.customer_name);
+            $('#reserve_pet').val(eventObj.title);
             $('#start').val(start);
             $('#end').val(end);
-            $('#select_shift_staff').val(eventObj.staff_id);
-            $('#shift_id').val(eventObj.shift_id);
-            $('#modalArea_register').fadeIn();
+            $("#reserve_pet_id").val(eventObj.reserve_pet_id);
+            $('#sendUpdateReserve').val(eventObj.reserve_id);
+            $('#modalArea_register, #sendUpdateReserve, #sendDeleteReserve').fadeIn();
         },
         dayClick: function (date, jsEvent, view) {
             let day = $.fullCalendar.formatDate(date, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(date, 'HH:mm');
@@ -127,7 +137,9 @@ $(function () {
     });
 });
 
-
+/******************************************************************** */
+/** ajax **/
+/******************************************************************** */
 $('#datatable').on('click', 'tr', function () {
     if ($(this).find('.dataTables_empty').length == 0) {
         let owner = $(this);
@@ -140,7 +152,6 @@ $('#datatable').on('click', 'tr', function () {
     }
 });
 
-// テーブル行クリックの設定
 $('#sendResisterReserve').on('click', function () {
     $.ajax({
         url: ' cl_reserve/register_reserve_data',
@@ -149,16 +160,158 @@ $('#sendResisterReserve').on('click', function () {
             "reserve_pet_id": $('#reserve_pet_id').val(),
             "reserve_start": $('#start').val(),
             "reserve_end": $('#end').val(),
-            "reserve_content": $('#reserve_content').val()
+            "reserve_content": $('#reserve_content').val(),
+            "reserve_color": $('#color').val()
         }
-    })
-        .done((data) => {
-            console.log(data);
-        })
-        .fail((data) => {
-            alert("失敗しました");
+    }).then(
+        function (data) {
+            SweetAlertMessage(data === "success" ? "success_register" : "failed_register");
+        },
+        function () {
+            SweetAlertMessage("failed_register");
         })
 });
+
+$('#sendUpdateReserve').on('click', function () {
+    swal({
+        title: "更新しますか？",
+        icon: "warning",
+        buttons: {
+            OK: {
+                text: "OK",
+                value: true,
+                closeModal: false
+            },
+            Cancel: {
+                text: "Cancel",
+                value: false
+            }
+        }
+    }).then((value) => {
+        if (value === true) {
+            $.ajax({
+                url: 'cl_reserve/update_reserve_data',
+                type: 'POST',
+                data: {
+                    "reserve_id": $('#sendUpdateReserve').val(),
+                    "reserve_pet_id": $('#reserve_pet_id').val(),
+                    "reserve_start": $('#start').val(),
+                    "reserve_end": $('#end').val(),
+                    "reserve_content": $('#reserve_content').val(),
+                    "reserve_color": $('#color').val()
+                }
+            }).then(
+                function (data) {
+                    SweetAlertMessage(data === "success" ? "success_update" : "failed_update");
+                },
+                function () {
+                    SweetAlertMessage("failed_update");
+                });
+        }
+    })
+});
+
+$('#sendDeleteReserve').on('click', function () {
+    swal({
+        title: "削除しますか？",
+        icon: "warning",
+        buttons: {
+            OK: {
+                text: "OK",
+                value: true,
+                closeModal: false
+            },
+            Cancel: {
+                text: "Cancel",
+                value: false
+            }
+        }
+    }).then((value) => {
+        if (value === true) {
+            $.ajax({
+                url: 'cl_reserve/delete_reserve_data',
+                type: 'POST',
+                data: {
+                    "reserve_id": $('#sendUpdateReserve').val(),
+                }
+            }).then(
+                function (data) {
+                    SweetAlertMessage(data === "success" ? "success_delete" : "failed_delete");
+                },
+                function () {
+                    SweetAlertMessage("failed_delete");
+                });
+        }
+    })
+});
+/******************************************************************** */
+/** SweetAlert  **/
+/******************************************************************** */
+function SweetAlertMessage(key) {
+    let message_json = {
+        success_register: {
+            title: "登録が完了しました！",
+            text: "ボタンをクリックして画面を閉じてください",
+            icon: "success",
+            button: {
+                text: "OK",
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: true,
+            },
+        },
+        failed_register: {
+            title: "登録に失敗しました…",
+            text: "また後ほどお試しください",
+            icon: "warning",
+            button: {
+                text: "OK",
+                value: true,
+            },
+        },
+        success_update: {
+            title: "更新が完了しました！",
+            icon: "success",
+            button: {
+                text: "OK",
+                value: true,
+            }
+        },
+        failed_update: {
+            title: "更新に失敗しました…",
+            text: "また後ほどお試しください",
+            icon: "warning",
+            button: {
+                text: "OK",
+                value: false,
+            },
+        },
+        success_delete: {
+            title: "削除が完了しました！",
+            icon: "success",
+            button: {
+                text: "OK",
+                value: true,
+            }
+        },
+        failed_delete: {
+            title: "削除に失敗しました…",
+            text: "また後ほどお試しください",
+            icon: "warning",
+            button: {
+                text: "OK",
+                value: false,
+            }
+        }
+    }
+    // let swal_data = message_json[key];
+    swal(message_json[key]);
+}
+
+/******************************************************************** */
+/*モーダル制御 */
+/******************************************************************** */
 
 $('#closeModal , #modalBg').on('click', function () {
     $('#modalArea').fadeOut();
@@ -169,25 +322,8 @@ $('#closeModal_register , #modalBg_register').on('click', function () {
 });
 
 $('#register').on('click', function () {
+    $('#sendUpdateReserve, #sendDeleteReserve').fadeOut();
     $('#modalArea_register').fadeIn();
-});
-
-$('#update').on('click', function () {
-    var reserve_id = sessionStorage.getItem('reserve_id');
-    $.ajax({
-        url: '../cl_reserve/get_reserve_data',
-        type: 'POST',
-        data: {
-            'event_id': reserve_id,
-        }
-    })
-        .done((data) => {
-            $('#modalArea').fadeOut();
-            $('#modalArea_update').fadeIn();
-        })
-        .fail((data) => {
-            alert("失敗しました");
-        })
 });
 
 $('#closeModal_update , #modalBg_update').on('click', function () {

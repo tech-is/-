@@ -1,25 +1,4 @@
-<?php
-function escape_mail_subject($mail_subject)
-{
-    if(mb_strlen($mail_subject) > 20) {
-        $resize_mail_subject = mb_substr($mail_subject, 0, 20);
-            return $resize_mail_subject. "･･･" ;
-        } else {
-            return $mail_subject;
-    }
-}
 
-function escape_mail_detail($mail_detail)
-{
-    $esc_mail_detail = str_replace("<br>", " ", $mail_detail);
-    if(mb_strlen($esc_mail_detail) > 20) {
-        $resize_mail_detail = mb_substr($esc_mail_detail, 0, 20);
-            return $resize_mail_detail. "･･･" ;
-        } else {
-            return $esc_mail_detail;
-    }
-}
-?>
 <section class="content">
     <div class="container-fluid">
         <div class="row clearfix">
@@ -110,7 +89,6 @@ function escape_mail_detail($mail_detail)
     <!-- Custom Plugin Js -->
     <script src="../assets/cms/js/admin.js"></script>
 
-    <script src="../assets/cms/js/sidebar.js"></script>
     <script>
     $(function () {
         $('#closeModal , #modalBg').click(function(){

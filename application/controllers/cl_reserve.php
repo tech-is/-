@@ -7,15 +7,16 @@ class Cl_reserve extends CI_Controller
     {
         parent::__construct();
         session_start();
-        $this->load->helper(["url", "form"]);
-        $_SESSION["shop_id"] = 1;
+        $this->load->helper(['url', 'form']);
+        $this->load->model('mdl_reserve');
+        $_SESSION['shop_id'] = 1;
     }
 
     public function index()
     {
         $data = [
-            "total" => !empty($array = $this->get_total_list($_SESSION["shop_id"]))? $this->json_encode_array($array): null,
-            "reserve" => !empty($array = $this->get_reserve($_SESSION["shop_id"]))? $this->json_encode_array($array): null
+            'total' => !empty($array = $this->get_total_list($_SESSION['shop_id']))? $this->json_encode_array($array): null,
+            'reserve' => !empty($array = $this->get_reserve($_SESSION['shop_id']))? $this->json_encode_array($array): null
         ];
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
@@ -24,17 +25,16 @@ class Cl_reserve extends CI_Controller
 
     private function json_encode_array($array)
     {
-        return !empty($array)? json_encode($array, JSON_UNESCAPED_UNICODE): null;
+        return !empty($array) && gettype($array) === "array" ? json_encode($array): null;
     }
 
     private function get_reserve($shop_id)
     {
         $columns = [
-            "pet_name" => "title",
-            "reserve_start" => "start",
-            "reserve_end" => "end"
+            'pet_name' => 'title',
+            'reserve_start' => 'start',
+            'reserve_end' => 'end'
         ];
-        $this->load->model('mdl_reserve');
         if(!empty($reserves = $this->mdl_reserve->get_reserve_list($shop_id))) {
             foreach($reserves as $row => $reserve) {
                 foreach($reserve as $column => $value) {
@@ -43,15 +43,6 @@ class Cl_reserve extends CI_Controller
                     } else {
                         $data[$row][$column] = $value;
                     }
-                    // if($column === "pet_name") {
-                    //     $data[$row]["title"] = $value;
-                    // } elseif($column ==="reserve_start") {
-                    //     $data[$row]["start"] = $value;
-                    // } elseif($column ==="reserve_end") {
-                    //     $data[$row]["end"] = $value;
-                    // } else {
-                    //     $data[$row][$column] = $value;
-                    // }
                 }
             }
         } else {
@@ -66,20 +57,23 @@ class Cl_reserve extends CI_Controller
         return $this->mdl_total_list->m_get_total_list($shop_id);
     }
 
+    private function reserve_column($which)
+    {
+        $columns = ['reserve_pet_id', 'reserve_start', 'reserve_end', 'reserve_content', 'reserve_color'];
+        foreach($columns as $column) {
+            $date[$column] = $this->input->post($column);
+        }
+        $which === 'insert'? $data['reserve_shop_id'] = $_SESSION['shop_id']: false;
+        return $date;
+    }
+
     public function register_reserve_data()
     {
         if($this->resereve_validation()) {
-            $this->load->model("mdl_reserve");
-            $data = [
-                'reserve_shop_id' => $_SESSION['shop_id'],
-                'reserve_pet_id' => $this->input->post('reserve_pet_id'),
-                'reserve_start' => $this->input->post('reserve_start'),
-                'reserve_end' => $this->input->post('reserve_end'),
-                'reserve_content' => $this->input->post('reserve_content')
-            ];
-            echo $this->mdl_reserve->insert_reserve_data($data)? "success": "dberr";
+            $data = $this->reserve_column('insert');
+            echo $this->mdl_reserve->insert_reserve_data($data)? 'success': 'dberr';
         } else {
-            echo "valierr";
+            echo 'valierr';
         }
         exit;
     }
@@ -87,9 +81,30 @@ class Cl_reserve extends CI_Controller
     public function update_reserve_data()
     {
         if($this->resereve_validation()) {
-            echo $this->update_reserve()? "success": "dberr";
+            $data = [
+                'where' => [
+                    'reserve_shop_id' => $_SESSION['shop_id'],
+                    'reserve_id' => $this->input->post('reserve_id')
+                ],
+                'update' => $this->reserve_column('update')
+            ];
+            echo $this->mdl_reserve->update_reserve_data($data)? 'success': 'dberr';
         } else {
-            echo "valierr";
+            echo 'valierr';
+        }
+        exit;
+    }
+
+    public function delete_reserve_data()
+    {
+        if(!empty($this->input->post('reserve_id'))) {
+            $data = [
+                'reserve_shop_id' => $_SESSION['shop_id'],
+                'reserve_id' => $this->input->post('reserve_id')
+            ];
+            echo $this->mdl_reserve->delete_reserve_data($data)? 'success': 'dberr';
+        } else {
+            echo 'valierr';
         }
         exit;
     }
@@ -111,24 +126,19 @@ class Cl_reserve extends CI_Controller
                 'field' => 'reserve_end',
                 'label' => '終了予定日',
                 'rules' => 'required'
+            ],
+            [
+                'field' => 'reserve_end',
+                'label' => '終了予定日',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'reserve_end',
+                'label' => '終了予定日',
+                'rules' => 'required'
             ]
         ];
-        $this->load->library("form_validation", $config);
+        $this->load->library('form_validation', $config);
         return $this->form_validation->run();
     }
-
-    private function update_reserve()
-    {
-        $this->load->model("mdl_reserve");
-        $data = [
-            'reserve_customer' => $this->input->post("customer"),
-            'reserve_pet' => $this->input->post("pet"),
-            'reserve_start' => $this->input->post("start"),
-            'reserve_end' => $this->input->post("end"),
-            'reserve_content' => $this->input->post("content"),
-            'reserve_staff_id' => @$this->input->post("staff_id")?: null
-        ];
-        return $this->mdl_reserve->update_reserve_data($data);
-    }
-
 }

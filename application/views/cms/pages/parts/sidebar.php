@@ -1,9 +1,35 @@
+<?php
+    $url = explode("/", $_SERVER['REQUEST_URI']);
+    $req = end($url);
+    $sidebar_parts_array = [
+        "cl_main" => [
+            "icon" => "home",
+            "title" => "ホーム"
+        ],
+        "cl_total_list" => [
+            "icon" => "pets",
+            "title" => "顧客・ペット管理"
+        ],
+        "cl_reserve" => [
+            "icon" => "today",
+            "title" => "予約管理"
+        ],
+        "cl_staff" => [
+            "icon" => "group",
+            "title" => "スタッフ管理"
+        ],
+        "cl_magazine" => [
+            "icon" => "contact_mail",
+            "title" => "メルマガ管理"
+        ]
+    ];
+?>
 <!-- Left Sidebar -->
 <aside id="leftsidebar" class="sidebar">
     <!-- User Info -->
     <div class="user-info">
         <div class="image">
-            <!-- <img src="images/user.png" width="48" height="48" alt="User" /> -->
+            <img src="<?php echo base_url('assets/cms/images/user.png') ?>" width="48" height="48" alt="User" />
         </div>
         <div class="info-container">
             <div id="account_name" class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
@@ -23,44 +49,14 @@
     <div class="menu">
         <ul class="list">
             <li class="header">MAIN NAVIGATION</li>
-            <li class=active>
-                <a href="../cl_main/home">
-                    <i class="material-icons">home</i>
-                    <span>Home</span>
+            <?php foreach($sidebar_parts_array as $sidebar_url => $sidebar_parts): ?>
+            <?php echo $req === $sidebar_url? '<li class="active">': '<li>'; ?>
+                <a href="<?php echo base_url($sidebar_url); ?>">
+                    <i class="material-icons"><?php echo $sidebar_parts["icon"] ?></i>
+                    <span><?php echo $sidebar_parts["title"] ?></span>
                 </a>
             </li>
-            <li id="reserve">
-                <a href="<?php echo base_url(); ?>cl_reserve">
-                    <i class="material-icons">home</i>
-                    <span>予約一覧</span>
-                </a>
-            </li>
-            <li id="staff">
-                <a href="../cl_main/staff">
-                    <i class="material-icons">home</i>
-                    <span>スタッフ管理</span>
-                </a>
-            </li>
-            <li>
-                <a href="../cl_total_list/">
-                    <i class="material-icons">pets</i>
-                    <span>顧客・ペット管理</span>
-                </a>
-            </li>
-            <li id="magazine">
-                <a href="#" class="menu-toggle waves-effect waves-block">
-                    <i class="material-icons">email</i>
-                    <span>メールマガジン</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="magazine">メールマガジン一覧</a>
-                    </li>
-                    <li>
-                        <a href="magazine_new_form">新規メールマガジン作成</a>
-                    </li>
-                </ul>
-            </li>
+            <?php endforeach; ?>
         </ul>
     </div>
     <!-- #Menu -->

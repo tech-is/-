@@ -11,7 +11,7 @@ class Cl_customer extends CI_Controller {
         session_start();
         $_SESSION["shops_id"] = 1;
     }
-   
+
     public function index()
     {
         //mdl_customerの呼び出し
@@ -159,7 +159,7 @@ class Cl_customer extends CI_Controller {
             exit;
         }
     }
-    
+
     //vi_total_listの更新の起点はここ
     public function update_customer_list()
     {
