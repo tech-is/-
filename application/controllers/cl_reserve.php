@@ -9,7 +9,7 @@ class Cl_reserve extends CI_Controller
         session_start();
         $this->load->helper(['url', 'form']);
         $this->load->model('mdl_reserve');
-        $_SESSION['shop_id'] = 1;
+        // $_SESSION['shop_id'] = 1;
     }
 
     public function index()
@@ -18,6 +18,7 @@ class Cl_reserve extends CI_Controller
             'total' => !empty($array = $this->get_total_list($_SESSION['shop_id']))? $this->json_encode_array($array): null,
             'reserve' => !empty($array = $this->get_reserve($_SESSION['shop_id']))? $this->json_encode_array($array): null
         ];
+        $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(24));
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/reserve/view_reserve', $data);
@@ -51,6 +52,41 @@ class Cl_reserve extends CI_Controller
         return $data;
     }
 
+    private function judge_request_via_ajax()
+    {
+        if(empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
+            header('HTTP/1.1 403 Forbidden');
+            exit();
+        }
+    }
+
+    public function get_reserve_via_ajax()
+    {
+        $this->judge_request_via_ajax();
+        $columns = [
+            'pet_name' => 'title',
+            'reserve_start' => 'start',
+            'reserve_end' => 'end'
+        ];
+        if(!empty($reserves = $this->mdl_reserve->get_reserve_list($_SESSION['shop_id']))) {
+            foreach($reserves as $row => $reserve) {
+                foreach($reserve as $column => $value) {
+                    if(array_key_exists($column, $columns)) {
+                        $data[$row][$columns[$column]] = $value;
+                    } else {
+                        $data[$row][$column] = $value;
+                    }
+                }
+            }
+            $data = $this->json_encode_array($data);
+        } else {
+            $data = "error";
+        }
+        header('Content-Type: application/json; charaset=utf-8');
+        echo $data;
+        exit();
+    }
+
     private function get_total_list($shop_id)
     {
         $this->load->model('mdl_total_list');
@@ -69,6 +105,7 @@ class Cl_reserve extends CI_Controller
 
     public function register_reserve_data()
     {
+        $this->judge_request_via_ajax();
         if($this->resereve_validation()) {
             $data = $this->reserve_column('insert');
             echo $this->mdl_reserve->insert_reserve_data($data)? 'success': 'dberr';
@@ -80,6 +117,7 @@ class Cl_reserve extends CI_Controller
 
     public function update_reserve_data()
     {
+        $this->judge_request_via_ajax();
         if($this->resereve_validation()) {
             $data = [
                 'where' => [
@@ -97,6 +135,7 @@ class Cl_reserve extends CI_Controller
 
     public function delete_reserve_data()
     {
+        $this->judge_request_via_ajax();
         if(!empty($this->input->post('reserve_id'))) {
             $data = [
                 'reserve_shop_id' => $_SESSION['shop_id'],

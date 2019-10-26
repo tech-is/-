@@ -1,25 +1,18 @@
-// $(function () {
-//     if (result = SweetAlertMessage("success_register")) {
-//         console.log(result);
-//     }
-// })
-
-
 /******************************************************************** */
 /** flatpickr */
 /******************************************************************** */
 $(function () {
-    $("#start").flatpickr({
-        minDate: "today",
+    $('#start').flatpickr({
+        minDate: 'today',
         enableTime: true,
-        dateFormat: "Y-m-dTH:i",
+        dateFormat: 'Y-m-dTH:i',
         time_24hr: true
     });
 
-    $("#end").flatpickr({
-        minDate: "today",
+    $('#end').flatpickr({
+        minDate: 'today',
         enableTime: true,
-        dateFormat: "Y-m-dTH:i",
+        dateFormat: 'Y-m-dTH:i',
         time_24hr: true
     });
 });
@@ -41,44 +34,44 @@ $(function () {
         'colReorder': true,
         'data': total,
         'columns': [
-            { 'data': "customer_id" },
-            { 'data': "pet_id" },
-            { 'data': "customer_name" },
-            { 'data': "pet_name" },
-            { 'data': "customer_tel" },
-            { 'data': "customer_mail" },
-            { 'data': "kind_group_name" }
+            { 'data': 'customer_id' },
+            { 'data': 'pet_id' },
+            { 'data': 'customer_name' },
+            { 'data': 'pet_name' },
+            { 'data': 'customer_tel' },
+            { 'data': 'customer_mail' },
+            { 'data': 'kind_group_name' }
         ],
         columnDefs: [
             {
-                "targets": 0,
-                "visible": false,
-                "searchable": false
+                'targets': 0,
+                'visible': false,
+                'searchable': false
             },
             {
-                "targets": 1,
-                "visible": false,
-                "searchable": false
+                'targets': 1,
+                'visible': false,
+                'searchable': false
             }
         ],
         'language': {
-            'decimal': ".",
-            'emptyTable': "表示するデータがありません。",
-            'info': "_START_ ～ _END_ / _TOTAL_ 件中",
-            'infoEmpty': "0 ～ 0 / 0 件",
-            'infoFiltered': "(合計 _MAX_ 件からフィルタリングしています)",
-            'infoPostFix': "",
-            'thousands': ",",
-            'lengthMenu': "1ページ _MENU_ 件を表示する",
-            'loadingRecords': "読み込み中...",
-            'processing': "処理中...",
-            'search': "絞り込み:",
-            'zeroRecords': "一致するデータが見つかりません。",
+            'decimal': '.',
+            'emptyTable': '表示するデータがありません。',
+            'info': '_START_ ～ _END_ / _TOTAL_ 件中',
+            'infoEmpty': '0 ～ 0 / 0 件',
+            'infoFiltered': '(合計 _MAX_ 件からフィルタリングしています)',
+            'infoPostFix': '',
+            'thousands': ',',
+            'lengthMenu': '1ページ _MENU_ 件を表示する',
+            'loadingRecords': '読み込み中...',
+            'processing': '処理中...',
+            'search': '絞り込み:',
+            'zeroRecords': '一致するデータが見つかりません。',
             'paginate': {
-                'first': "最初",
-                'last': "最後",
-                'next': "次",
-                'previous': "前"
+                'first': '最初',
+                'last': '最後',
+                'next': '次',
+                'previous': '前'
             }
         }
     });
@@ -110,7 +103,7 @@ $(function () {
             var end = $.fullCalendar.formatDate(eventObj.end, 'MM月DD日 HH:mm');
             $el.popover({
                 title: eventObj.title,
-                content: start + " ~ " + end,
+                content: start + ' ~ ' + end,
                 trigger: 'hover',
                 placement: 'top',
                 container: 'body'
@@ -125,13 +118,19 @@ $(function () {
             $('#reserve_pet').val(eventObj.title);
             $('#start').val(start);
             $('#end').val(end);
-            $("#reserve_pet_id").val(eventObj.reserve_pet_id);
+            $('#reserve_customer_id').val(eventObj.reserve_customer_id);
+            $('#reserve_pet_id').val(eventObj.reserve_pet_id);
             $('#sendUpdateReserve').val(eventObj.reserve_id);
             $('#modalArea_register, #sendUpdateReserve, #sendDeleteReserve').fadeIn();
         },
         dayClick: function (date, jsEvent, view) {
-            let day = $.fullCalendar.formatDate(date, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(date, 'HH:mm');
-            $("#start").val(day);
+            let start_day = $.fullCalendar.formatDate(date, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(date, 'HH:mm');
+            let end_day = $.fullCalendar.formatDate(date, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(date, 'HH:mm');
+            $('#start').val(start_day);
+            $('#end').val(end_day);
+            $('#modal_title').text('新規予約');
+            $('#sendResisterReserve').show();
+            $('#sendUpdateReserve, #sendDeleteReserve').hide();
             $('#modalArea_register').fadeIn();
         }
     });
@@ -140,15 +139,37 @@ $(function () {
 /******************************************************************** */
 /** ajax **/
 /******************************************************************** */
+function get_reserve_via_ajax() {
+    $.ajax({
+        url: ' cl_reserve/get_reserve_via_ajax',
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json'
+    }).then(
+        function (data) {
+            // console.log(data);
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', data);
+            $('#calendar').fullCalendar('rerenderEvents');
+        },
+        function (error) {
+            // SweetAlertMessage('failed_register');
+            console.log(error);
+        })
+}
+
 $('#datatable').on('click', 'tr', function () {
     if ($(this).find('.dataTables_empty').length == 0) {
         let owner = $(this);
-        $("#datatable tr").removeClass("active");
-        owner.addClass("active");
+        $('#datatable tr').removeClass('active');
+        owner.addClass('active');
         let row = $('#datatable').DataTable().rows(owner).data()[0];
-        $("#reserve_pet_id").val(row.pet_id);
-        $("#reserve_customer").val(row.customer_name);
-        $("#reserve_pet").val(row.pet_name);
+        $('#reserve_pet_id').val(row.pet_id);
+        $('#reserve_pet_id').val(row.customer_id);
+        $('#reserve_customer').val(row.customer_name);
+        $('#reserve_pet').val(row.pet_name);
     }
 });
 
@@ -156,34 +177,40 @@ $('#sendResisterReserve').on('click', function () {
     $.ajax({
         url: ' cl_reserve/register_reserve_data',
         type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         data: {
-            "reserve_pet_id": $('#reserve_pet_id').val(),
-            "reserve_start": $('#start').val(),
-            "reserve_end": $('#end').val(),
-            "reserve_content": $('#reserve_content').val(),
-            "reserve_color": $('#color').val()
+            'reserve_customer_id': $('#reserve_customer_id').val(),
+            'reserve_pet_id': $('#reserve_pet_id').val(),
+            'reserve_start': $('#start').val(),
+            'reserve_end': $('#end').val(),
+            'reserve_content': $('#reserve_content').val(),
+            'reserve_color': $('#color').val()
         }
     }).then(
         function (data) {
-            SweetAlertMessage(data === "success" ? "success_register" : "failed_register");
+            SweetAlertMessage(data === 'success' ? 'success_register' : 'failed_register');
+            get_reserve_via_ajax();
+
         },
         function () {
-            SweetAlertMessage("failed_register");
+            SweetAlertMessage('failed_register');
         })
 });
 
 $('#sendUpdateReserve').on('click', function () {
     swal({
-        title: "更新しますか？",
-        icon: "warning",
+        title: '更新しますか？',
+        icon: 'warning',
         buttons: {
             OK: {
-                text: "OK",
+                text: 'OK',
                 value: true,
                 closeModal: false
             },
             Cancel: {
-                text: "Cancel",
+                text: 'Cancel',
                 value: false
             }
         }
@@ -192,20 +219,25 @@ $('#sendUpdateReserve').on('click', function () {
             $.ajax({
                 url: 'cl_reserve/update_reserve_data',
                 type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
-                    "reserve_id": $('#sendUpdateReserve').val(),
-                    "reserve_pet_id": $('#reserve_pet_id').val(),
-                    "reserve_start": $('#start').val(),
-                    "reserve_end": $('#end').val(),
-                    "reserve_content": $('#reserve_content').val(),
-                    "reserve_color": $('#color').val()
+                    'reserve_id': $('#sendUpdateReserve').val(),
+                    'reserve_customer_id': $('#reserve_customer_id').val(),
+                    'reserve_pet_id': $('#reserve_pet_id').val(),
+                    'reserve_start': $('#start').val(),
+                    'reserve_end': $('#end').val(),
+                    'reserve_content': $('#reserve_content').val(),
+                    'reserve_color': $('#color').val()
                 }
             }).then(
                 function (data) {
-                    SweetAlertMessage(data === "success" ? "success_update" : "failed_update");
+                    SweetAlertMessage(data === 'success' ? 'success_register' : 'failed_register');
+                    get_reserve_via_ajax();
                 },
                 function () {
-                    SweetAlertMessage("failed_update");
+                    SweetAlertMessage('failed_update');
                 });
         }
     })
@@ -213,16 +245,16 @@ $('#sendUpdateReserve').on('click', function () {
 
 $('#sendDeleteReserve').on('click', function () {
     swal({
-        title: "削除しますか？",
-        icon: "warning",
+        title: '削除しますか？',
+        icon: 'warning',
         buttons: {
             OK: {
-                text: "OK",
+                text: 'OK',
                 value: true,
                 closeModal: false
             },
             Cancel: {
-                text: "Cancel",
+                text: 'Cancel',
                 value: false
             }
         }
@@ -231,15 +263,19 @@ $('#sendDeleteReserve').on('click', function () {
             $.ajax({
                 url: 'cl_reserve/delete_reserve_data',
                 type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
-                    "reserve_id": $('#sendUpdateReserve').val(),
+                    'reserve_id': $('#sendUpdateReserve').val(),
                 }
             }).then(
                 function (data) {
-                    SweetAlertMessage(data === "success" ? "success_delete" : "failed_delete");
+                    SweetAlertMessage(data === 'success' ? 'success_delete' : 'failed_delete');
+                    get_reserve_via_ajax();
                 },
                 function () {
-                    SweetAlertMessage("failed_delete");
+                    SweetAlertMessage('failed_delete');
                 });
         }
     })
@@ -250,62 +286,60 @@ $('#sendDeleteReserve').on('click', function () {
 function SweetAlertMessage(key) {
     let message_json = {
         success_register: {
-            title: "登録が完了しました！",
-            text: "ボタンをクリックして画面を閉じてください",
-            icon: "success",
+            title: '登録が完了しました！',
+            text: 'ボタンをクリックして画面を閉じてください',
+            icon: 'success',
             button: {
-                text: "OK",
+                text: 'OK',
                 value: true,
                 visible: true,
-                className: "",
                 closeModal: true,
             },
         },
         failed_register: {
-            title: "登録に失敗しました…",
-            text: "また後ほどお試しください",
-            icon: "warning",
+            title: '登録に失敗しました…',
+            text: 'また後ほどお試しください',
+            icon: 'warning',
             button: {
-                text: "OK",
+                text: 'OK',
                 value: true,
             },
         },
         success_update: {
-            title: "更新が完了しました！",
-            icon: "success",
+            title: '更新が完了しました！',
+            icon: 'success',
             button: {
-                text: "OK",
+                text: 'OK',
                 value: true,
             }
         },
         failed_update: {
-            title: "更新に失敗しました…",
-            text: "また後ほどお試しください",
-            icon: "warning",
+            title: '更新に失敗しました…',
+            text: 'また後ほどお試しください',
+            icon: 'warning',
             button: {
-                text: "OK",
+                text: 'OK',
                 value: false,
             },
         },
         success_delete: {
-            title: "削除が完了しました！",
-            icon: "success",
+            title: '削除が完了しました！',
+            icon: 'success',
             button: {
-                text: "OK",
+                text: 'OK',
                 value: true,
             }
         },
         failed_delete: {
-            title: "削除に失敗しました…",
-            text: "また後ほどお試しください",
-            icon: "warning",
+            title: '削除に失敗しました…',
+            text: 'また後ほどお試しください',
+            icon: 'warning',
             button: {
-                text: "OK",
+                text: 'OK',
                 value: false,
             }
         }
     }
-    // let swal_data = message_json[key];
     swal(message_json[key]);
 }
 
@@ -322,7 +356,9 @@ $('#closeModal_register , #modalBg_register').on('click', function () {
 });
 
 $('#register').on('click', function () {
-    $('#sendUpdateReserve, #sendDeleteReserve').fadeOut();
+    $('#modal_title').text('新規予約');
+    $('#sendResisterReserve').show();
+    $('#sendUpdateReserve, #sendDeleteReserve').hide();
     $('#modalArea_register').fadeIn();
 });
 

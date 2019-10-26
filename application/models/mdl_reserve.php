@@ -7,21 +7,13 @@ class Mdl_reserve extends CI_Model
     public function get_reserve_list($shop_id)
     {
         return $this->db->where(['reserve_shop_id' => $shop_id, 'reserve_state' => 1])
-            ->select("reserve_id, reserve_pet_id, reserve_start, reserve_end, reserve_content, customer_name, pet_name")
+            ->select("reserve_id, reserve_customer_id, reserve_pet_id, reserve_start, reserve_end, reserve_content, customer_name, pet_name")
             ->from('reserve')
             ->join('pet', 'pet_id = reserve_pet_id', 'left')
             ->join('customer', 'customer_id = reserve_customer_id', 'left')
             ->get()
             ->result_array();
     }
-
-    // public function select_reserve_data($reserve_id)
-    // {
-    //     return $this->db->select("reserve_id, reserve_pet_id, reserve_start, reserve_end, reserve_content")
-    //         ->where('reserve_id', $reserve_id)
-    //         ->get('reserve')
-    //         ->result_array();
-    // }
 
     public function insert_reserve_data($data)
     {

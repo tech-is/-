@@ -93,6 +93,7 @@
                         <textarea rows=2 id="reserve_content" class="form-control no-resize" name="content" placeholder="トリミング"></textarea>
                     </div>
                 </div>
+                <input type="hidden" id="reserve_customer_id">
                 <input type="hidden" id="reserve_pet_id">
                 <button type="button" id="sendResisterReserve" class="btn bg-pink waves-effect">
                     登録
@@ -161,7 +162,6 @@
     reserve = <?php echo $reserve?>;
 </script>
 <script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
-<!-- <script src="<?php echo base_url(); ?>assets/cms/js/sidebar.js"></script> -->
 <script src="<?php echo base_url(); ?>assets/cms/js/pages/reserve/reserve.js"></script>
 
 </body>
