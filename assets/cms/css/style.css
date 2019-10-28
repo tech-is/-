@@ -8211,3 +8211,192 @@ html.ie11 .dropdown-menu ul.menu li a {
 
 html.ie11 .bs-searchbox .form-control {
   width: 90%; }
+
+/* Custom Css ===================== */
+
+/* モーダルCSS */
+    .modalArea {
+        display: none;
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .modalBg {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(30,30,30,0.9);
+    }
+
+    .modalWrapper {
+        position: absolute;
+        overflow-y: scroll;
+        height: 95vh;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 90%;
+        /* max-width: 500px; */
+        padding: 10px 30px;
+        background-color: #fff;
+    }
+
+/* シフト登録モーダル *************************** */
+    .modalArea_shift {
+        display: none;
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .modalBg_shift {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(30,30,30,0.9);
+    }
+
+    .modalWrapper_shift {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 70%;
+        max-width: 500px;
+        padding: 10px 30px;
+        background-color: #fff;
+    }
+/* ******************************************** */
+
+    .modalAreaTotal {
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        background-color: rgba(30,30,30,0.9);
+    }
+
+    .modalBgTotal {
+        display: none;
+        z-index: 13;
+        width: 100%;
+        height: 100%;
+        overflow-y:scroll;
+    }
+
+    .modalWrapperTotal {
+        position: absolute;
+        z-index: 13;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 70%;
+        max-width: 500px;
+        padding: 10px 30px;
+        background-color: #333;
+    }
+    .modalWrapperTotalCustomer {
+        position: absolute;
+        z-index: 13;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 90%;
+        /* background-color: #fff; */
+    }
+
+    .modalWrapper_staff_list {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 90%;
+        /* min-width: 620px; */
+        padding: 10px 30px;
+        background-color: #fff;
+    }
+
+    .modalWrapper_Total {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width: 70%;
+        max-width: 350px;
+        padding: 10px 30px;
+        background-color: #fff;
+    }
+
+    .closeModal {
+        font-size:30px;
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+        cursor: pointer;
+        z-index: 14;
+    }
+
+    /* 以下ボタンスタイル */
+    /* button {
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #282828;
+        border-radius: 2px;
+        cursor: pointer;
+    } */
+
+    #openModal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+    }
+
+    .table > tbody > tr.active > td,
+    .table > tbody > tr.active > th {
+        background-color: #e1f2fe;
+    }
+
+    table > tbody >tr > td {
+        max-width: 300px;
+    }
+
+    table,th,td {
+        border: 1px solid #bbb;
+    }
+/* ******************************************** */
+/* メールマガジンリスト */
+/* ******************************************** */
+.panel-group {
+    border:1px solid #ddd;
+    border-left: none;
+}
+.mail-heading-wrapper {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+}
+
+.mail-body {
+    padding: 10px 15px;
+}
+
+.modalmailWrapper {
+    position: absolute;
+    /* overflow-y: scroll; */
+    /* height: 95vh; */
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 90%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+}

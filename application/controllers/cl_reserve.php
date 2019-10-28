@@ -9,13 +9,14 @@ class Cl_reserve extends CI_Controller
         session_start();
         $this->load->helper(['url', 'form']);
         $this->load->model('mdl_reserve');
-        // $_SESSION['shop_id'] = 1;
+        $_SESSION['shop_id'] = 1;
     }
 
     public function index()
     {
+        $this->load->model('mdl_total_list');
         $data = [
-            'total' => !empty($array = $this->get_total_list($_SESSION['shop_id']))? $this->json_encode_array($array): null,
+            'total' => !empty($array = $this->mdl_total_list->m_get_total_list($_SESSION['shop_id']))? $this->json_encode_array($array): null,
             'reserve' => !empty($array = $this->get_reserve($_SESSION['shop_id']))? $this->json_encode_array($array): null
         ];
         $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(24));
@@ -87,20 +88,14 @@ class Cl_reserve extends CI_Controller
         exit();
     }
 
-    private function get_total_list($shop_id)
-    {
-        $this->load->model('mdl_total_list');
-        return $this->mdl_total_list->m_get_total_list($shop_id);
-    }
-
     private function reserve_column($which)
     {
         $columns = ['reserve_pet_id', 'reserve_start', 'reserve_end', 'reserve_content', 'reserve_color'];
         foreach($columns as $column) {
-            $date[$column] = $this->input->post($column);
+            $data[$column] = $this->input->post($column);
         }
         $which === 'insert'? $data['reserve_shop_id'] = $_SESSION['shop_id']: false;
-        return $date;
+        return $data;
     }
 
     public function register_reserve_data()

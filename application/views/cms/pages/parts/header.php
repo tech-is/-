@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="csrf-token" content="<?php echo $_SESSION["token"]; ?>">
+    <meta name="csrf-token" content="<?php echo @$_SESSION["token"]?:false; ?>">
     <title>Animarl</title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -15,199 +15,40 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="../assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="../assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="../assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
-    <link href="../assets/cms/plugins/morrisjs/morris.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/morrisjs/morris.css" rel="stylesheet" />
 
     <!-- Bootstrap Select Css -->
-    <link href="../assets/cms/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- Bootstrap Material Datetime Picker Css -->
-    <link href="../assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
     <!-- full calender Css -->
-    <link href='../assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.css' rel='stylesheet' />
+    <link href='<?php echo base_url(); ?>assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.css' rel='stylesheet' />
 
     <!-- Sweetalert Css -->
-    <link href="../assets/cms/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Custom Css -->
-    <link href="../assets/cms/css/style.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/cms/css/style.css" rel="stylesheet" />
 
     <!-- Datatable Css -->
-    <link href="../assets/cms/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- flatpicker Css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="../assets/cms/css/themes/all-themes.css" rel="stylesheet" /><style>
-
-    /* モーダルCSS */
-    .modalArea {
-        display: none;
-        position: fixed;
-        z-index: 13;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-    .modalBg {
-        width: 100%;
-        height: 100%;
-        background-color: rgba(30,30,30,0.9);
-    }
-    .modalWrapper {
-        position: absolute;
-        overflow-y: scroll;
-        height: 95vh;
-        top: 50%;
-        left: 50%;
-        transform:translate(-50%,-50%);
-        width: 90%;
-        /* max-width: 500px; */
-        padding: 10px 30px;
-        background-color: #fff;
-    }
-
-    /* シフト登録モーダル *************************** */
-    .modalArea_shift {
-        display: none;
-        position: fixed;
-        z-index: 13;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .modalBg_shift {
-        width: 100%;
-        height: 100%;
-        background-color: rgba(30,30,30,0.9);
-    }
-
-    .modalWrapper_shift {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform:translate(-50%,-50%);
-        width: 70%;
-        max-width: 500px;
-        padding: 10px 30px;
-        background-color: #fff;
-    }
-    /* ******************************************** */
-
-    .modalAreaTotal {
-        /* display: none; */
-        position: fixed;
-        z-index: 13;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow-y: scroll;
-        background-color: rgba(30,30,30,0.9);
-    }
-
-    .modalBgTotal {
-        display: none;
-        /* position: fixed; */
-        z-index: 13;
-        width: 100%;
-        height: 100%;
-        overflow-y:scroll;
-        /* background-color: rgba(30,30,30,0.9); */
-    }
-
-    .modalWrapperTotal {
-        position: absolute;
-        z-index: 13;
-        top: 100%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        width: 70%;
-        max-width: 500px;
-        padding: 10px 30px;
-        background-color: #333;
-    }
-    .modalWrapperTotalCustomer {
-        position: absolute;
-        z-index: 13;
-        top: 100%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        width: 90%;
-        /* background-color: #fff; */
-    }
-
-    .modalWrapper_staff_list {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform:translate(-50%,-50%);
-        width: 90%;
-        /* min-width: 620px; */
-        padding: 10px 30px;
-        background-color: #fff;
-    }
-
-    .modalWrapper_Total {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform:translate(-50%,-50%);
-        width: 70%;
-        max-width: 350px;
-        padding: 10px 30px;
-        background-color: #fff;
-    }
-
-    .closeModal {
-        position: absolute;
-        top: 0.5rem;
-        right: 1rem;
-        cursor: pointer;
-        z-index: 14;
-    }
-
-    /* 以下ボタンスタイル */
-    button {
-        padding: 10px;
-        background-color: #fff;
-        border: 1px solid #282828;
-        border-radius: 2px;
-        cursor: pointer;
-    }
-
-    #openModal {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform:translate(-50%,-50%);
-    }
-
-    .table > tbody > tr.active > td,
-    .table > tbody > tr.active > th {
-        background-color: #e1f2fe;
-    }
-
-    table > tbody >tr > td {
-        max-width: 300px;
-    }
-
-    table,th,td {
-        border: 1px solid #bbb;
-    }
+    <link href="<?php echo base_url(); ?>assets/cms/css/themes/all-themes.css" rel="stylesheet" /><style>
 
     </style>
 </head>
