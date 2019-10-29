@@ -1,6 +1,7 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+$config["mailtype"] = "text";
 $config["protocol"] = "smtp";
 $config["smtp_host"] = "ssl://smtp.lolipop.jp";
 $config["smtp_port"] = "465";

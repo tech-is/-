@@ -9,7 +9,7 @@ class mdl_customer extends CI_Model
         $this->load->database();
     }
     //カスタマーの更新の時に以下を呼び出す。
-    public function m_select_customer() 
+    public function m_select_customer()
     {
         $this->db->where(['customer_shop_id'=> 1, 'customer_state' => 1]);
         // $this->db->where('shop_id', 1);
@@ -47,6 +47,13 @@ class mdl_customer extends CI_Model
         $this->db->set("customer_state", 999);
         $this->db->where(['customer_id'=> $id['customer_id'], 'customer_shop_id' => $id['customer_shop_id']]);
         return $this->db->update('customer');
+    }
+
+    public function get_customer_email($id)
+    {
+        return $this->db->select('customer_mail')
+            ->where($id)
+            ->get();
     }
 
 }

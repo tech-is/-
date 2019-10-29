@@ -84,7 +84,7 @@ $('.list-group-item').on('click', function () {
 
 /** モーダル非表示 ****************************************************/
 $('#cancel, .closeModal, .modalBg').on('click', function () {
-    $('#modalArea_register').fadeOut();
+    $('#modalArea_register, #modalArea_send').fadeOut();
 });
 
 /** マガジン登録画面 ****************************************************/
@@ -109,6 +109,11 @@ $('#update').on('click', function () {
     $('#sendUpdate').val($("#update").val());
     $('#modalArea_register').fadeIn();
 });
+
+$('#send').on('click', function () {
+    $('#modalArea_send').fadeIn();
+});
+
 
 /******************************************************************** */
 /** Ajax */

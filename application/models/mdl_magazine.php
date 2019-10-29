@@ -17,6 +17,14 @@ class Mdl_magazine extends CI_Model
             ->count_all('mail_magazine');
     }
 
+    public function get_magazine_setting($id)
+    {
+        return $this->db->select('mail_sender_name, mail_subject, mail_detail')
+            ->where($id)
+            ->get('mail_magazine')
+            ->row_array();
+    }
+
     public function insert_magazine($data)
     {
         return $this->db->insert('mail_magazine', $data['set']);
