@@ -7,12 +7,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * メールホストを設定したい場合にはapplication/confing/email.phpを書き換えてください
  */
 
-class Cl_mail extends CI_Controller {
+class Cl_email extends CI_Controller {
 
-    public function register_mail_magazine()
-    {
-        echo "<script>alert('hoge')</script>";
-    }
     /**
      * send_mail_magazine メールマガジンを送る
      * @param $magazine_id = マガジンテンプレートのインデックスid
@@ -21,36 +17,31 @@ class Cl_mail extends CI_Controller {
      */
     public function send_mail_magazine()
     {
-        try {
-            $config["mailtype"] = "text";
-            $this->load->library("email", $config);
-            $magazine_id = $this->input->post("magazine_id");
-            $this->load->model("mdl_cms");
-            $data = $this->model->get_magazine_setting($magazine_id);
-            /* $data[0]["mail"] = ユーザーのメールアドレス, $data[0]["mail_header_name"] = 差出人名 */
-            $this->email->from($data[0]["mail"], $data[0]["mail_header_name"]);
-            $this->email->subject($data[0]["mail_subject"]);
-            $this->email->message($data[0]["mail_detail"]);
-            foreach($data as $customer) {
-                $this->email->to($customer);
-                $this->email->send();
-            }
-        } catch(extension $e) {
-            echo "メールの送信に失敗しました";
-        }
+        $this->judge_request_via_ajax();
+        $this->load->model('mdl_magazine', 'mdl_customer');
+        $id = [
+            "customer_shop_id" => @$_SESSION['shop_id']?: exit,
+            "customer_id" => @$this->input->post['customer_id']?: exit
+        ];
+        $bbc_email = $this->mdl_customer->get_customer_email($id);
+        $id = [
+            "mail_magazine_id" => $this->input->post("mail_magazine_id"),
+            "mail_shop_id" => @$_SESSION['shop_id']?: exit,
+        ];
+        $data = $this->mdl_magazine->get_magazine_setting($id);
+        $this->load->library("email");
+        $this->email->from($data["mail"], $data["mail_sender_name"])
+            ->subject($data["mail_subject"])
+            ->bcc('them@their-example.com')
+            ->message($data["mail_detail"])
+            ->send();
     }
 
-    public function send_dm_mail()
+    private function judge_request_via_ajax()
     {
-        try {
-            $this->load->library("email", $config);
-            $data = $this->input->post();
-            $this->email->from($data["mail"], $data["mail_header_name"]);
-            $this->email->to('');
-            $this->email->subject($data["mail_subject"]);
-            $this->email->message($data["mail_detail"]);
-        } catch(extension $e) {
-            echo "メールの送信に失敗しました";
+        if(empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
+            header('HTTP/1.1 403 Forbidden');
+            exit();
         }
     }
 
@@ -64,7 +55,6 @@ class Cl_mail extends CI_Controller {
             $this->load->library("email");
             $this->load->model("mdl_cms");
             $data = ["mail_subject" => "システムメール","mail_detail" => "テスト"];
-            /* $data[0]["mail"] = ユーザーのメールアドレス, $data[0]["mail_header_name"] = 差出人名 */
             for($i = 0; $i < count($mail); $i++) {
                 $this->email->from("system_animarl@niji-desk.work", $mail["mail_header_name"][$i]);
                 $this->email->to($mail["to"][$i]);
