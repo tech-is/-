@@ -7,7 +7,46 @@ class Cl_staff extends CI_Controller
     {
         parent::__construct();
         session_start();
+        $this->load->model('mdl_staff');
+        $this->load->model('mdl_shift');
         $this->load->helper(["url", "form"]);
+    }
+
+    public function index()
+    {
+        $column_array = [ "staff_name" => "title", "shift_name" => "start", "shift_start" => "start", "shift_end" => "end" ];
+        if($staffs = $this->mdl_staff->get_staff_list()) {
+            foreach($staffs as $row => $staff) {
+                foreach($staff as $column => $value) {
+                    $data['staff'][$row][$column] = $value;
+                }
+            }
+            $data['staff'] = $this->json_encode_array($data['staff']);
+        } else {
+            $data['staff'] = null;
+        }
+        if($shifts = $this->mdl_shift->select_shift_data()) {
+            foreach($shifts as $row => $shift) {
+                foreach($shift as $column => $value) {
+                    if(array_key_exists($column, $column_array)) {
+                        $data['shift'][$row][$column_array[$column]] = $value;
+                    } else {
+                        $data['shift'][$row][$column] = $value;
+                    }
+                }
+            }
+            $data["shift"] = $this->json_encode_array($data["shift"]);
+        } else {
+            $data["shift"] = null;
+        }
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view('cms/pages/staff/view_staff_list', $data);
+    }
+
+    private function json_encode_array($array)
+    {
+        return !empty($array) && gettype($array) === "array" ? json_encode($array, JSON_UNESCAPED_UNICODE): null;
     }
 
     public function register_staff()
@@ -97,7 +136,6 @@ class Cl_staff extends CI_Controller
         "staff_color" => $this->input->post("staff_color"),
         "staff_remarks" => $this->input->post("staff_remarks")
     ];
-        $this->load->model("mdl_staff");
         return $this->mdl_staff->insert_staff_data($data);
     }
 
@@ -114,7 +152,6 @@ class Cl_staff extends CI_Controller
             "staff_color" => $this->input->post("staff_color"),
             "staff_remarks" => $this->input->post("staff_remarks")
         ];
-        $this->load->model("mdl_staff");
         return $this->mdl_staff->update_staff_data($id, $data);
     }
 
@@ -124,7 +161,6 @@ class Cl_staff extends CI_Controller
             "staff_id" => $this->input->post("staff_id"),
             "staff_shop_id" => $_SESSION["shop_id"],
         ];
-        $this->load->model("mdl_staff");
         if($this->mdl_staff->delete_staff_data($id) === true) {
             echo "success";
             exit;

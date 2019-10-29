@@ -69,17 +69,18 @@
                     <div class="form-group">
                         <div class="form-line">
                             <label for="start">担当スタッフ<span style="color: red; margin-left: 10px">必須</span></label>
-                            <?php 
-                            if(isset($select_staff)) {
-                                echo '<select id="select_shift_staff" class="form-control show-tick" value="">';
-                                echo '<option value="">-- スタッフを選択してください --</option>';
-                                foreach($select_staff as $value) {
-                                    echo "<option value={$value['staff_id']}>{$value['staff_name']}</option>";
+                            <?php
+                                if(isset($select_staff)) {
+                                    echo '<select id="select_shift_staff" class="form-control show-tick" value="">';
+                                    echo '<option value="">-- スタッフを選択してください --</option>';
+                                    foreach($select_staff as $value) {
+                                        echo "<option value={$value['staff_id']}>{$value['staff_name']}</option>";
+                                    }
+                                } else {
+                                    echo '<select id="update_shift_staff" class="form-control show-tick" disabled value="">';
+                                    echo '<option value="">スタッフが登録されていません</option>';
                                 }
-                            } else {
-                                echo '<select id="update_shift_staff" class="form-control show-tick" disabled value="">';
-                                echo '<option value="">スタッフが登録されていません</option>';
-                            } ?>
+                            ?>
                             </select>
                         </div>
                     </div>
@@ -133,7 +134,9 @@
                 <div class="body">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="staff_name">従業員名<span style="color: red; margin-left: 10px">必須</span></label>
+                            <label for="staff_name">従業員名
+                                <span style="color: red; margin-left: 10px">必須</span>
+                            </label>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -152,13 +155,17 @@
                     </div>
                     <div class="form-group">
                         <div class="form-line">
-                        <label for="staff_name">電話番号<span style="color: red; margin-left: 10px">必須</span></label>
+                        <label for="staff_name">電話番号
+                            <span style="color: red; margin-left: 10px">必須</span>
+                        </label>
                             <input type="text" class="form-control" name="staff_tel" placeholder="ハイフンなし" maxlength="11">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-line">
-                        <label for="staff_name">メールアドレス<span style="color: red; margin-left: 10px">必須</span></label>
+                        <label for="staff_name">メールアドレス
+                            <span style="color: red; margin-left: 10px">必須</span>
+                        </label>
                             <input type="text" class="form-control" name="staff_email" placeholder="...@...">
                         </div>
                     </div>
@@ -175,9 +182,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="button" id="sendRegistButton" class="btn btn-primary m-t-15 waves-effect">登録</button>
-                        <button type="button" id="sendUpdateButton" class="btn btn-primary m-t-15 waves-effect">更新</button>
-                        <button type="button" id="cancel_add_staff" class="btn btn-primary m-t-15 waves-effect" style="margin-left: 10px;">キャンセル</button>
+                        <button type="button" id="sendRegistButton" class="btn btn-primary m-t-15 waves-effect">
+                            登録
+                        </button>
+                        <button type="button" id="sendUpdateButton" class="btn btn-primary m-t-15 waves-effect">
+                            更新
+                        </button>
+                        <button type="button" id="cancel_add_staff" class="btn btn-primary m-t-15 waves-effect" style="margin-left: 10px;">
+                            キャンセル
+                        </button>
                     </div>
                 </div>
             </form>
@@ -237,11 +250,10 @@
 
 <!-- Custom Plugin Js -->
 <script src="../assets/cms/js/admin.js"></script>
-<script src="../assets/cms/js/sidebar.js"></script>
 
 <script>
-    table_json = <?php echo json_encode($staff, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
-    event_json = <?php echo json_encode($shift, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);?>;
+    table_json = <?php echo $staff ?>;
+    event_json = <?php echo $shift ?>;
 </script>
 
 <script src="../assets/cms/js/pages/staff/staff_list.js"></script>

@@ -6,38 +6,144 @@ class Cl_reserve extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper(["url", "form"]);
+        session_start();
+        $this->load->helper(['url', 'form']);
+        $this->load->model('mdl_reserve');
+        // $_SESSION['shop_id'] = 1;
     }
 
-    public function get_reserve_data()
+    public function index()
     {
-        $reserve_id = $this->input->post("reserve_id");
-        $data = $this->get_reserve($reserve_id);
-        echo $result;
+        $data = [
+            'total' => !empty($array = $this->get_total_list($_SESSION['shop_id']))? $this->json_encode_array($array): null,
+            'reserve' => !empty($array = $this->get_reserve($_SESSION['shop_id']))? $this->json_encode_array($array): null
+        ];
+        $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(24));
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view('cms/pages/reserve/view_reserve', $data);
+    }
+
+    private function json_encode_array($array)
+    {
+        return !empty($array) && gettype($array) === "array" ? json_encode($array): null;
+    }
+
+    private function get_reserve($shop_id)
+    {
+        $columns = [
+            'pet_name' => 'title',
+            'reserve_start' => 'start',
+            'reserve_end' => 'end'
+        ];
+        if(!empty($reserves = $this->mdl_reserve->get_reserve_list($shop_id))) {
+            foreach($reserves as $row => $reserve) {
+                foreach($reserve as $column => $value) {
+                    if(array_key_exists($column, $columns)) {
+                        $data[$row][$columns[$column]] = $value;
+                    } else {
+                        $data[$row][$column] = $value;
+                    }
+                }
+            }
+        } else {
+            $data = null;
+        }
+        return $data;
+    }
+
+    private function judge_request_via_ajax()
+    {
+        if(empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
+            header('HTTP/1.1 403 Forbidden');
+            exit();
+        }
+    }
+
+    public function get_reserve_via_ajax()
+    {
+        $this->judge_request_via_ajax();
+        $columns = [
+            'pet_name' => 'title',
+            'reserve_start' => 'start',
+            'reserve_end' => 'end'
+        ];
+        if(!empty($reserves = $this->mdl_reserve->get_reserve_list($_SESSION['shop_id']))) {
+            foreach($reserves as $row => $reserve) {
+                foreach($reserve as $column => $value) {
+                    if(array_key_exists($column, $columns)) {
+                        $data[$row][$columns[$column]] = $value;
+                    } else {
+                        $data[$row][$column] = $value;
+                    }
+                }
+            }
+            $data = $this->json_encode_array($data);
+        } else {
+            $data = "error";
+        }
+        header('Content-Type: application/json; charaset=utf-8');
+        echo $data;
+        exit();
+    }
+
+    private function get_total_list($shop_id)
+    {
+        $this->load->model('mdl_total_list');
+        return $this->mdl_total_list->m_get_total_list($shop_id);
+    }
+
+    private function reserve_column($which)
+    {
+        $columns = ['reserve_pet_id', 'reserve_start', 'reserve_end', 'reserve_content', 'reserve_color'];
+        foreach($columns as $column) {
+            $date[$column] = $this->input->post($column);
+        }
+        $which === 'insert'? $data['reserve_shop_id'] = $_SESSION['shop_id']: false;
+        return $date;
     }
 
     public function register_reserve_data()
     {
-        if($this->resereve_validation() == true) {
-            if($this->insert_reserve() == true) {
-                echo "success";
-            } else {
-                echo "dberr";
-            }
+        $this->judge_request_via_ajax();
+        if($this->resereve_validation()) {
+            $data = $this->reserve_column('insert');
+            echo $this->mdl_reserve->insert_reserve_data($data)? 'success': 'dberr';
         } else {
-            echo "valierr";
+            echo 'valierr';
         }
         exit;
     }
 
     public function update_reserve_data()
     {
-        if($this->chk_reserve_data() == true) {
-            if($this->update_reserve() == true) {
-                return true;
-            } else {
-                return false;
-            }
+        $this->judge_request_via_ajax();
+        if($this->resereve_validation()) {
+            $data = [
+                'where' => [
+                    'reserve_shop_id' => $_SESSION['shop_id'],
+                    'reserve_id' => $this->input->post('reserve_id')
+                ],
+                'update' => $this->reserve_column('update')
+            ];
+            echo $this->mdl_reserve->update_reserve_data($data)? 'success': 'dberr';
+        } else {
+            echo 'valierr';
+        }
+        exit;
+    }
+
+    public function delete_reserve_data()
+    {
+        $this->judge_request_via_ajax();
+        if(!empty($this->input->post('reserve_id'))) {
+            $data = [
+                'reserve_shop_id' => $_SESSION['shop_id'],
+                'reserve_id' => $this->input->post('reserve_id')
+            ];
+            echo $this->mdl_reserve->delete_reserve_data($data)? 'success': 'dberr';
+        } else {
+            echo 'valierr';
         }
         exit;
     }
@@ -54,44 +160,24 @@ class Cl_reserve extends CI_Controller
                 'field' => 'reserve_start',
                 'label' => '来店予定日',
                 'rules' => 'required'
+            ],
+            [
+                'field' => 'reserve_end',
+                'label' => '終了予定日',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'reserve_end',
+                'label' => '終了予定日',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'reserve_end',
+                'label' => '終了予定日',
+                'rules' => 'required'
             ]
         ];
-        $this->load->library("form_validation", $config);
+        $this->load->library('form_validation', $config);
         return $this->form_validation->run();
     }
-
-    private function insert_reserve()
-    {
-        $this->load->model("mdl_reserve");
-        $data = [
-            'reserve_pet_id' => $this->input->post('reserve_pet_id'),
-            'reserve_start' => $this->input->post('reserve_start'),
-            'reserve_content' => $this->input->post('reserve_content')
-        ];
-        return $this->mdl_reserve->insert_reserve_data($data);
-    }
-
-    private function get_reserve($reserve_id)
-    {
-        $this->load->model("mdl_reserve");
-        $result = $this->mdl_reserve->select_reserve_data($reserve_id);
-        return $result;
-    }
-
-    private function update_reserve()
-    {
-        $this->load->model("mdl_reserve");
-        isset($_POST["staff_id"]) == ""? $staff = null: $staff = $_POST["staff_id"];
-        $data = [
-            'reserve_customer' => $_POST["customer"],
-            'reserve_pet' => $_POST["pet"],
-            'reserve_start' => $_POST["start"],
-            'reserve_end' => $_POST["end"],
-            'reserve_content' => $_POST["content"],
-            'reserve_staff_id' => $staff
-        ];
-        $result = $this->mdl_reserve->update_reserve_data($data);
-        return $result;
-    }
-
 }

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="csrf-token" content="<?php echo $_SESSION["token"]; ?>">
     <title>Animarl</title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -177,8 +177,8 @@
         top: 0.5rem;
         right: 1rem;
         cursor: pointer;
+        z-index: 14;
     }
-
 
     /* 以下ボタンスタイル */
     button {
@@ -252,7 +252,7 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="home">Animarl CRM Program</a>
+                <a class="navbar-brand" href="#">Animarl CRM Program</a>
             </div>
         </div>
     </nav>

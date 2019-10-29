@@ -15,53 +15,49 @@ $(function () {
 });
 
 // カスタマーデータ登録
-$(function () {
-    $('#register').on('click', function () { //顧客登録 ボタンタグにid
-        $('#img > img').css({ 'width': '', 'height': '' });
-        $('#img > img').attr('src', '');
-        $("#sendUpdateData").hide(); //顧客登録画面内の更新ボタン
-        $("#sendPCdata").show(); //顧客登録画面内の登録ボタン
-        $('#modalArea_register').fadeIn();//モーダルエリアそのもの
-    });
-    //カスタマー登録の×のイベント
-    $('#modalBg, #C_cancel').on('click', function () {
-        $('#modalArea_register').fadeOut();//モーダルエリアを閉じる
-    });
 
-    $('#modalBg, #P_cancel').on('click', function () {
-        $('#modalArea_register').fadeOut();
-    });
+$('#register').on('click', function () { //顧客登録 ボタンタグにid
+    $('#img > img').css({ 'width': '', 'height': '' });
+    $('#img > img').attr('src', '');
+    $("#sendUpdateData").hide(); //顧客登録画面内の更新ボタン
+    $("#send_register").show(); //顧客登録画面内の登録ボタン
+    $('#modalArea_register').fadeIn();//モーダルエリアそのもの
+});
+//カスタマー登録の×のイベント
+$('#modalBg_register, #C_cancel, #P_cancel').on('click', function () {
+    $('#modalArea_register').fadeOut();//モーダルエリアを閉じる
+});
 
-    $('#sendPCdata').on('click', function () { //顧客登録画面内の登録ボタンをクリック時
-        let fd = new FormData($('#total_form_data').get(0));
-        $.ajax({
-            url: '../Cl_total_list/insert_total_data',
-            type: 'POST',
-            dataType: "text",
-            processData: false,
-            contentType: false,
-            data: fd
-        })
-            .done(function (data, textStatus, jqXHR) {
-                if (data == "success") {
-                    SweetAlertMessage("success_register");
-                    console.log(data);
-                } else {
-                    SweetAlertMessage("failed_register");
-                    console.log(data);
-                    // location.reload();
-                }
-            })
-            .fail(function (data, textStatus, errorThrown) {
+$('#send_register').on('click', function () { //顧客登録画面内の登録ボタンをクリック時
+    let fd = new FormData($('#total_form_data').get(0));
+    $.ajax({
+        url: '../Cl_total_list/insert_total_data',
+        type: 'POST',
+        dataType: "text",
+        processData: false,
+        contentType: false,
+        data: fd
+    })
+        .done(function (data, textStatus, jqXHR) {
+            if (data == "success") {
+                SweetAlertMessage("success_register");
+                console.log(data);
+            } else {
                 SweetAlertMessage("failed_register");
                 console.log(data);
-            });
-    });
+                // location.reload();
+            }
+        })
+        .fail(function (data, textStatus, errorThrown) {
+            SweetAlertMessage("failed_register");
+            console.log(data);
+        });
+});
 
-    /******************************************************************** */
-    /**グループ項目削除  **/
-    /******************************************************************** */
-
+/******************************************************************** */
+/** グループ項目削除 **/
+/******************************************************************** */
+$(function () {
     $("#delete_group_register").on("click", function () {
         // var selectedRows = $('#select_1').DataTable().rows('.active').data();
         SweetAlertMessage("confirm_kind_group_delete");
@@ -218,7 +214,7 @@ $(function () {
             //成功したとき、返ってきたデータ
             .done((data) => {
                 $("#sendUpdateData").show();
-                $("#sendPCdata").hide();
+                $("#send_register").hide();
                 $("input[name='customer_name']").val(data['customer_name']);
                 $("input[name='customer_kana']").val(data['customer_kana']);
                 $("input[name='customer_mail']").val(data['customer_mail']);

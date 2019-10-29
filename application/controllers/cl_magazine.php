@@ -19,7 +19,9 @@ class Cl_magazine extends CI_Controller {
 
     public function index()
     {
-        $this->load->view('index.html');
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view('cms/pages/magazine/view_magazine');
     }
 
     public function registration_magazine()

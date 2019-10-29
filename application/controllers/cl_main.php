@@ -12,77 +12,64 @@ class Cl_main extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(["url", "form"]);
-        date_default_timezone_set('Asia/Tokyo');
+        // date_default_timezone_set('Asia/Tokyo');
         session_start();
-        $_SESSION["shop_id"] = 1;
     }
 
-    public function home()
+    public function index()
     {
-        $data = $this->get_reserve();
+        $this->load->model('mdl_reserve');
+        $columns = [
+            'pet_name' => 'title',
+            'reserve_start' => 'start',
+            'reserve_end' => 'end'
+        ];
+        if(!empty($reserves = $this->mdl_reserve->get_reserve_list($_SESSION['shop_id']))) {
+            foreach($reserves as $row => $reserve) {
+                foreach($reserve as $column => $value) {
+                    if(array_key_exists($column, $columns)) {
+                        $data['reserve'][$row][$columns[$column]] = $value;
+                    } else {
+                        $data['reserve'][$row][$column] = $value;
+                    }
+                }
+            }
+        } else {
+            $data['reserve'] = null;
+        }
+        $data['reserve'] = !empty($data['reserve'])? json_encode($data['reserve'], JSON_UNESCAPED_UNICODE): null;
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/home/view_home', $data);
     }
 
-    public function staff()
-    {
-        $this->load->model('mdl_staff');
-        $this->load->model('Mdl_shift');
-        $data['staff'] = $this->mdl_staff->get_staff_list();
-        if($data['staff']) {
-            foreach($data['staff'] as $row => $staff) {
-                $data['select_staff'][$row]['staff_id'] = $staff['staff_id'];
-                $data['select_staff'][$row]['staff_name'] = $staff['staff_name'];
-            }
-        }
-        $shifts = $this->Mdl_shift->select_shift_data();
-        if($shifts) {
-            foreach($shifts as $row => $shift) {
-                $data['shift'][$row]['staff_id'] = $shift['staff_id'];
-                $data['shift'][$row]['shift_id'] = $shift['shift_id'];
-                $data['shift'][$row]['title'] = $shift['staff_name'];
-                $data['shift'][$row]['start'] = $shift['shift_start'];
-                $data['shift'][$row]['end'] = $shift['shift_end'];
-                $data['shift'][$row]['color'] = $shift['staff_color'];
-            }
-        } else {
-            $data["shift"] = null;
-        }
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebar');
-        // $data["shift"] =  [["event_id" => 1, "title" => 'トリミング', "start" => '2019-09-03T10:30', "end" => '2019-09-03T11:00', "color" => '#FF0000']];
-        $this->load->view('cms/pages/staff/view_staff_list', $data);
-    }
-
-    public function reserve()
-    {
-        $data = $this->get_reserve();
-        $id = $this->input->get('id');
-        $data["content"] = $this->mdl_reserve->get_reserve_data($id);
-        $data['staffs'] = $this->get_staff_data();
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/pages/reserve/view_reserve', $data);
-    }
-
-    // public function reserve_view()
+    // private function json_encode_array($array)
     // {
-    //     $this->load->view('cms/pages/parts/header');
-    //     $this->load->view('cms/pages/parts/sidebar');
-    //     $this->load->view('cms/pages/reserve/view_reserve_content', $data);
+    //     return !empty($array)? json_encode($array, JSON_UNESCAPED_UNICODE): null;
     // }
 
-    public function reserve_new_form()
+    private function get_reserve($shop_id)
     {
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/pages/reserve/view_new_reserve_form');
-    }
-
-    public function pet_table()
-    {
-        $this->load->view('view_pet.html');
+        $columns = [
+            'pet_name' => 'title',
+            'reserve_start' => 'start',
+            'reserve_end' => 'end'
+        ];
+        if(!empty($reserves = $this->mdl_reserve->get_reserve_list($shop_id))) {
+            foreach($reserves as $row => $reserve) {
+                foreach($reserve as $column => $value) {
+                    if(array_key_exists($column, $columns)) {
+                        $data[$row][$columns[$column]] = $value;
+                    } else {
+                        $data[$row][$column] = $value;
+                    }
+                }
+            }
+            !empty($data)? json_encode($array, JSON_UNESCAPED_UNICODE): null;
+        } else {
+            $data = null;
+        }
+        return $data;
     }
 
     public function magazine()
@@ -129,25 +116,6 @@ class Cl_main extends CI_Controller
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/magazine/view_magazine_form', $data);
-    }
-
-    private function get_reserve()
-    {
-        $this->load->model('mdl_reserve');
-        $reserves = $this->mdl_reserve->get_reserve_list();
-        if($reserves) {
-            foreach($reserves as $row => $reserve) {
-                $data["events"][$row]["event_id"] = $reserve['event_id'];
-                $data["events"][$row]["title"] = $reserve['event_customer'];
-                $data["events"][$row]["start"] = $reserve['event_start'];
-                $data["events"][$row]["end"] = $reserve['event_end'];
-                $data["events"][$row]["color"] = $reserve['staff_color'];
-                $data["events"][$row]["content"] = $reserve['event_content'];
-            }
-        } else {
-            $data["events"] = null;
-        }
-        return $data;
     }
 
     private function get_staff_data()

@@ -111,185 +111,187 @@
 <section id="modalArea_register" class="modalArea">
 <div id="modalBg_register" class="modalBg"></div>
 <div class="modalWrapper">
-    <div class="modalContents" id="modalContents_register"></div>
-    <div id="C_cancel" class="closeModal">
-        <label for="C_cancel" style="font-size:30px;">
-            ×
-        </label>
-    </div>
-    <form id="total_form_data" enctype="multipart/form-data">
-        <div class="row clearfix">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <h3>顧客新規登録</h3>
-                <div class="form-group">
-                    <label for="customer_name">名前<span style="color: red; margin-left: 10px">必須</span></label>
-                    <div class="form-line">
-                        <input type="text" class="form-control" name="customer_name" placeholder="山田　太郎" required>
-                        <label class="form-label"></label>
+    <div class="modalContents" id="modalContents_register">
+        <div id="C_cancel" class="closeModal">
+            <span style="font-size:30px;">
+                ×
+            </span>
+        </div>
+        <form id="total_form_data" enctype="multipart/form-data">
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <h3>顧客新規登録</h3>
+                    <div class="form-group">
+                        <label for="customer_name">名前<span style="color: red; margin-left: 10px">必須</span></label>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="customer_name" placeholder="山田　太郎" required>
+                            <label class="form-label"></label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group form-float">
-                    <label for="customer_kana">カナ(全角)<span style="color: red; margin-left: 10px">必須</span></label>
-                    <div class="form-line">
-                        <input type="text" class="form-control" name="customer_kana" placeholder="ヤマダ　タロウ" required>
-                        <label class="form-label"></label>
+                    <div class="form-group form-float">
+                        <label for="customer_kana">カナ(全角)<span style="color: red; margin-left: 10px">必須</span></label>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="customer_kana" placeholder="ヤマダ　タロウ" required>
+                            <label class="form-label"></label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group form-float">
-                    <label for="customer_mail">メールアドレス<span style="color: red; margin-left: 10px">必須</span></label>
-                    <div class="form-line">
-                        <input type="mail" class="form-control" name="customer_mail" placeholder="半角英数字" required>
-                        <label class="form-label"></label>
+                    <div class="form-group form-float">
+                        <label for="customer_mail">メールアドレス<span style="color: red; margin-left: 10px">必須</span></label>
+                        <div class="form-line">
+                            <input type="mail" class="form-control" name="customer_mail" placeholder="半角英数字" required>
+                            <label class="form-label"></label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group form-float">
-                    <label for="customer_tel">電話番号<span style="color: red; margin-left: 10px">必須</span></label>
-                    <div class="form-line">
-                        <input type="text" class="form-control" name="customer_tel" pattern="\d{2,4}-?\d{3,4}-?\d{3,4}" title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" placeholder="半角数字 " required>
-                        <label class="form-label"></label>
+                    <div class="form-group form-float">
+                        <label for="customer_tel">電話番号<span style="color: red; margin-left: 10px">必須</span></label>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="customer_tel" pattern="\d{2,4}-?\d{3,4}-?\d{3,4}" title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" placeholder="半角数字 " required>
+                            <label class="form-label"></label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group form-float">
-                    <label for="customer_zip_adress">郵便番号<span style="color: red; margin-left: 10px">必須</span></label>
-                    <div class="form-line">
-                        <input type="text" class="form-control" name="customer_zip_adress" pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。" placeholder="半角数字" required>
-                        <label class="form-label"></label>
+                    <div class="form-group form-float">
+                        <label for="customer_zip_adress">郵便番号<span style="color: red; margin-left: 10px">必須</span></label>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="customer_zip_adress" pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。" placeholder="半角数字" required>
+                            <label class="form-label"></label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group form-float">
-                    <label for="customer_zip_adress">住所<span style="color: red; margin-left: 10px">必須</span></label>
-                    <div class="form-line">
-                        <input type="text" class="form-control" name="customer_address" placeholder="(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)" required>
-                        <label class="form-label"></label>
+                    <div class="form-group form-float">
+                        <label for="customer_zip_adress">住所<span style="color: red; margin-left: 10px">必須</span></label>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="customer_address" placeholder="(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)" required>
+                            <label class="form-label"></label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="customer_magazine">メールマガジン<span style="color: red; margin-left: 10px">必須</span></label>
-                    <div class="switch">
-                        <label>未希望
-                            <input type="checkbox" id="customer_magazine" name="customer_magazine" value=1>
-                            <span class="lever switch-col-red"></span>希望</label>
+                    <div class="form-group">
+                        <label for="customer_magazine">メールマガジン<span style="color: red; margin-left: 10px">必須</span></label>
+                        <div class="switch">
+                            <label>未希望
+                                <input type="checkbox" id="customer_magazine" name="customer_magazine" value=1>
+                                <span class="lever switch-col-red"></span>希望
+                            </label>
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <label for="customer_magazine">備考</label>
+                        <div class="form-line">
+                            <textarea rows="4" class="form-control no-resize" name="customer_add_info" placeholder="顧客に関する情報：例：夏に旅行をする"></textarea>
+                        </div><br>
+                        <div class="row clearfix">
+                            <div class="col-md-6">
+                                <p><b>グループ選択</b></p>
+                                <select name="customer_group_id" class=" form-control show-tick">
+                                    <?php foreach ($groups as $group) : ?>
+                                        <option value="<?php echo $group["kind_group_id"]; ?>"><?php echo $group["kind_group_name"]; ?></option>"
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="customer_id" value="">
+                    <input type="hidden" id="pet_id" value="">
                 </div>
-                <div class="form-group">
-                    <label for="customer_magazine">備考</label>
-                    <div class="form-line">
-                        <textarea rows="4" class="form-control no-resize" name="customer_add_info" placeholder="顧客に関する情報：例：夏に旅行をする"></textarea>
-                    </div><br>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                     <div class="row clearfix">
-                        <div class="col-md-6">
-                            <p><b>グループ選択</b></p>
-                            <select name="customer_group_id" class=" form-control show-tick">
-                                <?php foreach ($groups as $group) : ?>
-                                    <option value="<?php echo $group["kind_group_id"]; ?>"><?php echo $group["kind_group_name"]; ?></option>"
-                                <?php endforeach; ?>
-                            </select>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h3>ペット登録</h3>
                         </div>
                     </div>
-                </div>
-                <input type="hidden" id="customer_id" value="">
-                <input type="hidden" id="pet_id" value="">
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <div class="row clearfix">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <h3>ペット登録</h3>
-                    </div>
-                </div>
-                <div class="row clearfix">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-group form-float">
-                            <label for="pet_name">ペット名<span style="color: red; margin-left: 10px">必須</span></label>
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="pet_name" placeholder="名前" required>
-                                <label class="form-label"></label>
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group form-float">
+                                <label for="pet_name">ペット名<span style="color: red; margin-left: 10px">必須</span></label>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="pet_name" placeholder="名前" required>
+                                    <label class="form-label"></label>
+                                </div>
+                            </div>
+                            <div class="form-group form-float">
+                                <label for="pet_photo">写真</label>
+                                <div id="img">
+                                    <img src="">
+                                </div>
+                                <input type="file" id="files" name="pet_img" size="20" accept="image/png,image/jpeg,image/gif">
+                            </div>
+                            <div class="form-group form-float">
+                                <label for="pet_classification">分類<span style="color: red; margin-left: 10px">必須</span></label>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="pet_classification" placeholder="分類" required>
+                                    <label class="form-label"></label>
+                                </div>
+                                <div class="help-info">犬、猫、鳥</div>
+                            </div>
+                            <div class="form-group form-float">
+                                <label for="pet_type">種類<span style="color: red; margin-left: 10px">必須</span></label>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="pet_type" placeholder="種類" required>
+                                    <label class="form-label"></label>
+                                </div>
+                                <div class="help-info">トイ・プードル</div>
+                            </div>
+                            <div class="form-group form-float">
+                                <label class="form-label">性別</label>
+                                <div class="form-line">
+                                    <input type="radio" name="pet_animal_gender" id="male" value="1" class="with-gap" checked />
+                                    <label for="male">オス</label>
+                                    <input type="radio" name="pet_animal_gender" id="female" value="2" class="with-gap">
+                                    <label for="female" class="m-l-20">メス</label>
+                                    <input type="radio" name="pet_animal_gender" id="other" value="3" class="with-gap">
+                                    <label for="other" class="m-l-20">その他</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="date">生年月日</label>
+                                    <input id="date" name="pet_birthday" class="form-control" type="date">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label class="with-gap">去勢</label>
+                                    <input type="radio" name="pet_contraception" id="on" value="1" class="with-gap">
+                                    <label for="on">有</label>
+                                    <input type="radio" name="pet_contraception" id="off" value="2" class="with-gap" checked />
+                                    <label for="off">無</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group form-float">
-                            <label for="pet_photo">写真</label>
-                            <div id="img">
-                                <img src="">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group form-float">
+                                <label for="pet_body_height">体高</label>
+                                <div class="form-line">
+                                    <input type="number" class="form-control" name="pet_body_height" placeholder="体高">
+                                    <label class="form-label"></label>
+                                </div>
+                                <div class="help-info">cm</div>
                             </div>
-                            <input type="file" id="files" name="pet_img" size="20">
-                        </div>
-                        <div class="form-group form-float">
-                            <label for="pet_classification">分類<span style="color: red; margin-left: 10px">必須</span></label>
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="pet_classification" placeholder="分類" required>
-                                <label class="form-label"></label>
+                            <div class="form-group form-float">
+                                <label for="pet_body_height">体重</label>
+                                <div class="form-line">
+                                    <input type="number" class="form-control" name="pet_body_weight" placeholder="体重">
+                                    <label class="form-label"></label>
+                                </div>
+                                <div class="help-info">kg</div>
                             </div>
-                            <div class="help-info">犬、猫、鳥</div>
-                        </div>
-                        <div class="form-group form-float">
-                            <label for="pet_type">種類<span style="color: red; margin-left: 10px">必須</span></label>
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="pet_type" placeholder="種類" required>
-                                <label class="form-label"></label>
-                            </div>
-                            <div class="help-info">トイ・プードル</div>
-                        </div>
-                        <div class="form-group form-float">
-                            <label class="form-label">性別</label>
-                            <div class="form-line">
-                                <input type="radio" name="pet_animal_gender" id="male" value="1" class="with-gap" checked />
-                                <label for="male">オス</label>
-                                <input type="radio" name="pet_animal_gender" id="female" value="2" class="with-gap">
-                                <label for="female" class="m-l-20">メス</label>
-                                <input type="radio" name="pet_animal_gender" id="other" value="3" class="with-gap">
-                                <label for="other" class="m-l-20">その他</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <label for="date">生年月日</label>
-                                <input id="date" name="pet_birthday" class="form-control" type="date">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <label class="with-gap">去勢</label>
-                                <input type="radio" name="pet_contraception" id="on" value="1" class="with-gap">
-                                <label for="on">有</label>
-                                <input type="radio" name="pet_contraception" id="off" value="2" class="with-gap" checked />
-                                <label for="off">無</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-group form-float">
-                            <label for="pet_body_height">体高</label>
-                            <div class="form-line">
-                                <input type="number" class="form-control" name="pet_body_height" placeholder="体高">
-                                <label class="form-label"></label>
-                            </div>
-                            <div class="help-info">cm</div>
-                        </div>
-                        <div class="form-group form-float">
-                            <label for="pet_body_height">体重</label>
-                            <div class="form-line">
-                                <input type="number" class="form-control" name="pet_body_weight" placeholder="体重">
-                                <label class="form-label"></label>
-                            </div>
-                            <div class="help-info">kg</div>
-                        </div>
-                        <div class="form-group form-float">
-                            <label for="pet_information">備考</label>
-                            <div class="form-line">
-                                <textarea name="pet_information" cols="30" rows="5" class="form-control no-resize" placeholder="備考："></textarea>
-                                <label class="form-label"></label>
+                            <div class="form-group form-float">
+                                <label for="pet_information">備考</label>
+                                <div class="form-line">
+                                    <textarea name="pet_information" cols="30" rows="5" class="form-control no-resize" placeholder="備考："></textarea>
+                                    <label class="form-label"></label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="pull-right">
-            <button id="sendPCdata" type="button" class="btn btn-primary waves-effect">登録</button>
-            <button id="sendUpdateData" type="button" class="btn btn-primary waves-effect">更新</button>
-            <button class="btn btn-primary waves-effect" type="reset">クリア</button>
-            <button type="reset" id="P_cancel" class="btn btn-primary waves-effect">キャンセル</button>
-        </div>
-    </form>
+            <div class="pull-right">
+                <button id="send_register" type="button" class="btn btn-primary waves-effect">登録</button>
+                <button id="sendUpdateData" type="button" class="btn btn-primary waves-effect">更新</button>
+                <button class="btn btn-primary waves-effect" type="reset">クリア</button>
+                <button type="reset" id="P_cancel" class="btn btn-primary waves-effect">キャンセル</button>
+            </div>
+        </form>
+    </div>
 </div>
 </section>
 
