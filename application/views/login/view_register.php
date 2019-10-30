@@ -179,7 +179,6 @@
                     'email': email,
                     'tel': tel,
                     'zip_code': zip_code,
-                    'kana': kana,
                     'zip_address': zip_address,
                     'password': password,
                 }

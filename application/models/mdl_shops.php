@@ -11,7 +11,7 @@ class Mdl_shops extends CI_Model
 
     public function select_code($code)
     {
-        $this->db->select("tmp_shop_email", "tmp_shop_code")->where("tmp_shop_code", $code)->get("tmp_shops");
+        $query = $this->db->select("tmp_shop_email", "tmp_shop_code")->where("tmp_shop_code", $code)->get("tmp_shops");
         // $this->db->where("tmp_shop_code", $code);
         // $this->db->select("tmp_shop_email", "tmp_shop_code");
         // $query = $this->db->get("tmp_shops");
