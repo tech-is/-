@@ -3,7 +3,7 @@
 class Mdl_shops extends CI_Model
 {
 
-    public function select_code($code)
+    public function get_tmp_user($code)
     {
         return $this->db->select("tmp_shop_email", "tmp_shop_code")
             ->where("tmp_shop_code", $code)

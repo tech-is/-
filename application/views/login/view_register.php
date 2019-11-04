@@ -157,7 +157,7 @@
     <!-- Custom Js -->
     <script src="../assets/cms/js/admin.js"></script>
     <script src="../assets/cms/js/pages/examples/sign-up.js"></script>
-    
+
     <!-- Ajax -->
     <script>
         function ajax_register()

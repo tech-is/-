@@ -18,7 +18,7 @@ function forgot_password() {
 
 $('#login').on('submit', function () {
     $.ajax({
-        url: '//animarl.com/login/login_judgement',
+        url: '//animarl.com/login/login',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -30,7 +30,7 @@ $('#login').on('submit', function () {
         dataType: 'json'
     }).then(
         function (data) {
-            process_callback(data);
+            process_callback(data)
         },
         function () {
             swal({
@@ -95,29 +95,37 @@ $('#forgot-password').on('submit', function () {
 });
 
 function process_callback(json) {
-
     $('label' + '.error').remove();
     $('.form-line').removeClass('error')
-    $.each(json, function(index, val) {
-        switch(index) {
+    $.each(json, function (index, val) {
+        switch (index) {
             case 'success':
-                SweetAlertMessage(val);
+                swal({
+                    title: 'ログインが完了しました',
+                    text: '',
+                    icon: 'success',
+                    button: {
+                        text: 'OK',
+                        value: true
+                    },
+                }).then(function (value) {
+                    location.reload();
+                });
                 break;
             case 'error':
                 SweetAlertMessage(val);
                 break;
             case 'valierr':
-                $.each(val, function(name, text) {
-                    $('#'+ name).parents('.form-line').addClass('error')
-                    let parent = $('#'+ name).parents('.input-group');
-                    parent.append('<label class="error">'+ text +'</label>');
-                    $('#'+ name).focus();
+                $.each(val, function (name, text) {
+                    $('#' + name).parents('.form-line').addClass('error')
+                    let parent = $('#' + name).parents('.input-group');
+                    parent.append('<label class="error">' + text + '</label>');
+                    $('#' + name).focus();
                 });
                 break;
             default:
                 break;
         }
-        
     });
 }
 
@@ -132,7 +140,7 @@ function SweetAlertMessage(key) {
             icon: 'success',
             button: {
                 text: 'OK',
-                value: true
+                value: location.reload()
             },
         },
         failed_login: {

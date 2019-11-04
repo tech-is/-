@@ -1,11 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * viewファイル専用コントローラー
- * viewファイルを主に扱うコントローラーです。
- * デフォルトコントローラーに設定されています。
-*/
 class Cl_main extends CI_Controller
 {
     public function __construct()
@@ -38,7 +33,7 @@ class Cl_main extends CI_Controller
         } else {
             $data['reserve'] = null;
         }
-        $data['reserve'] = !empty($data['reserve'])? json_encode($data['reserve'], JSON_UNESCAPED_UNICODE): null;
+        $data['reserve'] = !empty($data['reserve'])? json_encode($data['reserve']): null;
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/home/view_home', $data);

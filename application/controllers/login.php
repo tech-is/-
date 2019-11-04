@@ -8,6 +8,7 @@ class login extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(['url', 'form']);
+        $this->load->library('form_validation');
         session_start();
         // $_SESSION['shop_id'] = 1;
     }
@@ -16,24 +17,23 @@ class login extends CI_Controller
     {
         $data['token'] = bin2hex(openssl_random_pseudo_bytes(24));
         $_SESSION['token'] = $data['token'];
-        if(isset($_SESSION['shop_id'])){ 
-            session_regenerate_id();
+        if(isset($_SESSION['shop_id'])) {
             header('location: //animarl.com/cl_main');
         } else {
-            $this->load->view('login/view_sign-in', $data); 
+            $this->load->view('login/view_sign-in', $data);
         };
     }
 
-    public function login_judgement()
+    public function login()
     {
         $this->judge_request_param();
-        if($this->judge_validation('login')) {
+        if($this->form_validation->run('login')) {
             $this->load->model('mdl_login');
-            $data = $this->mdl_login->select_login_data(['shop_email' => $this->input->post('email')]);
-            if(!empty($data) && count($data) === 1) {
-                if(password_verify($this->input->post('password'), $data['shop_password'])) {
+            $data = $this->mdl_login->get_userdata(['shop_email' => $this->input->post('login-email')]);
+            if($data !== false) {
+                if(password_verify($this->input->post('login-password'), $data['shop_password'])) {
+                    $res_array = ['success' => 'success_login'];
                     $_SESSION['shop_id'] = $data['shop_id'];
-                    $res_array = ['success' => 'login_success'];
                 } else {
                     $res_array = ['error' => 'failed_login'];
                 }
@@ -49,25 +49,18 @@ class login extends CI_Controller
 
     public function prov_register()
     {
-        if($this->judge_validation('prov-register')) {
-            // $email = $this->input->post("prov-email");
-            // $code = hash('md5', $email.microtime());
-            // $code = hash('sha256', $email);
+        $this->judge_request_param();
+        if($this->form_validation->run('prov-register')) {
             $data = [
                 'tmp_shop_email' => $this->input->post("prov-email"),
-                'tmp_shop_code' => hash('md5', $email.microtime())
+                'tmp_shop_code' => hash('md5', getmypid().microtime())
             ];
             $this->load->model('mdl_login');
             if($this->mdl_login->insert_tmp_data($data)) {
-                if($this->send_mail($email, $code)) {
-                    $res_array = ['error' => 'failed_login'];
-                }
+                $res_array = $this->send_email($data)? ['success' => "仮登録が完了しました！"]: ['error' => 'failed_login'];
+            } else {
+                $res_array = ['error' => 'failed_login'];
             }
-            // $res_array = ['code' => $code];
-            //         echo "仮登録が完了しました！メールを送信しましたのでご確認ください。";
-            //     } else {
-            //         $res_array = ['error' => 'failed_login'];
-            //     }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
         }
@@ -80,25 +73,11 @@ class login extends CI_Controller
         $this->judge_request_param();
         if($this->login_validation('forgot-password')) {
             $this->load->model('mdl_login');
-            $data = $this->mdl_login->select_login_data(['shop_email' => $this->input->post('login-email')]);
-            if(!empty($data) && count($data) === 1) {
-            // 
-            }
+            $data = $this->mdl_login->get_userdata(['shop_email' => $this->input->post('login-email')]);
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
         }
         exit(json_encode($res_array));
-    }
-
-    public function register()
-    {
-        if(!empty($code = $this->input->get('code'))) {
-            $this->load->model('mdl_shops');
-            count($this->mdl_shops->select_code($code)) === 1?$this->load->view('login/view_register', $data): header('HTTP/1.1 403 Forbidden');
-        } else {
-            header('HTTP/1.1 403 Forbidden');
-            exit;
-        }
     }
 
     public function password_reset()
@@ -112,12 +91,6 @@ class login extends CI_Controller
         // }
     }
 
-    private function judge_validation($set)
-    {
-        $this->load->library('form_validation');
-        return $this->form_validation->run($set);
-    }
-
     /**
      * リクエストの正当性をチェック
      *
@@ -129,6 +102,26 @@ class login extends CI_Controller
             header('HTTP/1.1 403 Forbidden');
             exit('不正な接続です');
         }
+    }
+
+    private function send_email($data)
+    {
+        $message = <<< EOM
+            このメールは配信専用のアドレスで配信されています。\n
+            このメールに返信されても、返信内容の確認及びご返答ができませんので、あらかじめご了承ください。\n
+            \n
+            この度はAnimarl仮登録頂きありがとうございます。\n
+            本登録を開始するには、次のリンクをクリックしてください。\n
+            http://animarl.com/register?code={$data['tmp_shop_code']}\n
+            このメールに覚えのない場合には、お手数ですがメールを破棄してくださいますようお願い致します。\n
+        EOM;
+        $this->load->library("email");
+        $this->email->from("system_animarl@niji-desk.work", "Animarlシステムメール");
+        $this->email->to($data['tmp_shop_email']);
+        $this->email->set_newline("\r\n");
+        $this->email->subject("会員本登録メール");
+        $this->email->message($message);
+        return $this->email->send();
     }
 
     public function send_token()
@@ -155,27 +148,6 @@ class login extends CI_Controller
         } else {
             return false;
         }
-    }
-
-    private function send_mail($email, $code)
-    {
-        $message = <<< EOM
-            "このメールは配信専用のアドレスで配信されています。\n
-            このメールに返信されても、返信内容の確認及び
-            ご返答ができません。\n
-            あらかじめご了承ください。\n
-            電子メールアドレスのご登録ありがとうございます。\n
-            電子メールアドレスを確認するには、次のリンクをクリックしてください。\n
-            http://localhost/cl_login/register?code={$code}\n
-            このメールに覚えのない場合には、お手数ですがメールを破棄してくださいますようお願い致します。\n
-        EOM;
-        $this->load->library("email");
-        $this->email->from("system_animarl@niji-desk.work", "Animarlシステムメール");
-        $this->email->to($email);
-        $this->email->set_newline("\r\n");
-        $this->email->subject("会員本登録メール");
-        $this->email->message($message);
-        return $this->email->send();
     }
 
 }
