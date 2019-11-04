@@ -66,12 +66,24 @@
                 
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="active nav-link scrollto" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link scrollto" href="#testimonials">Testimonials</a></li>
-                        <li class="nav-item"><a class="nav-link scrollto" href="#features">Features</a></li>                        
-                        <li class="nav-item"><a class="nav-link scrollto" href="#team">Team</a></li>
-                        <li class="nav-item"><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-                        <li class="nav-item"><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                        <li class="nav-item">
+                            <a class="active nav-link scrollto" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link scrollto" href="#testimonials">Testimonials</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link scrollto" href="#features">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link scrollto" href="#team">Team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link scrollto" href="#pricing">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link scrollto" href="#contact">Contact</a>
+                        </li>
                     </ul><!--//nav-->
                 </div><!--//navabr-collapse-->
             </nav><!--//main-nav-->                     
@@ -83,63 +95,63 @@
         <div id="hero-carousel" class="hero-carousel carousel carousel-fade slide" data-ride="carousel" data-interval="10000">
             
             <div class="figure-holder-wrapper">
-        		<div class="container">
-            		<div class="row justify-content-end">
-                		<div class="figure-holder">
-                	        <img class="figure-image img-fluid" src="assets/images/imac.png" alt="image" />
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="figure-holder">
+                            <img class="figure-image img-fluid" src="assets/images/imac.png" alt="image" />
                         </div><!--//figure-holder-->
-            		</div><!--//row-->
-        		</div><!--//container-->
-    		</div><!--//figure-holder-wrapper-->
+                    </div><!--//row-->
+                </div><!--//container-->
+            </div><!--//figure-holder-wrapper-->
             
-			<!-- Indicators -->
-			<ol class="carousel-indicators">
-				<li class="active" data-slide-to="0" data-target="#hero-carousel"></li>
-				<li data-slide-to="1" data-target="#hero-carousel"></li>
-				<li data-slide-to="2" data-target="#hero-carousel"></li>
-			</ol>
-			
-			<!-- Wrapper for slides -->
-			<div class="carousel-inner">
-    			
-				<div class="carousel-item item-1 active">
-					<div class="item-content container">
-    					<div class="item-content-inner">
-    				        
-				            <h2 class="heading"> <br class="d-none d-md-block">for your product</h2>
-				            <p class="intro">It helps you to build a beautiful and effective landing page to promote your product or side project!</p>
-				            <a class="btn btn-primary btn-cta" href="login" target="_blank">Download Now</a>
-    				        
-    					</div><!--//item-content-inner-->
-					</div><!--//item-content-->
-				</div><!--//item-->
-				
-				<div class="carousel-item item-2">
-					<div class="item-content container">
-						<div class="item-content-inner">
-    				        
-				            <h2 class="heading">Bootstrap Lover?</h2>
-				            <p class="intro">AppKit Landing is built on Bootstrap 4 and SASS so it's quick and easy to customise!</p>
-				            <a class="btn btn-primary btn-cta" href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">Find out more</a>
-    				        
-    					</div><!--//item-content-inner-->
-					</div>
-				</div><!--//item-->
-				
-				<div class="carousel-item item-3">
-					<div class="item-content container">
-						<div class="item-content-inner">
-    				        
-				            <h2 class="heading">Ready to build outstanding product?</h2>
-				            <p class="intro">Get AppKit Landing today and it will help you promote your product effectively!</p>
-				            <a class="btn btn-primary btn-cta" href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">Get Started</a>
-    				        
-    					</div><!--//item-content-inner-->
-					</div>
-				</div><!--//item-->
-			</div><!--//carousel-inner-->
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li class="active" data-slide-to="0" data-target="#hero-carousel"></li>
+                <li data-slide-to="1" data-target="#hero-carousel"></li>
+                <li data-slide-to="2" data-target="#hero-carousel"></li>
+            </ol>
+            
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                
+                <div class="carousel-item item-1 active">
+                    <div class="item-content container">
+                        <div class="item-content-inner">
+                            
+                            <h2 class="heading"> <br class="d-none d-md-block">for your product</h2>
+                            <p class="intro">It helps you to build a beautiful and effective landing page to promote your product or side project!</p>
+                            <a class="btn btn-primary btn-cta" href="login" target="_blank">Download Now</a>
+                            
+                        </div><!--//item-content-inner-->
+                    </div><!--//item-content-->
+                </div><!--//item-->
+                
+                <div class="carousel-item item-2">
+                    <div class="item-content container">
+                        <div class="item-content-inner">
+                            
+                            <h2 class="heading">Bootstrap Lover?</h2>
+                            <p class="intro">AppKit Landing is built on Bootstrap 4 and SASS so it's quick and easy to customise!</p>
+                            <a class="btn btn-primary btn-cta" href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">Find out more</a>
+                            
+                        </div><!--//item-content-inner-->
+                    </div>
+                </div><!--//item-->
+                
+                <div class="carousel-item item-3">
+                    <div class="item-content container">
+                        <div class="item-content-inner">
+                            
+                            <h2 class="heading">Ready to build outstanding product?</h2>
+                            <p class="intro">Get AppKit Landing today and it will help you promote your product effectively!</p>
+                            <a class="btn btn-primary btn-cta" href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">Get Started</a>
+                            
+                        </div><!--//item-content-inner-->
+                    </div>
+                </div><!--//item-->
+            </div><!--//carousel-inner-->
 
-		</div><!--//carousel-->
+        </div><!--//carousel-->
     </div><!--//hero-->
     
     <div id="about" class="about-section">
@@ -242,7 +254,7 @@
                 <div class="quote-holder">
                     <blockquote class="quote">
                         <p>Testimonial goes here lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis</p>
-                         <div class="quote-source">
+                        <div class="quote-source">
                             <span class="name">@RyanW,</span>
                             <span class="meta">Paris</span>
                         </div><!--//quote-source-->
@@ -256,20 +268,36 @@
     <div id="features" class="features-section">
         <div class="container text-center">
             <h2 class="section-title">Discover Features</h2>
-            <p class="intro">You can use this section to list your product features. The screenshots used here were taken from <a href="https://www.uxfordev.com/appify/index.html" target="_blank">Bootstrap 4 admin theme Appify</a></p>
-            
+            <p class="intro">You can use this section to list your product features. The screenshots used here were taken from 
+                <a href="https://www.uxfordev.com/appify/index.html" target="_blank">Bootstrap 4 admin theme Appify</a>
+            </p>
             <div class="tabbed-area row">
-                
                 <!-- Nav tabs -->
                 <div class="feature-nav nav nav-pill flex-column col-lg-4 col-md-6 col-12 order-0 order-md-1" role="tablist" aria-orientation="vertical">
-                     <a class="nav-link active mb-lg-3" href="#feature-1" aria-controls="feature-1" data-toggle="pill" role="tab" aria-selected="true"><i class="fas fa-magic mr-2"></i>20+ Use Case-based App Pages</a>
-                     <a class="nav-link mb-lg-3" href="#feature-2" aria-controls="feature-2" data-toggle="pill" role="tab" aria-selected="false"><i class="fas fa-cubes mr-2"></i>100+ Components and Widgets</a>
-                     <a class="nav-link mb-lg-3" href="#feature-3" aria-controls="feature-3" data-toggle="pill" role="tab" aria-selected="false"><i class="fas fa-chart-bar mr-2"></i>Useful Chart Libraries</a>
-                     <a class="nav-link mb-lg-3" href="#feature-4" aria-controls="feature-4" data-toggle="pill" role="tab" aria-selected="false"><i class="fas fa-code mr-2"></i>Valid HTML5 + CSS3</a>
-                     <a class="nav-link mb-lg-3" href="#feature-5" aria-controls="feature-5" data-toggle="pill" role="tab" aria-selected="false"><i class="fas fa-rocket mr-2"></i>Built on Bootstrap 4 &amp; SCSS</a>
-                     <a class="nav-link mb-lg-3" href="#feature-6" aria-controls="feature-6" data-toggle="pill" role="tab" aria-selected="false"><i class="fas fa-mobile-alt mr-2"></i>Fully Responsive</a>
-                     <a class="nav-link mb-lg-3" href="#feature-7" aria-controls="feature-7" data-toggle="pill" role="tab" aria-selected="false"><i class="fas fa-star mr-2"></i>Beautiful UI</a>
-                     <a class="nav-link mb-lg-3" href="#feature-8" aria-controls="feature-8" data-toggle="pill" role="tab" aria-selected="false"><i class="fas fa-heart mr-2"></i>Free Updates &amp; Support</a>                   
+                    <a class="nav-link active mb-lg-3" href="#feature-1" aria-controls="feature-1" data-toggle="pill" role="tab" aria-selected="true">
+                        <i class="fas fa-magic mr-2"></i>20+ Use Case-based App Pages
+                    </a>
+                    <a class="nav-link mb-lg-3" href="#feature-2" aria-controls="feature-2" data-toggle="pill" role="tab" aria-selected="false">
+                        <i class="fas fa-cubes mr-2"></i>100+ Components and Widgets
+                    </a>
+                    <a class="nav-link mb-lg-3" href="#feature-3" aria-controls="feature-3" data-toggle="pill" role="tab" aria-selected="false">
+                        <i class="fas fa-chart-bar mr-2"></i>Useful Chart Libraries
+                    </a>
+                    <a class="nav-link mb-lg-3" href="#feature-4" aria-controls="feature-4" data-toggle="pill" role="tab" aria-selected="false">
+                        <i class="fas fa-code mr-2"></i>Valid HTML5 + CSS3
+                    </a>
+                    <a class="nav-link mb-lg-3" href="#feature-5" aria-controls="feature-5" data-toggle="pill" role="tab" aria-selected="false">
+                        <i class="fas fa-rocket mr-2"></i>Built on Bootstrap 4 &amp; SCSS
+                    </a>
+                    <a class="nav-link mb-lg-3" href="#feature-6" aria-controls="feature-6" data-toggle="pill" role="tab" aria-selected="false">
+                        <i class="fas fa-mobile-alt mr-2"></i>Fully Responsive
+                    </a>
+                    <a class="nav-link mb-lg-3" href="#feature-7" aria-controls="feature-7" data-toggle="pill" role="tab" aria-selected="false">
+                        <i class="fas fa-star mr-2"></i>Beautiful UI
+                    </a>
+                    <a class="nav-link mb-lg-3" href="#feature-8" aria-controls="feature-8" data-toggle="pill" role="tab" aria-selected="false">
+                        <i class="fas fa-heart mr-2"></i>Free Updates &amp; Support
+                    </a>               
                 </div>
                 
                 <!-- Tab panes -->
@@ -324,16 +352,40 @@
                             <h3 class="member-name">Xiaoying Riley</h3>
                             <div class="member-title">Full-Stack Designer</div>
                             <ul class="social list-inline">
-                                <li class="list-inline-item"><a class="twitter" href="https://twitter.com/3rdwave_themes" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                
-                                <li class="list-inline-item"><a class="facebook" href="https://www.facebook.com/3rdwavethemes/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                <li class="list-inline-item"><a class="github" href="https://github.com/xriley" target="_blank"><i class="fab fa-github"></i></a></li>
-                                <li class="list-inline-item"><a class="dribbble" href="https://dribbble.com/Xiaoying" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-                               <li class="list-inline-item"><a class="medium" href="https://uk.linkedin.com/in/xiaoying" target="_blank"><i class="fab fa-medium-m"></i></a></li>
+                                <li class="list-inline-item">
+                                    <a class="twitter" href="https://twitter.com/3rdwave_themes" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="facebook" href="https://www.facebook.com/3rdwavethemes/" target="_blank">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="github" href="https://github.com/xriley" target="_blank">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="dribbble" href="https://dribbble.com/Xiaoying" target="_blank">
+                                        <i class="fab fa-dribbble"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="medium" href="https://uk.linkedin.com/in/xiaoying" target="_blank">
+                                        <i class="fab fa-medium-m"></i>
+                                    </a>
+                                </li>
                                 
                             </ul>
                             <div class="member-desc">
-                               <p>Xiaoying is the UX/UI designer behind AppKit Landing. She makes <a href="https://themes.3rdwavemedia.com/bootstrap-templates/free/" target="_blank">free Bootstrap themes</a> for developers. You can find her sharing useful UX and webdev related content on <a href="https://twitter.com/3rdwave_themes" target="_blank">Twitter</a> and <a href="https://www.facebook.com/3rdwavethemes/" target="_blank">Facebook</a>. Follow her if you like what she does!</p>
+                                <p>Xiaoying is the UX/UI designer behind AppKit Landing. She makes 
+                                    <a href="https://themes.3rdwavemedia.com/bootstrap-templates/free/" target="_blank">free Bootstrap themes</a> 
+                                    for developers. You can find her sharing useful UX and webdev related content on 
+                                    <a href="https://twitter.com/3rdwave_themes" target="_blank">Twitter</a> and 
+                                    <a href="https://www.facebook.com/3rdwavethemes/" target="_blank">Facebook</a>
+                                . Follow her if you like what she does!</p>
                             </div><!--//member-desc-->
                         </div><!--//member-content-->
                     </div><!--//item-inner-->
@@ -343,20 +395,31 @@
                         <div class="profile mb-2">
                             <img class="profile-image" src="assets/images/team-2.png" alt="Tom Najdek" />
                         </div>
-                        
                         <div class="member-content">
                             <h3 class="member-name">Tomasz Najdek</h3>
                             <div class="member-title">Full-Stack Developer</div>
                             <ul class="social list-inline">
-                                <li class="list-inline-item"><a class="twitter" href="http://twitter.com/tnajdek" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="https://www.doppnet.com/" target="_blank"><i class="fas fa-globe"></i></a></li>
-                                <li class="list-inline-item"><a class="github" href="https://github.com/tnajdek" target="_blank"><i class="fab fa-github"></i></a></li>
-                               
-                                
+                                <li class="list-inline-item">
+                                    <a class="twitter" href="http://twitter.com/tnajdek" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://www.doppnet.com/" target="_blank">
+                                        <i class="fas fa-globe"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="github" href="https://github.com/tnajdek" target="_blank">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </li>
                             </ul>
                             <div class="member-desc">
-                                <p>Tom is a full-stack developer specialising in building large, scalable and user-friendly web apps. Follow him on <a href="https://twitter.com/tnajdek" target="_blank">Twitter</a> for fresh developer tips and check out his <a href="https://github.com/tnajdek" target="_blank">Github</a> for useful open-source tools.
-</p>
+                                <p>Tom is a full-stack developer specialising in building large, scalable and user-friendly web apps. Follow him on 
+                                    <a href="https://twitter.com/tnajdek" target="_blank">Twitter</a> for fresh developer tips and check out his 
+                                    <a href="https://github.com/tnajdek" target="_blank">Github</a> for useful open-source tools.
+                                </p>
                             </div><!--//member-desc-->
                         </div><!--//member-content-->
                     </div><!--//item-inner-->
@@ -368,7 +431,9 @@
     <div id="pricing" class="pricing-section">
         <div class="container text-center">
             <h2 class="section-title">Pricing</h2>
-            <div class="intro">AppKit Landing's future updates are 100% FREE for existing customers</div>
+            <div class="intro">
+                AppKit Landing's future updates are 100% FREE for existing customers
+            </div>
             <div class="pricing-wrapper row">
                 <div class="item item-1 col-md-4 col-12">
                     <div class="item-inner">
@@ -377,8 +442,8 @@
                             <span class="currency">$</span><span class="number">0</span>
                         </div><!--//price-figure-->
                         <ul class="list-unstyled mb-3">
-	                        <li class="mb-2"><i class="fas fa-check"></i> Single installation</li>
-	                        <li class="mb-2"><i class="fas fa-check"></i> Multiple installations</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> Single installation</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> Multiple installations</li>
                             <li class="mb-2"><i class="fas fa-times"></i> Use without attribution link</li>
                         </ul>
                         <div class="mb-3"><a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">License Details</a></div>
@@ -388,17 +453,20 @@
                 </div><!--//item-->
                 <div class="item item-2 col-md-4 col-12">
                     <div class="item-inner">
-                        <h3 class="item-heading">Single Application<br><span class="item-heading-desc">(Commercial License)</span></h3>
-                       
+                        <h3 class="item-heading">Single Application<br>
+                            <span class="item-heading-desc">(Commercial License)</span>
+                        </h3>
                         <div class="price-figure">
                             <span class="currency">$</span><span class="number">29</span>
                         </div><!--//price-figure-->
                         <ul class="list-unstyled mb-3">
-	                        <li class="mb-2"><i class="fas fa-check"></i> Single installation</li>
-	                        <li class="mb-2"><i class="fas fa-times"></i> Multiple installations</li>
-	                        <li class="mb-2"><i class="fas fa-check"></i> Use without attribution link</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> Single installation</li>
+                            <li class="mb-2"><i class="fas fa-times"></i> Multiple installations</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> Use without attribution link</li>
                         </ul>
-                        <div class="mb-3"><a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">License Details</a></div>
+                        <div class="mb-3">
+                            <a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">License Details</a>
+                        </div>
                         <a class="btn btn-cta" href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/">Get it now</a>
                         
                     </div><!--//item-inner-->
@@ -411,11 +479,19 @@
                             <span class="currency">$</span><span class="number">99</span>
                         </div><!--//price-figure-->
                         <ul class="list-unstyled mb-3">
-	                        <li class="mb-2"><i class="fas fa-check"></i> Single installation</li>
-	                        <li class="mb-2"><i class="fas fa-check"></i> Multiple installations</li>
-	                        <li class="mb-2"><i class="fas fa-check"></i> Use without attribution link</li>
+                            <li class="mb-2">
+                                <i class="fas fa-check"></i> Single installation
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check"></i> Multiple installations
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check"></i> Use without attribution link
+                            </li>
                         </ul>
-                        <div class="mb-3"><a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">License Details</a></div>
+                        <div class="mb-3">
+                            <a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">License Details</a>
+                        </div>
                         <a class="btn btn-cta" href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/appkit-landing-free-bootstrap-theme-for-developers-and-startups/" target="_blank">Get it now</a>
                         
                     </div><!--//item-inner-->
@@ -439,18 +515,16 @@
     <footer class="footer text-center">
         <div class="container">
             <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
-            <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
-            
-            
+            <small class="copyright">Designed with 
+                <i class="fas fa-heart"></i> by 
+                <a href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> 
+            for developers</small>
         </div><!--//container-->
     </footer>
-     
     <!-- Javascript -->          
     <script type="text/javascript" src="assets/plugins/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>     
     <script type="text/javascript" src="assets/js/main.js"></script> 
-       
 </body>
-</html> 
-
+</html>

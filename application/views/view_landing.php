@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
-   <!-- Facebook Pixel Code -->
+    <!-- Facebook Pixel Code -->
     <script>
         !function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
@@ -57,11 +57,21 @@
                 <!--//nav-toggle-->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="active nav-link scrollto" href="#about">ANIMARLについて</a></li>
-                        <li class="nav-item"><a class="nav-link scrollto" href="#features">特徴</a></li>
-                        <li class="nav-item"><a class="nav-link scrollto" href="#team">チーム</a></li>
-                        <li class="nav-item"><a class="nav-link scrollto" href="#pricing">料金</a></li>
-                        <li class="nav-item"><a class="nav-link scrollto" href="#contact">お問い合わせ</a></li>
+                        <li class="nav-item">
+                            <a class="active nav-link scrollto" href="#about">ANIMARLについて</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link scrollto" href="#features">特徴</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link scrollto" href="#team">チーム</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link scrollto" href="#pricing">料金</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link scrollto" href="#contact">お問い合わせ</a>
+                        </li>
                     </ul>
                     <!--//nav-->
                 </div>
@@ -88,27 +98,18 @@
                         <div class="item-content-inner">
                             <h2 class="heading"> <br class="d-none d-md-block">ﾍﾟｯﾄｻﾛﾝ専用CRM</h2>
                             <p class="intro">無料で始めるシンプルな顧客＆ﾍﾟｯﾄ管理</p>
-                            <a class="btn btn-primary btn-cta" href="../cl_login/login" target="_blank">会員登録して始める</a>
+                            <a class="btn btn-primary btn-cta" href="<?php echo base_url()."login";?>" target="_blank">会員登録して始める</a>
                         </div>
                         <!--//item-content-inner-->
                     </div>
                     <!--//item-content-->
                 </div>
                 <!--//item-->
-		<!--
-                <div class="carousel-item item-2">
-                    <div class="item-content container">
-                        <div class="item-content-inner">
-                            <h2 class="heading">充実した予約管理</h2>
-                            <p class="intro">紙カルテでの管理は</p>
-                            <a class="btn btn-primary btn-cta" href="cl_main/login" target="_blank">会員登録して始める</a>
-                        </div>
-                        <!--//item-content-inner-->
                     </div>
                 </div>
-		-->
+
                 <!--//item-->
-		<!--
+        <!--
                 <div class="carousel-item item-3">
                     <div class="item-content container">
                         <div class="item-content-inner">
@@ -118,7 +119,7 @@
                         </div>
                     </div>
                 </div>
-		-->
+        -->
                 <!--//item-->
             </div>
             <!--//carousel-inner-->
@@ -158,8 +159,8 @@
                         <!--//figure-holder-->
                         <h3 class="item-title">直観的な操作感</h3>
                         <div class="item-desc">
-                            ＰＣに詳しくない方でも直感で分かるようにGmailなどで馴染みのあるユニバーサルデザ				インを採用しました。機能もシンプルに。
-			</div>
+                            ＰＣに詳しくない方でも直感で分かるようにGmailなどで馴染みのあるユニバーサルデザインを採用しました。機能もシンプルに。
+                        </div>
                         <!--//item-desc-->
                     </div>
                     <!--//item-inner-->
@@ -251,8 +252,8 @@
             <h2 class="section-title">PROVIDE BY UMWN</h2>
             <div class="story">
                 <p>愛媛県で共にプログラマを学習した仲間でチームを結成<br>
-			それぞれの技術を活かしAnimarlを開発しました。
-		</p>
+            それぞれの技術を活かしAnimarlを開発しました。
+        </p>
             </div>
             <div class="members-wrapper row">
                 <div class="item col-md-3 col-12">
@@ -264,11 +265,16 @@
                             <h3 class="member-name">森裕信</h3>
                             <div class="member-title">開発・設計</div>
                             <ul class="social list-inline">
-                                <li class="list-inline-item"><a class="facebook"
-                                        href="https://www.facebook.com/3rdwavethemes/" target="_blank"><i
-                                            class="fab fa-facebook-f"></i></a></li>
-                                <li class="list-inline-item"><a class="github" href="https://github.com/xriley"
-                                        target="_blank"><i class="fab fa-github"></i></a></li>
+                                <li class="list-inline-item">
+                                    <a class="facebook" href="https://www.facebook.com/3rdwavethemes/" target="_blank">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="github" href="https://github.com/xriley" target="_blank">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </li>
                             </ul>
                             <div class="member-desc">
                                 <p>サーバ構築<br>PG設計<br>プログラム開発</p>
@@ -276,8 +282,6 @@
                             <!--//member-desc-->
                         </div>
                         <!--//member-content-->
-
-
                     </div>
                     <!--//item-inner-->
                 </div>
@@ -287,17 +291,18 @@
                         <div class="profile mb-2">
                             <img class="profile-image" src="assets/images/team-2.png" alt="Tom Najdek" />
                         </div>
-
                         <div class="member-content">
                             <h3 class="member-name">若林 朋</h3>
                             <div class="member-title">開発・設計</div>
                             <ul class="social list-inline">
-                                <li class="list-inline-item"><a class="twitter" href="http://twitter.com/tnajdek"
-                                        target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                <li class="list-inline-item"><a class="github" href="https://github.com/tnajdek"
-                                        target="_blank"><i class="fab fa-github"></i></a></li>
-
-
+                                <li class="list-inline-item">
+                                    <a class="twitter" href="http://twitter.com/tnajdek" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item"><a class="github" href="https://github.com/tnajdek" target="_blank"><i class="fab fa-github"></i>
+                                    </a>
+                                </li>
                             </ul>
                             <div class="member-desc">
                                 <p>サーバ構築<br>PG設計<br>プログラム開発</p>
@@ -318,12 +323,16 @@
                             <h3 class="member-name">浦川花</h3>
                             <div class="member-title">フロント開発</div>
                             <ul class="social list-inline">
-                                <li class="list-inline-item"><a class="twitter"
-                                        href="https://twitter.com/3rdwave_themes" target="_blank"><i
-                                            class="fab fa-twitter"></i></a></li>
-                                <li class="list-inline-item"><a class="facebook"
-                                        href="https://www.facebook.com/3rdwavethemes/" target="_blank"><i
-                                            class="fab fa-facebook-f"></i></a></li>
+                                <li class="list-inline-item">
+                                    <a class="twitter" href="https://twitter.com/3rdwave_themes" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="facebook" href="https://www.facebook.com/3rdwavethemes/" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
                             </ul>
                             <div class="member-desc">
                                 <p>WEBデザイン・コーディング</p>
@@ -331,8 +340,6 @@
                             <!--//member-desc-->
                         </div>
                         <!--//member-content-->
-
-
                     </div>
                     <!--//item-inner-->
                 </div>
@@ -341,7 +348,6 @@
                         <div class="profile mb-2">
                             <img class="profile-image" src="assets/images/team-4.png" alt="Xiaoying Riley" />
                         </div>
-
                         <div class="member-content">
                             <h3 class="member-name">永井祐大郎</h3>
                             <div class="member-title">開発・設計</div>
@@ -358,8 +364,6 @@
                             <!--//member-desc-->
                         </div>
                         <!--//member-content-->
-
-
                     </div>
                     <!--//item-inner-->
                 </div>
@@ -382,9 +386,15 @@
                         </div>
                         <!--//price-figure-->
                         <ul class="list-unstyled mb-3">
-                            <li class="mb-2"><i class="fas fa-check"></i> Single installation</li>
-                            <li class="mb-2"><i class="fas fa-check"></i> Multiple installations</li>
-                            <li class="mb-2"><i class="fas fa-times"></i> Use without attribution link</li>
+                            <li class="mb-2">
+                                <i class="fas fa-check"></i> Single installation
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check"></i> Multiple installations
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-times"></i> Use without attribution link
+                            </li>
                         </ul>
                         <div class="mb-3"><a href="index.php/cl_main/login" target="_blank">License Details</a></div>
                         <a class="btn btn-cta" href="index.php/cl_main/login">
@@ -398,7 +408,6 @@
                     <div class="item-inner">
                         <h3 class="item-heading">カスタム<br><span class="item-heading-desc">(Commercial
                                 License)</span></h3>
-
                         <div class="price-figure">
                             <span class="currency">￥</span><span class="number">29</span>
                         </div>

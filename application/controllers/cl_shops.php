@@ -3,29 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cl_shops extends CI_Controller
 {
-    public function register_email()
-    {
-        if($this->check_email() == true) {
-        // if($this->check_email() === true) {
-        // if($this->check_email()) {
-            $email = $this->input->post("email");
-            $code = md5(uniqid(rand(), true));
-            if($this->tmp_db_registration($email, $code) == true) {
-                if($this->send_mail($email, $code) == true) {
-                    // redirect("cl_main/login");
-                    echo "仮登録が完了しました！メールを送信しましたのでご確認ください。";
-                } else {
-                    $this->delete_email($email);
-                    redirect("/cl_landing/login");
-                }
-            } else {
-                redirect("cl_main/signup_db_error");
-            }
-        } else {
-            $this->load->view('sign-up');
-        }
-    }
-
+    
     public function register_shop()
     {
         // if($this->check_shop_data() == true) {

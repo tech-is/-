@@ -14,6 +14,7 @@ class Cl_main extends CI_Controller
         $this->load->helper(["url", "form"]);
         // date_default_timezone_set('Asia/Tokyo');
         session_start();
+        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     public function index()

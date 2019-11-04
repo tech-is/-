@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -7,23 +7,23 @@
     <title>Animarl</title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-
+    <meta name="csrf-token" content="<?php echo @$_SESSION["token"]?:false; ?>">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
         type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="../assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="../assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="../assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/cms/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Custom Css -->
-    <link href="../assets/cms/css/style.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/cms/css/style.css" rel="stylesheet">
 </head>
 
 <body class="login-page">
@@ -33,16 +33,15 @@
         </div>
         <div class="card">
             <div class="body">
-                <form action="chk_login" method="POST">
+                <form id="login" method="POST">
                     <div class="msg">メールアドレスとパスワードを入力してください</div>
-                    <div class="msg" style="color: red"><?= isset($error)? $error: false; ?></div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">email</i>
                         </span>
                         <div class="form-line">
-                            <input type="email" class="form-control" name="email" placeholder="Email" required
-                                autofocus>
+                            <!-- <input type="email" class="form-control" name="email" placeholder="Email" required autofocus> -->
+                            <input type="text" class="form-control" id="login-email" placeholder="Email" autofocus>
                         </div>
                     </div>
                     <div class="input-group">
@@ -50,7 +49,8 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                            <!-- <input type="password" class="form-control" name="password" placeholder="Password" required> -->
+                            <input type="password" class="form-control" id="login-password" placeholder="Password">
                         </div>
                     </div>
                     <div class="row clearfix">
@@ -59,16 +59,49 @@
                             <label for="rememberme">Remember Me</label>
                         </div>
                         <div class="col-xs-4">
-                            <button type="submit" id="submit" class="btn btn-block bg-pink waves-effect">SIGN IN</button>
+                            <button type="submit" id="submit" class="btn btn-block bg-pink waves-effect">ログイン</button>
                         </div>
                     </div>
                     <div class="row m-t-15 m-b--20">
                         <div class="col-xs-5">
-                            <a href="registration_mail">新規会員登録</a>
+                            <a href="javascript:show_prov_register();">新規会員登録</a>
                         </div>
                         <div class="col-xs-7 align-right">
-                            <a href="forgot_password">パスワードを忘れた</a>
+                            <a href="javascript:forgot_password();">パスワードを忘れた</a>
                         </div>
+                    </div>
+                </form>
+                <form id="prov-register" style="display: none">
+                    <div class="msg">まず初めにEmailを登録してください</div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="email" class="form-control" id="prov-email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
+                    <div class="m-t-25 m-b--5 align-center">
+                        <a href="javascript:show_login();">アカウントを持っていますか?</a>
+                    </div>
+                </form>
+                <form id="forgot-password" style="display:none">
+                    <div class="msg">
+                        登録したメールアドレスを入力してください
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="email" class="form-control" id="forgot-email" placeholder="Email" required
+                                autofocus>
+                        </div>
+                    </div>
+                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">RESET MY PASSWORD</button>
+                    <div class="row m-t-20 m-b--5 align-center">
+                        <a href="javascript:show_login()">ログイン</a>
                     </div>
                 </form>
             </div>
@@ -76,20 +109,23 @@
     </div>
 
     <!-- Jquery Core Js -->
-    <script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core Js -->
-    <script src="../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
     <!-- Waves Effect Plugin Js -->
-    <script src="../assets/cms/plugins/node-waves/waves.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.js"></script>
 
     <!-- Validation Plugin Js -->
-    <script src="../assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- sweetalert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Custom Js -->
-    <script src="../assets/cms/js/admin.js"></script>
-    <script src="../assets/cms/js/pages/examples/sign-in.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/js/pages/login/login.js"></script>
 </body>
 
 </html>
