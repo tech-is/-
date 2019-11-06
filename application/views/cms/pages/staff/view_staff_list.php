@@ -253,7 +253,7 @@
 
 <script>
     table_json = <?php echo $staff ?>;
-    event_json = <?php echo $shift ?>;
+    event_json = <?php echo @$shift?: "{}"; ?>;
 </script>
 
 <script src="../assets/cms/js/pages/staff/staff_list.js"></script>

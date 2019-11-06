@@ -7,6 +7,7 @@ class Cl_staff extends CI_Controller
     {
         parent::__construct();
         session_start();
+        $_SESSION["shop_id"] = 1;
         $this->load->model('mdl_staff');
         $this->load->model('mdl_shift');
         $this->load->helper(["url", "form"]);

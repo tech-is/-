@@ -18,19 +18,36 @@ class Cl_karute extends CI_Controller
         parent::__construct();
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
+        $this->load->model('Mdl_karute');
         session_start();
-        // $_SESSION["shop_id"] = 1;
+        $_SESSION["shop_id"] = 1;
     }
 
     //TOPページ
     public function index()
     {
-        $data["list"] = $this->get_total_list();
-        $data["groups"] = $this->get_kind_group();
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/vi_karute', $data);
+        if(!empty($customer_id = $this->input->post("customer_id"))){
+            // echo $_SESSION["shop_id"];
+            // exit;
+            $data["karute"] = $this->Mdl_karute->m_karute_get($_SESSION["shop_id"], $customer_id);
+            $this->karute_result($data);
+            // print_r ($data["karte"]);
+        } else {
+            $data["list"] = $this->get_total_list();
+            $data["groups"] = $this->get_kind_group();
+            $this->load->view('cms/pages/parts/header');
+            $this->load->view('cms/pages/parts/sidebar');
+            $this->load->view('cms/vi_karute', $data);
+        }
     }
+    //検索結果をページ遷移
+    private function karute_result($data)
+    {
+        $this->load->view('cms/pages/parts/header');
+        // $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view('cms/vi_karute_result', $data);
+    }
+
 
     //一覧取得
     private function get_total_list()

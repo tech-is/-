@@ -34,14 +34,22 @@ class Mdl_karute extends CI_Model {
     }
 
     //更新の中身を取得(Cl_karuteもしよう)
-    public function m_get_total_all($pet_id)
+    public function m_karute_get($shop_id,$customer_id)
     {
-        $where = ['customer_state ' => 1, 'pet_state ' => 1, 'pet_id '=> $pet_id];
+        // echo $customer_id;
+        // exit;
+        $where = ['customer_state ' => 1, 'pet_state ' => 1, 'customer_shop_id'=>$shop_id, 'customer_id'=>$customer_id];
         $this->db->where($where);
         $this->db->select('*');
         $this->db->from('customer');
         $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
+        $this->db->join('kind_group', 'customer_id = kind_group_shop_id', 'left');
+        $this->db->join('reserve', 'customer_id = reserve_customer_id', 'left');
+        $this->db->join('staff', 'customer_id = staff_shop_id', 'left');
         $query = $this->db->get();
+        // SQL文を教えてくれる
+        // echo $this->db->last_query();
+        // exit;
         return $query->row_array(); //結果を配列で返す。
     }
 
@@ -84,4 +92,4 @@ class Mdl_karute extends CI_Model {
     //         return true;
     //     }
     // }
-}
+}        
