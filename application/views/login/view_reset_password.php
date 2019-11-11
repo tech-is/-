@@ -34,17 +34,16 @@
         </div>
         <div class="card">
             <div class="body">
-                <form id="forgot_password" method="POST">
+                <form id="form" method="POST">
                     <div class="msg">
                         新しいパスワードを入力してください
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <i class="material-icons">email</i>
+                            <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <!-- <input type="email" class="form-control" name="email" placeholder="Email" required autofocus> -->
-                            <input type="text" class="form-control" id="login-email" placeholder="Email" autofocus>
+                            <input type="password" class="form-control" id="reset-password" placeholder="Password" autofocus>
                         </div>
                     </div>
                     <div class="input-group">
@@ -52,10 +51,10 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <!-- <input type="password" class="form-control" name="password" placeholder="Password" required> -->
-                            <input type="password" class="form-control" id="login-password" placeholder="Password">
+                            <input type="password" class="form-control" id="confirm-password" placeholder="もう一度同じPasswordを入力">
                         </div>
                     </div>
+                    <input type="hidden" id="reset-token" value="<?php echo $code; ?>">
                     <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">RESET MY PASSWORD</button>
                     <div class="row m-t-20 m-b--5 align-center">
                         <a href="<?php echo base_url(); ?>login">ログイン</a>
@@ -66,20 +65,24 @@
     </div>
 
     <!-- Jquery Core Js -->
-    <script src="../../assets/cms/plugins/jquery/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core Js -->
-    <script src="../../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
     <!-- Waves Effect Plugin Js -->
-    <script src="../../assets/cms/plugins/node-waves/waves.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.js"></script>
 
     <!-- Validation Plugin Js -->
-    <script src="../../assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- SweetAlert Plugin Js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Custom Js -->
-    <script src="../../assets/cms/js/admin.js"></script>
-    <script src="../../assets/cms/js/pages/examples/forgot-password.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/js/common.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/js/pages/login/reset-password.js"></script>
 </body>
 
 </html>

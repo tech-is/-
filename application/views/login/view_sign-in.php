@@ -78,7 +78,7 @@
                             <i class="material-icons">email</i>
                         </span>
                         <div class="form-line">
-                            <input type="email" class="form-control" id="prov-email" placeholder="Email" required>
+                            <input type="email" class="form-control" id="prov-email" placeholder="Email">
                         </div>
                     </div>
                     <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
@@ -95,8 +95,7 @@
                             <i class="material-icons">email</i>
                         </span>
                         <div class="form-line">
-                            <input type="email" class="form-control" id="forgot-email" placeholder="Email" required
-                                autofocus>
+                            <input type="email" class="form-control" id="forgot-email" placeholder="Email" autofocus>
                         </div>
                     </div>
                     <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">RESET MY PASSWORD</button>
@@ -125,6 +124,7 @@
 
     <!-- Custom Js -->
     <script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/js/common.js"></script>
     <script src="<?php echo base_url(); ?>assets/cms/js/pages/login/login.js"></script>
 </body>
 

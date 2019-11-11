@@ -43,23 +43,35 @@ $config = [
             ]
         ]
     ],
-    'regiser' => [
+    'reset-password' => [
         [
-            'field' => 'name',
-            'label' => 'ユーザ名',
-            'rules' => 'required'
+            'field' => 'reset-password',
+            'label' => 'パスワード',
+            'rules' => 'required|trim'
         ],
         [
-            'field' => 'kana',
+            'field' => 'confirm-password',
+            'label' => 'パスワード再確認',
+            'rules' => 'required|matches[reset-password]|trim'
+        ]
+    ],
+    'register' => [
+        [
+            'field' => 'shop_name',
+            'label' => 'ユーザ名',
+            'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'shop_kana',
             'label' => 'フリガナ',
-            'rules' => 'required|regex_match[/^[ァ-ヾ]+$/u]|trim',
-            'error' => [
+            'rules' => 'required|regex_match[/^[ァ-ヾ ]+$/u]|trim',
+            'errors' => [
                 'required' => '%sを入力してください',
-                'regex_match' => '全角カタカナで入力してください。'
+                "regex_match" => "全角カタカナで入力してください。"
             ]
         ],
         [
-            'field' => 'email',
+            'field' => 'shop_email',
             'label' => 'メールアドレス',
             'rules' => 'required|valid_email|trim',
             'errors' => [
@@ -68,24 +80,29 @@ $config = [
             ]
         ],
         [
-            'field' => 'tel',
+            'field' => 'shop_tel',
             'label' => '電話番号',
-            'rules' => 'required'
+            'rules' => 'required|trim'
         ],
         [
-            'field' => 'zip_code',
+            'field' => 'shop_zip_code',
             'label' => '郵便番号',
-            'rules' => 'required'
+            'rules' => 'required|trim'
         ],
         [
-            'field' => 'zip_address',
+            'field' => 'shop_address',
             'label' => '住所',
-            'rules' => 'required'
+            'rules' => 'required|trim'
         ],
         [
-            'field' => 'password',
+            'field' => 'shop_password',
             'label' => 'パスワード',
-            'rules' => 'required'
+            'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'shop_confirm_pass',
+            'label' => 'パスワード再確認',
+            'rules' => 'required|matches[shop_password]|trim'
         ]
     ]
 ];

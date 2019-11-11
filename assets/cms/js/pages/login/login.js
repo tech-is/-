@@ -46,7 +46,6 @@ $('#login').on('submit', function () {
 });
 
 $('#prov-register').on('submit', function () {
-    event.preventDefault();
     $.ajax({
         url: '//animarl.com/login/prov_register',
         type: 'POST',
@@ -59,6 +58,7 @@ $('#prov-register').on('submit', function () {
         dataType: 'json'
     }).then(
         function (data) {
+            // console.log(data);
             process_callback(data);
         },
         function () {
@@ -72,138 +72,79 @@ $('#prov-register').on('submit', function () {
                 },
             })
         });
+    return false;
 });
 
 $('#forgot-password').on('submit', function () {
     $.ajax({
-        url: '//animarl.com/login/forgot_password',
+        url: '//animarl.com/login/send_token_for_reset',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
             'forgot-email': $('#forgot-email').val(),
-        }
+        },
+        datatype: JSON
     }).then(
         function (data) {
-            SweetAlertMessage(data === 'success' ? 'success_register' : 'failed_register');
+            // console.log(data);
+            process_callback(data);
         },
         function () {
-            SweetAlertMessage('failed_register');
-        })
+            swal({
+                title: 'システムエラー',
+                text: 'また後ほどお試しください',
+                icon: 'warning',
+                button: {
+                    text: 'OK',
+                    value: true
+                },
+            })
+        });
     return false;
 });
 
-function process_callback(json) {
-    $('label' + '.error').remove();
-    $('.form-line').removeClass('error')
-    $.each(json, function (index, val) {
-        switch (index) {
-            case 'success':
-                swal({
-                    title: 'ログインが完了しました',
-                    text: '',
-                    icon: 'success',
-                    button: {
-                        text: 'OK',
-                        value: true
-                    },
-                }).then(function (value) {
-                    location.reload();
-                });
-                break;
-            case 'error':
-                SweetAlertMessage(val);
-                break;
-            case 'valierr':
-                $.each(val, function (name, text) {
-                    $('#' + name).parents('.form-line').addClass('error')
-                    let parent = $('#' + name).parents('.input-group');
-                    parent.append('<label class="error">' + text + '</label>');
-                    $('#' + name).focus();
-                });
-                break;
-            default:
-                break;
-        }
-    });
-}
-
-/******************************************************************** */
-/** SweetAlert  **/
-/******************************************************************** */
-function SweetAlertMessage(key) {
-    let message_json = {
-        success_login: {
-            title: 'ログインが完了しました',
-            text: '',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: location.reload()
-            },
-        },
-        failed_login: {
-            title: 'ログインに失敗しました…',
-            text: 'メールアドレスかパスワードが違います',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: true,
-            },
-        },
-        success_register: {
-            title: '登録が完了しました！',
-            text: 'メールを送信いたしましたのでご確認ください。',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: true,
-            },
-        },
-        failed_register: {
-            title: '登録に失敗しました…',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: true,
-            },
-        },
-        success_update: {
-            title: '更新が完了しました！',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: true,
-            }
-        },
-        failed_update: {
-            title: '更新に失敗しました…',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: false,
-            },
-        },
-        success_delete: {
-            title: '削除が完了しました！',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: true,
-            }
-        },
-        failed_delete: {
-            title: '削除に失敗しました…',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: false,
-            }
-        }
-    }
-    swal(message_json[key]);
-}
+// function process_callback(json) {
+//     $('label' + '.error').remove();
+//     $('.form-line').removeClass('error')
+//     $.each(json, function (index, val) {
+//         switch (index) {
+//             case 'success':
+//                 swal({
+//                     title: val,
+//                     text: 'ボタンをクリックして画面を閉じてください',
+//                     icon: 'success',
+//                     button: {
+//                         text: 'OK',
+//                         value: true
+//                     },
+//                 }).then(function () {
+//                     location.reload();
+//                 });
+//                 break;
+//             case 'error':
+//                 console.log(val);
+//                 swal({
+//                     title: val.title,
+//                     text: val.msg,
+//                     icon: 'warning',
+//                     button: {
+//                         text: 'OK',
+//                         value: true,
+//                     },
+//                 });
+//                 break;
+//             case 'valierr':
+//                 $.each(val, function (name, text) {
+//                     $('#' + name).parents('.form-line').addClass('error')
+//                     let parent = $('#' + name).parents('.input-group');
+//                     parent.append('<label class="error">' + text + '</label>');
+//                     $('#' + name).focus();
+//                 });
+//                 break;
+//             default:
+//                 break;
+//         }
+//     });
+// }

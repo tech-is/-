@@ -9,6 +9,7 @@ class login extends CI_Controller
         parent::__construct();
         $this->load->helper(['url', 'form']);
         $this->load->library('form_validation');
+        date_default_timezone_set('Asia/Tokyo');
         session_start();
         // $_SESSION['shop_id'] = 1;
     }
@@ -21,7 +22,7 @@ class login extends CI_Controller
             header('location: //animarl.com/cl_main');
         } else {
             $this->load->view('login/view_sign-in', $data);
-        };
+        }
     }
 
     public function login()
@@ -30,21 +31,27 @@ class login extends CI_Controller
         if($this->form_validation->run('login')) {
             $this->load->model('mdl_login');
             $data = $this->mdl_login->get_userdata(['shop_email' => $this->input->post('login-email')]);
-            if($data !== false) {
+            if($data) {
                 if(password_verify($this->input->post('login-password'), $data['shop_password'])) {
-                    $res_array = ['success' => 'success_login'];
+                    $res_array = ['success' => 'ログインに成功しました！'];
                     $_SESSION['shop_id'] = $data['shop_id'];
                 } else {
-                    $res_array = ['error' => 'failed_login'];
+                    $res_array = ['error' => 'ログインに失敗しました...'];
                 }
             } else {
-                $res_array = ['error' => 'failed_login'];
+                $res_array = ['error' => 'ログインに失敗しました...'];
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
         }
         header('Content-Type: application/json');
         exit(json_encode($res_array));
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        exit(header('location: //animarl.com/login'));
     }
 
     public function prov_register()
@@ -52,14 +59,36 @@ class login extends CI_Controller
         $this->judge_request_param();
         if($this->form_validation->run('prov-register')) {
             $data = [
-                'tmp_shop_email' => $this->input->post("prov-email"),
-                'tmp_shop_code' => hash('md5', getmypid().microtime())
+                'tmp_shop_email' => $this->input->post('prov-email'),
+                'tmp_shop_code' => hash('md5', getmypid().microtime()),
+                'tmp_expires' => date('Y-m-d H:i:s', time()+3600)
             ];
             $this->load->model('mdl_login');
-            if($this->mdl_login->insert_tmp_data($data)) {
-                $res_array = $this->send_email($data)? ['success' => "仮登録が完了しました！"]: ['error' => 'failed_login'];
+            if($this->mdl_login->check_tmp_user($data['tmp_shop_email']) === 0) {
+                if($this->mdl_login->insert_tmp_data($data)) {
+                    $res_array = $this->send_email($data)?
+                        ['success' => '仮登録が完了しました！']:
+                        [
+                            'error' => [
+                                'title' => '仮登録に失敗しました...',
+                                'msg' => 'また後ほどお試しください'
+                            ]
+                        ];
+                } else {
+                    $res_array = [
+                        'error' => [
+                            'title' => '仮登録に失敗しました...',
+                            'msg' => 'また後ほどお試しください'
+                        ]
+                    ];
+                }
             } else {
-                $res_array = ['error' => 'failed_login'];
+                $res_array = [
+                    'error' => [
+                        'title' => '仮登録に失敗しました...',
+                        'msg' => 'また後ほどお試しください'
+                    ]
+                ];
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
@@ -68,27 +97,85 @@ class login extends CI_Controller
         exit(json_encode($res_array));
     }
 
-    public function forgot_password()
+    public function send_token_for_reset()
     {
         $this->judge_request_param();
-        if($this->login_validation('forgot-password')) {
+        if($this->form_validation->run('forgot-password')) {
             $this->load->model('mdl_login');
-            $data = $this->mdl_login->get_userdata(['shop_email' => $this->input->post('login-email')]);
+            if($this->mdl_login->check_tmp_user(['shop_email' => $email = $this->input->post('forgot-email')]) === 1) {
+                $data = [
+                    'tmp_shop_email' => $email,
+                    'tmp_shop_code' => hash('md5', getmypid().microtime()),
+                    'tmp_expires' => date('Y-m-d H:i:s', time()+3600)
+                ];
+                if($this->mdl_login->insert_tmp_data($data)) {
+                    $msg = <<< EOM
+                    いつもAnimarlをご利用いただきありがとうございます。
+                    パスワードリセット用のURLを添付いたしましたので以下のリンクから変更をお願い致します。
+                    http://animarl.com/login/password_reset_form?code={$data['tmp_shop_code']}
+                    このメールに覚えのない場合には、お手数ですがメールを破棄してくださいますようお願い致します。
+                    EOM;
+                    $this->load->library('email');
+                    $this->email->from('animarl_system@niji-desk.work', 'Animarl_system');
+                    $this->email->to($email);
+                    $this->email->subject('Animarlログインパスワードリセット');
+                    $this->email->message($msg);
+                    if(!$this->email->send()) {
+                        exit(print_r($this->email->print_debugger()));
+                    } else {
+                        $res_array = ['success' => 'リセット用メールを送信しました！'];
+                    }
+                } else {
+                    $res_array = ['error' => "既にメールを送信している可能性があります。\nメールが届いていない場合は1時間ほど待ってから\n再申請してください。"];
+                }
+            } else {
+                $res_array = ['valierr' => ['forgot-email' => 'メールアドレスが登録されていません']];
+            }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
         }
+        header('Content-Type: application/json');
         exit(json_encode($res_array));
+    }
+
+    public function password_reset_form()
+    {
+        if(!empty($code = $this->input->get('code'))) {
+            $this->load->model('mdl_shops');
+            if($data = $this->mdl_shops->get_tmp_email($code)) {
+                $data['code'] = $code;
+                $data['token'] = bin2hex(openssl_random_pseudo_bytes(24));
+                $_SESSION['token'] = $data['token'];
+                $this->load->view('login/view_reset_password', $data);
+            } else {
+                header('HTTP/1.1 403 Forbidden');
+                exit;
+            }
+        } else {
+            header('HTTP/1.1 403 Forbidden');
+            exit;
+        }
     }
 
     public function password_reset()
     {
-        // if(!empty($code = $this->input->get('code'))) {
-            // $this->load->model('mdl_shops');
-            $this->load->view('login/view_reset_password');
-        // } else {
-        //     header('HTTP/1.1 403 Forbidden');
-        //     exit;
-        // }
+        $this->judge_request_param();
+        if($this->form_validation->run('reset-password')) {
+            $this->load->model('mdl_login');
+            if($email = $this->mdl_login->get_tmp_email($this->input->post('reset-token'))) {
+                $data = [
+                    'where' => $email['tmp_shop_email'],
+                    'set' => ['shop_password' => password_hash($this->input->post('reset-password'),PASSWORD_DEFAULT)]
+                ];
+                $res_array = $this->mdl_login->update_password($data)? ['success' => '更新に成功しました！']: ['error' => "パスワードを更新できませんでした...\nしばらくたってからまたお試しください"];
+            } else {
+                $res_array = ['error' => "トークンの有効期限が切れました。\nまたメールアドレスを送信してください"];
+            }
+        } else {
+            $res_array = ['valierr' => $this->form_validation->error_array()];
+        }
+        header('Content-Type: application/json');
+        exit(json_encode($res_array));
     }
 
     /**
@@ -100,53 +187,30 @@ class login extends CI_Controller
     {
         if(empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
             header('HTTP/1.1 403 Forbidden');
-            exit('不正な接続です');
+            exit();
         }
     }
 
     private function send_email($data)
     {
-        $message = <<< EOM
-            このメールは配信専用のアドレスで配信されています。\n
-            このメールに返信されても、返信内容の確認及びご返答ができませんので、あらかじめご了承ください。\n
-            \n
-            この度はAnimarl仮登録頂きありがとうございます。\n
-            本登録を開始するには、次のリンクをクリックしてください。\n
-            http://animarl.com/register?code={$data['tmp_shop_code']}\n
-            このメールに覚えのない場合には、お手数ですがメールを破棄してくださいますようお願い致します。\n
+        $msg = <<< EOM
+            このメールは配信専用のアドレスで配信されています。
+            このメールに返信されても、返信内容の確認及びご返答ができませんので、あらかじめご了承ください。
+            この度はAnimarl仮登録頂きありがとうございます。
+            本登録を開始するには、次のリンクをクリックしてください。
+            http://animarl.com/register?code={$data['tmp_shop_code']}
+            このメールに覚えのない場合には、お手数ですがメールを破棄してくださいますようお願い致します。
         EOM;
-        $this->load->library("email");
-        $this->email->from("system_animarl@niji-desk.work", "Animarlシステムメール");
+        $this->load->library('email');
+        $this->email->from('animarl_system@niji-desk.work', 'Animarl_system');
         $this->email->to($data['tmp_shop_email']);
-        $this->email->set_newline("\r\n");
-        $this->email->subject("会員本登録メール");
-        $this->email->message($message);
-        return $this->email->send();
-    }
-
-    public function send_token()
-    {
-        $email = $this->input->post('email');
-        if($this->chk_login_data() == true) {
-            try {
-                $this->load->library('email');
-                $this->email->from('example@example.com', 'Animarlシステムメール');
-                $this->email->to($email);
-                $this->email->subject('Animarlログインパスワードリセット');
-                $msg = <<< EOM
-                いつもAnimarlをご利用いただきありがとうございます。\n
-                パスワードリセット用のURLを添付いたしましたので以下のリンクから変更をお願い致します。\n
-                http://animarl.com/cl_login/password_reset?=
-                このメールに心当たりがない場合、他のお客様がパスワードをリセットする際に誤って\n
-                お客様のメールアドレスを入力した可能性がありますので、\n
-                お手数ですがメールを破棄してくださいますようお願い致します。\n';
-                EOM;
-                $this->email->message($msg);
-            } catch(extension $e) {
-                echo 'メールの送信に失敗しました';
-            }
+        $this->email->subject('test');
+        $this->email->message($msg);
+        if (!$this->email->send()) {
+            print_r($this->email->print_debugger());
+            exit;
         } else {
-            return false;
+            return true;
         }
     }
 
