@@ -10,6 +10,7 @@ class Cl_staff extends CI_Controller
         $this->load->model('mdl_staff');
         $this->load->model('mdl_shift');
         $this->load->helper(["url", "form"]);
+        $_SESSION['shop_id'] = 1;
     }
 
     public function index()
@@ -37,7 +38,7 @@ class Cl_staff extends CI_Controller
             }
             $data["shift"] = $this->json_encode_array($data["shift"]);
         } else {
-            $data["shift"] = null;
+            $data["shift"] = "{}";
         }
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
