@@ -7,11 +7,10 @@ class login extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper(['url', 'form']);
+        $this->load->helper(['url', 'form', 'ajax']);
         $this->load->library('form_validation');
         date_default_timezone_set('Asia/Tokyo');
         session_start();
-        // $_SESSION['shop_id'] = 1;
     }
 
     public function index()
@@ -33,13 +32,14 @@ class login extends CI_Controller
             $data = $this->mdl_login->get_userdata(['shop_email' => $this->input->post('login-email')]);
             if($data) {
                 if(password_verify($this->input->post('login-password'), $data['shop_password'])) {
-                    $res_array = ['success' => 'ログインに成功しました！'];
+                    $res_array = json_msg('login', true);
                     $_SESSION['shop_id'] = $data['shop_id'];
                 } else {
-                    $res_array = ['error' => 'ログインに失敗しました...'];
+                    $res_array = json_msg('login', false);
+                    // $res_array = ['error' => 'ログインに失敗しました...'];
                 }
             } else {
-                $res_array = ['error' => 'ログインに失敗しました...'];
+                $res_array = json_msg('login', false);
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
@@ -66,29 +66,12 @@ class login extends CI_Controller
             $this->load->model('mdl_login');
             if($this->mdl_login->check_tmp_user($data['tmp_shop_email']) === 0) {
                 if($this->mdl_login->insert_tmp_data($data)) {
-                    $res_array = $this->send_email($data)?
-                        ['success' => '仮登録が完了しました！']:
-                        [
-                            'error' => [
-                                'title' => '仮登録に失敗しました...',
-                                'msg' => 'また後ほどお試しください'
-                            ]
-                        ];
+                    $res_array = $this->send_email($data)? json_msg('prov', true): json_msg('prov', false);
                 } else {
-                    $res_array = [
-                        'error' => [
-                            'title' => '仮登録に失敗しました...',
-                            'msg' => 'また後ほどお試しください'
-                        ]
-                    ];
+                    $res_array = json_msg('prov', false);
                 }
             } else {
-                $res_array = [
-                    'error' => [
-                        'title' => '仮登録に失敗しました...',
-                        'msg' => 'また後ほどお試しください'
-                    ]
-                ];
+                $res_array = json_msg('prov', false);
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
@@ -123,10 +106,10 @@ class login extends CI_Controller
                     if(!$this->email->send()) {
                         exit(print_r($this->email->print_debugger()));
                     } else {
-                        $res_array = ['success' => 'リセット用メールを送信しました！'];
+                        $res_array = json_msg('send_token', true);
                     }
                 } else {
-                    $res_array = ['error' => "既にメールを送信している可能性があります。\nメールが届いていない場合は1時間ほど待ってから\n再申請してください。"];
+                    $res_array = json_msg('send_token', false);
                 }
             } else {
                 $res_array = ['valierr' => ['forgot-email' => 'メールアドレスが登録されていません']];
@@ -167,9 +150,9 @@ class login extends CI_Controller
                     'where' => $email['tmp_shop_email'],
                     'set' => ['shop_password' => password_hash($this->input->post('reset-password'),PASSWORD_DEFAULT)]
                 ];
-                $res_array = $this->mdl_login->update_password($data)? ['success' => '更新に成功しました！']: ['error' => "パスワードを更新できませんでした...\nしばらくたってからまたお試しください"];
+                $res_array = $this->mdl_login->update_password($data)? json_msg('password_reset', true): json_msg('password_reset', false, 10);
             } else {
-                $res_array = ['error' => "トークンの有効期限が切れました。\nまたメールアドレスを送信してください"];
+                $res_array = json_msg('password_reset', false, 1);
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];

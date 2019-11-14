@@ -10,7 +10,6 @@ class register extends CI_Controller
         $this->load->helper(['url', 'form']);
         $this->load->library('form_validation');
         session_start();
-        // $_SESSION['shop_id'] = 1;
     }
 
     public function index()
