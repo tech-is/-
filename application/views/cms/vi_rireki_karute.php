@@ -24,36 +24,35 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="table-responsive">
+                    <div class="table-responsive">
                         <table id="datatable" class="table table-bordered table-striped table-hover dataTable">
                             <thead>
                                 <tr>
-                                    <th>顧客ID</th>
+                                    <th>カルテ履歴</th>
+                                    <th>カルテタイトル</th>
+                                    <th>カルテコメント</th>
                                     <th>顧客名</th>
-                                    <th>ペット名</th>
-                                    <th>電話番号</th>
-                                    <th>メールアドレス</th>
-                                    <th>グループ</th>
+                                    <th>顧客TEL</th>
+                                    <th>顧客メール</th>
                                 </tr>
                             </thead>
-                            <tbody> -->
+                            <tbody>
                                 <?php
-                                // echo $list[0]['customer_id'];
-                                // for ($i = 0; $i < count($list); $i++) {
-                                //     $disply = $list[$i];
-                                //     echo "<tr>";
-                                //     echo "<td>$disply[customer_id]</td>";
-                                //     echo "<td>$disply[customer_name]</td>";
-                                //     echo "<td>$disply[pet_name]</td>";
-                                //     echo "<td>$disply[customer_tel]</td>";
-                                //     echo "<td>$disply[customer_mail]</td>";
-                                //     echo isset($disply["kind_group_name"]) ? "<td>$disply[kind_group_name]</td>" : "<td></td>";
-                                //     echo "</tr>";
-                                // }
+                                for ($i = 0; $i < count($r_karute); $i++) {
+                                    $disply = $r_karute[$i];
+                                    echo "<tr>";
+                                    echo "<td>$disply[karute_created_at]</td>";
+                                    echo "<td>$disply[karute_title]</td>";
+                                    echo "<td>$disply[karute_comment]</td>";
+                                    echo "<td>$disply[customer_name]</td>";
+                                    echo "<td>$disply[customer_tel]</td>";
+                                    echo "<td>$disply[customer_mail]</td>";
+                                    echo "</tr>";
+                                }
                                 ?>
-                            <!-- </tbody>
+                            </tbody>
                         </table>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,14 +77,14 @@
 
 <!-- Jquery DataTable Plugin Js -->
 <script src="../assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<!-- <script src="../assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
 <script src="../assets/cms/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
 <script src="../assets/cms/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
 <script src="../assets/cms/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
 <script src="../assets/cms/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
 <script src="../assets/cms/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
 <script src="../assets/cms/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+<script src="../assets/cms/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script> -->
 
 <!--ボタン効果Sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -96,7 +95,7 @@
 
 <!-- Custom Js -->
 <script src="../assets/cms/js/admin.js"></script>
-<script src="../assets/cms/js/pages/total/total.js"></script>
+<script src="../assets/cms/js/pages/rireki/rireki.js"></script>
 <script>
         // テーブル行クリックの設定 id=データテーブル tbody要素に対して
             $('#datatable tbody').on("click", "tr", function () {

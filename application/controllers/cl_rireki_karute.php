@@ -10,14 +10,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * 変更履歴：2019.8 開発
  */
 
-class Cl_karute extends CI_Controller
+class Cl_rireki_karute extends CI_Controller
 {
     //コンストラクタ
     public function __construct()
     {
         parent::__construct();
         $this->load->helper(["url", "form"]);
-        $this->load->model('Mdl_total_list');
         $this->load->model('Mdl_karute');
         session_start();
         $_SESSION["shop_id"] = 1;
@@ -26,62 +25,25 @@ class Cl_karute extends CI_Controller
     //TOPページ
     public function index()
     {
-        if(!empty($customer_id = $this->input->post("customer_id"))){
-            $data["karute"] = $this->Mdl_karute->m_karute_get($_SESSION["shop_id"], $customer_id);
-            $this->karute_ch($_SESSION["shop_id"],$data["karute"]["customer_id"]);
-            // print_r($data);
-            // exit;
-            $this->karute_result($data);
-            //     if(!empty($data["r_karute"] = $this->Mdl_karute->m_rireki_karute_total_list($_SESSION["shop_id"], $data["karute"]["karute_customer_id"]))){
-            //         $this->rireki_karute($data);
-            // }else{
-            //     redirect('/cl_karute/');
-            // }
-        }else{
-            $data["list"] = $this->get_total_list();
-            $data["groups"] = $this->get_kind_group();
+           $data["r_karute"] = $this->Mdl_karute->m_rireki_karute_total_list($_SESSION["shop_id"]);
             $this->load->view('cms/pages/parts/header');
             $this->load->view('cms/pages/parts/sidebar');
-            $this->load->view('cms/vi_karute', $data);
-            // $this->load->view('cms/vi_karute');
-        }
+            $this->load->view('cms/vi_rireki_karute', $data);
+        
     }
 
-    //検索結果をページ遷移
-    public function karute_result($data)
-    {
-        $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/vi_karute_result', $data);
-        // print_r ($data["karute"]);
-        // exit;
-    }
+   
     //カルテページ遷移
-    public function rireki_karute($data)
-    {
-        $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/vi_karute_result', $data);
-        // print_r ($data["karute"]);
-        // exit;
-    }
+    // public function rireki_karute($data)
+    // {
+    //     $this->load->view('cms/pages/parts/sidebar');
+    //     $this->load->view('cms/pages/parts/header');
+    //     $this->load->view('cms/vi_karute_result', $data);
+    //     // print_r ($data["karute"]);
+    //     // exit;
+    // }
 
-    //カルテ（customer_idをkarute_customer_idへ変換）
-    public function karute_ch($customer_shop_id,$customer_id)
-    {
-        // $keys = array_keys($data["karute"]);
-        // $keys[array_search('customer_id',$keys)]='karute_customer_id';
-        // $data["karute"] = array_combine( $keys, $data["karute"] );
-        // 以下カルテにインサート
-        $data = [
-            'karute_shop_id' => $customer_shop_id,
-            'karute_customer_id' => $customer_id
-        ];
-        $this->Mdl_karute->m_karute_insert($data);
-        // $this->Mdl_karute->m_karute_insert($_SESSION["shop_id"], $data["karute"]["karute_customer_id"]);
-        return;
-    }
-
+    
 
     //karuteでトータルリストから一覧取得 indexへ表示
     private function get_total_list()

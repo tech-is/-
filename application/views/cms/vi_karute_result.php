@@ -2,15 +2,15 @@
 待ち受け画面
 -->
 
-<section>
+<section class="content">
 <div class="container-fluid">
     <div class="row clearfix"></div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card karte_wrapper">
-                <div class="header">
-                    <h2>待ち受け画面</h2>
+                <div class="header text-center">
+                    <h2>受付画面</h2>
                 </div>
-                    <div class="body">
+                <div class="body">
                         <div class="row clearfix">
                             <div class="col-sm-6">
                                 <b><h4>顧客ID検索</h4></b>
@@ -66,47 +66,6 @@
                     </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <div class="card karte_wrapper">
-                <div class="header">
-                    <h2>待ち受けカルテ</h2>
-                </div>
-                <div class="body">
-                    <div class="row clearfix">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        </div>
-                    </div>
-                            <thead>
-                            <div class="form-group">
-                            <label for="customer_magazine">受付日</label>
-                                <div class="form-line">
-                                    <textarea rows="2"" class="form-control no-resize" name="karute_title" placeholder=""></textarea>
-                                </div>
-                        </div>
-                            </thead>
-                            <tbody>
-                        <div class="form-group">
-                            <label for="karute_title"">タイトル</label>
-                                <div class="form-line">
-                                    <textarea rows="2"" class="form-control no-resize" name="karute_title" placeholder="シャンプー予約"></textarea>
-                                </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="karute_comment ">内容</label>
-                                <div class="form-line">
-                                    <textarea rows="20" cols="100" class="form-control no-resize" name="karute_comment" placeholder=""></textarea>
-                                </div>
-                        </div>
-                        <div class="wrapper" style="margin-top: 6px">
-                                    <button id="" type="submit"" class="btn btn-primary waves-effect">登録</button>
-                        </div>
-                            </form>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 </section>
@@ -136,7 +95,7 @@
 
 <!-- Custom Js -->
 <script src="../assets/cms/js/admin.js"></script>
-<!-- <script src="../assets/cms/js/pages/total/total.js"></script> -->
+<script src="../assets/cms/js/pages/total/total.js"></script>
 
 </body>
 

@@ -24,7 +24,11 @@
         ],
         "cl_karute" => [
             "icon" => "book",
-            "title" => "待ち受けモード"
+            "title" => "受け付けモード"
+        ],
+        "cl_rireki_karute" => [
+            "icon" => "book",
+            "title" => "カルテ"
         ]
     ];
 ?>

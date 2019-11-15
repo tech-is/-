@@ -19,7 +19,7 @@ class Cl_total_list extends CI_Controller
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
         session_start();
-        // $_SESSION["shop_id"] = 1;
+        $_SESSION["shop_id"] = 1;
     }
 
     //TOPページ

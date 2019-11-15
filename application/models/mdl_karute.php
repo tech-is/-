@@ -33,7 +33,7 @@ class Mdl_karute extends CI_Model {
         return $this->db->update('kakrute');
     }
 
-    //更新の中身を取得(Cl_karuteもしよう)
+    //取得(Cl_karuteもしよう)
     public function m_karute_get($shop_id,$customer_id)
     {
         // echo $customer_id;
@@ -52,26 +52,30 @@ class Mdl_karute extends CI_Model {
         // exit;
         return $query->row_array(); //結果を配列で返す。
     }
-
+     //カルテ画面表示分カスタマーのセレクトの分をとってくる
+    public function m_rireki_karute_total_list($shop_id)
+    {
+        $where = ['customer_state ' => 1, 'karute_shop_id '=> $shop_id];
+        $this->db->where($where);
+        $this->db->select("karute_title, karute_comment , karute_created_at , customer_name , customer_tel , customer_mail ");
+        $this->db->from('karute');
+        $this->db->join('customer', 'customer_id = karute_customer_id', 'left');
+        $this->db->join('shops', 'shop_id = karute_shop_id', 'left');
+        $query = $this->db->get();
+        //  echo $this->db->last_query();
+         return $query->result_array(); //結果を配列で返す。
+    }
     //新規登録の顧客とカルテをここで登録
-    // public function m_insert_karute($customer_data, $pet_data)
-    // {
-    //     $this->db->trans_start();
-    //     $this->db->insert('customer', $customer_data);
-    //     //insert_idを取得して今↑で登録されたお客さんの新規顧客IDを取得する
-    //     //$pet_data に上のIDを追加する
-    //     $id = $this->db->insert_id();
-    //     $pet_data['pet_customer_id'] = $id;
-    //     $this->db->insert('pet',$pet_data);
-    //     $this->db->trans_complete();
-    //     if ($this->db->trans_status() === FALSE) {
-    //     $this->db->trans_rollback();
-    //         return false;
-    //     } else {
-    //     $this->db->trans_commit();
-    //         return true;
-    //     }
-    // }
+    public function m_karute_insert($data)
+    {
+        // $this->db->set('karute_shop_id', $karute_shop_id);
+        // $data = [
+        //     'karute_shop_id' => $karute_shop_id,
+        //     'karute_customer_id' => $karute_customer_id
+        // ];
+        return $this->db->insert('karute', $data);
+        // $this->db->last_query();
+    }
 
     //更新処理
     // public function m_update_total_list($id, $customer_data, $pet_data)
@@ -92,4 +96,4 @@ class Mdl_karute extends CI_Model {
     //         return true;
     //     }
     // }
-}        
+}
