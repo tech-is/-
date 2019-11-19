@@ -4,14 +4,14 @@ $(function () {
         'responsive': true,
         'searching': true,
         'paging': true,
-        'order': [ [ 0, "asc" ] ]
-        // 'columnDefs': [
-        //     {
-        //         "targets": 0,
-        //         "visible": false,
-        //         "searchable": false
-        //     }
-        // ]
+        'order': [ [ 1, "asc" ] ],
+        'columnDefs': [
+            {
+                "targets": 0,
+                "visible": false,
+                "searchable": false
+            }
+        ]
     });
 });
 

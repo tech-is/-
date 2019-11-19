@@ -6,20 +6,20 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <form action="../../cl_karute/"  target="" method="post">
-                    <h2>待ち受け画面</h2>
+                    <form action="../../cl_rireki_karute/"  target="" method="post">
+                    <h2>カルテ入力</h2>
                 </div>
                 <div class="body">
                     <div class="row clearfix">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <p><b>顧客ID検索</b></p>
+                            <p><b>カルテ表示</b></p>
                             <div class="form-group" style="display:inline-flex;">
                                 <div class="form-line" style="margin-right: 10px">
-                                    <input type="text" class="form-control" name="customer_id" id="find_reg" placeholder="ID番号" required >
+                                    <input type="text" class="form-control" name="karute_id" id="find_reg" placeholder="ID番号" required >
                                     <label class="form-label"></label>
                                 </div>
                                 <div class="wrapper" style="margin-top: 6px">
-                                    <button type="submit"" class="btn btn-primary waves-effect">検索</button>
+                                    <button type="submit"" class="btn btn-primary waves-effect">カルテ入力</button>
                                 </div>
                             </div>
                         </div>
@@ -28,6 +28,7 @@
                         <table id="datatable" class="table table-bordered table-striped table-hover dataTable">
                             <thead>
                                 <tr>
+                                    <th>カルテid</th>
                                     <th>カルテ履歴</th>
                                     <th>カルテタイトル</th>
                                     <th>カルテコメント</th>
@@ -41,6 +42,7 @@
                                 for ($i = 0; $i < count($r_karute); $i++) {
                                     $disply = $r_karute[$i];
                                     echo "<tr>";
+                                    echo "<td>$disply[karute_id]</td>";
                                     echo "<td>$disply[karute_created_at]</td>";
                                     echo "<td>$disply[karute_title]</td>";
                                     echo "<td>$disply[karute_comment]</td>";
@@ -97,7 +99,7 @@
 <script src="../assets/cms/js/admin.js"></script>
 <script src="../assets/cms/js/pages/rireki/rireki.js"></script>
 <script>
-        // テーブル行クリックの設定 id=データテーブル tbody要素に対して
+        // テーブル行クリックの設定 データテーブル tbody要素に対して
             $('#datatable tbody').on("click", "tr", function () {
                 if($(this).find('.dataTables_empty').length == 0) {
                     var owner = $(this);

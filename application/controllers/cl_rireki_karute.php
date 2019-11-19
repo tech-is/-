@@ -25,38 +25,35 @@ class Cl_rireki_karute extends CI_Controller
     //TOPページ
     public function index()
     {
-           $data["r_karute"] = $this->Mdl_karute->m_rireki_karute_total_list($_SESSION["shop_id"]);
-            $this->load->view('cms/pages/parts/header');
-            $this->load->view('cms/pages/parts/sidebar');
-            $this->load->view('cms/vi_rireki_karute', $data);
-        
+            if (!empty($karute_id = $this->input->post("karute_id"))) {
+                $data["r_karute"] = $this->Mdl_karute->get_karute_for_customer($_SESSION["shop_id"]);
+                $this->load->view('cms/pages/parts/header');
+                $this->load->view('cms/vi_new_karute', $data["r_karute"]);
+                // var_dump($data["r_karute"]);exit;
+                // $this->new_karute_data($data);
+                if($this->Mdl_karute->main_insert_karute($karute_id, $data["r_karute"]["karute_created_at"])) {
+                    echo "hogge";
+                } else{
+                    echo "errrrrr";
+                }
+            } else {
+                $data["r_karute"] = $this->Mdl_karute->get_karute_for_customers($_SESSION["shop_id"]);
+                $this->load->view('cms/pages/parts/header');
+                $this->load->view('cms/pages/parts/sidebar');
+                $this->load->view('cms/vi_rireki_karute', $data);
+           }
     }
 
-   
-    //カルテページ遷移
-    // public function rireki_karute($data)
-    // {
-    //     $this->load->view('cms/pages/parts/sidebar');
-    //     $this->load->view('cms/pages/parts/header');
-    //     $this->load->view('cms/vi_karute_result', $data);
-    //     // print_r ($data["karute"]);
-    //     // exit;
-    // }
-
-    
-
-    //karuteでトータルリストから一覧取得 indexへ表示
-    private function get_total_list()
+    //新規カルテ本登録
+    public function update_karute()
     {
-        $shop_id = $_SESSION["shop_id"];
-        return $this->Mdl_total_list->m_get_total_list($shop_id);
-    }
-
-    //karuteでトータルリストからグループ検索 indexへ表示
-    private function get_kind_group()
-    {
-        $id = $_SESSION["shop_id"];
-        return $this->Mdl_total_list->m_get_kind_group($id);
+       $data = $this->input->post(NULL,true);
+       if($this->total_validation()){
+           print_r($data);
+        //    $this->Mdl_karute->main_insert_karute($data);
+       }else{
+           echo "err";
+       }
     }
 
     //更新時、全件取得
@@ -68,46 +65,31 @@ class Cl_rireki_karute extends CI_Controller
 
     // }
 
-    //カルテの登録
-    public function karute_data()
-    {
-        // $data['debug'] = var_export($_POST, true);
-        //顧客の登録
-        // exit;
-            $this->load->model("Mdl_karute");
-            if($this->Mdl_karute->m_insert_karute() === true) {
-                echo "success";
-                exit;
-            } else {
-                echo "dberror";
-                exit;
-            }
-    }
-
     //入力チェック
-    // private function total_validation()
-    // {
-    //     $config = [
-    //         [
-    //             'field' => 'customer_name',
-    //             'label' => '名前',
-    //             'rules' => 'required|trim',
-    //             'errors' => [
-    //                 'required' => '名前を入力してください'
-    //             ]
-    //         ],
-    //         [
-    //             'field' => 'customer_kana',
-    //             'label' => 'カナ',
-    //             'rules' => 'required|trim',
-    //             'errors' => [
-    //                 'required' => 'カナを入力してください'
-    //             ]
-    //     ];
-    //     $this->load->library('form_validation', $config);
-    //     // $this->form_validation->set_rules($config);
-    //     return $this->form_validation->run();
-    // }
+    private function total_validation()
+    {
+        $config = [
+            [
+                'field' => 'karute_title',
+                'label' => 'カルテタイトル',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '入力してください'
+                ]
+            ],
+            [
+                'field' => 'karute_comment',
+                'label' => 'カルテコメント',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => 'カナを入力してください'
+                ]
+            ]
+        ];
+        $this->load->library('form_validation', $config);
+        // $this->form_validation->set_rules($config);
+        return $this->form_validation->run();
+    }
 
     //ペットファイルの画像アップ
     // private function img_upload()

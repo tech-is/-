@@ -60,7 +60,7 @@
                                 <p><?php  echo $karute["pet_created_at"]; ?></p>
                                 <b><h4>ペット更新日時</b></h4>
                                 <p><?php  echo $karute["pet_update_at"]; ?></p>
-                                <input type="button" value="前に戻る" onclick="history.back(-1)">
+                                <a href="/cl_rireki_karute/"><input type="button" value="カルテ入力する" ></a>
                             </div>
                         </div>
                     </div>

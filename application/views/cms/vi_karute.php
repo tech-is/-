@@ -6,7 +6,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <form action="../../cl_karute/"  target="" method="post">
+                    <form action="../../cl_karute/"  target="_blank" method="post">
                     <h2>待ち受け画面</h2>
                 </div>
                 <div class="body">
