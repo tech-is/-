@@ -3,7 +3,7 @@
 class Mdl_staff extends CI_Model
 {
 
-    public function get_staff_list()
+    public function get_staff()
     {
         $where = ['staff_shop_id' => $_SESSION["shop_id"], 'staff_state' => 1];
         $this->db->where($where);

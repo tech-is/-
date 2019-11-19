@@ -14,7 +14,7 @@
             "icon" => "today",
             "title" => "予約管理"
         ],
-        "cl_staff" => [
+        "staff" => [
             "icon" => "group",
             "title" => "スタッフ管理"
         ],

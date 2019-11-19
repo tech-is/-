@@ -104,5 +104,32 @@ $config = [
             'label' => 'パスワード再確認',
             'rules' => 'required|matches[shop_password]|trim'
         ]
+    ],
+    'staff' => [
+        [
+            'field' => 'staff_name',
+            'label' => '名前',
+            'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'staff_tel',
+            'label' => '電話',
+            'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'staff_email',
+            'label' => 'メールアドレス',
+            'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'staff_color',
+            'label' => 'カラーラベル',
+            'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'staff_remarks',
+            'label' => '備考',
+            'rules' => 'trim'
+        ]
     ]
 ];

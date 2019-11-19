@@ -2,7 +2,7 @@
 
 class Mdl_shift extends CI_Model
 {
-    public function select_shift_data()
+    public function get_shift_data()
     {
         $this->db->where(['shift_shop_id' => $_SESSION["shop_id"], 'shift_state' => 1, 'staff_state' => 1]);
         $this->db->select('staff_id, shift_id, staff_name, shift_start, shift_end, staff_color');
