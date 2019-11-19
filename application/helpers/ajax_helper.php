@@ -1,8 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-if ( ! function_exists('json_msg'))
-{
+if (! function_exists('json_msg')) {
     /**
      * Element
      *
@@ -13,7 +12,7 @@ if ( ! function_exists('json_msg'))
      * @param	string
      * @return	array
      */
-    function json_msg(string $item, bool $type, int $index = NULL)
+    function json_msg(string $item, bool $type, int $index = null)
     {
         $msg = [
             'login' => [
@@ -44,7 +43,6 @@ if ( ! function_exists('json_msg'))
                     ]
                 ]
             ],
-            
             'send_token' => [
                 true => [
                     'success' => [
@@ -58,7 +56,7 @@ if ( ! function_exists('json_msg'))
                         'msg' => "既にメールを送信している可能性があります。\nメールが届いていない場合はしばらく待ってから\n再申請してください"
                     ]
                 ]
-            ],        
+            ],
             'prov' => [
                 true => [
                     'success' => [
@@ -77,19 +75,28 @@ if ( ! function_exists('json_msg'))
                 false => [
                     [
                         'error' => [
-                            'title' => '仮登録に失敗しました...',
+                            'title' => 'パスワードリセットに失敗しました...',
                             'msg' => "再発行の有効期限が切れました。\nまたメールアドレスを送信してください"
                         ]
                     ],
                     [
                         'error' => [
-                            'title' => '仮登録に失敗しました...',
+                            'title' => 'パスワードリセットに失敗しました...',
                             'msg' => "再発行の有効期限が切れました。\nまたメールアドレスを送信してください"
                         ]
                     ]
                 ]
+            ],
+            'staff' => [
+                true => [
+                    'title' => '登録に成功しました！',
+                    'msg' => ''
+                ],
+                false => [
+                    'title' => '登録に失敗しました...',
+                    'msg' => ''
+                ]
             ]
-
         ];
         return $index? $msg[$item][$type][$index] : $msg[$item][$type];
     }
