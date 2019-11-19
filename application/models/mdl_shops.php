@@ -2,14 +2,8 @@
 
 class Mdl_shops extends CI_Model
 {
-    public function insert_mail($data)
-    {
-        // $this->db->insert('tmp_shops', $data)? $result = true: $result = false;
-        // return $result;
-        return $this->db->insert('tmp_shops', $data);
-    }
 
-    public function select_code($code)
+    public function get_tmp_email($code)
     {
         $query = $this->db->select("tmp_shop_email", "tmp_shop_code")->where("tmp_shop_code", $code)->get("tmp_shops");
         // $this->db->where("tmp_shop_code", $code);
@@ -22,7 +16,11 @@ class Mdl_shops extends CI_Model
 
     public function insert_shops($data)
     {
-        return $this->db->insert('shops', $data);
+        $this->db->trans_start();
+        $query = $this->db->insert('shops', $data);
+        $query = $this->db->where('tmp_shop_email', $data['shop_email'])->delete('tmp_shops');
+        $this->db->trans_complete();
+        return !$this->db->trans_status()? false: true;
     }
 
     public function update_shops()
