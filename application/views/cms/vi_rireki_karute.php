@@ -1,4 +1,4 @@
-﻿<!--待ち受け画面-->
+<!--待ち受け画面-->
 
 <section class="content">
 <div class="container-fluid">
@@ -6,7 +6,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <form action="../../cl_rireki_karute/"  target="" method="post">
+                    <form action="<?php echo base_url(); ?>Karte_history/"  target="" method="post">
                     <h2>カルテ入力</h2>
                 </div>
                 <div class="body">
@@ -18,8 +18,11 @@
                                     <input type="text" class="form-control" name="karute_id" id="find_reg" placeholder="ID番号" required >
                                     <label class="form-label"></label>
                                 </div>
-                                <div class="wrapper" style="margin-top: 6px">
-                                    <button type="submit"" class="btn btn-primary waves-effect">カルテ入力</button>
+                                <div class="wrapper" style="margin: 6px">
+                                    <button type="submit"name="karute_in" value="1" class="btn btn-primary waves-effect">カルテ入力</button>
+                                </div>
+                                <div class="wrapper" style="margin: 6px">
+                                    <button type="submit" name="karute_his" value="2" class="btn btn-primary waves-effect">カルテ履歴一覧</button>
                                 </div>
                             </div>
                         </div>

@@ -26,7 +26,7 @@
             "icon" => "book",
             "title" => "受け付けモード"
         ],
-        "cl_rireki_karute" => [
+        "Karte_history" => [
             "icon" => "book",
             "title" => "カルテ"
         ]

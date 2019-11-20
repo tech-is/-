@@ -104,5 +104,23 @@ $config = [
             'label' => 'パスワード再確認',
             'rules' => 'required|matches[shop_password]|trim'
         ]
+    ],
+    'karte' => [
+        [
+            'field' => 'karute_title',
+            'label' => 'カルテタイトル',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '入力してください'
+            ]
+        ],
+        [
+            'field' => 'karute_comment',
+            'label' => 'カルテコメント',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => 'カナを入力してください'
+            ]
+        ]
     ]
 ];

@@ -10,27 +10,26 @@
                 <div class="header text-center">
                     <h2>カルテ新規登録</h2>
                 </div>
-                <form action="../../cl_rireki_karute/update_karute/"  target="" method="post">
+                <form action="<?php echo base_url(); ?>Karte_history/update_karute" target="" method="post">
                 <div class="body">
                     <div class="row clearfix">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <h4>受け付け日</h4>
-                                    <div class="form-line">
-                                        <?php print_r($r_karute); ?>
-                                    <p><input type="text" name="karute_create_at"value="<?php  echo $r_karute["karute_created_at"]; ?>"></p>
-                                </div>
-                            </div>
+                            <h4>受け付け日</h4>
+                            <p><?php  echo $karute_created_at; ?></p>
                         </div>
                         <div>
+                                <!-- <input type="hidden" name="karute_customer_id" value="<?php  echo $r_karute["karute_customer_id"]; ?>">  -->
+                                <input type="hidden" name="karute_id" value="<?php  echo $karute_id; ?>">
                                 <input type="text" class="form-control" name="karute_title" placeholder="カルテタイトル">
                            </div>
                                <div>
-                                <input type="text" class="form-control" row= "40" name="karute_title" placeholder="カルテの内容">
+                                <input type="text" class="form-control" row= "40" name="karute_comment" placeholder="カルテの内容">
                                </div>
                             </div>
-                        </div>
-                </form>
+                            <div class="wrapper" style="margin-top: 6px">
+                                    <button type="submit" class="btn btn-primary waves-effect">登録</button>
+                            </div>
+                    </form>
                 </div>
         </div>
     </div>
