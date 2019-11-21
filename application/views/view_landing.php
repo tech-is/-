@@ -378,55 +378,54 @@
             <h2 class="section-title">PRICING</h2>
             <div class="intro">利用料金について</div>
             <div class="pricing-wrapper row">
-                <div class="item item-1 col-md-4 col-12">
+                <div class="item item-1 col-md-6 col-12">
                     <div class="item-inner">
-                        <h3 class="item-heading">フリー<br><span class="item-heading-desc">(CC BY 3.0)</span></h3>
+                        <h3 class="item-heading">フリー<br><span class="item-heading-desc">（ペット管理システム）</span></h3>
                         <div class="price-figure">
                             <span class="currency">￥</span><span class="number">0</span>
                         </div>
                         <!--//price-figure-->
                         <ul class="list-unstyled mb-3">
-                            <li class="mb-2">
-                                <i class="fas fa-check"></i> Single installation
-                            </li>
-                            <li class="mb-2">
-                                <i class="fas fa-check"></i> Multiple installations
-                            </li>
-                            <li class="mb-2">
-                                <i class="fas fa-times"></i> Use without attribution link
-                            </li>
+                            <li class="mb-2"><i class="fas fa-check"></i> ログイン機能であなた専用に!!</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> ペット予約</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> 従業員管理</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> QRコードでラクラク顧客管理</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> メールマガジン管理</li>
                         </ul>
-                        <div class="mb-3"><a href="index.php/cl_main/login" target="_blank">License Details</a></div>
+                        <div class="mb-3"><a href="index.php/cl_main/login" target="_blank">License 詳細</a></div>
                         <a class="btn btn-cta" href="index.php/cl_main/login">
-                            ダウンロード<br>（無料）</a>
+                            ログイン<br>（新規登録）</a>
 
                     </div>
                     <!--//item-inner-->
                 </div>
                 <!--//item-->
-                <div class="item item-2 col-md-4 col-12">
+                <div class="item item-2 col-md-6 col-12">
                     <div class="item-inner">
-                        <h3 class="item-heading">カスタム<br><span class="item-heading-desc">(Commercial
-                                License)</span></h3>
+                        <h3 class="item-heading">カスタム（有料）<br><span class="item-heading-desc">(オリジナル管理システム)</span></h3>
+
                         <div class="price-figure">
-                            <span class="currency">￥</span><span class="number">29</span>
+                            <span class="currency">ご相談ください。</span>
                         </div>
                         <!--//price-figure-->
                         <ul class="list-unstyled mb-3">
-                            <li class="mb-2"><i class="fas fa-check"></i> Single installation</li>
-                            <li class="mb-2"><i class="fas fa-times"></i> Multiple installations</li>
-                            <li class="mb-2"><i class="fas fa-check"></i> Use without attribution link</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> フリー版を元にカスタマイズ</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> 理容・美容業界の運営システム</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> ネイルサロン運営システム</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> 整体・整骨院・鍼灸運営システム</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> 寺院の運営システム</li>
+                            <li class="mb-2"><i class="fas fa-check"></i>ジムの運営システム</li>
                         </ul>
-                        <div class="mb-3"><a href="index.php/cl_main/login" target="_blank">License Details</a></div>
-                        <a class="btn btn-cta" href="index.php/cl_main/login">
-                            ダウンロード（有料）</a>
+                        <div class="mb-3"><a href="index.php/cl_main/login" target="_blank">License 詳細</a></div>
+                        <a class="btn btn-cta" href="">
+                            お問い合わせ下さい</a>
 
                     </div>
                     <!--//item-inner-->
                 </div>
                 <!--//item-->
 
-                <div class="item item-3 col-md-4 col-12">
+                <!-- <div class="item item-3 col-md-4 col-12">
                     <div class="item-inner">
                         <h3 class="item-heading">プレミアム版<br><span class="item-heading-desc">(Commercial
                                 License)</span></h3>
@@ -434,15 +433,15 @@
                             <span class="currency">￥</span><span class="number">35億</span>
                         </div>
                         <!--//price-figure-->
-                        <ul class="list-unstyled mb-3">
+                        <!-- <ul class="list-unstyled mb-3">
                             <li class="mb-2"><i class="fas fa-check"></i> Single installation</li>
                             <li class="mb-2"><i class="fas fa-check"></i> Multiple installations</li>
                             <li class="mb-2"><i class="fas fa-check"></i> Use without attribution link</li>
                         </ul>
                         <div class="mb-3"><a href="index.php/cl_main/login" target="_blank">License Details</a></div>
-                        <a class="btn btn-cta" href="index.php/cl_main/login" target="_blank">ダウンロード（有料）</a>
+                        <a class="btn btn-cta" href="index.php/cl_main/login" target="_blank">ダウンロード（有料）</a> -->
 
-                    </div>
+                    </div> 
                     <!--//item-inner-->
                 </div>
                 <!--//item-->

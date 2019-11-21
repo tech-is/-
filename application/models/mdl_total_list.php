@@ -110,7 +110,7 @@ class Mdl_total_list extends CI_Model {
         }
     }
       //履歴画面表示分カスタマーのセレクトの分をとってくる
-      public function m_rireki_karute_total_list($shop_id)
+      public function get_karute_for_customer($shop_id)
       {
           $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
           $this->db->where($where);

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 /*
  * タイトル：顧客・ペット管理
  * 説明    ：顧客・ペットの登録・変更・削除を行う
@@ -10,8 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * 変更履歴：2019.8 開発
  */
 
-class Mdl_karute extends CI_Model {
-
+class Mdl_karute extends CI_Model
+{
     public function __construct()
     {
         // CI_Model constructor の呼び出し
@@ -19,12 +19,6 @@ class Mdl_karute extends CI_Model {
         $this->load->database();
     }
 
-    //kind_groupをインサート
-    public function insert_karute_data($data)
-    {
-        $this->db->insert('karure', $data)? $result = true: $result = false;
-        return $result;
-    }
     //kauteの診断内容のを削除
     public function delete_karute_data($id)
     {
@@ -33,8 +27,8 @@ class Mdl_karute extends CI_Model {
         return $this->db->update('kakrute');
     }
 
-    //取得(Cl_karuteもしよう)
-    public function m_karute_get($shop_id,$customer_id)
+    //待ち受けモードで取得結果を表示
+    public function m_karute_get($shop_id, $customer_id)
     {
         // echo $customer_id;
         // exit;
@@ -52,12 +46,12 @@ class Mdl_karute extends CI_Model {
         // exit;
         return $query->row_array(); //結果を配列で返す。
     }
-     //カルテ画面表示分カスタマーのセレクトの分をとってくる
-    public function m_rireki_karute_total_list($shop_id)
+    //カルテ画面表示分カスタマーのセレクトの分をとってくる
+    public function get_karute_for_customers($shop_id)
     {
-        $where = ['customer_state ' => 1, 'karute_shop_id '=> $shop_id];
+        $where = ['customer_state ' => 1,'karute_state ' => 1, 'karute_shop_id '=> $shop_id];
         $this->db->where($where);
-        $this->db->select("karute_title, karute_comment , karute_created_at , customer_name , customer_tel , customer_mail ");
+        $this->db->select("karute_id, karute_title, karute_comment , karute_created_at , karute_update_at, customer_id, customer_name, customer_tel , customer_mail ");
         $this->db->from('karute');
         $this->db->join('customer', 'customer_id = karute_customer_id', 'left');
         $this->db->join('shops', 'shop_id = karute_shop_id', 'left');
@@ -65,16 +59,52 @@ class Mdl_karute extends CI_Model {
         //  echo $this->db->last_query();
          return $query->result_array(); //結果を配列で返す。
     }
-    //新規登録の顧客とカルテをここで登録
-    public function m_karute_insert($data)
+
+    //個別カルテ履歴画面
+    public function get_karute_history_customer($shop_id, $karute_customer_id)
     {
-        // $this->db->set('karute_shop_id', $karute_shop_id);
-        // $data = [
-        //     'karute_shop_id' => $karute_shop_id,
-        //     'karute_customer_id' => $karute_customer_id
-        // ];
+        $where = ['customer_state ' => 1,'karute_state ' => 1, 'karute_shop_id '=> $shop_id, 'karute_customer_id ' => $karute_customer_id];
+        $this->db->where($where);
+        $this->db->select("karute_id, karute_title, karute_comment , karute_created_at , karute_update_at, customer_name , customer_tel , customer_mail ");
+        $this->db->from('karute');
+        $this->db->join('customer', 'customer_id = karute_customer_id', 'left');
+        $this->db->join('shops', 'shop_id = karute_shop_id', 'left');
+        $query = $this->db->get();
+        //  echo $this->db->last_query();
+         return $query->result_array(); //結果を配列で返す。
+    }
+
+    // public function get_karute_for_customer($shop_id)
+    // {
+    //     $where = ['karute_state ' => 1, 'karute_shop_id '=> $shop_id];
+    //     $this->db->where($where);
+    //     $this->db->select("karute_id, karute_created_at, karute_customer_id");
+    //     $this->db->from('karute');
+    //     $query = $this->db->get();
+    //     //  echo $this->db->last_query();
+    //      return $query->row_array(); //結果を配列で返す。
+    // }
+
+    //待ち受けカルテをここで仮登録登録
+    public function sub_insert_karute($karute_shop_id, $karute_customer_id)
+    {
+        $data = [
+            'karute_shop_id' => $karute_shop_id,
+            'karute_customer_id' => $karute_customer_id
+        ];
         return $this->db->insert('karute', $data);
         // $this->db->last_query();
+        // exit;
+    }
+
+    //待ち受けカルテからここで本登録登録
+    public function main_insert_karute($data)
+    {
+        $this->db->set($data['update']);
+        $this->db->where($data['where']);
+        return $this->db->update('karute');
+        // $this->db->last_query();
+        // exit;
     }
 
     //更新処理

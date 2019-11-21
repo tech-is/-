@@ -28,7 +28,9 @@ class Cl_karute extends CI_Controller
     {
         if(!empty($customer_id = $this->input->post("customer_id"))){
             $data["karute"] = $this->Mdl_karute->m_karute_get($_SESSION["shop_id"], $customer_id);
-            $this->karute_ch($_SESSION["shop_id"],$data["karute"]["customer_id"]);
+            // var_dump($data["karute"]);exit;
+            // 以下カルテにインサート
+            $this->Mdl_karute->sub_insert_karute($_SESSION["shop_id"],$data["karute"]["customer_id"]);
             // print_r($data);
             // exit;
             $this->karute_result($data);
@@ -66,23 +68,6 @@ class Cl_karute extends CI_Controller
         // exit;
     }
 
-    //カルテ（customer_idをkarute_customer_idへ変換）
-    public function karute_ch($customer_shop_id,$customer_id)
-    {
-        // $keys = array_keys($data["karute"]);
-        // $keys[array_search('customer_id',$keys)]='karute_customer_id';
-        // $data["karute"] = array_combine( $keys, $data["karute"] );
-        // 以下カルテにインサート
-        $data = [
-            'karute_shop_id' => $customer_shop_id,
-            'karute_customer_id' => $customer_id
-        ];
-        $this->Mdl_karute->m_karute_insert($data);
-        // $this->Mdl_karute->m_karute_insert($_SESSION["shop_id"], $data["karute"]["karute_customer_id"]);
-        return;
-    }
-
-
     //karuteでトータルリストから一覧取得 indexへ表示
     private function get_total_list()
     {
@@ -113,7 +98,7 @@ class Cl_karute extends CI_Controller
         //顧客の登録
         // exit;
             $this->load->model("Mdl_karute");
-            if($this->Mdl_karute->m_insert_karute() === true) {
+            if($this->Mdl_karute->m_insert_karute() === true){
                 echo "success";
                 exit;
             } else {
