@@ -6,7 +6,9 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <form action="<?php echo base_url(); ?>cl_karute/" target="_blank" method="post">
+                        <form
+                            action="<?php echo base_url(); ?>cl_karute/"
+                            target="_blank" method="post">
                             <h2>待ち受け画面</h2>
                     </div>
                     <div class="body">
@@ -99,17 +101,17 @@
 <script src="../assets/cms/js/admin.js"></script>
 <script src="../assets/cms/js/pages/total/total.js"></script>
 <script>
-// テーブル行クリックの設定 id=データテーブル tbody要素に対して
-$('#datatable tbody').on("click", "tr", function() {
-    if ($(this).find('.dataTables_empty').length == 0) {
-        var owner = $(this);
-        $("#datatable tr").removeClass("active"); //他のボタン押したら離れる
-        owner.addClass("active"); //アクティブにする
-        let row = $('#datatable').DataTable().rows(this).data();
-        console.log(row);
-        $("#find_reg").val(row[0][0]); //予約ボタン
-    }
-});
+    // テーブル行クリックの設定 id=データテーブル tbody要素に対して
+    $('#datatable tbody').on("click", "tr", function() {
+        if ($(this).find('.dataTables_empty').length == 0) {
+            var owner = $(this);
+            $("#datatable tr").removeClass("active"); //他のボタン押したら離れる
+            owner.addClass("active"); //アクティブにする
+            let row = $('#datatable').DataTable().rows(this).data();
+            console.log(row);
+            $("#find_reg").val(row[0][0]); //予約ボタン
+        }
+    });
 </script>
 </body>
 

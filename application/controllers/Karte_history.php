@@ -27,19 +27,15 @@ class Karte_history extends CI_Controller
     {   //上新規入力画面、↓カルテ画面
         
         if (!empty($data["karute_id"] = $this->input->post("karute_id"))) {
-            if ($this->input->post("karute_in") == 1) {
+            if ($this->input->post("karute_in") == 1) { //カルテ入力ボタンにて
                 // $data["r_karute"] = $this->Mdl_karute->get_karute_for_customer($_SESSION["shop_id"]);
                 $data["karute_created_at"] = "2019-11-19 16:56:05";
                 $this->load->view('cms/pages/parts/header');
                 $this->load->view('cms/pages/parts/sidebar');
                 $this->load->view('cms/vi_new_karute', $data);
-            } elseif ($this->input->post("karute_his") == 2) {
-                $data["r_karute"] = $this->Mdl_karute->get_karute_for_customers($_SESSION["shop_id"], $data["karute_id"]);
-                $this->load->view('cms/pages/parts/header');
-                $this->load->view('cms/pages/parts/sidebar');
-                $this->load->view('cms/vi_Karte_history_list', $data);
+            } elseif ($this->input-post("karute_his") == 2) {  //カルテ履歴ボタンにて
             }
-        } else {
+        } else {    //カルテの最初の画面にて一覧リスト
             $data["r_karute"] = $this->Mdl_karute->get_karute_for_customers($_SESSION["shop_id"]);
             $this->load->view('cms/pages/parts/header');
             $this->load->view('cms/pages/parts/sidebar');
@@ -48,7 +44,16 @@ class Karte_history extends CI_Controller
             // $this->load->view('cms/vi_Karte_history_list', $data);
         }
     }
-
+    // カルテ履歴ボタン
+    public function rireki()
+    {
+        $data["r_karute"] = $this->Mdl_karute->get_karute_history_customer($_SESSION["shop_id"], $this->input->get('customer_id'));
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view('cms/vi_Karte_history_list', $data);
+        // var_dump($this->input->get('customer_id'));
+        // exit;
+    }
     //新規カルテ本登録
     public function update_karute()
     {

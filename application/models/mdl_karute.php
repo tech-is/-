@@ -27,7 +27,7 @@ class Mdl_karute extends CI_Model
         return $this->db->update('kakrute');
     }
 
-    //取得(Cl_karuteもしよう)
+    //待ち受けモードで取得結果を表示
     public function m_karute_get($shop_id, $customer_id)
     {
         // echo $customer_id;
@@ -47,9 +47,23 @@ class Mdl_karute extends CI_Model
         return $query->row_array(); //結果を配列で返す。
     }
     //カルテ画面表示分カスタマーのセレクトの分をとってくる
-    public function get_karute_for_customers($shop_id, $karute_id)
+    public function get_karute_for_customers($shop_id)
     {
-        $where = ['customer_state ' => 1,'karute_state ' => 1, 'karute_shop_id '=> $shop_id, 'karute_id ' => $karute_id];
+        $where = ['customer_state ' => 1,'karute_state ' => 1, 'karute_shop_id '=> $shop_id];
+        $this->db->where($where);
+        $this->db->select("karute_id, karute_title, karute_comment , karute_created_at , karute_update_at, customer_id, customer_name, customer_tel , customer_mail ");
+        $this->db->from('karute');
+        $this->db->join('customer', 'customer_id = karute_customer_id', 'left');
+        $this->db->join('shops', 'shop_id = karute_shop_id', 'left');
+        $query = $this->db->get();
+        //  echo $this->db->last_query();
+         return $query->result_array(); //結果を配列で返す。
+    }
+
+    //個別カルテ履歴画面
+    public function get_karute_history_customer($shop_id, $karute_customer_id)
+    {
+        $where = ['customer_state ' => 1,'karute_state ' => 1, 'karute_shop_id '=> $shop_id, 'karute_customer_id ' => $karute_customer_id];
         $this->db->where($where);
         $this->db->select("karute_id, karute_title, karute_comment , karute_created_at , karute_update_at, customer_name , customer_tel , customer_mail ");
         $this->db->from('karute');
