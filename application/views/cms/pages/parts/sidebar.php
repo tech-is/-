@@ -14,7 +14,7 @@
             "icon" => "today",
             "title" => "予約管理"
         ],
-        "cl_staff" => [
+        "staff" => [
             "icon" => "group",
             "title" => "スタッフ管理"
         ],
@@ -47,7 +47,7 @@
                     aria-expanded="true">keyboard_arrow_down</i>
                 <ul class="dropdown-menu pull-right">
                     <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-                    <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                    <li><a href="//animarl.com/login/logout"><i class="material-icons">input</i>Sign Out</a></li>
                 </ul>
             </div>
         </div>

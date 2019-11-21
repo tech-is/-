@@ -70,10 +70,9 @@
                         <div class="form-line">
                             <label for="start">担当スタッフ<span style="color: red; margin-left: 10px">必須</span></label>
                             <?php
-                                if(isset($select_staff)) {
+                                if(!empty($staff)) {
                                     echo '<select id="select_shift_staff" class="form-control show-tick" value="">';
-                                    echo '<option value="">-- スタッフを選択してください --</option>';
-                                    foreach($select_staff as $value) {
+                                    foreach($staff as $value) {
                                         echo "<option value={$value['staff_id']}>{$value['staff_name']}</option>";
                                     }
                                 } else {
@@ -104,7 +103,7 @@
                     </div>
                     <input type="hidden" name="shift_id" id="shift_id" />
                     <div class="pull-left">
-                        <?php if(isset($select_staff)){ ?>
+                        <?php if(!empty($staff)){ ?>
                             <button type="submit" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect">登録</button>
                         <?php } else { ?>
                             <button type="submit" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect" disabled>登録</button>
@@ -200,40 +199,38 @@
     </div>
 </section>
 <!-- END -->
-
-
 </div>
 
 <!-- モーダルエリアここまで -->
 
 <!-- Jquery Core Js -->
-<script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery/jquery.min.js"></script>
 
 <!-- moment js -->
-<script src='../assets/cms/plugins/momentjs/moment.js'></script>
+<script src='<?php echo base_url(); ?>assets/cms/plugins/momentjs/moment.js'></script>
 
 <!-- fullcalendar -->
-<script src="../assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.js"></script>
-<script src="../assets/cms/plugins/fullcalendar-3.9.0/locale-all.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar-3.9.0/locale-all.js"></script>
 
 <!-- Bootstrap Core Js -->
-<script src=" ../assets/cms/plugins/bootstrap/js/bootstrap.js"> </script>
+<script src=" <?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js"> </script>
 
 <!-- Slimscroll Plugin Js -->
-<script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="../assets/cms/plugins/node-waves/waves.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.js"></script>
 
 <!-- Morris Plugin Js -->
-<script src="../assets/cms/plugins/raphael/raphael.min.js"></script>
-<script src="../assets/cms/plugins/morrisjs/morris.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/raphael/raphael.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/morrisjs/morris.js"></script>
 
 <!-- Sparkline Chart Plugin Js -->
-<script src="../assets/cms/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
 <!-- Validation Plugin Js -->
-<script src="../assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
 
 <!-- Jquery-datatable -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
@@ -244,19 +241,19 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
 <!-- SweetAlert Plugin Js -->
-<!-- <script src="../assets/cms/plugins/sweetalert/sweetalert.min.js"></script> -->
+<!-- <script src="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.min.js"></script> -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <!-- Custom Plugin Js -->
-<script src="../assets/cms/js/admin.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
 
 <script>
-    table_json = <?php echo $staff ?>;
-    event_json = <?php echo @$shift?: "{}"; ?>;
+    staff_json = <?php echo $staff_json ?>;
+    event_json = <?php echo $shift ?>;
 </script>
 
-<script src="../assets/cms/js/pages/staff/staff_list.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/js/pages/staff/staff_list.js"></script>
 
 </body>
 

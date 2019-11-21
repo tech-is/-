@@ -31,7 +31,7 @@ $(function () {
         'tabIndex': -1,
         'order': [[0, 'asc']],
         'colReorder': true,
-        'data': table_json,
+        'data': staff_json,
         'columns': [
             { 'data': "staff_id" },
             { 'data': "staff_name" },
@@ -271,7 +271,6 @@ $('#closeModal_add_shift , #modalBg_add_shift, #cancel_add_shift').click(functio
     $('input[name="shift_end"]').val("");
 });
 
-
 /******************************************************************** */
 /* スタッフ登録 */
 /******************************************************************** */
@@ -284,7 +283,7 @@ $("#registButton").on("click", function () {
 
 $("#sendRegistButton").on("click", function () {
     $.ajax({
-        url: "../Cl_staff/register_staff",
+        url: "//animarl.com/staff/register_staff",
         type: "POST",
         data: {
             staff_name: $("input[name='staff_name[0]']").val() + " " + $("input[name= 'staff_name[1]']").val(),
@@ -293,6 +292,7 @@ $("#sendRegistButton").on("click", function () {
             staff_color: $("input[name='staff_color']").val(),
             staff_remarks: $("textarea[name='staff_remarks']").val()
         },
+        dataType: JSON
     }).done(function (data) {
         if (data == "success") {
             SweetAlertMessage("success_register");
@@ -350,18 +350,27 @@ $(function () {
             staff_remarks: $("textarea[name='staff_remarks']").val()
         }
         $.ajax({
-            url: "../cl_staff/update_staff_list",
+            url: "//animarl.com/staff/update_staff",
             type: "POST",
             data: param,
-        }).done(function (data) {
-            if (data == "success") {
-                SweetAlertMessage("success_update");
-            } else {
-                SweetAlertMessage("failed_update");
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        }).fail(function (xhr, textStatus, errorThrown) {
-            SweetAlertMessage("failed_register");
-        });
+        }).then(
+            function (data) {
+                process_callback(data)
+            },
+            function () {
+                swal({
+                    title: 'システムエラー',
+                    text: 'また後ほどお試しください',
+                    icon: 'warning',
+                    button: {
+                        text: 'OK'
+                    },
+                })
+            });
+        return false;
     });
 });
 /******************************************************************** */
@@ -377,7 +386,7 @@ function staff_delete() {
         staff_id: selectedRows[0].staff_id
     }
     $.ajax({
-        url: "../cl_staff/delete_staff",
+        url: "//animarl.com/staff/delete_staff",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -390,75 +399,6 @@ function staff_delete() {
         SweetAlertMessage("failed_register");
     });
 }
-
-/******************************************************************** */
-/* jquery.validate */
-/******************************************************************** */
-$(function () {
-    $("#form_shift").validate({
-        rules: {
-            shift_start: { required: true },
-            shift_end: { required: true },
-        },
-        messages: {
-            shift_start: { required: "入力してください。" },
-            shift_end: { required: "入力してください。" },
-        },
-        highlight: function (input) {
-            // console.log(input);
-            $(input).parents('.form-line').addClass('error');
-        },
-        unhighlight: function (input) {
-            $(input).parents('.form-line').removeClass('error');
-        },
-        errorPlacement: function (error, element) {
-            $(element).parents('.input-group').append(error);
-            $(element).parents('.form-group').append(error);
-        },
-        submitHandler: function (form) {
-            if ($("#shift_id").val() == "") {
-                register_shift();
-                return false;
-            } else {
-                update_shift();
-                return false;
-            }
-        }
-    });
-});
-
-$(function () {
-    $("#form_shift").validate({
-        rules: {
-            shift_start: { required: true },
-            shift_end: { required: true },
-        },
-        messages: {
-            shift_start: { required: "入力してください。" },
-            shift_end: { required: "入力してください。" },
-        },
-        highlight: function (input) {
-            // console.log(input);
-            $(input).parents('.form-line').addClass('error');
-        },
-        unhighlight: function (input) {
-            $(input).parents('.form-line').removeClass('error');
-        },
-        errorPlacement: function (error, element) {
-            $(element).parents('.input-group').append(error);
-            $(element).parents('.form-group').append(error);
-        },
-        submitHandler: function (form) {
-            if ($("#shift_id").val() == "") {
-                register_shift();
-                return false;
-            } else {
-                update_shift();
-                return false;
-            }
-        }
-    });
-});
 
 /******************************************************************** */
 /** SweetAlert  **/
