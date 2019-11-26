@@ -14,35 +14,27 @@
                     <div class="body">
                         <div class="row clearfix">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <p><b>カルテ表示</b></p>
+                                <!-- <p><b>カルテ表示</b></p>
                                 <div class="form-group" style="display:inline-flex;">
                                     <div class="form-line" style="margin-right: 10px">
                                         <input type="text" class="form-control" name="karute_id" id="find_reg"
                                             placeholder="ID番号" required>
                                         <label class="form-label"></label>
                                     </div>
-                                    <div class="wrapper" style="margin: 6px">
-                                        <button type="submit" name="karute_in" value="1"
-                                            class="btn btn-primary waves-effect">カルテ入力</button>
-                                    </div>
-                                    <div class="wrapper" style="margin: 6px">
-                                        <button type="submit" id="karute_his" name="karute_his" value="2"
-                                            class="btn btn-primary waves-effect">カルテ履歴一覧</button>
-                                    </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="table-responsive">
                             <table id="datatable" class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                     <tr>
-                                        <th>カルテid</th>
                                         <th>カルテ履歴</th>
                                         <th>カルテタイトル</th>
                                         <th>カルテコメント</th>
                                         <th>顧客名</th>
                                         <th>顧客TEL</th>
                                         <th>顧客メール</th>
+                                        <th>ボタン選択</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,13 +42,14 @@
                                 for ($i = 0; $i < count($r_karute); $i++) {
                                     $disply = $r_karute[$i];
                                     echo "<tr>";
-                                    echo "<td>$disply[karute_id]</td>";
                                     echo "<td>$disply[karute_created_at]</td>";
                                     echo "<td>$disply[karute_title]</td>";
                                     echo "<td>$disply[karute_comment]</td>";
-                                    echo "<td><a href=/Karte_history/rireki?customer_id=$disply[customer_id]>$disply[customer_name]</td>";
+                                    echo "<td>$disply[customer_name]</td>";
                                     echo "<td>$disply[customer_tel]</td>";
                                     echo "<td>$disply[customer_mail]</td>";
+                                    echo "<td><button><a href=/Karte_history/rireki?customer_id=$disply[customer_id]>カルテ履歴一覧</button></td>";
+                                    echo "<td><button><a href=/Karte_history/?karute_id=$disply[karute_id]>カルテ入力</button></td>";
                                     echo "</tr>";
                                 }
                                 ?>

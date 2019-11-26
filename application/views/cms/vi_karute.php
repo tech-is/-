@@ -18,7 +18,7 @@
                                 <div class="form-group" style="display:inline-flex;">
                                     <div class="form-line" style="margin-right: 10px">
                                         <input type="text" class="form-control" name="customer_id" id="find_reg"
-                                            placeholder="ID番号" required>
+                                            placeholder="半角数字のみ入力できます。ID番号" required>
                                         <label class="form-label"></label>
                                     </div>
                                     <div class="wrapper" style="margin-top: 6px">
@@ -112,6 +112,18 @@
             $("#find_reg").val(row[0][0]); //予約ボタン
         }
     });
+    // 半角数字のみで検索
+    $(function() {
+    $('#find_reg').on('input', function(e) {
+        let value = $(e.currentTarget).val();
+        value = value
+            .replace(/[０-９]/g, function(s) {
+                return String.fromCharCode(s.charCodeAt(0) - 65248);
+            })
+            .replace(/[^0-9]/g, '');
+      	$(e.currentTarget).val(value);
+    });
+});
 </script>
 </body>
 

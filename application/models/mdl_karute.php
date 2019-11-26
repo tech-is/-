@@ -20,11 +20,11 @@ class Mdl_karute extends CI_Model
     }
 
     //kauteの診断内容のを削除
-    public function delete_karute_data($id)
+    public function delete_karute_data($karute_id,$shop_id)
     {
-        $this->db->set("kareute", 999);
-        $this->db->where(['karute_id'=> $id['karute_id'], 'karute_shop_id ' => $id["shop_id"]]);
-        return $this->db->update('kakrute');
+        $this->db->set("karute_state", 999);
+        $this->db->where(['karute_id'=> $karute_id, 'karute_shop_id' => $shop_id]);
+        return $this->db->update('karute');
     }
 
     //待ち受けモードで取得結果を表示
@@ -61,7 +61,7 @@ class Mdl_karute extends CI_Model
     }
 
     //個別カルテ履歴画面
-    public function get_karute_history_customer($shop_id, $karute_customer_id)
+    public function get_karute_history_customer($shop_id,$karute_customer_id)
     {
         $where = ['customer_state ' => 1,'karute_state ' => 1, 'karute_shop_id '=> $shop_id, 'karute_customer_id ' => $karute_customer_id];
         $this->db->where($where);
@@ -74,16 +74,17 @@ class Mdl_karute extends CI_Model
          return $query->result_array(); //結果を配列で返す。
     }
 
-    // public function get_karute_for_customer($shop_id)
-    // {
-    //     $where = ['karute_state ' => 1, 'karute_shop_id '=> $shop_id];
-    //     $this->db->where($where);
-    //     $this->db->select("karute_id, karute_created_at, karute_customer_id");
-    //     $this->db->from('karute');
-    //     $query = $this->db->get();
-    //     //  echo $this->db->last_query();
-    //      return $query->row_array(); //結果を配列で返す。
-    // }
+  //待ち受けカルテをここで編集の為のセレクト
+  public function new_select_karute($shop_id , $karute_id)
+  {
+      $where = ['karute_id ' => $karute_id , 'karute_shop_id' => $shop_id];
+      $this->db->where($where);
+      $this->db->select("karute_title, karute_comment , karute_created_at , karute_update_at");
+      $this->db->from('karute');
+      $query = $this->db->get();
+      //  echo $this->db->last_query();
+       return $query->row_array(); //結果を配列で返す。
+  }
 
     //待ち受けカルテをここで仮登録登録
     public function sub_insert_karute($karute_shop_id, $karute_customer_id)

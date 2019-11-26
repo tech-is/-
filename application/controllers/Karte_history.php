@@ -26,15 +26,12 @@ class Karte_history extends CI_Controller
     public function index()
     {   //上新規入力画面、↓カルテ画面
         
-        if (!empty($data["karute_id"] = $this->input->post("karute_id"))) {
-            if ($this->input->post("karute_in") == 1) { //カルテ入力ボタンにて
-                // $data["r_karute"] = $this->Mdl_karute->get_karute_for_customer($_SESSION["shop_id"]);
-                $data["karute_created_at"] = "2019-11-19 16:56:05";
+        if (!empty($data["karute_id"] = $this->input->get("karute_id"))) {
+                 $data["d_karute"] = $this->Mdl_karute->new_select_karute($_SESSION["shop_id"], $data["karute_id"]);
+                //ここで$data["karute_id"]のデータを取得
                 $this->load->view('cms/pages/parts/header');
                 $this->load->view('cms/pages/parts/sidebar');
                 $this->load->view('cms/vi_new_karute', $data);
-            } elseif ($this->input-post("karute_his") == 2) {  //カルテ履歴ボタンにて
-            }
         } else {    //カルテの最初の画面にて一覧リスト
             $data["r_karute"] = $this->Mdl_karute->get_karute_for_customers($_SESSION["shop_id"]);
             $this->load->view('cms/pages/parts/header');
@@ -54,9 +51,10 @@ class Karte_history extends CI_Controller
         // var_dump($this->input->get('customer_id'));
         // exit;
     }
-    //新規カルテ本登録
+    //(新規カルテ本登録)(vi_new_karuteより)
     public function update_karute()
     {
+
         $this->load->library('form_validation');
         if ($this->form_validation->run('karte')) {
             // $data = $this->input->post(NULL,true);
@@ -79,14 +77,14 @@ class Karte_history extends CI_Controller
         }
     }
 
-    //更新時、全件取得
-    // public function get_total_all_data()
-    // {
-    //     $pet_id = $this->input->post("id");
-    //     $this->load->model("Mdl_total_list");
-    //     return  $this->Mdl_total_list->m_get_total_all($pet_id);
-
-    // }
+    //カルテ消去
+    public function delete_karute()
+    {
+        $karute_id = $this->input->get("karute_id");
+        $shop_id = $_SESSION["shop_id"];
+        $this->Mdl_karute->delete_karute_data($karute_id,$shop_id);
+        redirect(base_url()."Karte_history");
+    }
 
     //入力チェック
     // private function total_validation()
