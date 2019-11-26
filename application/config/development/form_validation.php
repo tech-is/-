@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 $config = [
     'prov-register' => [
@@ -130,6 +130,24 @@ $config = [
             'field' => 'staff_remarks',
             'label' => '備考',
             'rules' => 'trim'
+        ]
+    ],
+    'karte' => [
+        [
+            'field' => 'karute_title',
+            'label' => 'カルテタイトル',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '入力してください'
+            ]
+        ],
+        [
+            'field' => 'karute_comment',
+            'label' => 'カルテコメント',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => 'カナを入力してください'
+            ]
         ]
     ]
 ];

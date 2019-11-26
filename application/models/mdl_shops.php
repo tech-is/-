@@ -2,7 +2,6 @@
 
 class Mdl_shops extends CI_Model
 {
-
     public function get_tmp_email($code)
     {
         return $this->db->select("tmp_shop_email")
@@ -30,5 +29,4 @@ class Mdl_shops extends CI_Model
     {
         $this->db->delete('shops', ['email' => $email]);
     }
-
 }

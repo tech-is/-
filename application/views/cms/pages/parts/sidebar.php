@@ -21,6 +21,14 @@
         "cl_magazine" => [
             "icon" => "contact_mail",
             "title" => "メルマガ管理"
+        ],
+        "cl_karute" => [
+            "icon" => "book",
+            "title" => "受け付けモード"
+        ],
+        "Karte_history" => [
+            "icon" => "book",
+            "title" => "カルテ"
         ]
     ];
 ?>

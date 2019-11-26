@@ -56,7 +56,7 @@ class Mdl_total_list extends CI_Model {
         return $query->row_array(); //結果を配列で返す。
     }
 
-    //画面表示分カスタマーのセレクトの分をとってくる
+    //トータルリスト画面表示分カスタマーのセレクトの分をとってくる
     public function m_get_total_list($shop_id)
     {
         $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
@@ -68,6 +68,7 @@ class Mdl_total_list extends CI_Model {
         $query = $this->db->get();
         return $query->result_array(); //結果を配列で返す。
     }
+
 
     //新規登録のペットと顧客をここで登録
     public function m_insert_total_list($customer_data, $pet_data)
@@ -108,4 +109,16 @@ class Mdl_total_list extends CI_Model {
             return true;
         }
     }
+      //履歴画面表示分カスタマーのセレクトの分をとってくる
+      public function get_karute_for_customer($shop_id)
+      {
+          $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
+          $this->db->where($where);
+          $this->db->select("customer_id, pet_id , customer_name , pet_name , customer_tel , customer_mail , kind_group_name");
+          $this->db->from('customer');
+          $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
+          $this->db->join('kind_group', 'customer_group_id = kind_group_id', 'left');
+          $query = $this->db->get();
+          return $query->result_array(); //結果を配列で返す。
+      }
 }

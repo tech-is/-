@@ -8400,3 +8400,7 @@ html.ie11 .bs-searchbox .form-control {
     padding: 10px 30px;
     background-color: #fff;
 }
+
+.karte_wrapper {
+    margin: 70px 0px 0px 0px;
+}
