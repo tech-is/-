@@ -37,6 +37,11 @@
                             <b>
                                 <h4>メールアドレス</h4>
                             </b>
+                            <h4>バーコード</h4>
+                            <p><?php  echo $karute["customer_barcode"]; ?></p>
+                            <b>
+                                <h4>メールアドレス</h4>
+                            </b>
                             <p><?php  echo $karute["customer_mail"]; ?></p>
                             <b>
                                 <h4>メールマガジン</h4>

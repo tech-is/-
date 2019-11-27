@@ -86,68 +86,14 @@ class Karte_history extends CI_Controller
         redirect(base_url()."Karte_history");
     }
 
-    //入力チェック
-    // private function total_validation()
-    // {
-    //     $config = [
-    //         [
-    //             'field' => 'karute_title',
-    //             'label' => 'カルテタイトル',
-    //             'rules' => 'required|trim',
-    //             'errors' => [
-    //                 'required' => '入力してください'
-    //             ]
-    //         ],
-    //         [
-    //             'field' => 'karute_comment',
-    //             'label' => 'カルテコメント',
-    //             'rules' => 'required|trim',
-    //             'errors' => [
-    //                 'required' => 'カナを入力してください'
-    //             ]
-    //         ]
-    //     ];
-    //     $this->load->library('form_validation', $config);
-    //     return $this->form_validation->run('karte');
-    // }
+    //カルテ用バーコード印刷
+    public function customer_barcode()
+    {
+        $this->load->view('cms/pages/parts/header');
+        $this->load->view('cms/pages/parts/sidebar');
+        $this->load->view('cms/vi_barcode');
+        include("cms/php_barcode-master/barcode.php");
+    }
 
-    //ペットファイルの画像アップ
-    // private function img_upload()
-    // {
-    //     $filename = time();
-        // $config['upload_path'] = './upload/tmp';//リサイズ前
-        // $config['allowed_types'] = 'gif|jpg|png';
-        // $config['file_name'] = $filename;
-        // $config['max_size']	= '3072';
-        // $config['max_width']  = '';
-        // $config['max_height']  = '';
-    //     $config = [
-    //         'upload_path' => './upload/tmp',
-    //         'allowed_types' => 'gif|jpg|png',
-    //         'file_name' => $filename,
-    //         'max_size'	=> '3072',
-    //         'max_width'  => '',
-    //         'max_height'  => ''
-    //     ];
-    //     $this->load->library('upload', $config);
-    //     $result = $this->upload->do_upload('pet_img');
-    //     if ($result) {
-    //         $resize_path = './upload/img/thumbs';//リサイズ後
-    //         $image_data = $this->upload->data();
-    //         $config['source_image'] = $image_data["full_path"];
-    //         $config['maintain_ration'] = true;
-    //         $config['new_image'] = $resize_path; //サムネイル保存フォルダ
-    //         $config['width'] = 640;
-    //         $config['height'] = 360;
-    //         $this->load->library("image_lib", $config);
-    //         if($this->image_lib->resize(gi) === true) {
-    //             // $fullpath = realpath($resize_path);
-    //       return base_url().'upload/img/thumbs/'.$image_data['file_name']; //本番環境では "\" を　"/" に変更
-    //         } else {
-    //             return false;
-    //         }
-    //     } else {
-    //         return false;
-    //     }
-    // }
+
 }

@@ -122,6 +122,13 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <h3>顧客新規登録</h3>
                     <div class="form-group">
+                        <label for="customer_barcode">コード<span style="color: red; margin-left: 10px">必須</span></label>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="customer_barcode" value="<?php echo time(); ?>"  placeholder="10桁数字を入力して下さい" required>
+                            <label class="form-label"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="customer_name">名前<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
                             <input type="text" class="form-control" name="customer_name" placeholder="山田　太郎" required>

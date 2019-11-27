@@ -27,8 +27,12 @@
             "title" => "受け付けモード"
         ],
         "Karte_history" => [
-            "icon" => "book",
+            "icon" => "create_new_folder",
             "title" => "カルテ"
+        ],
+        "/assets/plugins/php_barcode-master/barcode.php" => [
+            "icon" => "format_list_numbered_rtl",
+            "title" => "バーコード"
         ]
     ];
 ?>
@@ -37,7 +41,8 @@
     <!-- User Info -->
     <div class="user-info">
         <div class="image">
-            <img src="<?php echo base_url('assets/cms/images/user.png') ?>" width="48" height="48" alt="User" />
+            <img src="<?php echo base_url('assets/cms/images/user.png') ?>"
+                width="48" height="48" alt="User" />
         </div>
         <div class="info-container">
             <div id="account_name" class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
@@ -57,12 +62,12 @@
     <div class="menu">
         <ul class="list">
             <li class="header">MAIN NAVIGATION</li>
-            <?php foreach($sidebar_parts_array as $sidebar_url => $sidebar_parts): ?>
+            <?php foreach ($sidebar_parts_array as $sidebar_url => $sidebar_parts): ?>
             <?php echo $req === $sidebar_url? '<li class="active">': '<li>'; ?>
-                <a href="<?php echo base_url($sidebar_url); ?>">
-                    <i class="material-icons"><?php echo $sidebar_parts["icon"] ?></i>
-                    <span><?php echo $sidebar_parts["title"] ?></span>
-                </a>
+            <a href="<?php echo base_url($sidebar_url); ?>">
+                <i class="material-icons"><?php echo $sidebar_parts["icon"] ?></i>
+                <span><?php echo $sidebar_parts["title"] ?></span>
+            </a>
             </li>
             <?php endforeach; ?>
         </ul>
