@@ -2,22 +2,22 @@
 
 <head>
     <style>
-    p.inline {
-        display: inline-block;
-    }
+        p.inline {
+            display: inline-block;
+        }
 
-    span {
-        font-size: 13px;
-    }
+        span {
+            font-size: 13px;
+        }
     </style>
     <style type="text/css" media="print">
-    @page {
-        size: auto;
-        /* auto is the initial value */
-        margin: 0mm;
-        /* this affects the margin in the printer settings */
+        @page {
+            size: auto;
+            /* auto is the initial value */
+            margin: 0mm;
+            /* this affects the margin in the printer settings */
 
-    }
+        }
     </style>
 </head>
 
@@ -33,7 +33,7 @@
         //     echo "<p class='inline'><span ><b>Item: $product</b></span>".bar128(stripcslashes($_POST['product_id']));
         // }
 
-        for ($i=1;$i < 20;$i++) {
+        for ($i=1;$i < 15;$i++) {
             $barcode = microtime(true) *10000 . $i;
 
             echo "<p class='inline'>".bar128(stripcslashes($barcode));

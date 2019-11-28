@@ -21,7 +21,7 @@
                                         <label class="form-label"></label>
                                     </div>
                                     <div class="wrapper" style="margin-top: 6px">
-                                        <button type="submit"" class=" btn btn-primary waves-effect">検索</button>
+                                        <button type="submit" class="btn btn-primary waves-effect">検索</button>
                                     </div>
                                 </div>
                             </div>
