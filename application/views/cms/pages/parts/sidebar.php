@@ -4,31 +4,43 @@
     $sidebar_parts_array = [
         "cl_main" => [
             "icon" => "home",
-            "title" => "ホーム"
+            "title" => "ホーム",
+            "target" => false
         ],
         "cl_total_list" => [
             "icon" => "pets",
-            "title" => "顧客・ペット管理"
+            "title" => "顧客・ペット管理",
+            "target" => false
         ],
         "cl_reserve" => [
             "icon" => "today",
-            "title" => "予約管理"
+            "title" => "予約管理",
+            "target" => false
         ],
         "staff" => [
             "icon" => "group",
-            "title" => "スタッフ管理"
+            "title" => "スタッフ管理",
+            "target" => false
         ],
         "cl_magazine" => [
             "icon" => "contact_mail",
-            "title" => "メルマガ管理"
+            "title" => "メルマガ管理",
+            "target" => false
         ],
         "cl_karute" => [
             "icon" => "book",
-            "title" => "受け付けモード"
+            "title" => "受け付けモード",
+            "target" => false
         ],
         "Karte_history" => [
-            "icon" => "book",
-            "title" => "カルテ"
+            "icon" => "create_new_folder",
+            "title" => "カルテ",
+            "target" => false
+        ],
+        "/assets/plugins/php_barcode-master/barcode.php" => [
+            "icon" => "format_list_numbered_rtl",
+            "title" => "バーコード",
+            "target" => "_blank"
         ]
     ];
 ?>
@@ -37,7 +49,8 @@
     <!-- User Info -->
     <div class="user-info">
         <div class="image">
-            <img src="<?php echo base_url('assets/cms/images/user.png') ?>" width="48" height="48" alt="User" />
+            <img src="<?php echo base_url('assets/cms/images/user.png') ?>"
+                width="48" height="48" alt="User" />
         </div>
         <div class="info-container">
             <div id="account_name" class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
@@ -57,12 +70,12 @@
     <div class="menu">
         <ul class="list">
             <li class="header">MAIN NAVIGATION</li>
-            <?php foreach($sidebar_parts_array as $sidebar_url => $sidebar_parts): ?>
+            <?php foreach ($sidebar_parts_array as $sidebar_url => $sidebar_parts): ?>
             <?php echo $req === $sidebar_url? '<li class="active">': '<li>'; ?>
-                <a href="<?php echo base_url($sidebar_url); ?>">
-                    <i class="material-icons"><?php echo $sidebar_parts["icon"] ?></i>
-                    <span><?php echo $sidebar_parts["title"] ?></span>
-                </a>
+            <a href="<?php echo base_url($sidebar_url); ?>" <?php echo $sidebar_parts['target']?' target='.$sidebar_parts['target'].'':null; ?>">
+                <i class="material-icons"><?php echo $sidebar_parts["icon"] ?></i>
+                <span><?php echo $sidebar_parts["title"]; ?></span>
+            </a>
             </li>
             <?php endforeach; ?>
         </ul>

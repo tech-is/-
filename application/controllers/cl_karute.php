@@ -26,8 +26,9 @@ class Cl_karute extends CI_Controller
     //TOPページ
     public function index()
     {
-        if(!empty($customer_id = $this->input->post("customer_id"))){
-            $data["karute"] = $this->Mdl_karute->m_karute_get($_SESSION["shop_id"], $customer_id);
+        if(!empty($customer_barcode = $this->input->post("customer_barcode"))){
+            // $customer_id = $this->input->post("customer_id");
+            $data["karute"] = $this->Mdl_karute->m_karute_get($_SESSION["shop_id"], $customer_barcode);
             // 以下カルテにインサート
             $this->Mdl_karute->sub_insert_karute($_SESSION["shop_id"],$data["karute"]["customer_id"]);
             $this->karute_result($data);

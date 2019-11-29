@@ -6,31 +6,23 @@
         $disply = $r_karute[$i]; ?>
 <section class="content">
      <!-- Changelogs -->
-     <div class="block-header">
-                <h2>履歴一覧</h2>
-            </div>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                カルテ一覧
-                                <small>30th October 2018</small>
-                            </h2>
+                            <h2>カルテ一覧</h2>
+                            <small><?php echo $disply['karute_update_at'] ?></small>
+                            <button class="btn btn-primary waves-effect" style="margin-left:10px; "><a href="/Karte_history/delete_karute/?karute_id=<?php echo $disply['karute_id'] ?>" style="color:#ffffff;">消去</a></button>
+                            <button class="btn btn-primary waves-effect"><a href="/Karte_history/?karute_id=<?php echo $disply['karute_id'] ?>" class="card-link" style="color:#ffffff;">カルテ内容修正</a></button>
+                            <button class="btn btn-primary waves-effect"><a href="<?php echo base_url(); ?>cl_total_list" class="card-link" style="color:#ffffff;">顧客情報修正</a></button>
                         </div>
                         <div class="body" style ="font-size: 18px;">
                         <div>
                             <p>顧  客  名    :   <?php echo $disply['customer_name'] ?></p>
                             <p>カルテタイトル :  <?php echo $disply['karute_title'] ?></p>
                             <p>カルテ内容     :  <?php echo $disply['karute_comment'] ?></p>
-                            <!-- <p><?php// echo $disply['karute_created_at'] ?></p> -->
-                            <!-- <p><?php //echo $disply['karute_update_at'] ?></p> -->
                         </div>
-                        <div>
-                            <button><a href="/Karte_history/delete_karute/?karute_id=<?php echo $disply['karute_id'] ?>" class="card-link">消去</a></button><br>
-                            <button><a href="/Karte_history/?karute_id=<?php echo $disply['karute_id'] ?>" class="card-link">カルテ内容修正</a></button><br>
-                            <button><a href="<?php echo base_url(); ?>cl_total_list" class="card-link">顧客情報修正</a></button><br>
-                        </div>
+                       
                         </div>
                     </div>
                 </div>

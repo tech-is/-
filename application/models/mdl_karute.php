@@ -28,11 +28,11 @@ class Mdl_karute extends CI_Model
     }
 
     //待ち受けモードで取得結果を表示
-    public function m_karute_get($shop_id, $customer_id)
+    public function m_karute_get($shop_id, $customer_barcode)
     {
         // echo $customer_id;
         // exit;
-        $where = ['customer_state ' => 1, 'pet_state ' => 1, 'customer_shop_id'=>$shop_id, 'customer_id'=>$customer_id];
+        $where = ['customer_state ' => 1, 'pet_state ' => 1, 'customer_shop_id'=>$shop_id, 'customer_barcode'=>$customer_barcode];
         $this->db->where($where);
         $this->db->select('*');
         $this->db->from('customer');

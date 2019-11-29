@@ -6,8 +6,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <form
-                            action="<?php echo base_url(); ?>cl_karute/"
+                        <form name="form" action="<?php echo base_url(); ?>cl_karute/"
                             target="_blank" method="post">
                             <h2>待ち受け画面</h2>
                     </div>
@@ -17,12 +16,12 @@
                                 <p><b>顧客ID検索</b></p>
                                 <div class="form-group" style="display:inline-flex;">
                                     <div class="form-line" style="margin-right: 10px">
-                                        <input type="text" class="form-control" name="customer_id" id="find_reg"
-                                            placeholder="半角数字のみ入力できます。ID番号" required>
+                                        <input type="text" class="form-control" name="customer_barcode" maxlength="10" id="find_reg"
+                                            placeholder="半角数字のみ入力できます。ID番号" autofocus required>
                                         <label class="form-label"></label>
                                     </div>
                                     <div class="wrapper" style="margin-top: 6px">
-                                        <button type="submit"" class=" btn btn-primary waves-effect">検索</button>
+                                        <button type="submit" class="btn btn-primary waves-effect">検索</button>
                                     </div>
                                 </div>
                             </div>
@@ -112,6 +111,25 @@
             $("#find_reg").val(row[0][0]); //予約ボタン
         }
     });
+    
+    $('input').on('keyup', function() {
+    const max = $(this).attr('maxlength');  //最大文字数
+    const current = $(this).val().length;  //現在の文字数
+    // alert(max);
+    // alert('test1');
+    // alert(current);
+    //最大文字数を超えたかどうか？
+    if(current >= max) {
+        click_post();
+    }
+    });
+
+    function click_post(){
+        var c = document.forms["form"];
+        c.method = "POST";
+        c.submit();
+        return true;
+    }
     // 半角数字のみで検索
     $(function() {
     $('#find_reg').on('input', function(e) {
@@ -123,6 +141,7 @@
             .replace(/[^0-9]/g, '');
       	$(e.currentTarget).val(value);
     });
+    
 });
 </script>
 </body>
