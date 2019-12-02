@@ -198,14 +198,14 @@ $(function () {
     });
 
     $('#register').click(function() {
-        $('#modalContents_register').load("../assets/cms/html_parts/reserve_form_parts.php");
+        $('#modalContents_register').load("<?php echo base_url(); ?>assets/cms/html_parts/reserve_form_parts.php");
         $('#modalArea_register').fadeIn();
     });
 
     $('#update').click(function() {
         var event_id = localStorage.getItem('event_id');
             $.ajax({
-                url:'../cl_reserve/get_reserve_data',
+                url:'<?php echo base_url(); ?>cl_reserve/get_reserve_data',
                 type:'POST',
                 data:{
                     'event_id': event_id,

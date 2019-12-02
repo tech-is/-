@@ -29,7 +29,7 @@ class Cl_total_list extends CI_Controller
         $data["groups"] = $this->get_kind_group();
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/vi_total_list', $data);
+        $this->load->view('cms/pages/total_list/vi_total_list', $data);
     }
 
     //一覧取得

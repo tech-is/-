@@ -40,7 +40,7 @@ class Cl_customer extends CI_Controller {
     {
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/vi_total_list.php');
+        $this->load->view('cms/pages/vi_total_list.php');
     }
     private function check_customer_data()
     {
@@ -160,7 +160,7 @@ class Cl_customer extends CI_Controller {
         }
     }
 
-    //vi_total_listの更新の起点はここ
+    //pages/pages/vi_total_listの更新の起点はここ
     public function update_customer_list()
     {
         if($this->c_check() == true) {
