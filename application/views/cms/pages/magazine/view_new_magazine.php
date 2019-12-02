@@ -4,7 +4,7 @@
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
-                    <!-- <form method="POST" action="../cl_magazine/registration_magazine"> -->
+                    <!-- <form method="POST" action="<?php //echo base_url(); ?>cl_magazine/registration_magazine"> -->
                     <form onsubmit="ajax();">
                         <div class="header clearfix">
                             <h2 class="pull-left" style="font-weight: bold; line-height: 37px">新規作成</h2>
@@ -56,29 +56,29 @@
 </section>
 
 <!-- Jquery Core Js -->
-<script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
 <!-- Select Plugin Js -->
-<script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
 <!-- Slimscroll Plugin Js -->
-<script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="../assets/cms/plugins/node-waves/waves.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.js"></script>
 
 <!-- Custom Js -->
-<script src="../assets/cms/js/admin.js"></script>
-<!-- <script src="../assets/cms/js/pages/magazine.js"></script> -->
+<script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/cms/js/pages/magazine.js"></script> -->
 <script type="text/javascript">
 function ajax()
 {
     event.preventDefault();
     $.ajax({
-        url:'../cl_magazine/registration_magazine',
+        url:'<?php echo base_url(); ?>cl_magazine/registration_magazine',
         type:'POST',
         data:{
             'from_name':$('input[name="from_name"]').val(),

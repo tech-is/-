@@ -34,8 +34,7 @@
         // }
 
         for ($i=1;$i < 15;$i++) {
-            $barcode = microtime(true) *10000 . $i;
-
+            $barcode = substr(microtime(true) *10000 . $i, 2);
             echo "<p class='inline'>".bar128(stripcslashes($barcode));
         }
 

@@ -37,7 +37,7 @@ class Cl_karute extends CI_Controller
             $data["groups"] = $this->get_kind_group();
             $this->load->view('cms/pages/parts/header');
             $this->load->view('cms/pages/parts/sidebar');
-            $this->load->view('cms/vi_karute', $data);
+            $this->load->view('cms/pages/stanby_karute/vi_karute', $data);
         }
     }
 
@@ -46,14 +46,14 @@ class Cl_karute extends CI_Controller
     {
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/vi_karute_result', $data);
+        $this->load->view('cms/pages/stanby_karute/vi_karute_result', $data);
     }
     //カルテページ遷移
     public function rireki_karute($data)
     {
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/parts/header');
-        $this->load->view('cms/vi_karute_result', $data);
+        $this->load->view('cms/pages/stanby_karute/vi_karute_result', $data);
     }
 
     //karuteでトータルリストから一覧取得 indexへ表示
