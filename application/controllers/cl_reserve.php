@@ -16,7 +16,7 @@ class Cl_reserve extends CI_Controller
     {
         $this->load->model('mdl_total_list');
         $data = [
-            'total' => !empty($array = $this->mdl_total_list->m_get_total_list($_SESSION['shop_id']))? $this->json_encode_array($array): null,
+            'total' => !empty($array = $this->mdl_total_list->get_total_data($_SESSION['shop_id']))? $this->json_encode_array($array): null,
             'reserve' => !empty($array = $this->get_reserve($_SESSION['shop_id']))? $this->json_encode_array($array): null
         ];
         $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(24));

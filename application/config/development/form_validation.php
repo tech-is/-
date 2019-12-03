@@ -109,22 +109,34 @@ $config = [
         [
             'field' => 'staff_name',
             'label' => '名前',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '入力してください'
+            ]
         ],
         [
             'field' => 'staff_tel',
             'label' => '電話',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '入力してください'
+            ]
         ],
         [
             'field' => 'staff_email',
             'label' => 'メールアドレス',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '入力してください'
+            ]
         ],
         [
             'field' => 'staff_color',
             'label' => 'カラーラベル',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '入力してください'
+            ]
         ],
         [
             'field' => 'staff_remarks',
@@ -148,6 +160,121 @@ $config = [
             'errors' => [
                 'required' => 'カナを入力してください'
             ]
+        ]
+    ],
+    'total' => [
+        [
+            'field' => 'customer_name',
+            'label' => '名前',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '名前を入力してください'
+            ]
+        ],
+        [
+            'field' => 'customer_kana',
+            'label' => 'カナ',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => 'カナを入力してください'
+            ]
+        ],
+        [
+            'field' => 'customer_mail',
+            'label' => 'メール',
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'メールを入力して下さい'
+            ]
+        ],
+        [
+            'field' => 'customer_tel',
+            'label' => '電話',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '番号を入力してください'
+            ]
+        ],
+        [
+            'field' => 'customer_zip_adress',
+            'label' => '郵便番号',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '郵便番号を入力してください'
+            ]
+        ],
+        [
+            'field' => 'customer_address',
+            'label' => '住所',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '住所を入力してください'
+            ]
+        ],
+        [
+            'field' => 'customer_add_info',
+            'label' => '追加情報',
+            'rules' => 'trim',
+        ],
+        [
+            'field' => 'pet_name',
+            'label' => '名前',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '名前を入力してください'
+            ]
+        ],
+        [
+            'field' => 'pet_classification',
+            'label' => '分類',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '入力してください'
+            ]
+        ],
+        [
+            'field' => 'pet_type',
+            'label' => '種類',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '種類入力してください'
+            ]
+        ],
+        [
+            'field' => 'pet_animal_gender',
+            'label' => '性別',
+            'rules' => 'required',
+            'errors' => [
+                'required' => '性別を選択してください'
+            ]
+        ],
+        [
+            'field' => 'pet_birthday',
+            'label' => '生年月日',
+            'rules' => 'trim',
+            'errors' => [
+                'required' => '入力してください'
+            ]
+        ],
+        [
+            'field' => 'pet_contraception',
+            'label' => '避妊',
+            'rules' => 'trim',
+        ],
+        [
+            'field' => 'pet_body_height',
+            'label' => '体高',
+            'rules' => 'trim',
+        ],
+        [
+            'field' => 'pet_body_weight',
+            'label' => '体重',
+            'rules' => 'trim',
+        ],
+        [
+            'field' => 'pet_information',
+            'label' => '備考',
+            'rules' => 'trim',
         ]
     ]
 ];

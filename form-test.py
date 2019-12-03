@@ -35,7 +35,7 @@ try:
     driver.find_element_by_name('email').send_keys("cipher_galm01@outlook.jp")
     driver.find_element_by_name('password').send_keys("cipher_galm01@outlook.jp")
     driver.find_element_by_id('submit').click()
-    driver.get('http://animarl.com/cl_total_list/')
+    driver.get('http://animarl.com/total_list/')
     # WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'register')))
     sleep(2)
     # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "register"))).click()

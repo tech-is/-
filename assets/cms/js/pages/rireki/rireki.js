@@ -4,7 +4,7 @@ $(function () {
         'responsive': true,
         'searching': true,
         'paging': true,
-        'order': [ [ 1, "asc" ] ],
+        'order': [[1, "asc"]],
         'columnDefs': [
             {
                 "targets": 0,

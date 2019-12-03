@@ -7,7 +7,7 @@
             "title" => "ホーム",
             "target" => false
         ],
-        "cl_total_list" => [
+        "total_list" => [
             "icon" => "pets",
             "title" => "顧客・ペット管理",
             "target" => false
