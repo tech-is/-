@@ -31,12 +31,12 @@ class Karte_history extends CI_Controller
                 //ここで$data["karute_id"]のデータを取得
                 $this->load->view('cms/pages/parts/header');
                 $this->load->view('cms/pages/parts/sidebar');
-                $this->load->view('cms/vi_new_karute', $data);
+                $this->load->view('cms/pages/karute/vi_new_karute', $data);
         } else {    //カルテの最初の画面にて一覧リスト
             $data["r_karute"] = $this->Mdl_karute->get_karute_for_customers($_SESSION["shop_id"]);
             $this->load->view('cms/pages/parts/header');
             $this->load->view('cms/pages/parts/sidebar');
-            $this->load->view('cms/vi_rireki_karute', $data);
+            $this->load->view('cms/pages/karute/vi_rireki_karute', $data);
             
             // $this->load->view('cms/vi_Karte_history_list', $data);
         }
@@ -47,7 +47,7 @@ class Karte_history extends CI_Controller
         $data["r_karute"] = $this->Mdl_karute->get_karute_history_customer($_SESSION["shop_id"], $this->input->get('customer_id'));
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/vi_Karte_history_list', $data);
+        $this->load->view('cms/pages/karute/vi_Karte_history_list', $data);
         // var_dump($this->input->get('customer_id'));
         // exit;
     }
@@ -91,7 +91,7 @@ class Karte_history extends CI_Controller
     {
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
-        $this->load->view('cms/vi_barcode');
+        $this->load->view('cms/pages/vi_barcode');
         include("cms/php_barcode-master/barcode.php");
     }
 

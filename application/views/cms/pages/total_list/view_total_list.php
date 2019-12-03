@@ -124,7 +124,7 @@
                     <div class="form-group">
                         <label for="customer_barcode">コード<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="customer_barcode" value="<?php echo time(); ?>"  placeholder="10桁数字を入力して下さい" required>
+                            <input type="text" class="form-control" name="customer_barcode" value=""  placeholder="作成した数字を入力して下さい" required>
                             <label class="form-label"></label>
                         </div>
                     </div>
@@ -303,30 +303,30 @@
 </section>
 
 <!-- Jquery Core Js -->
-<script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
 <!-- Select Plugin Js -->
-<script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
 <!-- Slimscroll Plugin Js -->
-<script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="../assets/cms/plugins/node-waves/waves.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.js"></script>
 
 <!-- Jquery DataTable Plugin Js -->
-<script src="../assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-<script src="../assets/cms/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 <!--ボタン効果Sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -335,8 +335,8 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
 <!-- Custom Js -->
-<script src="../assets/cms/js/admin.js"></script>
-<script src="../assets/cms/js/pages/total/total.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/js/pages/total/total.js"></script>
 
 </body>
 

@@ -125,7 +125,7 @@ $(function () {
         }
         //投げる
         $.ajax({
-            url: '../cl_reserve/register_reserve_data',
+            url: '<?php echo base_url(); ?>cl_reserve/register_reserve_data',
             type: 'POST',
             data: param
         })

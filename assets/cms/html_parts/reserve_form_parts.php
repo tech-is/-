@@ -15,7 +15,7 @@ function select_staff()
 }
 ?>
 
-<form method="POST" action="../cl_reserve/register_reserve_data" id="reserve">
+<form method="POST" action="<?php echo base_url(); ?>cl_reserve/register_reserve_data" id="reserve">
     <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
         <h2 class="pull-left" style="font-weight: bold; line-height: 37px; margin: 0px">新規予約</h2>
         <div class="pull-right">

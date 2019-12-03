@@ -48,27 +48,27 @@ function select_staff()
 </section>
 
 <!-- Jquery Core Js -->
-<script src="../assets/cms/plugins/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="../assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
 <!-- Select Plugin Js -->
-<script src="../assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
 <!-- Slimscroll Plugin Js -->
-<script src="../assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="../assets/cms/plugins/node-waves/waves.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.js"></script>
 
 <!-- Moment Plugin Js -->
-<script src="../assets/cms/plugins/momentjs/moment.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/momentjs/moment.js"></script>
 
 
 <!-- Custom Js -->
-<script src="../assets/cms/js/admin.js"></script>
-<!-- <script src="../assets/cms/js/pages/magazine.js"></script> -->
+<script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/cms/js/pages/magazine.js"></script> -->
 <script>
 $('.datetimepicker').bootstrapMaterialDatePicker({
     format: 'YYYY-MM-DDTHH:mm',
