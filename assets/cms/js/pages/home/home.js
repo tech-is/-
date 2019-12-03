@@ -73,7 +73,7 @@ $('#datatable').on('click', 'tr', function () {
 
 $('#sendResisterReserve').on('click', function () {
     $.ajax({
-        url: ' cl_reserve/register_reserve_data',
+        url: ' reserve/register_reserve_data',
         type: 'POST',
         data: {
             "reserve_pet_id": $('#reserve_pet_id').val(),
@@ -92,7 +92,7 @@ $('#sendResisterReserve').on('click', function () {
 
 $('#sendUpdateReserve').on('click', function () {
     $.ajax({
-        url: 'cl_reserve/get_reserve_data',
+        url: 'reserve/get_reserve_data',
         type: 'POST',
         data: {
             "reserve_id": $('#sendUpdateReserve').val(),

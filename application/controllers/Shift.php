@@ -1,20 +1,18 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Cl_shift extends CI_Controller
+class Shift extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
-        session_start();
         isset($_SESSION["shop_id"])? true : exit;
         $this->load->helper(["url", "form"]);
     }
 
     public function insert_shift()
     {
-        if($this->shift_validation() === true) {
+        if ($this->shift_validation() === true) {
             $this->load->model("Mdl_shift");
             $data = [
                 'shift_shop_id' => $_SESSION['shop_id'],
@@ -22,7 +20,7 @@ class Cl_shift extends CI_Controller
                 'shift_start' => $this->input->post("shift_start"),
                 'shift_end' => $this->input->post("shift_end")
             ];
-            if($this->Mdl_shift->insert_shift_data($data)) {
+            if ($this->Mdl_shift->insert_shift_data($data)) {
                 echo "success";
                 exit;
             } else {
@@ -37,7 +35,7 @@ class Cl_shift extends CI_Controller
 
     public function update_shift_data()
     {
-        if($this->shift_validation() === true) {
+        if ($this->shift_validation() === true) {
             $this->load->model("Mdl_shift");
             $id = [
                 'shift_shop_id' => $_SESSION["shop_id"],
@@ -48,7 +46,7 @@ class Cl_shift extends CI_Controller
                 'shift_start' => $this->input->post("shift_start"),
                 'shift_end' => $this->input->post("shift_end")
             ];
-            if($this->Mdl_shift->update_shift_data($id, $data)) {
+            if ($this->Mdl_shift->update_shift_data($id, $data)) {
                 echo "success";
                 exit;
             } else {
@@ -68,7 +66,7 @@ class Cl_shift extends CI_Controller
             "shift_shop_id" =>  $_SESSION["shop_id"]
         ];
         $this->load->model("Mdl_shift");
-        if($this->Mdl_shift->delete_shift_data($id) == true) {
+        if ($this->Mdl_shift->delete_shift_data($id) == true) {
             echo "success";
         } else {
             echo "dberror";
@@ -98,5 +96,4 @@ class Cl_shift extends CI_Controller
         $result = $this->form_validation->run();
         return $result;
     }
-
 }

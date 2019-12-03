@@ -6,7 +6,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <form name="form" action="<?php echo base_url(); ?>cl_karute/"
+                        <form name="form" action="<?php echo base_url(); ?>karute/"
                             target="_blank" method="post">
                             <h2>待ち受け画面</h2>
                     </div>

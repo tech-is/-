@@ -1,20 +1,14 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-/**
- * class cl_main
- * メールを扱う関数を主に置いています
- * メールホストを設定したい場合にはapplication/confing/email.phpを書き換えてください
- */
-
-class Cl_magazine extends CI_Controller {
-
+class magazine extends CI_Controller
+{
     public function __construct()
     {
         parent::__construct();
         $this->load->helper(['url', 'form']);
         $this->load->model('mdl_magazine');
-        session_start();
+        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     public function index()
@@ -47,10 +41,10 @@ class Cl_magazine extends CI_Controller {
             'reserve_start' => 'start',
             'reserve_end' => 'end'
         ];
-        if(!empty($reserves = $this->mdl_reserve->get_reserve_list($shop_id))) {
-            foreach($reserves as $row => $reserve) {
-                foreach($reserve as $column => $value) {
-                    if(array_key_exists($column, $columns)) {
+        if (!empty($reserves = $this->mdl_reserve->get_reserve_list($shop_id))) {
+            foreach ($reserves as $row => $reserve) {
+                foreach ($reserve as $column => $value) {
+                    if (array_key_exists($column, $columns)) {
                         $data[$row][$columns[$column]] = $value;
                     } else {
                         $data[$row][$column] = $value;
@@ -66,7 +60,7 @@ class Cl_magazine extends CI_Controller {
     private function add_array($array)
     {
         $i = 0;
-        while($i < 10) {
+        while ($i < 10) {
             @$array[$i]?: $array[$i] = ['mail_sender_name' => '未登録', 'mail_subject' => '未登録', 'mail_detail' => '未登録'];
             $i++;
         }
@@ -85,7 +79,7 @@ class Cl_magazine extends CI_Controller {
      */
     private function judge_request_via_ajax()
     {
-        if(empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
+        if (empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
             header('HTTP/1.1 403 Forbidden');
             exit();
         }
@@ -100,7 +94,7 @@ class Cl_magazine extends CI_Controller {
     public function register_magazine()
     {
         $this->judge_request_via_ajax();
-        if($this->magazine_data_validation()) {
+        if ($this->magazine_data_validation()) {
             $data = $this->set_column_data(true);
             echo $this->mdl_magazine->insert_magazine($data)? 'success': 'dberr';
         } else {
@@ -118,7 +112,7 @@ class Cl_magazine extends CI_Controller {
     public function update_magazine()
     {
         $this->judge_request_via_ajax();
-        if($this->magazine_data_validation()) {
+        if ($this->magazine_data_validation()) {
             $data = $this->set_column_data(true);
             $data['where']['mail_magazine_id'] = @$this->input->post('mail_magazine_id')?: exit;
             echo $this->mdl_magazine->update_magazine($data)? 'success': 'dberr';
@@ -181,12 +175,11 @@ class Cl_magazine extends CI_Controller {
     private function set_column_data($which)
     {
         $columns = ['mail_sender_name', 'mail_subject', 'mail_detail'];
-        foreach($columns as $column) {
+        foreach ($columns as $column) {
             @$this->input->post($column)? $data['set'][$column] = $this->input->post($column): false;
         }
         // $data['set']['mail_detail'] = @$data['set']['mail_detail']? str_replace("\n", '<br>', $data['set']['mail_detail']): null;
         $which? $data['where']['mail_shop_id'] = $_SESSION['shop_id']: false;
         return $data;
     }
-
 }

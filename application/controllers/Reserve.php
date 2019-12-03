@@ -1,15 +1,14 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Cl_reserve extends CI_Controller
+class reserve extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        session_start();
         $this->load->helper(['url', 'form']);
         $this->load->model('mdl_reserve');
-        $_SESSION['shop_id'] = 1;
+        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     public function index()
@@ -37,10 +36,10 @@ class Cl_reserve extends CI_Controller
             'reserve_start' => 'start',
             'reserve_end' => 'end'
         ];
-        if(!empty($reserves = $this->mdl_reserve->get_reserve_list($shop_id))) {
-            foreach($reserves as $row => $reserve) {
-                foreach($reserve as $column => $value) {
-                    if(array_key_exists($column, $columns)) {
+        if (!empty($reserves = $this->mdl_reserve->get_reserve_list($shop_id))) {
+            foreach ($reserves as $row => $reserve) {
+                foreach ($reserve as $column => $value) {
+                    if (array_key_exists($column, $columns)) {
                         $data[$row][$columns[$column]] = $value;
                     } else {
                         $data[$row][$column] = $value;
@@ -55,7 +54,7 @@ class Cl_reserve extends CI_Controller
 
     private function judge_request_via_ajax()
     {
-        if(empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
+        if (empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
             header('HTTP/1.1 403 Forbidden');
             exit();
         }
@@ -69,10 +68,10 @@ class Cl_reserve extends CI_Controller
             'reserve_start' => 'start',
             'reserve_end' => 'end'
         ];
-        if(!empty($reserves = $this->mdl_reserve->get_reserve_list($_SESSION['shop_id']))) {
-            foreach($reserves as $row => $reserve) {
-                foreach($reserve as $column => $value) {
-                    if(array_key_exists($column, $columns)) {
+        if (!empty($reserves = $this->mdl_reserve->get_reserve_list($_SESSION['shop_id']))) {
+            foreach ($reserves as $row => $reserve) {
+                foreach ($reserve as $column => $value) {
+                    if (array_key_exists($column, $columns)) {
                         $data[$row][$columns[$column]] = $value;
                     } else {
                         $data[$row][$column] = $value;
@@ -91,7 +90,7 @@ class Cl_reserve extends CI_Controller
     private function reserve_column($which)
     {
         $columns = ['reserve_pet_id', 'reserve_start', 'reserve_end', 'reserve_content', 'reserve_color'];
-        foreach($columns as $column) {
+        foreach ($columns as $column) {
             $data[$column] = $this->input->post($column);
         }
         $which === 'insert'? $data['reserve_shop_id'] = $_SESSION['shop_id']: false;
@@ -101,7 +100,7 @@ class Cl_reserve extends CI_Controller
     public function register_reserve_data()
     {
         $this->judge_request_via_ajax();
-        if($this->resereve_validation()) {
+        if ($this->resereve_validation()) {
             $data = $this->reserve_column('insert');
             echo $this->mdl_reserve->insert_reserve_data($data)? 'success': 'dberr';
         } else {
@@ -113,7 +112,7 @@ class Cl_reserve extends CI_Controller
     public function update_reserve_data()
     {
         $this->judge_request_via_ajax();
-        if($this->resereve_validation()) {
+        if ($this->resereve_validation()) {
             $data = [
                 'where' => [
                     'reserve_shop_id' => $_SESSION['shop_id'],
@@ -131,7 +130,7 @@ class Cl_reserve extends CI_Controller
     public function delete_reserve_data()
     {
         $this->judge_request_via_ajax();
-        if(!empty($this->input->post('reserve_id'))) {
+        if (!empty($this->input->post('reserve_id'))) {
             $data = [
                 'reserve_shop_id' => $_SESSION['shop_id'],
                 'reserve_id' => $this->input->post('reserve_id')

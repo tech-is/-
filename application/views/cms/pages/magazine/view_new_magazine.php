@@ -4,7 +4,7 @@
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
-                    <!-- <form method="POST" action="<?php //echo base_url(); ?>cl_magazine/registration_magazine"> -->
+                    <!-- <form method="POST" action="<?php //echo base_url();?>magazine/registration_magazine"> -->
                     <form onsubmit="ajax();">
                         <div class="header clearfix">
                             <h2 class="pull-left" style="font-weight: bold; line-height: 37px">新規作成</h2>
@@ -78,7 +78,7 @@ function ajax()
 {
     event.preventDefault();
     $.ajax({
-        url:'<?php echo base_url(); ?>cl_magazine/registration_magazine',
+        url:'<?php echo base_url(); ?>magazine/registration_magazine',
         type:'POST',
         data:{
             'from_name':$('input[name="from_name"]').val(),
