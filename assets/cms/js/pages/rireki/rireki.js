@@ -4,7 +4,7 @@ $(function () {
         'responsive': true,
         'searching': true,
         'paging': true,
-        'order': [ [ 1, "asc" ] ],
+        'order': [[1, "asc"]],
         'columnDefs': [
             {
                 "targets": 0,
@@ -32,7 +32,7 @@ $('#modalBg_register, #C_cancel, #P_cancel').on('click', function () {
 $('#send_register').on('click', function () { //顧客登録画面内の登録ボタンをクリック時
     let fd = new FormData($('#total_form_data').get(0));
     $.ajax({
-        url: '../Cl_total_list/insert_total_data',
+        url: '../total_list/insert_total_data',
         type: 'POST',
         dataType: "text",
         processData: false,
@@ -70,7 +70,7 @@ function kind_group_delete() {
         kind_group_id: $("#select_1").val()
     }
     $.ajax({
-        url: "../Cl_total_list/delete_kind_group",
+        url: "../total_list/delete_kind_group",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -90,7 +90,7 @@ $(function () {
 
         let param = { kind_group_name: $('#select_group').val() }
         $.ajax({
-            url: '../Cl_total_list/insert_kind_group',
+            url: '../total_list/insert_kind_group',
             type: 'POST',
             data: param
         })
@@ -206,7 +206,7 @@ $(function () {
         let pet_id = row[0][0];
         // console.log(column);
         $.ajax({
-            url: '../cl_total_list/get_total_all_data',
+            url: '../total_list/get_total_all_data',
             type: 'POST',
             data: {
                 id: pet_id
@@ -258,7 +258,7 @@ $("#sendUpdateData").on("click", function () {
     fd.append("customer_id", $("#customer_id").val());
     fd.append("pet_id", $("#pet_id").val());
     $.ajax({
-        url: '../Cl_total_list/update_total_data',
+        url: '../total_list/update_total_data',
         type: 'POST',
         processData: false,
         contentType: false,

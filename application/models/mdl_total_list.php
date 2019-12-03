@@ -57,7 +57,7 @@ class Mdl_total_list extends CI_Model {
     }
 
     //トータルリスト画面表示分カスタマーのセレクトの分をとってくる
-    public function m_get_total_list($shop_id)
+    public function get_total_data($shop_id)
     {
         $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
         $this->db->where($where);

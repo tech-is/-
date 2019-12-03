@@ -31,7 +31,7 @@ $('#modalBg_register, #C_cancel, #P_cancel').on('click', function () {
 $('#send_register').on('click', function () { //顧客登録画面内の登録ボタンをクリック時
     let fd = new FormData($('#total_form_data').get(0));
     $.ajax({
-        url: '../Cl_total_list/insert_total_data',
+        url: '../total_list/insert_total_data',
         type: 'POST',
         dataType: "text",
         processData: false,
@@ -69,7 +69,7 @@ function kind_group_delete() {
         kind_group_id: $("#select_1").val()
     }
     $.ajax({
-        url: "../Cl_total_list/delete_kind_group",
+        url: "../total_list/delete_kind_group",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -89,7 +89,7 @@ $(function () {
 
         let param = { kind_group_name: $('#select_group').val() }
         $.ajax({
-            url: '../Cl_total_list/insert_kind_group',
+            url: '../total_list/insert_kind_group',
             type: 'POST',
             data: param
         })
@@ -109,44 +109,6 @@ $(function () {
             });
     });
 
-    // ペットデータ登録
-    // $('#register2').on('click', function(){
-    //     $('#modalPetArea').fadeIn();
-    //     return false;
-    // });
-    // $('#modalPetBg, #P_cancel').on('click', function(){
-    //     $('#modalPetArea').fadeOut();
-    //     return false;
-    // });
-
-    // $('#sendPetData').on('click', function(){
-    //     let param = {
-    //         pet_name : $("input[name='pet_name']").val(),
-    //         pet_classification : $("input[name='pet_classification']").val(),
-    //         pet_type : $("input[name='pet_type']").val(),
-    //         pet_animal_gender : $("[name='pet_animal_gender']:checked").val(),
-    //         pet_contraception : $("[name='pet_contraception']:checked").val(),
-    //         pet_body_height : $("input[name='pet_body_height']").val(),
-    //         pet_body_weight : $("input[name='pet_body_weight']").val(),
-    //         pet_birthday : $("input[name='pet_birthday']").val(),
-    //         pet_last_reservdate : $("input[name='pet_last_reservdate']").val(),
-    //         pet_information : $("textarea[name='pet_information']").val()
-
-    //     }
-    //     $.ajax({
-    //         url: '../Cl_pet_info/pet_info_validation',
-    //         type: 'POST',
-    //         data: param
-    //     })
-    //     .done(function(data, textStatus, jqXHR) {
-    //         // alert("success!");
-    //         console.log(data);
-    //         location.reload();
-    //     })
-    //     .fail(function(data, textStatus, errorThrown) {
-    //         console.log(data);
-    //     })
-    // });
     //予約登録
     $('#register3').on('click', function () { //予約登録ボタンを押したら
         $('#modalReserveArea').fadeIn();
@@ -203,9 +165,9 @@ $(function () {
     $('#register4').on("click", function () { //更新ボタン
         let row = $('#datatable').DataTable().rows('.active').data(); //pet_idの情報の取得
         let pet_id = row[0][0];
-        // console.log(column);
+        console.log(pet_id);
         $.ajax({
-            url: '../cl_total_list/get_total_all_data',
+            url: '../total_list/get_total_all_data',
             type: 'POST',
             data: {
                 id: pet_id
@@ -250,14 +212,10 @@ $(function () {
 
 $("#sendUpdateData").on("click", function () {
     let fd = new FormData($('#total_form_data').get(0));
-    // for (let value of fd.entries()) {
-    //     console.log(value);
-    // }
-    // return false;
     fd.append("customer_id", $("#customer_id").val());
     fd.append("pet_id", $("#pet_id").val());
     $.ajax({
-        url: '../Cl_total_list/update_total_data',
+        url: '../total_list/update_total_data',
         type: 'POST',
         processData: false,
         contentType: false,
