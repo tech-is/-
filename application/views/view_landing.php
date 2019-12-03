@@ -115,7 +115,7 @@
                         <div class="item-content-inner">
                             <h2 class="heading">顧客管理<br>営業支援システム</h2>
                             <p class="intro">誰でも手軽に シンプル顧客管理</p>
-                            <a class="btn btn-primary btn-cta" href="cl_main/login" target="_blank">会員登録して始める</a>
+                            <a class="btn btn-primary btn-cta" href="main/login" target="_blank">会員登録して始める</a>
                         </div>
                     </div>
                 </div>
@@ -208,35 +208,35 @@
                 <!-- Tab panes -->
                 <div class="feature-content tab-content col-lg-8 col-md-6 col-12 order-1 order-md-0">
                     <div role="tabpanel" class="tab-pane fade show active" id="feature-1">
-                        <a href="index.php/cl_main/login" target="_blank"><img class="img-fluid"
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
                                 src="assets/images/feature-1.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-2">
-                        <a href="index.php/cl_main/login" target="_blank"><img class="img-fluid"
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
                                 src="assets/images/feature-2.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-3">
-                        <a href="index.php/cl_main/login" target="_blank"><img class="img-fluid"
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
                                 src="assets/images/feature-3.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-4">
-                        <a href="index.php/cl_main/login" target="_blank"><img class="img-fluid"
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
                                 src="assets/images/feature-4.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-5">
-                        <a href="index.php/cl_main/login" target="_blank"><img class="img-fluid"
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
                                 src="assets/images/feature-5.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-6">
-                        <a href="index.php/cl_main/login" target="_blank"><img class="img-fluid"
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
                                 src="assets/images/feature-6.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-7">
-                        <a href="index.php/cl_main/login" target="_blank"><img class="img-fluid"
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
                                 src="assets/images/feature-7.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-8">
-                        <a href="index.php/cl_main/login" target="_blank"><img class="img-fluid"
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
                                 src="assets/images/feature-8.png" alt="screenshot"></a>
                     </div>
                 </div>
@@ -392,8 +392,8 @@
                             <li class="mb-2"><i class="fas fa-check"></i> QRコードでラクラク顧客管理</li>
                             <li class="mb-2"><i class="fas fa-check"></i> メールマガジン管理</li>
                         </ul>
-                        <div class="mb-3"><a href="index.php/cl_main/login" target="_blank">License 詳細</a></div>
-                        <a class="btn btn-cta" href="index.php/cl_main/login">
+                        <div class="mb-3"><a href="index.php/main/login" target="_blank">License 詳細</a></div>
+                        <a class="btn btn-cta" href="index.php/main/login">
                             ログイン<br>（新規登録）</a>
 
                     </div>
@@ -416,7 +416,7 @@
                             <li class="mb-2"><i class="fas fa-check"></i> 寺院の運営システム</li>
                             <li class="mb-2"><i class="fas fa-check"></i>ジムの運営システム</li>
                         </ul>
-                        <div class="mb-3"><a href="index.php/cl_main/login" target="_blank">License 詳細</a></div>
+                        <div class="mb-3"><a href="index.php/main/login" target="_blank">License 詳細</a></div>
                         <a class="btn btn-cta" href="">
                             お問い合わせ下さい</a>
 
@@ -438,8 +438,8 @@
                             <li class="mb-2"><i class="fas fa-check"></i> Multiple installations</li>
                             <li class="mb-2"><i class="fas fa-check"></i> Use without attribution link</li>
                         </ul>
-                        <div class="mb-3"><a href="index.php/cl_main/login" target="_blank">License Details</a></div>
-                        <a class="btn btn-cta" href="index.php/cl_main/login" target="_blank">ダウンロード（有料）</a> -->
+                        <div class="mb-3"><a href="index.php/main/login" target="_blank">License Details</a></div>
+                        <a class="btn btn-cta" href="index.php/main/login" target="_blank">ダウンロード（有料）</a> -->
 
                     </div> 
                     <!--//item-inner-->
@@ -461,7 +461,7 @@
                     何かご不明な点等ございましたらこちらからお問い合わせください。
                 </p>
             </div>
-            <a class="btn btn-cta btn-primary" href="index.php/cl_main/login">
+            <a class="btn btn-cta btn-primary" href="index.php/main/login">
                 お問い合わせはこちらから</a>
 
         </div>

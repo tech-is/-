@@ -1,22 +1,20 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class register extends CI_Controller
+class Register extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
         $this->load->helper(['url', 'form']);
         $this->load->library('form_validation');
-        session_start();
     }
 
     public function index()
     {
-        if(!empty($code = $this->input->get('code'))) {
+        if (!empty($code = $this->input->get('code'))) {
             $this->load->model('mdl_shops');
-            if($data = $this->mdl_shops->get_tmp_email($code)) {
+            if ($data = $this->mdl_shops->get_tmp_email($code)) {
                 $data['token'] = bin2hex(openssl_random_pseudo_bytes(24));
                 $_SESSION['token'] = $data['token'];
                 $this->load->view('login/view_register', $data);
@@ -32,9 +30,9 @@ class register extends CI_Controller
     public function register()
     {
         $this->judge_request_param();
-        if($this->form_validation->run('register')) {
+        if ($this->form_validation->run('register')) {
             $key_array = ['shop_name', 'shop_kana', 'shop_tel', 'shop_email', 'shop_zip_code', 'shop_address', 'shop_password'];
-            foreach($key_array as $key) {
+            foreach ($key_array as $key) {
                 $data[$key] = $key === 'shop_password'? password_hash($this->input->post($key), PASSWORD_DEFAULT): $this->input->post($key);
             }
             $this->load->model("mdl_shops");
@@ -52,7 +50,7 @@ class register extends CI_Controller
      */
     private function judge_request_param()
     {
-        if(empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
+        if (empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
             header('HTTP/1.1 403 Forbidden');
             exit('不正な接続です');
         }

@@ -1,4 +1,3 @@
-若林朋 14:54
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 /*
@@ -10,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  * 変更履歴：2019.8 開発
  */
-class Cl_karute extends CI_Controller
+class Karute extends CI_Controller
 {
     //コンストラクタ
     public function __construct()
@@ -19,8 +18,7 @@ class Cl_karute extends CI_Controller
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
         $this->load->model('Mdl_karute');
-        session_start();
-        $_SESSION["shop_id"] = 1;
+        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
     //TOPページ
     public function index()
@@ -57,7 +55,7 @@ class Cl_karute extends CI_Controller
     private function get_total_list()
     {
         $shop_id = $_SESSION["shop_id"];
-        return $this->Mdl_total_list->m_get_total_list($shop_id);
+        return $this->Mdl_total_list->get_total_data($shop_id);
     }
     //karuteでトータルリストからグループ検索 indexへ表示
     private function get_kind_group()

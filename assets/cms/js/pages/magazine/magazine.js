@@ -122,7 +122,7 @@ $('#send').on('click', function () {
 /** マガジン登録 ********************************************************/
 $('#form').on('submit', function () {
     $.ajax({
-        url: 'cl_magazine/register_magazine',
+        url: 'magazine/register_magazine',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -146,7 +146,7 @@ $('#form').on('submit', function () {
 /** マガジン更新 ****************************************************/
 $('#sendUpdate').on('click', function () {
     $.ajax({
-        url: 'cl_magazine/update_magazine',
+        url: 'magazine/update_magazine',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -186,7 +186,7 @@ $('#delete').on('click', function () {
     }).then((value) => {
         if (value === true) {
             $.ajax({
-                url: 'cl_magazine/delete_magazine',
+                url: 'magazine/delete_magazine',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -2,7 +2,7 @@
     $url = explode("/", $_SERVER['REQUEST_URI']);
     $req = end($url);
     $sidebar_parts_array = [
-        "cl_main" => [
+        "main" => [
             "icon" => "home",
             "title" => "ホーム",
             "target" => false
@@ -12,7 +12,7 @@
             "title" => "顧客・ペット管理",
             "target" => false
         ],
-        "cl_reserve" => [
+        "reserve" => [
             "icon" => "today",
             "title" => "予約管理",
             "target" => false
@@ -22,12 +22,12 @@
             "title" => "スタッフ管理",
             "target" => false
         ],
-        "cl_magazine" => [
+        "magazine" => [
             "icon" => "contact_mail",
             "title" => "メルマガ管理",
             "target" => false
         ],
-        "cl_karute" => [
+        "Karute" => [
             "icon" => "book",
             "title" => "受け付けモード",
             "target" => false

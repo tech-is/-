@@ -18,8 +18,7 @@ class Karte_history extends CI_Controller
         parent::__construct();
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_karute');
-        session_start();
-        $_SESSION["shop_id"] = 1;
+        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     //TOPページ
@@ -27,11 +26,11 @@ class Karte_history extends CI_Controller
     {   //上新規入力画面、↓カルテ画面
         
         if (!empty($data["karute_id"] = $this->input->get("karute_id"))) {
-                 $data["d_karute"] = $this->Mdl_karute->new_select_karute($_SESSION["shop_id"], $data["karute_id"]);
-                //ここで$data["karute_id"]のデータを取得
-                $this->load->view('cms/pages/parts/header');
-                $this->load->view('cms/pages/parts/sidebar');
-                $this->load->view('cms/pages/karute/vi_new_karute', $data);
+            $data["d_karute"] = $this->Mdl_karute->new_select_karute($_SESSION["shop_id"], $data["karute_id"]);
+            //ここで$data["karute_id"]のデータを取得
+            $this->load->view('cms/pages/parts/header');
+            $this->load->view('cms/pages/parts/sidebar');
+            $this->load->view('cms/pages/karute/vi_new_karute', $data);
         } else {    //カルテの最初の画面にて一覧リスト
             $data["r_karute"] = $this->Mdl_karute->get_karute_for_customers($_SESSION["shop_id"]);
             $this->load->view('cms/pages/parts/header');
@@ -54,7 +53,6 @@ class Karte_history extends CI_Controller
     //(新規カルテ本登録)(vi_new_karuteより)
     public function update_karute()
     {
-
         $this->load->library('form_validation');
         if ($this->form_validation->run('karte')) {
             // $data = $this->input->post(NULL,true);
@@ -82,7 +80,7 @@ class Karte_history extends CI_Controller
     {
         $karute_id = $this->input->get("karute_id");
         $shop_id = $_SESSION["shop_id"];
-        $this->Mdl_karute->delete_karute_data($karute_id,$shop_id);
+        $this->Mdl_karute->delete_karute_data($karute_id, $shop_id);
         redirect(base_url()."Karte_history");
     }
 
@@ -94,6 +92,4 @@ class Karte_history extends CI_Controller
         $this->load->view('cms/pages/vi_barcode');
         include("cms/php_barcode-master/barcode.php");
     }
-
-
 }

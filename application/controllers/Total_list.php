@@ -21,9 +21,8 @@ class Total_list extends CI_Controller
         parent::__construct();
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
-        session_start();
         $this->load->library('form_validation');
-        $_SESSION["shop_id"] = 1;
+        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     /**

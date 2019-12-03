@@ -6,19 +6,18 @@ class staff extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        session_start();
         $this->load->model('mdl_staff');
         $this->load->model('mdl_shift');
         $this->load->helper(['url', 'form']);
-        $_SESSION['shop_id'] = 1;
+        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     public function index()
     {
         $column_array = ['staff_name' => 'title', 'shift_name' => 'start', 'shift_start' => 'start', 'shift_end' => 'end'];
-        if($staffs = $this->mdl_staff->get_staff()) {
-            foreach($staffs as $row => $staff) {
-                foreach($staff as $column => $value) {
+        if ($staffs = $this->mdl_staff->get_staff()) {
+            foreach ($staffs as $row => $staff) {
+                foreach ($staff as $column => $value) {
                     $data['staff'][$row][$column] = $value;
                 }
             }
@@ -26,10 +25,10 @@ class staff extends CI_Controller
         } else {
             $data['staff_json'] = '{}';
         }
-        if($shifts = $this->mdl_shift->get_shift_data()) {
-            foreach($shifts as $row => $shift) {
-                foreach($shift as $column => $value) {
-                    if(array_key_exists($column, $column_array)) {
+        if ($shifts = $this->mdl_shift->get_shift_data()) {
+            foreach ($shifts as $row => $shift) {
+                foreach ($shift as $column => $value) {
+                    if (array_key_exists($column, $column_array)) {
                         $data['shift'][$row][$column_array[$column]] = $value;
                     } else {
                         $data['shift'][$row][$column] = $value;
@@ -53,7 +52,7 @@ class staff extends CI_Controller
      */
     private function judge_request_param()
     {
-        if(empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
+        if (empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
             header('HTTP/1.1 403 Forbidden');
             exit();
         }
@@ -77,8 +76,8 @@ class staff extends CI_Controller
                 'staff_remarks' => $this->input->post('staff_remarks')
             ];
             $this->mdl_staff->insert_staff_data($data);
-                echo 'success';
-                exit;
+            echo 'success';
+            exit;
         } else {
             echo 'vali_err';
             exit;
@@ -115,7 +114,7 @@ class staff extends CI_Controller
             'staff_id' => $this->input->post('staff_id'),
             'staff_shop_id' => $_SESSION['shop_id'],
         ];
-        if($this->mdl_staff->delete_staff_data($id) === true) {
+        if ($this->mdl_staff->delete_staff_data($id) === true) {
             echo 'success';
             exit;
         } else {

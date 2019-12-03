@@ -141,7 +141,7 @@ $(function () {
 /******************************************************************** */
 function get_reserve_via_ajax() {
     $.ajax({
-        url: ' cl_reserve/get_reserve_via_ajax',
+        url: ' reserve/get_reserve_via_ajax',
         type: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -175,7 +175,7 @@ $('#datatable').on('click', 'tr', function () {
 
 $('#sendResisterReserve').on('click', function () {
     $.ajax({
-        url: ' cl_reserve/register_reserve_data',
+        url: ' reserve/register_reserve_data',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -217,7 +217,7 @@ $('#sendUpdateReserve').on('click', function () {
     }).then((value) => {
         if (value === true) {
             $.ajax({
-                url: 'cl_reserve/update_reserve_data',
+                url: 'reserve/update_reserve_data',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -261,7 +261,7 @@ $('#sendDeleteReserve').on('click', function () {
     }).then((value) => {
         if (value === true) {
             $.ajax({
-                url: 'cl_reserve/delete_reserve_data',
+                url: 'reserve/delete_reserve_data',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

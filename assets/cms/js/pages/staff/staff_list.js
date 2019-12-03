@@ -154,7 +154,7 @@ function register_shift() {
         shift_end: $("input[name='shift_end']").val()
     }
     $.ajax({
-        url: "<?php echo base_url(); ?>Cl_shift/insert_shift",
+        url: "<?php echo base_url(); ?>shift/insert_shift",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -182,7 +182,7 @@ function update_shift() {
         shift_end: $("input[name='shift_end']").val(),
     }
     $.ajax({
-        url: "<?php echo base_url(); ?>cl_shift/update_shift_data",
+        url: "<?php echo base_url(); ?>shift/update_shift_data",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -210,7 +210,7 @@ function shift_delete() {
         shift_id: $('#shift_id').val()
     }
     $.ajax({
-        url: "<?php echo base_url(); ?>Cl_shift/delete_shift_data",
+        url: "<?php echo base_url(); ?>shift/delete_shift_data",
         type: "POST",
         data: param,
     }).done(function (data) {

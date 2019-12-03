@@ -205,7 +205,7 @@ $(function () {
     $('#update').click(function() {
         var event_id = localStorage.getItem('event_id');
             $.ajax({
-                url:'<?php echo base_url(); ?>cl_reserve/get_reserve_data',
+                url:'<?php echo base_url(); ?>reserve/get_reserve_data',
                 type:'POST',
                 data:{
                     'event_id': event_id,
