@@ -26,11 +26,14 @@ class Login extends CI_Controller
         $this->judge_request_param();
         if ($this->form_validation->run('login')) {
             $this->load->model('mdl_login');
-            $data = $this->mdl_login->get_userdata(['shop_email' => $this->input->post('login-email')]);
-            if ($data) {
+            if ($data = $this->mdl_login->get_userdata(['shop_email' => $this->input->post('login-email')])) {
                 if (password_verify($this->input->post('login-password'), $data['shop_password'])) {
                     $res_array = json_msg('login', true);
-                    $_SESSION['shop_id'] = $data['shop_id'];
+                    $_SESSION = [
+                        'shop_id' => $data['shop_id'],
+                        'name' => $data['shop_name'],
+                        'email' => $data['shop_email']
+                    ];
                 } else {
                     $res_array = json_msg('login', false);
                     // $res_array = ['error' => 'ログインに失敗しました...'];

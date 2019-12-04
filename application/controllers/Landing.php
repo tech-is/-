@@ -10,9 +10,9 @@ class landing extends CI_Controller
     }
 
     /**
-     * index
+     * ランディングページ出力
      *
-     * @return require('index.html')
+     * @return void
      */
     public function index()
     {

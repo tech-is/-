@@ -3,7 +3,7 @@ class Mdl_login extends CI_Model
 {
     public function get_userdata($data)
     {
-        return $this->db->where($data)->select("shop_id, shop_password")->get('shops')->row_array();
+        return $this->db->where($data)->select("shop_id, shop_name, shop_email, shop_password")->get('shops')->row_array();
     }
 
     public function check_tmp_user($data)
