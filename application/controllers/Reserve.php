@@ -8,12 +8,12 @@ class reserve extends CI_Controller
         parent::__construct();
         $this->load->helper(['url', 'form']);
         $this->load->model('mdl_reserve');
+        $this->load->model('mdl_total_list');
         isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     public function index()
     {
-        $this->load->model('mdl_total_list');
         $data = [
             'total' => !empty($array = $this->mdl_total_list->get_total_data($_SESSION['shop_id']))? $this->json_encode_array($array): null,
             'reserve' => !empty($array = $this->get_reserve($_SESSION['shop_id']))? $this->json_encode_array($array): null
