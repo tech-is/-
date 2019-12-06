@@ -6,9 +6,9 @@
             <div class="card">
                 <div class="header">
                     <h2>顧客・ペット一覧</h2>
-                    <button id="register" type="btn" class="btn btn-primary m-t-15 waves-effect">顧客登録</button>
-                    <button id="register3" type="btn" class="btn btn-primary m-t-15 waves-effect" disabled>予約登録</button>
-                    <button id="register4" type="btn" class="btn btn-primary m-t-15 waves-effect" disabled>顧客更新</button>
+                    <button id="register" type="btn" class="btn m-l-10  m-t-15 waves-effect">顧客登録</button>
+                    <button id="register3" type="btn" class="btn m-l-10 m-t-15 waves-effect" disabled>予約登録</button>
+                    <button id="register4" type="btn" class="btn m-l-10 m-t-15 waves-effect" disabled>顧客更新</button>
                 </div>
                 <div class="body">
                     <div class="row clearfix">
@@ -20,7 +20,7 @@
                                     <label class="form-label"></label>
                                 </div>
                                 <div class="wrapper" style="margin-top: 6px">
-                                    <button id="group_register" type="button" class="btn btn-primary waves-effect">登録</button>
+                                    <button id="group_register" type="button" class="btn waves-effect">登録</button>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                     </select>
                                 </div>
                                 <div class="wrapper" style="margin-top: 6px">
-                                    <button id="delete_group_register" type="button" class="btn btn-primary waves-effect">削除</button>
+                                    <button id="delete_group_register" type="button" class="btn waves-effect">削除</button>
                                 </div>
                             </div>
                         </div>
@@ -292,10 +292,10 @@
                 </div>
             </div>
             <div class="pull-right">
-                <button id="send_register" type="button" class="btn btn-primary waves-effect">登録</button>
-                <button id="sendUpdateData" type="button" class="btn btn-primary waves-effect">更新</button>
-                <button class="btn btn-primary waves-effect" type="reset">クリア</button>
-                <button type="reset" id="P_cancel" class="btn btn-primary waves-effect">キャンセル</button>
+                <button id="send_register" type="button" class="btn m-t-15 m-l-10 waves-effect >登録</button>
+                <button id="sendUpdateData" type="button" class="btn m-t-15 m-l-10 waves-effect">更新</button>
+                <button class="btn m-t-15 m-l-10 waves-effect" type="reset">クリア</button>
+                <button type="reset" id="P_cancel" class="btn m-t-15 m-l-10 waves-effect">キャンセル</button>
             </div>
         </form>
     </div>

@@ -2491,7 +2491,10 @@ section.content {
   border-radius: 2px;
   border: none;
   font-size: 13px;
-  outline: none; }
+  outline: none; 
+  background-color: #333;
+  color:#fff;}
+
   .btn:not(.btn-link):not(.btn-circle):hover {
     outline: none; }
   .btn:not(.btn-link):not(.btn-circle) i {

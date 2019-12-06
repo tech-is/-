@@ -57,7 +57,7 @@
     </style>
 </head>
 
-<body class="theme-red">
+<body class="theme-light-blue">
 
     <!-- Page Loader -->
     <div class="page-loader-wrapper">

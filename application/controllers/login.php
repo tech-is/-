@@ -64,7 +64,7 @@ class Login extends CI_Controller
                 'tmp_expires' => date('Y-m-d H:i:s', time()+3600)
             ];
             $this->load->model('mdl_login');
-            if ($this->mdl_login->check_tmp_user($data['tmp_shop_email']) === 0) {
+            if ($this->mdl_login->check_tmp_user($data['tmp_shop_email']) == "0") {
                 if ($this->mdl_login->insert_tmp_data($data)) {
                     $res_array = $this->send_email($data)? json_msg('prov', true): json_msg('prov', false);
                 } else {
