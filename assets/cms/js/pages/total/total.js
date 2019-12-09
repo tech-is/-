@@ -89,7 +89,7 @@ $(function () {
 
         let param = { kind_group_name: $('#select_group').val() }
         $.ajax({
-            url: '../total_list/insert_kind_group',
+            url: '//animarl.com/total_list/insert_kind_group',
             type: 'POST',
             data: param
         })

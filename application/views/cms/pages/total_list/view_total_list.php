@@ -292,7 +292,7 @@
                 </div>
             </div>
             <div class="pull-right">
-                <button id="send_register" type="button" class="btn m-t-15 m-l-10 waves-effect >登録</button>
+                <button id="send_register" type="button" class="btn m-t-15 m-l-10 waves-effect" >登録</button>
                 <button id="sendUpdateData" type="button" class="btn m-t-15 m-l-10 waves-effect">更新</button>
                 <button class="btn m-t-15 m-l-10 waves-effect" type="reset">クリア</button>
                 <button type="reset" id="P_cancel" class="btn m-t-15 m-l-10 waves-effect">キャンセル</button>
