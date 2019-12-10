@@ -8,8 +8,8 @@ class Mdl_login extends CI_Model
 
     public function check_tmp_user($data)
     {
-        return $this->db->where($data)->select("shop_id")->get('shops');
-        return !is_bool($query)? $query->row_array(): false;
+        $query = $this->db->where('shop_email', $data)->select("shop_id")->get('shops');
+        return is_bool($query)? $query: $query->num_rows();
     }
 
     public function get_tmp_email($code)

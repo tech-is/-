@@ -228,14 +228,6 @@ $config = [
             ]
         ],
         [
-            'field' => 'pet_animal_gender',
-            'label' => '性別',
-            'rules' => 'required',
-            'errors' => [
-                'required' => '%をを選択してください'
-            ]
-        ],
-        [
             'field' => 'pet_birthday',
             'label' => '生年月日',
             'rules' => 'trim',

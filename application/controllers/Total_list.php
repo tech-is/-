@@ -23,7 +23,8 @@ class Total_list extends CI_Controller
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
         $this->load->library('form_validation');
-        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
+        $_SESSION['shop_id'] = 1;
+        // isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     /**
@@ -143,7 +144,7 @@ class Total_list extends CI_Controller
                 echo "success";
                 exit;
             } else {
-                $res_array = json_msg('login', false);
+                $res_array = json_msg('total', false);
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
