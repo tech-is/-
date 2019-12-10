@@ -28,11 +28,16 @@ function process_callback(json) {
                 });
                 break;
             case 'valierr':
-                $.each(val, function (id, text) {
-                    $('#' + name).parents('.form-line').addClass('error')
-                    let parent = $('#' + id).parents('.input-group');
+                $.each(val, function (name, text) {
+                    // $('#' + name).parents('.form-line').addClass('error')
+                    // let parent = $('#' + id).parents('.input-group');
+                    // parent.append('<label class="error">' + text + '</label>');
+                    // $('#' + name).focus();
+                    $('input[name="' + name + '"]').parents('.form-line').addClass('error')
+                    // let parent = $('input[name="' + name + '"]').parents('.input-group');
+                    let parent = $('input[name="' + name + '"]').parents('.form-group');
                     parent.append('<label class="error">' + text + '</label>');
-                    $('#' + name).focus();
+                    $('input[name="' + name + '"]').focus();
                 });
                 break;
             default:

@@ -18,7 +18,8 @@ class Karute extends CI_Controller
         $this->load->helper(["url", "form"]);
         $this->load->model('Mdl_total_list');
         $this->load->model('Mdl_karute');
-        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
+        $_SESSION['shop_id'] = 1;
+        // isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
     //TOPページ
     public function index()
