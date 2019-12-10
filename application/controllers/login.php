@@ -48,6 +48,7 @@ class Login extends CI_Controller
         exit(json_encode($res_array));
     }
 
+
     public function logout()
     {
         session_destroy();
@@ -131,12 +132,10 @@ class Login extends CI_Controller
                 $_SESSION['token'] = $data['token'];
                 $this->load->view('login/view_reset_password', $data);
             } else {
-                header('HTTP/1.1 403 Forbidden');
-                exit;
+                exit(header('HTTP/1.1 403 Forbidden'));
             }
         } else {
-            header('HTTP/1.1 403 Forbidden');
-            exit;
+            exit(header('HTTP/1.1 403 Forbidden'));
         }
     }
 

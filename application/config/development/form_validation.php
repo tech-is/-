@@ -47,19 +47,29 @@ $config = [
         [
             'field' => 'reset-password',
             'label' => 'パスワード',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
         ],
         [
             'field' => 'confirm-password',
             'label' => 'パスワード再確認',
-            'rules' => 'required|matches[reset-password]|trim'
+            'rules' => 'required|matches[reset-password]|trim',
+            'errors' => [
+                'required' => '%sを入力してください',
+                'matches' => 'もう一度同じパスワードを入力してください'
+            ]
         ]
     ],
     'register' => [
         [
             'field' => 'shop_name',
             'label' => 'ユーザ名',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
         ],
         [
             'field' => 'shop_kana',
@@ -82,66 +92,43 @@ $config = [
         [
             'field' => 'shop_tel',
             'label' => '電話番号',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
         ],
         [
             'field' => 'shop_zip_code',
             'label' => '郵便番号',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
         ],
         [
             'field' => 'shop_address',
             'label' => '住所',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
         ],
         [
             'field' => 'shop_password',
             'label' => 'パスワード',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
         ],
         [
             'field' => 'shop_confirm_pass',
             'label' => 'パスワード再確認',
-            'rules' => 'required|matches[shop_password]|trim'
-        ]
-    ],
-    'staff' => [
-        [
-            'field' => 'staff_name',
-            'label' => '名前',
-            'rules' => 'required|trim',
+            'rules' => 'required|matches[shop_password]|trim',
             'errors' => [
-                'required' => '入力してください'
+                'required' => '%sを入力してください',
+                'matches'=> 'もう一度同じパスワードを入力してください'
             ]
-        ],
-        [
-            'field' => 'staff_tel',
-            'label' => '電話',
-            'rules' => 'required|trim',
-            'errors' => [
-                'required' => '入力してください'
-            ]
-        ],
-        [
-            'field' => 'staff_email',
-            'label' => 'メールアドレス',
-            'rules' => 'required|trim',
-            'errors' => [
-                'required' => '入力してください'
-            ]
-        ],
-        [
-            'field' => 'staff_color',
-            'label' => 'カラーラベル',
-            'rules' => 'required|trim',
-            'errors' => [
-                'required' => '入力してください'
-            ]
-        ],
-        [
-            'field' => 'staff_remarks',
-            'label' => '備考',
-            'rules' => 'trim'
         ]
     ],
     'karte' => [
@@ -150,7 +137,7 @@ $config = [
             'label' => 'カルテタイトル',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -158,7 +145,7 @@ $config = [
             'label' => 'カルテコメント',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => 'カナを入力してください'
+                'required' => '%sを入力してください'
             ]
         ]
     ],
@@ -168,7 +155,7 @@ $config = [
             'label' => '名前',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '名前を入力してください'
+                'required' => '%sをを入力してください'
             ]
         ],
         [
@@ -176,7 +163,7 @@ $config = [
             'label' => 'カナ',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => 'カナを入力してください'
+                'required' => '%sをを入力してください'
             ]
         ],
         [
@@ -184,15 +171,15 @@ $config = [
             'label' => 'メール',
             'rules' => 'required',
             'errors' => [
-                'required' => 'メールを入力して下さい'
+                'required' => '%sをを入力して下さい'
             ]
         ],
         [
             'field' => 'customer_tel',
-            'label' => '電話',
+            'label' => '電話番号',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '番号を入力してください'
+                'required' => '%sをを入力してください'
             ]
         ],
         [
@@ -200,7 +187,7 @@ $config = [
             'label' => '郵便番号',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '郵便番号を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -208,7 +195,7 @@ $config = [
             'label' => '住所',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '住所を入力してください'
+                'required' => '%sをを入力してください'
             ]
         ],
         [
@@ -221,7 +208,7 @@ $config = [
             'label' => '名前',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '名前を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -229,7 +216,7 @@ $config = [
             'label' => '分類',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -237,7 +224,7 @@ $config = [
             'label' => '種類',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '種類入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -245,7 +232,7 @@ $config = [
             'label' => '性別',
             'rules' => 'required',
             'errors' => [
-                'required' => '性別を選択してください'
+                'required' => '%をを選択してください'
             ]
         ],
         [
@@ -253,7 +240,7 @@ $config = [
             'label' => '生年月日',
             'rules' => 'trim',
             'errors' => [
-                'required' => '入力してください'
+                'required' => '%を入力してください'
             ]
         ],
         [
@@ -275,6 +262,68 @@ $config = [
             'field' => 'pet_information',
             'label' => '備考',
             'rules' => 'trim',
+        ],
+        'shift' => [
+            [
+                'field' => 'staff_id',
+                'label' => 'スタッフID',
+                'rules' => 'required|trim',
+            ],
+            [
+                'field' => 'shift_start',
+                'label' => '開始日時',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '%を入力してください'
+                ]
+            ],
+            [
+                'field' => 'shift_end',
+                'label' => '終了日時',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '%を入力してください'
+                ]
+            ]
+        ],
+        'staff' => [
+            [
+                'field' => 'staff_name',
+                'label' => '名前',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '%sを入力してください'
+                ]
+            ],
+            [
+                'field' => 'staff_tel',
+                'label' => '電話',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '%sを入力してください'
+                ]
+            ],
+            [
+                'field' => 'staff_email',
+                'label' => 'メールアドレス',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '%sを入力してください'
+                ]
+            ],
+            [
+                'field' => 'staff_color',
+                'label' => 'カラーラベル',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '%sを入力してください'
+                ]
+            ],
+            [
+                'field' => 'staff_remarks',
+                'label' => '備考',
+                'rules' => 'trim'
+            ]
         ]
     ]
 ];

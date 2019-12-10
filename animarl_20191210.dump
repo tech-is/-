@@ -1,0 +1,257 @@
+-- MySQL dump 10.16  Distrib 10.1.38-MariaDB, for Win64 (AMD64)
+--
+-- Host: localhost    Database: animarl
+-- ------------------------------------------------------
+-- Server version	10.1.38-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `customer`
+--
+
+DROP TABLE IF EXISTS `customer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customer` (
+  `customer_id` int(5) NOT NULL AUTO_INCREMENT COMMENT '顧客id',
+  `customer_shop_id` int(5) DEFAULT NULL COMMENT '顧客管理ショップid',
+  `customer_name` varchar(200) NOT NULL COMMENT '顧客名',
+  `customer_kana` varchar(200) DEFAULT NULL COMMENT 'カナ',
+  `customer_tel` varchar(11) DEFAULT NULL COMMENT '電話番号',
+  `customer_zip_adress` int(7) DEFAULT NULL COMMENT '郵便番号',
+  `customer_address` varchar(100) DEFAULT NULL COMMENT '住所',
+  `customer_mail` varchar(100) DEFAULT NULL COMMENT 'メールアドレス',
+  `customer_magazine` int(3) NOT NULL DEFAULT '0' COMMENT 'メールマガジン 0:送らない 1:送る',
+  `customer_group_id` int(2) DEFAULT '0' COMMENT 'kind_group_idとジョインしたもの表示',
+  `customer_add_info` text COMMENT '追加情報',
+  `customer_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
+  `customer_updatedate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+  `customer_state` int(3) DEFAULT '1' COMMENT '削除フラグ',
+  PRIMARY KEY (`customer_id`),
+  UNIQUE KEY `customer_mail` (`customer_mail`),
+  KEY `i_customer` (`customer_shop_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `karute`
+--
+
+DROP TABLE IF EXISTS `karute`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `karute` (
+  `karute_id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'カルテid',
+  `karute_shop_id` int(5) NOT NULL COMMENT 'ショップidとのリレーション用id',
+  `karute_customer_id` int(5) NOT NULL COMMENT 'カスタマーidとのリレーション用id',
+  `karute_title` varchar(100) NOT NULL COMMENT 'カルテタイトル',
+  `karute_comment` varchar(255) DEFAULT NULL COMMENT 'カルテ欄',
+  `karute_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
+  `karute_update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+  `karute_state` int(3) DEFAULT '1' COMMENT '削除フラグ',
+  PRIMARY KEY (`karute_id`),
+  KEY `i_karute` (`karute_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `kind_group`
+--
+
+DROP TABLE IF EXISTS `kind_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `kind_group` (
+  `kind_group_id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'グループid',
+  `kind_group_shop_id` int(5) DEFAULT NULL COMMENT 'ショップid',
+  `kind_group_name` varchar(100) DEFAULT NULL COMMENT 'グループ名',
+  `kind_group_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
+  `kind_group_update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+  `kind_group_state` int(3) DEFAULT '1' COMMENT '削除フラグ',
+  PRIMARY KEY (`kind_group_id`),
+  KEY `i_kind_group` (`kind_group_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `mail_magazine`
+--
+
+DROP TABLE IF EXISTS `mail_magazine`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mail_magazine` (
+  `mail_magazine_id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'マガジンid',
+  `mail_shop_id` int(5) NOT NULL COMMENT 'マガジン利用id',
+  `mail_sender_name` varchar(100) NOT NULL,
+  `mail_subject` varchar(56) NOT NULL COMMENT '件名',
+  `mail_sendend_at` datetime DEFAULT NULL COMMENT '最終送信日',
+  `mail_detail` text COMMENT '本文',
+  `mail_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
+  `mail_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+  `mail_state` int(3) DEFAULT '1' COMMENT '削除フラグ',
+  PRIMARY KEY (`mail_magazine_id`),
+  KEY `i_magazine_list` (`mail_shop_id`),
+  KEY `i_send_mailmag` (`mail_magazine_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `pet`
+--
+
+DROP TABLE IF EXISTS `pet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pet` (
+  `pet_id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'ペットid',
+  `pet_customer_id` int(5) NOT NULL COMMENT '飼い主id',
+  `pet_name` varchar(200) NOT NULL COMMENT 'ペット名前',
+  `pet_img` varchar(100) DEFAULT NULL COMMENT '写真',
+  `pet_classification` varchar(11) DEFAULT NULL COMMENT '分類',
+  `pet_type` varchar(56) DEFAULT NULL COMMENT '種類',
+  `pet_animal_gender` int(1) DEFAULT '1' COMMENT '性別 1:オス 2:メス 3:その他',
+  `pet_contraception` int(1) DEFAULT NULL COMMENT '去勢 1:有 2:無',
+  `pet_body_height` varchar(32) DEFAULT NULL COMMENT '体高',
+  `pet_body_weight` varchar(32) DEFAULT NULL COMMENT '体重',
+  `pet_birthday` date DEFAULT NULL COMMENT '誕生日',
+  `pet_last_reservdate` date DEFAULT NULL COMMENT '最終予約日',
+  `pet_information` text COMMENT 'ペット情報',
+  `pet_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
+  `pet_update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+  `pet_state` int(3) DEFAULT '1' COMMENT '削除フラグ',
+  PRIMARY KEY (`pet_id`),
+  KEY `i_pet_list` (`pet_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `reserve`
+--
+
+DROP TABLE IF EXISTS `reserve`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reserve` (
+  `reserve_id` int(5) NOT NULL AUTO_INCREMENT COMMENT '予約id',
+  `reserve_shop_id` int(5) NOT NULL COMMENT '予約ショップid',
+  `reserve_customer_id` int(5) NOT NULL COMMENT '予約顧客id',
+  `reserve_pet_id` int(5) NOT NULL COMMENT '予約ペットid',
+  `reserve_content` text COMMENT '内容',
+  `reserve_start` varchar(20) DEFAULT NULL COMMENT '開始',
+  `reserve_end` varchar(20) DEFAULT NULL COMMENT '終了',
+  `reserve_staff_id` int(5) DEFAULT NULL COMMENT '担当id',
+  `reserve_color` varchar(45) DEFAULT NULL COMMENT '予約用カラーラベル',
+  `reserve_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
+  `reserve_update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+  `reserve_state` int(3) DEFAULT '1' COMMENT '削除フラグ',
+  PRIMARY KEY (`reserve_id`),
+  KEY `i_reserve` (`reserve_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `shops`
+--
+
+DROP TABLE IF EXISTS `shops`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shops` (
+  `shop_id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'ショップid',
+  `shop_name` varchar(100) NOT NULL COMMENT '登録者',
+  `shop_kana` varchar(100) NOT NULL COMMENT 'カナ',
+  `shop_tel` varchar(11) DEFAULT NULL COMMENT '電話番号',
+  `shop_email` varchar(64) NOT NULL COMMENT 'メールアドレス',
+  `shop_zip_code` int(7) DEFAULT NULL COMMENT '郵便番号',
+  `shop_address` varchar(100) DEFAULT NULL COMMENT '住所',
+  `shop_password` varchar(60) NOT NULL COMMENT 'パスワード',
+  `shop_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
+  `shop_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+  `shop_state` int(3) DEFAULT '1' COMMENT '削除フラグ',
+  PRIMARY KEY (`shop_id`),
+  UNIQUE KEY `shop_email` (`shop_email`),
+  KEY `i_shops` (`shop_id`,`shop_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `staff`
+--
+
+DROP TABLE IF EXISTS `staff`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `staff` (
+  `staff_id` int(5) NOT NULL AUTO_INCREMENT COMMENT '従業員id',
+  `staff_shop_id` int(5) DEFAULT NULL COMMENT 'スタッフショップid',
+  `staff_name` varchar(50) DEFAULT NULL COMMENT '氏名',
+  `staff_tel` int(11) DEFAULT NULL COMMENT '電話番号',
+  `staff_mail` varchar(100) DEFAULT NULL COMMENT 'メールアドレス',
+  `staff_color` varchar(10) DEFAULT NULL COMMENT 'カラーラベル',
+  `staff_remarks` text COMMENT '備考',
+  `staff_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
+  `staff_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+  `staff_state` int(3) DEFAULT '1' COMMENT '削除フラグ',
+  PRIMARY KEY (`staff_id`),
+  KEY `i_staff` (`staff_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `staff_shift`
+--
+
+DROP TABLE IF EXISTS `staff_shift`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `staff_shift` (
+  `shift_id` int(5) NOT NULL AUTO_INCREMENT COMMENT '従業員id',
+  `shift_staff_id` int(5) DEFAULT NULL COMMENT '従業員id',
+  `shift_shop_id` int(5) DEFAULT NULL COMMENT 'ショップid',
+  `shift_start` varchar(20) DEFAULT NULL COMMENT 'シフト開始',
+  `shift_end` varchar(20) DEFAULT NULL COMMENT 'シフト終了',
+  `shift_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
+  `shift_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+  `shift_state` int(3) DEFAULT '1' COMMENT '削除フラグ',
+  PRIMARY KEY (`shift_id`),
+  KEY `i_staff_shift` (`shift_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tmp_shops`
+--
+
+DROP TABLE IF EXISTS `tmp_shops`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tmp_shops` (
+  `tmp_shop_email` varchar(100) NOT NULL COMMENT 'メールアドレス',
+  `tmp_shop_code` varchar(100) NOT NULL COMMENT 'パスワードトークン',
+  `tmp_expires` datetime NOT NULL,
+  UNIQUE KEY `tmp_shop_email` (`tmp_shop_email`),
+  KEY `i_tmp_shops_login` (`tmp_shop_email`,`tmp_shop_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-12-10 16:17:40

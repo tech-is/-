@@ -14,6 +14,7 @@ class Total_list extends CI_Controller
 {
     /**
      * コンストラクタ
+     *
      * @return void
      */
     public function __construct()
@@ -39,15 +40,30 @@ class Total_list extends CI_Controller
         $this->load->view('cms/pages/total_list/view_total_list', $data);
     }
 
-    /**
-     *
-     *
-     * @return void
-     */
-    private function get_total_list()
+    //XSS前処理
+    private function escape_xss()
     {
-        $shop_id = $_SESSION["shop_id"];
-        return $this->Mdl_total_list->get_total_data($shop_id);
+        $esc_xss = $this->input->post(null, true); //ajaxでｃーテーブルとテーブルを一緒に登録
+        if (isset($esc_xss["pet_id"]) && isset($esc_xss["customer_id"])) {
+            $id = ["customer_id" => $esc_xss["customer_id"], "pet_id" => $esc_xss["pet_id"]];
+            unset($esc_xss["customer_id"], $esc_xss["pet_id"]);
+        }
+
+        foreach ($esc_xss as $key => $val) { //カスタマーとペットに分ける処理
+            if (strpos($key, 'customer_') !== false) {
+                $customer_data[$key] = $val;
+                $customer_data["customer_shop_id"] = $_SESSION["shop_id"];
+            } else {
+                $pet_data[$key] = $val;
+            }
+        }
+
+        // if (isset($id)) {
+        //     return ["id" => $id, "customer_data" => $customer_data, "pet_data" => $pet_data];
+        // } else {
+        //     return ["customer_data" => $customer_data, "pet_data" => $pet_data];
+        // }
+        return @$id? ["id" => $id, "customer_data" => $customer_data, "pet_data" => $pet_data]: ["customer_data" => $customer_data, "pet_data" => $pet_data];
     }
 
     //グループ検索
@@ -114,10 +130,10 @@ class Total_list extends CI_Controller
                     if ($result_upload) {
                         $data["pet_data"]["pet_img"] = $result_upload;
                     } else {
-                        $res_array = json_msg('login', false);
-                        exit;
+                        exit(json_msg('login', false));
                     }
-                } elseif ($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理
+                    // } elseif ($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理
+                } else { //エラーにてアップロードされてない以外の処理
                     echo "upload_err";
                     exit;
                 }
@@ -147,7 +163,7 @@ class Total_list extends CI_Controller
 
     public function update_total_data()
     {
-        if ($this->total_validation() == true) {
+        if ($this->form_validation->run('total')) {
             $data = $this->escape_xss();
             if (isset($_FILES["pet_img"])) {
                 if ($_FILES["pet_img"]["error"] === 0) { //エラーがなく正常
@@ -177,41 +193,10 @@ class Total_list extends CI_Controller
         }
     }
 
-    //XSS前処理
-    private function escape_xss()
-    {
-        $post = $this->input->post(null, true); //ajaxでｃーテーブルとテーブルを一緒に登録
-        if (isset($post["pet_id"]) && isset($post["customer_id"])) {
-            $id = ["customer_id" => $post["customer_id"], "pet_id" => $post["pet_id"]];
-            unset($post["customer_id"], $post["pet_id"]);
-        }
-
-        foreach ($post as $key => $val) { //カスタマーとペットに分ける処理
-            if (strpos($key, 'customer_') !== false) {
-                $customer_data[$key] = $val;
-                $customer_data["customer_shop_id"] = $_SESSION["shop_id"];
-            } else {
-                $pet_data[$key] = $val;
-            }
-        }
-
-        if (isset($id)) {
-            return ["id" => $id, "customer_data" => $customer_data, "pet_data" => $pet_data];
-        } else {
-            return ["customer_data" => $customer_data, "pet_data" => $pet_data];
-        }
-    }
-
     //ペットファイルの画像アップ
     private function img_upload()
     {
         $filename = time();
-        // $config['upload_path'] = './upload/tmp';//リサイズ前
-        // $config['allowed_types'] = 'gif|jpg|png';
-        // $config['file_name'] = $filename;
-        // $config['max_size']	= '3072';
-        // $config['max_width']  = '';
-        // $config['max_height']  = '';
         $config = [
             'upload_path' => './upload/tmp',
             'allowed_types' => 'gif|jpg|png',
@@ -221,22 +206,18 @@ class Total_list extends CI_Controller
             'max_height'  => ''
         ];
         $this->load->library('upload', $config);
-        $result = $this->upload->do_upload('pet_img');
-        if ($result) {
-            $resize_path = './upload/img/thumbs';//リサイズ後
+        if ($this->upload->do_upload('pet_img')) {
+            $resize_path = base_url().'upload/img/thumbs';//リサイズ後
             $image_data = $this->upload->data();
-            $config['source_image'] = $image_data["full_path"];
-            $config['maintain_ration'] = true;
-            $config['new_image'] = $resize_path; //サムネイル保存フォルダ
-            $config['width'] = 640;
-            $config['height'] = 360;
+            $config = [
+                'source_image' => $image_data["full_path"],
+                'maintain_ration' => true,
+                'new_image' => $resize_path, //サムネイル保存フォルダ
+                'width' => 640,
+                'height' => 360
+            ];
             $this->load->library("image_lib", $config);
-            if ($this->image_lib->resize() === true) {
-                // $fullpath = realpath($resize_path);
-                return base_url().'upload/img/thumbs/'.$image_data['file_name']; //本番環境では "\" を　"/" に変更
-            } else {
-                return false;
-            }
+            return $this->image_lib->resize()? base_url().'upload/img/thumbs/'.$image_data['file_name']: false;
         } else {
             return false;
         }

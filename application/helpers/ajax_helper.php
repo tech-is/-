@@ -1,6 +1,21 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
+if (! function_exists('judge_request')) {
+
+    /**
+     * httpリクエストの正当性をチェック
+     *
+     */
+    function judge_httprequest()
+    {
+        if (empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
+            exit(header('HTTP/1.1 403 Forbidden'));
+        }
+    }
+}
+
 if (! function_exists('json_msg')) {
     /**
      * Element
