@@ -17,7 +17,6 @@
                             <div class="form-group" style="display:inline-flex;">
                                 <div class="form-line" style="margin-right: 10px">
                                     <input type="text" class="form-control" name="kind_group_name" id="select_group" placeholder="例：金・銀・銅">
-                                    <label class="form-label"></label>
                                 </div>
                                 <div class="wrapper" style="margin-top: 6px">
                                     <button id="group_register" type="button" class="btn waves-effect">登録</button>
@@ -125,49 +124,42 @@
                         <label for="customer_barcode">コード<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
                             <input type="text" class="form-control" name="customer_barcode" value=""  placeholder="作成した数字を入力して下さい" required>
-                            <label class="form-label"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="customer_name">名前<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
                             <input type="text" class="form-control" name="customer_name" placeholder="山田　太郎" required>
-                            <label class="form-label"></label>
                         </div>
                     </div>
                     <div class="form-group form-float">
                         <label for="customer_kana">カナ(全角)<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
                             <input type="text" class="form-control" name="customer_kana" placeholder="ヤマダ　タロウ" required>
-                            <label class="form-label"></label>
                         </div>
                     </div>
                     <div class="form-group form-float">
                         <label for="customer_mail">メールアドレス<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
                             <input type="mail" class="form-control" name="customer_mail" placeholder="半角英数字" required>
-                            <label class="form-label"></label>
                         </div>
                     </div>
                     <div class="form-group form-float">
                         <label for="customer_tel">電話番号<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
                             <input type="text" class="form-control" name="customer_tel" pattern="\d{2,4}-?\d{3,4}-?\d{3,4}" title="固定回線の場合は市外局番付きハイフン（-）無しでご記入ください。" placeholder="半角数字 " required>
-                            <label class="form-label"></label>
                         </div>
                     </div>
                     <div class="form-group form-float">
                         <label for="customer_zip_adress">郵便番号<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
                             <input type="text" class="form-control" name="customer_zip_adress" pattern="\d{3}-?\d{4}" title="郵便番号は、3桁の数字、ハイフン（-）無しで、4桁の数字の順で記入してください。" placeholder="半角数字" required>
-                            <label class="form-label"></label>
                         </div>
                     </div>
                     <div class="form-group form-float">
                         <label for="customer_zip_adress">住所<span style="color: red; margin-left: 10px">必須</span></label>
                         <div class="form-line">
                             <input type="text" class="form-control" name="customer_address" placeholder="(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)" required>
-                            <label class="form-label"></label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -210,7 +202,6 @@
                                 <label for="pet_name">ペット名<span style="color: red; margin-left: 10px">必須</span></label>
                                 <div class="form-line">
                                     <input type="text" class="form-control" name="pet_name" placeholder="名前" required>
-                                    <label class="form-label"></label>
                                 </div>
                             </div>
                             <div class="form-group form-float">
@@ -224,7 +215,6 @@
                                 <label for="pet_classification">分類<span style="color: red; margin-left: 10px">必須</span></label>
                                 <div class="form-line">
                                     <input type="text" class="form-control" name="pet_classification" placeholder="分類" required>
-                                    <label class="form-label"></label>
                                 </div>
                                 <div class="help-info">犬、猫、鳥</div>
                             </div>
@@ -232,7 +222,6 @@
                                 <label for="pet_type">種類<span style="color: red; margin-left: 10px">必須</span></label>
                                 <div class="form-line">
                                     <input type="text" class="form-control" name="pet_type" placeholder="種類" required>
-                                    <label class="form-label"></label>
                                 </div>
                                 <div class="help-info">トイ・プードル</div>
                             </div>
@@ -268,7 +257,6 @@
                                 <label for="pet_body_height">体高</label>
                                 <div class="form-line">
                                     <input type="number" class="form-control" name="pet_body_height" placeholder="体高">
-                                    <label class="form-label"></label>
                                 </div>
                                 <div class="help-info">cm</div>
                             </div>
@@ -276,7 +264,6 @@
                                 <label for="pet_body_height">体重</label>
                                 <div class="form-line">
                                     <input type="number" class="form-control" name="pet_body_weight" placeholder="体重">
-                                    <label class="form-label"></label>
                                 </div>
                                 <div class="help-info">kg</div>
                             </div>
@@ -284,7 +271,6 @@
                                 <label for="pet_information">備考</label>
                                 <div class="form-line">
                                     <textarea name="pet_information" cols="30" rows="5" class="form-control no-resize" placeholder="備考："></textarea>
-                                    <label class="form-label"></label>
                                 </div>
                             </div>
                         </div>
@@ -336,6 +322,7 @@
 
 <!-- Custom Js -->
 <script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/js/common.js"></script>
 <script src="<?php echo base_url(); ?>assets/cms/js/pages/total/total.js"></script>
 
 </body>
