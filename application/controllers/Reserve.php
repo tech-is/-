@@ -15,8 +15,8 @@ class reserve extends CI_Controller
     public function index()
     {
         $data = [
-            'total' => !empty($array = $this->mdl_total_list->get_total_data($_SESSION['shop_id']))? $this->json_encode_array($array): null,
-            'reserve' => !empty($array = $this->get_reserve($_SESSION['shop_id']))? $this->json_encode_array($array): null
+            'total' => !empty($array = $this->mdl_total_list->get_total_data($_SESSION['shop_id']))? $this->json_encode_array($array): '{}',
+            'reserve' => !empty($array = $this->get_reserve($_SESSION['shop_id']))? $this->json_encode_array($array): '{}'
         ];
         $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(24));
         $this->load->view('cms/pages/parts/header');

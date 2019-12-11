@@ -33,8 +33,8 @@
                             </div>
                         </div>
                         <div class="wrapper" style="margin-top: 6px">
-                            <button type="submit" class="btn btn-primary waves-effect">登録</button>
-                        <a href="/Karte_history/"><input type="button" value="前へ戻る"class="btn btn-primary waves-effect"></a>
+                            <button type="submit" class="btn btn waves-effect">登録</button>
+                        <a href="/Karte_history/"><input type="button" value="前へ戻る"class="btn btn waves-effect"></a>
                         </div>
                 </form>
             </div>

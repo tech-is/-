@@ -10,7 +10,7 @@
                             <h2 class="card-inside-title" style="line-height: 37px">本日の予定</h2>
                         </div>
                         <div class="pull-right">
-                            <button type="button" class="btn bg-deep-purple waves-effect" id="register">
+                            <button type="button" class="btn btn waves-effect" id="register">
                                 新規予約
                             </button>
                         </div>

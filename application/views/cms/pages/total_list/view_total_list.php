@@ -102,9 +102,9 @@
             </div>
         </div>
     </div>
-    <button id="reserve_register" type="button" class="btn btn-primary waves-effect">登録</button>
-    <button class="btn btn-primary waves-effect" type="reset">クリア</button>
-    <button type="reset" id="R_cancel" class="btn btn-primary waves-effect">キャンセル</button>
+    <button id="reserve_register" type="button" class="btn btn waves-effect">登録</button>
+    <button class="btn btn waves-effect" type="reset">クリア</button>
+    <button type="reset" id="R_cancel" class="btn btn waves-effect">キャンセル</button>
 </div>
 </section>
 <!-- #END# Input -->
