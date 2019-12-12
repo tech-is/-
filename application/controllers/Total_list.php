@@ -115,7 +115,7 @@ class Total_list extends CI_Controller
                     if ($result_upload) {
                         $data["pet_data"]["pet_img"] = $result_upload;
                     } else {
-                        $res_array = json_msg('login', false);
+                        $res_array = json_msg('total', false);
                         exit;
                     }
                 } elseif ($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理

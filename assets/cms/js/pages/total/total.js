@@ -33,25 +33,38 @@ $('#send_register').on('click', function () { //顧客登録画面内の登録�
     $.ajax({
         url: "//animarl.com/total_list/insert_total_data",
         type: 'POST',
-        dataType: "text",
         processData: false,
-        contentType: false,
-        data: fd
-    })
-        .done(function (data, textStatus, jqXHR) {
-            if (data == "success") {
-                SweetAlertMessage("success_register");
-                console.log(data);
-            } else {
-                SweetAlertMessage("failed_register");
-                console.log(data);
-                // location.reload();
-            }
-        })
-        .fail(function (data, textStatus, errorThrown) {
-            SweetAlertMessage("failed_register");
-            console.log(data);
+        // contentType: false,
+        data: fd,
+        dataType: 'json'
+    }).then(
+            // if (data == "success") {
+            //     SweetAlertMessage("success_register");
+            //     console.log(data);
+            // } else {
+            //     // alert(valierr[0]['customer_name']);
+            //     // $('#total_form_data').show("valierr");
+            //     $('#total_form_data').val('valierr');
+            //     // SweetAlertMessage("failed_register");
+            //     console.log(data);
+            //     // location.reload();
+            // }
+        function (data) {
+            // console.log(data);
+            process_callback(data);
+        },
+        function () {
+            swal({
+                title: 'システムエラー',
+                text: 'また後ほどお試しください',
+                icon: 'warning',
+                button: {
+                    text: 'OK',
+                    value: true
+                },
+            })
         });
+    return false;
 });
 
 /******************************************************************** */
