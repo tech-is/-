@@ -12,9 +12,9 @@
                             <h2>カルテ一覧</h2>
                             <small><?php echo $disply['karute_update_at'] ?></small>
                             <div class="pull-right">
-                            <button class="btn btn-primary waves-effect" style="margin-left:10px; "><a href="/Karte_history/delete_karute/?karute_id=<?php echo $disply['karute_id'] ?>" style="color:#ffffff;">消去</a></button>
-                            <button class="btn btn-primary waves-effect"><a href="/Karte_history/?karute_id=<?php echo $disply['karute_id'] ?>" class="card-link" style="color:#ffffff;">カルテ内容修正</a></button>
-                            <button class="btn btn-primary waves-effect"><a href="<?php echo base_url(); ?>total_list" class="card-link" style="color:#ffffff;">顧客情報修正</a></button>
+                            <button class="btn btn waves-effect" style="margin-left:10px; "><a href="/Karte_history/delete_karute/?karute_id=<?php echo $disply['karute_id'] ?>" style="color:#ffffff;">消去</a></button>
+                            <button class="btn btn waves-effect"><a href="/Karte_history/?karute_id=<?php echo $disply['karute_id'] ?>" class="card-link" style="color:#ffffff;">カルテ内容修正</a></button>
+                            <button class="btn btn waves-effect"><a href="<?php echo base_url(); ?>total_list" class="card-link" style="color:#ffffff;">顧客情報修正</a></button>
                             </div>
                         </div>
                         <div class="body" style ="font-size: 18px;">

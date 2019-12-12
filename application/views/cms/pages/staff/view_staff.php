@@ -10,7 +10,7 @@
                             <h2 class="card-inside-title" style="line-height: 37px">スタッフ管理</h2>
                         </div>
                         <div class="pull-right">
-                            <button type="button" class="btn bg-deep-purple waves-effect" id="staff_list">
+                            <button type="button" class="btn btn waves-effect" id="staff_list">
                                 スタッフ一覧
                             </button>
                         </div>

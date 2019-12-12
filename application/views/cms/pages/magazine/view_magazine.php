@@ -133,7 +133,7 @@
                         <h2 class="card-inside-title" style="line-height: 30.5px">メールマガジン一覧</h2>
                     </div>
                     <div class="col-sm-6 col-xs-6" style="text-align: right">
-                        <button type="button" class="btn bg-deep-purple waves-effect" id="register">新規作成</button>
+                        <button type="button" class="btn btn waves-effect" id="register">新規作成</button>
                     </div>
                 </div>
             </div>
@@ -150,9 +150,9 @@
                     <div class="panel-group" style="width:60%">
                         <div class="mail-heading">
                             <div class="mail-heading-wrapper">
-                                <button type="button" class="btn bg-deep-purple waves-effect" id="send">送信</button>
-                                <button type="button" class="btn bg-deep-purple waves-effect" id="update" value=<?php echo @$magazine[0]['mail_magazine_id']?:''?>>更新</button>
-                                <button type="button" class="btn bg-deep-purple waves-effect" id="delete" value=<?php echo @$magazine[0]['mail_magazine_id']?:''?>>削除</button>
+                                <button type="button" class="btn btn waves-effect" id="send">送信</button>
+                                <button type="button" class="btn btn waves-effect" id="update" value=<?php echo @$magazine[0]['mail_magazine_id']?:''?>>更新</button>
+                                <button type="button" class="btn btn waves-effect" id="delete" value=<?php echo @$magazine[0]['mail_magazine_id']?:''?>>削除</button>
                             </div>
                             <div class="mail-heading-wrapper">
                                 表示名: <span id="sender"><?php echo @$magazine[0]['mail_sender_name']?:''; ?></span>

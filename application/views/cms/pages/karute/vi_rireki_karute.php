@@ -48,8 +48,8 @@
                                     echo "<td>$disply[customer_name]</td>";
                                     echo "<td>$disply[customer_tel]</td>";
                                     echo "<td>$disply[customer_mail]</td>";
-                                    echo "<td><button class='btn btn-primary waves-effect'><a href=/Karte_history/rireki?customer_id=$disply[customer_id] style='color:#ffffff;'>カルテ履歴一覧</button></td>";
-                                    echo "<td><button class='btn btn-primary waves-effect'><a href=/Karte_history/?karute_id=$disply[karute_id] style='color:#ffffff;'>カルテ入力</button></td>";
+                                    echo "<td><button class='btn btn waves-effect'><a href=/Karte_history/rireki?customer_id=$disply[customer_id] style='color:#ffffff;'>カルテ履歴一覧</button></td>";
+                                    echo "<td><button class='btn btn waves-effect'><a href=/Karte_history/?karute_id=$disply[karute_id] style='color:#ffffff;'>カルテ入力</button></td>";
                                     echo "</tr>";
                                 }
                                 ?>
