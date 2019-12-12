@@ -64,7 +64,7 @@ $config = [
     ],
     'register' => [
         [
-            'field' => 'shop_name',
+            'field' => 'shop_name[0]',
             'label' => 'ユーザ名',
             'rules' => 'required|trim',
             'errors' => [
@@ -72,7 +72,24 @@ $config = [
             ]
         ],
         [
-            'field' => 'shop_kana',
+            'field' => 'shop_name[1]',
+            'label' => 'ユーザ名',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
+        ],
+        [
+            'field' => 'shop_kana[0]',
+            'label' => 'フリガナ',
+            'rules' => 'required|regex_match[/^[ァ-ヾ ]+$/u]|trim',
+            'errors' => [
+                'required' => '%sを入力してください',
+                "regex_match" => "全角カタカナで入力してください。"
+            ]
+        ],
+        [
+            'field' => 'shop_kana[1]',
             'label' => 'フリガナ',
             'rules' => 'required|regex_match[/^[ァ-ヾ ]+$/u]|trim',
             'errors' => [
@@ -106,7 +123,23 @@ $config = [
             ]
         ],
         [
-            'field' => 'shop_address',
+            'field' => 'shop_zip_address[0]',
+            'label' => '住所',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
+        ],
+        [
+            'field' => 'shop_zip_address[1]',
+            'label' => '住所',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
+        ],
+        [
+            'field' => 'shop_zip_address[2]',
             'label' => '住所',
             'rules' => 'required|trim',
             'errors' => [
@@ -155,7 +188,7 @@ $config = [
             'label' => '名前',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%sをを入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -163,7 +196,7 @@ $config = [
             'label' => 'カナ',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%sをを入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -171,7 +204,7 @@ $config = [
             'label' => 'メール',
             'rules' => 'required',
             'errors' => [
-                'required' => '%sをを入力して下さい'
+                'required' => '%sを入力して下さい'
             ]
         ],
         [
@@ -179,7 +212,7 @@ $config = [
             'label' => '電話番号',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%sをを入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -195,7 +228,7 @@ $config = [
             'label' => '住所',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%sをを入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -260,6 +293,9 @@ $config = [
                 'field' => 'staff_id',
                 'label' => 'スタッフID',
                 'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '%を入力してください'
+                ]
             ],
             [
                 'field' => 'shift_start',

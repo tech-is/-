@@ -12,15 +12,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Total_list extends CI_Controller
 {
-    /**
-     * コンストラクタ
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper(["url", "form"]);
+        $this->load->helper(['url', 'form', 'ajax']);
         $this->load->model('Mdl_total_list');
         $this->load->library('form_validation');
         $_SESSION['shop_id'] = 1;
@@ -34,117 +30,85 @@ class Total_list extends CI_Controller
      */
     public function index()
     {
-        $data["list"] = $this->Mdl_total_list->get_total_data($_SESSION["shop_id"]);
-        $data["groups"] = $this->get_kind_group();
+        $data = [
+            'list' => $this->Mdl_total_list->get_total_data($_SESSION['shop_id']),
+            'groups' => $this->Mdl_total_list->m_get_kind_group($_SESSION['shop_id'])
+        ];
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/total_list/view_total_list', $data);
     }
 
-    //XSS前処理
+    /**
+     * POSTデータをエスケープ処理
+     *
+     * @return array
+     */
     private function escape_xss()
     {
-        $esc_xss = $this->input->post(null, true); //ajaxでｃーテーブルとテーブルを一緒に登録
-        if (isset($esc_xss["pet_id"]) && isset($esc_xss["customer_id"])) {
-            $id = ["customer_id" => $esc_xss["customer_id"], "pet_id" => $esc_xss["pet_id"]];
-            unset($esc_xss["customer_id"], $esc_xss["pet_id"]);
-        }
-
-        foreach ($esc_xss as $key => $val) { //カスタマーとペットに分ける処理
-            if (strpos($key, 'customer_') !== false) {
-                $customer_data[$key] = $val;
-                $customer_data["customer_shop_id"] = $_SESSION["shop_id"];
-            } else {
-                $pet_data[$key] = $val;
-            }
-        }
-
-        // if (isset($id)) {
-        //     return ["id" => $id, "customer_data" => $customer_data, "pet_data" => $pet_data];
-        // } else {
-        //     return ["customer_data" => $customer_data, "pet_data" => $pet_data];
-        // }
-        return @$id? ["id" => $id, "customer_data" => $customer_data, "pet_data" => $pet_data]: ["customer_data" => $customer_data, "pet_data" => $pet_data];
-    }
-
-    //グループ検索
-    private function get_kind_group()
-    {
-        $id = $_SESSION["shop_id"];
-        return $this->Mdl_total_list->m_get_kind_group($id);
-    }
-
-    //グループを削除リストへ表示させる
-    public function delete_kind_group()
-    {
-        if ($this->request_ajax_check() === true) {
-            $kind_group_id = @$this->input->post("kind_group_id")?: exit;
-            $id = [
-                "kind_group_id" => $kind_group_id,
-                "shop_id" => $_SESSION["shop_id"]
-            ];
-            $result = $this->Mdl_total_list->delete_kind_group_data($id);
-            echo $result===true? 1: "dberror";
-        }
-        exit;
-    }
-
-    //グループ管理インサート
-    public function insert_kind_group()
-    {
-        $data = [
-            "kind_group_shop_id " => $_SESSION['shop_id'],
-            "kind_group_name" => $this->input->post("kind_group_name")
+        $customer_array = [
+            'customer_name',
+            'customer_kana',
+            'customer_mail',
+            'customer_tel',
+            'customer_zip_adress',
+            'customer_address',
+            'customer_add_info',
+            'customer_group_id'
         ];
-        $this->load->model("Mdl_total_list");
-        $result = $this->Mdl_total_list->insert_model_data($data);
-        if ($result === true) {
-            echo "success";
+        $pet_form_array = [
+            'pet_name',
+            'pet_img',
+            'pet_classification',
+            'pet_type',
+            'pet_animal_gender',
+            'pet_birthday',
+            'pet_contraception',
+            'pet_body_height',
+            'pet_body_weight',
+            'pet_information'
+        ];
+        foreach ($customer_array as $key) {
+            $data['customer'][$key] = $this->input->post($key);
         }
+        foreach ($pet_form_array as $key) {
+            $data['pet'][$key] = $this->input->post($key);
+        }
+        return $data;
     }
 
     //更新時、全件取得
     public function get_total_all_data()
     {
-        $pet_id = $this->input->post("id");
-        $this->load->model("Mdl_total_list");
-        $return = $this->Mdl_total_list->m_get_total_all($pet_id);
-        if ($return) {
-            header("Content-type: application/json; charset=UTF-8");
-            echo json_encode($return);
-            exit;
-        } else {
-            echo "dberror";
-            exit;
-        }
+        judge_httprequest();
+        header('Content-type: application/json');
+        exit(json_encode($this->Mdl_total_list->m_get_total_all($this->input->post('pet_id'))?:['error' => ['title' => 'データの取得に失敗しました', 'msg' => 'また後ほどお試しください']]));
     }
 
-    //ペットと顧客の登録
+    /**
+     * 顧客データとペットデータを同時登録
+     * 
+     * 
+     */
     public function insert_total_data()
     {
         //顧客の登録
+        judge_httprequest();
         if ($this->form_validation->run('total')) {
             $data = $this->escape_xss();
-            if (isset($_FILES["pet_img"])) {
-                if ($_FILES["pet_img"]["error"] === 0) { //エラーがなく正常
+            if (!empty($_FILES['pet_img'])) {
+                if ($_FILES['pet_img']['error'] === 0) {
                     $result_upload = $this->img_upload();
-                    if ($result_upload) {
-                        $data["pet_data"]["pet_img"] = $result_upload;
-                    } else {
-                        exit(json_msg('login', false));
-                    }
-                    // } elseif ($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理
-                } else { //エラーにてアップロードされてない以外の処理
-                    echo "upload_err";
+                    $data['pet_data']['pet_img'] = $result_upload?: exit(json_encode(json_msg('login', false)));
+                } elseif ($_FILES['pet_img']['error'] !== 4) {
+                    echo 'upload_err';
                     exit;
                 }
             }
-            $this->load->model("Mdl_total_list");
-            if ($this->Mdl_total_list->m_insert_total_list($data["customer_data"], $data["pet_data"]) === true) {
-                echo "success";
-                exit;
+            if ($this->Mdl_total_list->insert_total($data['customer'], $data['pet']) === true) {
+                $res_array = json_msg('total', true, 0);
             } else {
-                $res_array = json_msg('total', false);
+                $res_array = json_msg('total', false, 0);
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
@@ -153,74 +117,169 @@ class Total_list extends CI_Controller
         exit(json_encode($res_array));
     }
 
-    private function request_ajax_check()
+    /**
+     * 顧客データとペットデータを同時更新
+     *
+     * @return void
+     */
+    public function update_total()
     {
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-            $ref_url = @$_SERVER["HTTP_REFERER"]? parse_url($_SERVER["HTTP_REFERER"]): exit;
-            return $ref_url["host"].$ref_url["path"] === "animarl.com/total_list/"? true: false;
-        }
-    }
-
-
-    public function update_total_data()
-    {
+        judge_httprequest();
+        header('Content-Type: application/json');
+        $exit = json_encode(json_msg('total', false, 1));
         if ($this->form_validation->run('total')) {
-            $data = $this->escape_xss();
-            if (isset($_FILES["pet_img"])) {
-                if ($_FILES["pet_img"]["error"] === 0) { //エラーがなく正常
-                    $result_upload = $this->img_upload();
-                    if ($result_upload === false) {
-                        echo "upload_err";
-                        exit;
-                    } else {
-                        $data["pet_data"]["pet_img"] = $result_upload;
-                    }
-                } elseif ($_FILES["pet_img"]["error"] !== 4) { //エラーにてアップロードされてない以外の処理
-                    echo "upload_err";
-                    exit;
+            $data['where'] = [
+                'customer_id' => @$this->input->post('customer_id')?: exit($exit),
+                'pet_id' => @$this->input->post('pet_id')?: exit($exit)
+            ];
+            $data['update'] = $this->escape_xss();
+            if (!empty($_FILES['pet_img'])) {
+                if ($_FILES['pet_img']['error'] === 0) { //エラーがなく正常
+                    $imgName = $this->db->where('pet_id', $data['where']['pet_id'])->select('pet_img')->get('pet')->row_array();
+                    // echo $this->db->last_query();
+                    // var_dump($filename);
+                    $imgName = !empty($imgName['pet_img'])? basename($imgName['pet_img']): null;
+                    // exit;
+                    $data['update']['pet']['pet_img'] = $this->img_upload($imgName)?: exit($exit);
+                } elseif ($_FILES['pet_img']['error'] !== 4) { //エラーにてアップロードされてない以外の処理
+                    exit($exit);
                 }
             }
-            $this->load->model("Mdl_total_list");
-            if ($this->Mdl_total_list->m_update_total_list($data["id"], $data["customer_data"], $data["pet_data"]) == true) {
-                echo "success";
-                exit;
+            if ($this->Mdl_total_list->update_total($data['where'], $data['update']['customer'], $data['update']['pet'])) {
+                exit(json_encode(json_msg('total', true, 1)));
             } else {
-                echo "dberror";
-                exit;
+                $exit;
             }
         } else {
-            echo "vali_err";
-            exit;
+            exit(json_encode(['valierr' => $this->form_validation->error_array()]));
         }
     }
 
-    //ペットファイルの画像アップ
-    private function img_upload()
+    //グループ管理インサート
+    public function insert_kind_group()
     {
-        $filename = time();
-        $config = [
-            'upload_path' => './upload/tmp',
-            'allowed_types' => 'gif|jpg|png',
-            'file_name' => $filename,
-            'max_size'	=> '3072',
-            'max_width'  => '',
-            'max_height'  => ''
+        $data = [
+            'kind_group_shop_id ' => $_SESSION['shop_id'],
+            'kind_group_name' => $this->input->post('kind_group_name')
         ];
-        $this->load->library('upload', $config);
-        if ($this->upload->do_upload('pet_img')) {
-            $resize_path = base_url().'upload/img/thumbs';//リサイズ後
-            $image_data = $this->upload->data();
-            $config = [
-                'source_image' => $image_data["full_path"],
-                'maintain_ration' => true,
-                'new_image' => $resize_path, //サムネイル保存フォルダ
-                'width' => 640,
-                'height' => 360
+        $result = $this->Mdl_total_list->insert_model_data($data);
+        if ($result === true) {
+            echo 'success';
+        }
+    }
+
+    //グループを削除リストへ表示させる
+    public function delete_kind_group()
+    {
+        if ($this->request_ajax_check() === true) {
+            $kind_group_id = @$this->input->post('kind_group_id')?: exit;
+            $id = [
+                'kind_group_id' => $kind_group_id,
+                'shop_id' => $_SESSION['shop_id']
             ];
-            $this->load->library("image_lib", $config);
-            return $this->image_lib->resize()? base_url().'upload/img/thumbs/'.$image_data['file_name']: false;
+            $result = $this->Mdl_total_list->delete_kind_group_data($id);
+            echo $result===true? 1: 'dberror';
+        }
+        exit;
+    }
+
+    /**
+     * アップロードされた画面のexif情報を削除し、サムネイルサイズにリサイズ
+     * 
+     * @return string || boolean
+     */
+    private function img_upload($prevName = null)
+    {
+        $fileName = $_FILES['pet_img']['name'];
+        $tmpName  = $_FILES['pet_img']['tmp_name'];
+        $fileSize = $_FILES['pet_img']['size'];
+        $extentison = pathinfo($fileName, PATHINFO_EXTENSION);
+        $newName = $prevName?:$_SERVER['REQUEST_TIME'].'.'.$extentison;
+        $path = FCPATH.'upload/tmp/'.$newName;
+        try {
+            //ファイル名にパスが含めれないかチェック
+            // if (basename(realpath($fileName)) !== $fileName) {
+            //     throw new RuntimeException('ファイル名が不正です');
+            // }
+
+            // ファイルにスクリプトタグが含まれていないかのチェック
+            if (count(token_get_all($fileName)) >= 2)  {
+                throw new RuntimeException('ファイル形式が不正です');
+            }
+
+            // MIMEタイプに対応する拡張子チェック
+            if ($extentison != array_search(mime_content_type($tmpName),
+                array('gif' => 'image/gif', 'jpg' => 'image/jpeg', 'png' => 'image/png'), true)) {
+                throw new RuntimeException('ファイル形式が不正です');
+            }
+
+            if (!isset($_FILES['pet_img']['error']) || !is_int($_FILES['pet_img']['error'])) {
+                throw new RuntimeException('ファイル形式が不正です');
+            } else {
+                switch ($_FILES['pet_img']['error']) {
+                    case UPLOAD_ERR_OK:
+                        break;
+                    case UPLOAD_ERR_NO_FILE:
+                        throw new RuntimeException('ファイルが選択されていません');
+                    case UPLOAD_ERR_INI_SIZE:
+                    case UPLOAD_ERR_FORM_SIZE:
+                        throw new RuntimeException('ファイルサイズが大きすぎます');
+                    default:
+                        throw new RuntimeException('その他のエラーが発生しました');
+                }
+            }
+
+            // アップロード時にJPEGの場合はEXIFをGDで削除
+            list(, , $type) = getimagesize($tmpName);
+            if($type === IMG_JPG) {
+                // 新規サイズを取得
+                $gd = imagecreatefromjpeg($tmpName);
+                $w = imagesx($gd);
+                $h = imagesy($gd);
+                // 再サンプル
+                $out = imagecreatetruecolor($w, $h);
+                imagecopyresampled($out, $gd, 0, 0, 0, 0, $w, $h, $w, $h);
+                // 元画像を削除した上で同一名でファイルを再生成
+                unlink($tmpName);
+                imagejpeg($out, $tmpName, 100);
+                imagedestroy($gd);
+            }
+            // アップロードされたファイル名をランダムなファイル名にする。
+            // ドキュメントルート外のフォルダを指定する クラウドストレージが安全。
+            if (!move_uploaded_file ($tmpName, $path)){
+                throw new RuntimeException('ファイル保存時にエラーが発生しました');
+            }
+
+            // アップロードファイルは実行権限のない状態へ
+            chmod($path, 0644);
+            return $this->resize_img($path, $newName);
+        } catch (RuntimeException $e) {
+            $res_array[] = $e->getMessage();
+            exit(json_encode($res_array));
+        }
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param   string  $path
+     * @param   string  $newName
+     * @param   boolean $type
+     * @return  void
+     */
+    private function resize_img($path, $newName)
+    {
+        $config = [
+            'source_image' => $path,
+            'new_image' => FCPATH.'/upload/img/'.$newName,
+            'width' => 640,
+        ];
+        $this->load->library('image_lib', $config);
+        if ($this->image_lib->resize()) {
+            // $fullpath = realpath($resize_path);
+            return base_url().'upload/img/'.$newName;
         } else {
-            return false;
+            throw new RuntimeException('ファイル保存時にエラーが発生しました');
         }
     }
 }

@@ -6,6 +6,11 @@
 *.zip
 *.sql
 *.dump
+*.jpg
+*.png
+*.gif
+*.bat
+*.AdminBSBMaterialDesign
 application/cache/*
 !application/cache/index.html
 
@@ -37,6 +42,4 @@ AdminBSBMaterialDesign-master/*
 /tests/tests/
 /tests/results/
 /user_guide
-/チーム開発定義書
 /.vscode
-/tmp

@@ -1,15 +1,10 @@
-$('#sign_up').on('submit', function () {
-    param = {
-        shop_name: $('input[name="name[0]"]').val() + " " + $('input[name="name[1]"]').val(),
-        shop_kana: $('input[name="kana[0]"]').val() + " " + $('input[name="kana[1]"]').val(),
-        shop_tel: $('input[name="tel"]').val(),
-        shop_email: $('input[name="email"]').val(),
-        shop_zip_code: $('input[name="zip_code"]').val(),
-        shop_address: $('input[name="zip_address[0]"]').val() + $('input[name="zip_address[1]"]').val() + $('input[name="zip_address[2]"]').val(),
-        shop_password: $('input[name="password"]').val(),
-        shop_confirm_pass: $('input[name="confirm_pass"]').val()
+$('#sign_up').on('submit', function (e) {
+    e.preventDefault();
+    let form = $('#sign_up').serializeArray();
+    let param = {};
+    for (let i = 0; i < form.length; i++) {
+        param[form[i]['name']] = form[i]['value'];
     }
-
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -17,12 +12,10 @@ $('#sign_up').on('submit', function () {
         url: '//animarl.com/register/register',
         type: 'POST',
         data: param,
-        datatype: JSON
+        dataType: 'json'
     }).then(
         function (data) {
-            let json = JSON.parse(data);
-            // console.log(json);
-            process_callback(json);
+            process_callback(data);
         },
         function () {
             swal({
@@ -35,8 +28,6 @@ $('#sign_up').on('submit', function () {
                 },
             })
         })
-    return false;
-
 });
 
 function process_callback(json) {
@@ -70,10 +61,10 @@ function process_callback(json) {
                 break;
             case 'valierr':
                 $.each(val, function (name, text) {
-                    $('#' + name).parents('.form-line').addClass('error')
-                    let parent = $('#' + name).parents('.input-group');
+                    $('input[name="' + name).parents('.form-line').addClass('error')
+                    let parent = $('input[name="' + name + '"]').parents('.form-group');
                     parent.append('<label class="error">' + text + '</label>');
-                    $('#' + name).focus();
+                    // $('input[name="' + name + '"]').focus();
                 });
                 break;
             default:

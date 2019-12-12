@@ -154,7 +154,7 @@ function register_shift() {
         shift_end: $("input[name='shift_end']").val()
     }
     $.ajax({
-        url: "<?php echo base_url(); ?>shift/insert_shift",
+        url: "//animarl.com/shift/insert_shift",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -182,7 +182,7 @@ function update_shift() {
         shift_end: $("input[name='shift_end']").val(),
     }
     $.ajax({
-        url: "<?php echo base_url(); ?>shift/update_shift_data",
+        url: "//animarl.com/shift/update_shift_data",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -210,7 +210,7 @@ function shift_delete() {
         shift_id: $('#shift_id').val()
     }
     $.ajax({
-        url: "<?php echo base_url(); ?>shift/delete_shift_data",
+        url: "//animarl.com/shift/delete_shift_data",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -281,18 +281,25 @@ $("#registButton").on("click", function () {
     $('#modalArea_add_staff').fadeIn();
 });
 
-$("#sendRegistButton").on("click", function () {
+$("#sendRegistButton").on("click", function (e) {
+    e.preventDefault();
+    let form = $('#sign_up').serializeArray();
+    let param = {};
+    for (let i = 0; i < form.length; i++) {
+        param[form[i]['name']] = form[i]['value'];
+    }
     $.ajax({
         url: "//animarl.com/staff/register_staff",
         type: "POST",
         data: {
+            // staff_name: $("input[name='staff_name[0]']").val() + " " + $("input[name= 'staff_name[1]']").val(),
             staff_name: $("input[name='staff_name[0]']").val() + " " + $("input[name= 'staff_name[1]']").val(),
             staff_tel: $("input[name='staff_tel']").val(),
             staff_email: $("input[name='staff_email']").val(),
             staff_color: $("input[name='staff_color']").val(),
             staff_remarks: $("textarea[name='staff_remarks']").val()
         },
-        dataType: JSON
+        dataType: 'json'
     }).done(function (data) {
         if (data == "success") {
             SweetAlertMessage("success_register");

@@ -1,12 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-
 if (! function_exists('judge_request')) {
-
     /**
      * httpリクエストの正当性をチェック
      *
+     * @return void
      */
     function judge_httprequest()
     {
@@ -18,14 +17,13 @@ if (! function_exists('judge_request')) {
 
 if (! function_exists('json_msg')) {
     /**
-     * Element
+     * httpリクエストごとにjsonを出力
      *
-     * Lets you determine whether an array index is set and whether it has a value.
-     * If the element is empty it returns NULL (or whatever you specify as the default value.)
-     *
-     * @param	bool
-     * @param	string
-     * @return	array
+     * @param   string  $item
+     * @param   bool    $type
+     * @param   int     $index
+     * 
+     * @return  array
      */
     function json_msg(string $item, bool $type, int $index = null)
     {
@@ -102,14 +100,108 @@ if (! function_exists('json_msg')) {
                     ]
                 ]
             ],
-            'staff' => [
+            'total' =>[
                 true => [
-                    'title' => '登録に成功しました！',
-                    'msg' => ''
+                    [
+                        'success' => [
+                            'title' => '登録に成功しました！',
+                            'msg' => ''
+                        ]
+                    ],
+                    [
+                        'success' => [
+                            'title' => '更新に成功しました！',
+                            'msg' => ''
+                        ]
+                    ],
+                    [
+                        'success' => [
+                            'title' => '削除に成功しました！',
+                            'msg' => ''
+                        ]
+                    ]
                 ],
                 false => [
-                    'title' => '登録に失敗しました...',
-                    'msg' => ''
+                    [
+                        'error' => [
+                            'title' => '登録に失敗しました...',
+                            'msg' => ''
+                        ]
+                    ],
+                    [
+                        'error' => [
+                            'title' => '更新に失敗しました...',
+                            'msg' => ''
+                        ]
+                    ],
+                    [
+                        'error' => [
+                            'title' => '削除に失敗しました...',
+                            'msg' => ''
+                        ]
+                    ]
+                ]
+            ],
+            'staff' => [
+                true => [
+                    'success' => [
+                        [
+                            'title' => '登録に成功しました！',
+                            'msg' => ''
+                        ],
+                        [
+                            'title' => '更新に成功しました！',
+                            'msg' => ''
+                        ],
+                        [
+                            'title' => '削除に成功しました！',
+                            'msg' => ''
+                        ]
+                    ]
+                ],
+                false => [
+                    [
+                        'title' => '登録に失敗しました...',
+                        'msg' => ''
+                    ],
+                    [
+                        'title' => '更新に失敗しました...',
+                        'msg' => ''
+                    ],
+                    [
+                        'title' => '削除に失敗しました...',
+                        'msg' => ''
+                    ]
+                ]
+            ],
+            'shift' => [
+                true => [
+                    [
+                        'title' => '登録に成功しました！',
+                        'msg' => ''
+                    ],
+                    [
+                        'title' => '更新に成功しました！',
+                        'msg' => ''
+                    ],
+                    [
+                        'title' => '削除に成功しました！',
+                        'msg' => ''
+                    ]
+                ],
+                false => [
+                    [
+                        'title' => '登録に失敗しました...',
+                        'msg' => ''
+                    ],
+                    [
+                        'title' => '更新に失敗しました...',
+                        'msg' => 'シフトidが送信されていません'
+                    ],
+                    [
+                        'title' => '削除に失敗しました...',
+                        'msg' => ''
+                    ]
                 ]
             ]
         ];
