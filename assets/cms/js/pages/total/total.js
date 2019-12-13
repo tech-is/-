@@ -1,24 +1,20 @@
 //datatable
 $(function () {
     $('#datatable').DataTable({
-        'responsive': true,
-        'searching': true,
-        'paging': true,
         'columnDefs': [
             {
-                "targets": 0,
-                "visible": false,
-                "searchable": false
+                targets: 0,
+                visible: false,
+                searchable: false
             }
         ]
     });
 });
 
 // カスタマーデータ登録
-
 $('#register').on('click', function () { //顧客登録 ボタンタグにid
-    $('#img > img').css({ 'width': '', 'height': '' });
-    $('#img > img').attr('src', '');
+    $('#img_wrapper').css({ 'width': '', 'height': '' });
+    $('#img_wrapper > img').attr('src', '');
     $("#sendUpdateData").hide(); //顧客登録画面内の更新ボタン
     $("#send_register").show(); //顧客登録画面内の登録ボタン
     $('#modalArea_register').fadeIn();//モーダルエリアそのもの
@@ -28,29 +24,21 @@ $('#modalBg_register, #C_cancel, #P_cancel').on('click', function () {
     $('#modalArea_register').fadeOut();//モーダルエリアを閉じる
 });
 
-$('#send_register').on('click', function () { //顧客登録画面内の登録ボタンをクリック時
-    let fd = new FormData($('#total_form_data').get(0));
+$('#total_form').on('submit', function (e) { //顧客登録画面内の登録ボタンをクリック時
+    e.prevent
+    let fd = new FormData($('#total_form').get(0));
     $.ajax({
-        url: "//animarl.com/total_list/insert_total_data",
+        url: "//animarl.com/total_list/insert_total",
         type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         processData: false,
-        // contentType: false,
+        contentType: false,
         data: fd,
         dataType: 'json'
     }).then(
-            // if (data == "success") {
-            //     SweetAlertMessage("success_register");
-            //     console.log(data);
-            // } else {
-            //     // alert(valierr[0]['customer_name']);
-            //     // $('#total_form_data').show("valierr");
-            //     $('#total_form_data').val('valierr');
-            //     // SweetAlertMessage("failed_register");
-            //     console.log(data);
-            //     // location.reload();
-            // }
         function (data) {
-            // console.log(data);
             process_callback(data);
         },
         function () {
@@ -96,147 +84,19 @@ function kind_group_delete() {
     });
 }
 
-$(function () {
-    //グループ登録ボタンをクリック時
-    $('#group_register').on('click', function () {
 
-        let param = { kind_group_name: $('#select_group').val() }
-        $.ajax({
-            url: '//animarl.com/total_list/insert_kind_group',
-            type: 'POST',
-            data: param
-        })
-            .done(function (data, textStatus, jqXHR) {
-                if (data == "success") {
-                    SweetAlertMessage("success_register");
-                    console.log(data);
-                } else {
-                    SweetAlertMessage("failed_register");
-                    console.log(data);
-                    // location.reload();
-                }
-            })
-            .fail(function (data, textStatus, errorThrown) {
-                // SweetAlertMessage("failed_register");
-                console.log(data);
-            });
-    });
-
-    //予約登録
-    $('#register3').on('click', function () { //予約登録ボタンを押したら
-        $('#modalReserveArea').fadeIn();
-    });
-    //予約登録で×を押したときのイベント
-    $('#modalBg_register, #R_cancel').on('click', function () {
-        $('#modalReserveArea').fadeOut();
-    });
-    //ポスト値
-    $('#sendResisterReserve').on('click', function () {
-        let param = {
-            pet_name: $('#pet_name').val(),
-            reserve_start: $('#reserve_start').val()
-        }
-        //投げる
-        $.ajax({
-            url: '//animarl.com/reserve/register_reserve_data',
-            type: 'POST',
-            data: param
-        })
-            //成功したとき
-            .done((data) => {
-                if (data == "success") {
-                    SweetAlertMessage("success_register");
-                    console.log(data);
-                } else {
-                    SweetAlertMessage("failed_register");
-                    console.log(data);
-                    // location.reload();
-                }
-            })
-            //失敗したとき
-            .fail((data) => {
-                SweetAlertMessage("failed_register");
-                console.log(data);
-            });
-    });
-
-    /*************************************************************************** */
-    /** Total更新 **/
-    /*************************************************************************** */
-    // テーブル行クリックの設定 id=データテーブル tbody要素に対して
-    $('#datatable tbody').on("click", "tr", function () {
-        if ($(this).find('.dataTables_empty').length == 0) {
-            var owner = $(this);
-            $("#datatable tr").removeClass("active");
-            owner.addClass("active");
-            $("#register3").prop("disabled", false); //予約ボタン
-            $("#register4").prop("disabled", false); //更新ボタン false で既存のdiabledを外す。
-        }
-    });
-
-    //更新ボタンを押す、押した後のイベント
-    $('#register4').on("click", function () { //更新ボタン
-        let row = $('#datatable').DataTable().rows('.active').data(); //pet_idの情報の取得
-        let pet_id = row[0][0];
-        console.log(pet_id);
-        $.ajax({
-            url: '//animarl.com/total_list/get_total_all_data',
-            type: 'POST',
-            data: {
-                id: pet_id
-            }
-        })
-            //成功したとき、返ってきたデータ
-            .done((data) => {
-                $("#sendUpdateData").show();
-                $("#send_register").hide();
-                $("input[name='customer_name']").val(data['customer_name']);
-                $("input[name='customer_kana']").val(data['customer_kana']);
-                $("input[name='customer_mail']").val(data['customer_mail']);
-                $("input[name='customer_tel']").val(data['customer_tel']);
-                $("input[name='customer_zip_adress']").val(data['customer_zip_adress']);
-                $("input[name='customer_address']").val(data['customer_address']);
-                $("[name='customer_magazine']:checked").val(data['customer_magazine']);
-                $("textarea[name='customer_add_info']").val(data['customer_add_info']);
-                if (data['pet_img'] !== "") {
-                    $('#img').children('img').attr('src', data['pet_img']);
-                    $('#img > img').css({ 'width': '100px', 'height': '100px' });
-                }
-                $("#customer_id").val(data['customer_id']);
-                $("#pet_id").val(data['pet_id']);
-                $("input[name='pet_name']").val(data['pet_name']);
-                $("input[name='pet_classification']").val(data['pet_classification']);
-                $("input[name='pet_type']").val(data['pet_type']);
-                $("[name='pet_animal_gender']:checked").val(data['pet_animal_gender']);
-                $("[name='pet_contraception']:checked").val(data['pet_contraception']);
-                $("input[name='pet_body_height']").val(data['pet_contraception']);
-                $("input[name='pet_body_weight']").val(data['pet_body_weight']);
-                $("input[name='pet_birthday']").val(data['pet_birthday']);
-                $("input[name='pet_last_reservdate']").val(data['pepet_informationt_last_reservdate']);
-                $("textarea[name='pet_information']").val(data['pet_information']);
-                $('#modalArea_register').fadeIn();
-            })
-            //失敗したとき
-            .fail((data) => {
-                alert("失敗しました");
-            })
-    })
-});
-
-$("#sendUpdateData").on("click", function () {
-    let fd = new FormData($('#total_form_data').get(0));
-    fd.append("customer_id", $("#customer_id").val());
-    fd.append("pet_id", $("#pet_id").val());
+//グループ登録ボタンをクリック時
+$('#group_register').on('click', function () {
+    let param = { kind_group_name: $('#select_group').val() }
     $.ajax({
-        url: '//animarl.com/total_list/update_total_data',
+        url: '//animarl.com/total_list/insert_kind_group',
         type: 'POST',
-        processData: false,
-        contentType: false,
-        data: fd
+        data: param
     })
         .done(function (data, textStatus, jqXHR) {
             if (data == "success") {
                 SweetAlertMessage("success_register");
+                console.log(data);
             } else {
                 SweetAlertMessage("failed_register");
                 console.log(data);
@@ -244,9 +104,132 @@ $("#sendUpdateData").on("click", function () {
             }
         })
         .fail(function (data, textStatus, errorThrown) {
+            // SweetAlertMessage("failed_register");
+            console.log(data);
+        });
+});
+
+//予約登録
+$('#register3').on('click', function () { //予約登録ボタンを押したら
+    $('#modalReserveArea').fadeIn();
+});
+//予約登録で×を押したときのイベント
+$('#modalBg_register, #R_cancel').on('click', function () {
+    $('#modalReserveArea').fadeOut();
+});
+//ポスト値
+$('#sendResisterReserve').on('click', function () {
+    let param = {
+        pet_name: $('#pet_name').val(),
+        reserve_start: $('#reserve_start').val()
+    }
+    //投げる
+    $.ajax({
+        url: '//animarl.com/reserve/register_reserve_data',
+        type: 'POST',
+        data: param
+    })
+        //成功したとき
+        .done((data) => {
+            if (data == "success") {
+                SweetAlertMessage("success_register");
+                console.log(data);
+            } else {
+                SweetAlertMessage("failed_register");
+                console.log(data);
+                // location.reload();
+            }
+        })
+        //失敗したとき
+        .fail((data) => {
             SweetAlertMessage("failed_register");
             console.log(data);
         });
+});
+
+/*************************************************************************** */
+/** Total更新 **/
+/*************************************************************************** */
+// テーブル行クリックの設定 id=データテーブル tbody要素に対して
+$('#datatable tbody').on("click", "tr", function () {
+    if ($(this).find('.dataTables_empty').length == 0) {
+        $("#datatable tr").removeClass("active");
+        $(this).addClass("active");
+        $("#register3, #register4").prop("disabled", false); //予約ボタン
+        // $().prop("disabled", false); //更新ボタン false で既存のdiabledを外す。
+    }
+});
+
+//更新ボタンを押す、押した後のイベント
+$('#register4').on("click", function () { //更新ボタン
+    let pet_id = $('#datatable').DataTable().rows('.active').data()[0][0];
+    $.ajax({
+        url: '//animarl.com/total_list/get_total_all_data',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            pet_id: pet_id
+        }
+    }).then(function (data) {
+        $("#sendUpdateData").show();
+        $("#send_register").hide();
+        let form = $('#total_form').serializeArray();
+        for (let i = 0; i < form.length; i++) {
+            let name = form[i]['name'];
+            if (name === 'pet_information' || name === 'customer_magazine' || name === 'pet_information') {
+                $("textarea[name='" + name + "']").val(data[name]);
+            } else if (name === 'customer_magazine' || name === 'pet_animal_gender' || name === 'pet_contraception') {
+                $("[name='" + name + "']:checked").val(data[name]);
+            } else {
+                $("input[name='" + name + "']").val(data[name]);
+            }
+        }
+        if (data['pet_img'] !== null) {
+            $('#img_wrapper > img').attr('src', data['pet_img']);
+            $('#img_wrapper').css({ 'width': '', 'height': '' });
+        } else {
+            $('#img_wrapper > img').attr('src', '');
+            $('#img_wrapper').css({ 'width': '0px', 'height': '0px' });
+        }
+        $("#customer_id").val(data['customer_id']);
+        $("#pet_id").val(data['pet_id']);
+        $('#modalArea_register').fadeIn();
+    }, function () {
+        alert("失敗しました");
+    });
+});
+
+$("#sendUpdateData").on("click", function () {
+    let fd = new FormData($('#total_form').get(0));
+    fd.append("customer_id", $("#customer_id").val());
+    fd.append("pet_id", $("#pet_id").val());
+    $.ajax({
+        url: '//animarl.com/total_list/update_total',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        processData: false,
+        contentType: false,
+        data: fd,
+        dataType: 'json'
+    }).then(function (data) {
+        process_callback(data);
+    },
+        function () {
+            swal({
+                title: 'システムエラー',
+                text: 'また後ほどお試しください',
+                icon: 'warning',
+                button: {
+                    text: 'OK',
+                    value: true
+                },
+            })
+        });
+    return false;
 });
 
 /******************************************************************** */
@@ -376,14 +359,14 @@ $(function () {
         if ($(this).prop('files')[0] === "undefined") {
             // if (!file.type.match('image.*')) { //こちらでjpg フィルタ処理
             $(this).val('');
-            $('#img > img').css({ 'width': '', 'height': '' });
-            $('#img > img').attr('src', '');
+            $('#img_wrapper > img').attr('src', '');
+            $('#img_wrapper').css({ 'width': '0px', 'height': '0px' });
             return;
         } else {
             let reader = new FileReader();
             reader.onload = function () {//OKならこちらでリサイズ処理して表示
-                $('#img > img').css({ 'width': '100px', 'height': '100px' });
-                $('#img > img').attr('src', reader.result);
+                $('#img_wrapper > img').attr('src', reader.result);
+                $('#img_wrapper').css({ 'width': '', 'height': '' });
             }
             reader.readAsDataURL(file);
         }

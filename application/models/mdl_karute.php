@@ -109,7 +109,7 @@ class Mdl_karute extends CI_Model
     }
 
     //更新処理
-    // public function m_update_total_list($id, $customer_data, $pet_data)
+    // public function update_total($id, $customer_data, $pet_data)
     // {
     //     $this->db->trans_start();
     //     $this->db->set($customer_data);

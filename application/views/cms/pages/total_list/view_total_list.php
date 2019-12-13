@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>顧客・ペット一覧</h2>
-                        <button id="register" type="btn" class="btn m-l-10  m-t-15 waves-effect">顧客登録</button>
+                        <button id="register" type="btn" class="btn m-t-15 waves-effect">顧客登録</button>
                         <button id="register3" type="btn" class="btn m-l-10 m-t-15 waves-effect" disabled>予約登録</button>
                         <button id="register4" type="btn" class="btn m-l-10 m-t-15 waves-effect" disabled>顧客更新</button>
                     </div>
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table id="datatable" class="table table-bordered table-striped table-hover dataTable">
+                            <table id="datatable" class="table table-bordered table-striped table-hover" style="min-width:100%">
                                 <thead>
                                     <tr>
                                         <th>ペットID</th>
@@ -56,19 +56,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                for ($i = 0; $i < count($list); $i++) {
-                                    $disply = $list[$i];
-                                    echo "<tr>";
-                                    echo "<td>$disply[pet_id]</td>";
-                                    echo "<td>$disply[customer_name]</td>";
-                                    echo "<td>$disply[pet_name]</td>";
-                                    echo "<td>$disply[customer_tel]</td>";
-                                    echo "<td>$disply[customer_mail]</td>";
-                                    echo isset($disply["kind_group_name"]) ? "<td>$disply[kind_group_name]</td>" : "<td></td>";
-                                    echo "</tr>";
-                                }
+                                <?php
+                                // for ($i = 0; $i < count($list); $i++) {
+                                //     $disply = $list[$i];
+                                //     echo "<tr>";
+                                //     echo "<td>$disply[pet_id]</td>";
+                                //     echo "<td>$disply[customer_name]</td>";
+                                //     echo "<td>$disply[pet_name]</td>";
+                                //     echo "<td>$disply[customer_tel]</td>";
+                                //     echo "<td>$disply[customer_mail]</td>";
+                                //     echo isset($disply["kind_group_name"]) ? "<td>$disply[kind_group_name]</td>" : "<td></td>";
+                                //     echo "</tr>";
+                                // }
                                 ?>
+                                <?php foreach ($list as $data_array): ?>
+                                    <tr>
+                                    <?php foreach ($data_array as $column => $data): ?>
+                                        <td><?php echo !empty($data)?$data: ""; ?></td>
+                                    <?php endforeach;?>
+                                    </tr>
+                                <?php endforeach;?>
                                 </tbody>
                             </table>
                         </div>
@@ -120,18 +127,18 @@
                     ×
                 </span>
             </div>
-            <form id="total_form_data" enctype="multipart/form-data">
+            <form id="total_form" enctype="multipart/form-data">
                 <div class="row clearfix">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <h3>顧客新規登録</h3>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="customer_barcode">コード<span
                                     style="color: red; margin-left: 10px">必須</span></label>
                             <div class="form-line">
                                 <input type="text" class="form-control" name="customer_barcode" value=""
                                     placeholder="作成した数字を入力して下さい" required>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="customer_name">名前<span style="color: red; margin-left: 10px">必須</span></label>
                             <div class="form-line">
@@ -180,7 +187,7 @@
                                     placeholder="(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)" required>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="customer_magazine">メールマガジン<span
                                     style="color: red; margin-left: 10px">必須</span></label>
                             <div class="switch">
@@ -189,7 +196,7 @@
                                     <span class="lever switch-col-red"></span>希望
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="customer_magazine">備考</label>
                             <div class="form-line">
@@ -228,14 +235,6 @@
                                         <input type="text" class="form-control" name="pet_name" placeholder="名前"
                                             required>
                                     </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <label for="pet_photo">写真</label>
-                                    <div id="img">
-                                        <img src="">
-                                    </div>
-                                    <input type="file" id="files" name="pet_img" size="20"
-                                        accept="image/png,image/jpeg,image/gif">
                                 </div>
                                 <div class="form-group form-float">
                                     <label for="pet_classification">分類<span
@@ -285,8 +284,6 @@
                                         <label for="off">無</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="form-group form-float">
                                     <label for="pet_body_height">体高</label>
                                     <div class="form-line">
@@ -295,6 +292,8 @@
                                     </div>
                                     <div class="help-info">cm</div>
                                 </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="form-group form-float">
                                     <label for="pet_body_height">体重</label>
                                     <div class="form-line">
@@ -309,6 +308,14 @@
                                         <textarea name="pet_information" cols="30" rows="5"
                                             class="form-control no-resize" placeholder="備考："></textarea>
                                     </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <label for="pet_photo">写真</label>
+                                    <div id="img_wrapper" style="margin-bottom: 10px">
+                                        <img src="">
+                                    </div>
+                                    <input type="file" id="files" name="pet_img" size="20"
+                                        accept="image/png,image/jpeg,image/gif">
                                 </div>
                             </div>
                         </div>

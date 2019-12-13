@@ -34,6 +34,6 @@ class Mdl_login extends CI_Model
 
     public function delete_tmp_data()
     {
-        // return->db->
+        // return->db-
     }
 }

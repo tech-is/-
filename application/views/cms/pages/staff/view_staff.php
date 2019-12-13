@@ -71,9 +71,9 @@
                         <div class="form-line">
                             <label for="start">担当スタッフ<span style="color: red; margin-left: 10px">必須</span></label>
                             <?php
-                                if(!empty($staff)) {
+                                if (!empty($staff)) {
                                     echo '<select id="select_shift_staff" class="form-control show-tick" value="">';
-                                    foreach($staff as $value) {
+                                    foreach ($staff as $value) {
                                         echo "<option value={$value['staff_id']}>{$value['staff_name']}</option>";
                                     }
                                 } else {
@@ -105,7 +105,7 @@
                     </div>
                     <input type="hidden" name="shift_id" id="shift_id" />
                     <div class="pull-left">
-                        <?php if(!empty($staff)){ ?>
+                        <?php if (!empty($staff)) { ?>
                             <button type="submit" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect">登録</button>
                         <?php } else { ?>
                             <button type="submit" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect" disabled>登録</button>
@@ -119,7 +119,7 @@
                 </div>
                 <input type="hidden" name="shift_id" id="shift_id" />
                 <div class="pull-left">
-                    <?php if(isset($select_staff)){ ?>
+                    <?php if (isset($select_staff)) { ?>
                     <button type="submit" id="register_add_shift"
                         class="btn btn-primary m-t-15 waves-effect">登録</button>
                     <?php } else { ?>

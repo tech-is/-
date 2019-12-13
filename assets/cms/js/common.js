@@ -13,7 +13,7 @@ function process_callback(json) {
                         value: true
                     },
                 }).then(function () {
-                    location.reload();
+                    // location.reload();
                 });
                 break;
             case 'error':

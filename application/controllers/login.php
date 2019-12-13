@@ -36,7 +36,6 @@ class Login extends CI_Controller
                     ];
                 } else {
                     $res_array = json_msg('login', false);
-                    // $res_array = ['error' => 'ログインに失敗しました...'];
                 }
             } else {
                 $res_array = json_msg('login', false);
@@ -47,6 +46,7 @@ class Login extends CI_Controller
         header('Content-Type: application/json');
         exit(json_encode($res_array));
     }
+
 
     public function logout()
     {
@@ -64,9 +64,9 @@ class Login extends CI_Controller
                 'tmp_expires' => date('Y-m-d H:i:s', time()+3600)
             ];
             $this->load->model('mdl_login');
-            if ($this->mdl_login->check_tmp_user($data['tmp_shop_email']) == "0") {
+            if ($this->mdl_login->check_tmp_user($data['tmp_shop_email']) === 0) {
                 if ($this->mdl_login->insert_tmp_data($data)) {
-                    $res_array = $this->send_email($data)? json_msg('prov', true): json_msg('prov', false);
+                    exit(json_encode(json_msg('prov', $this->send_email($data)?: false)));
                 } else {
                     $res_array = json_msg('prov', false);
                 }
@@ -89,7 +89,7 @@ class Login extends CI_Controller
                 $data = [
                     'tmp_shop_email' => $email,
                     'tmp_shop_code' => hash('md5', getmypid().microtime()),
-                    'tmp_expires' => date('Y-m-d H:i:s', time()+3600)
+                    'tmp_expires' => date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']+3600)
                 ];
                 if ($this->mdl_login->insert_tmp_data($data)) {
                     $msg = <<< EOM
@@ -131,12 +131,10 @@ class Login extends CI_Controller
                 $_SESSION['token'] = $data['token'];
                 $this->load->view('login/view_reset_password', $data);
             } else {
-                header('HTTP/1.1 403 Forbidden');
-                exit;
+                exit(header('HTTP/1.1 403 Forbidden'));
             }
         } else {
-            header('HTTP/1.1 403 Forbidden');
-            exit;
+            exit(header('HTTP/1.1 403 Forbidden'));
         }
     }
 
@@ -190,8 +188,9 @@ class Login extends CI_Controller
         $this->email->subject('test');
         $this->email->message($msg);
         if (!$this->email->send()) {
-            print_r($this->email->print_debugger());
-            exit;
+            // print_r($this->email->print_debugger());
+            // exit;
+            return false;
         } else {
             return true;
         }
