@@ -82,7 +82,7 @@
                                 <i class="material-icons">phone</i>
                             </span> -->
                             <div class="form-line">
-                                <input type="text" class="form-control" name="tel" placeholder="電話番号(ハイフンなし)" required>
+                                <input type="tel" class="form-control" name="tel" placeholder="電話番号(ハイフンなし)" required>
                             </div>
                         </div>
                         <label for="zip_code">郵便番号</label>
@@ -91,7 +91,7 @@
                                 <i class="material-icons">email</i>
                             </span> -->
                             <div class="form-line">
-                                <input type="text" class="form-control" name="zip_code" placeholder="郵便番号(ハイフンなし)" required>
+                                <input type="text" class="form-control" name="zip_code" placeholder="郵便番号(ハイフンなし)" pattern="\d{3}-?\d{4}" required>
                             </div>
                         </div>
                         <label for="zip_address">住所</label>
@@ -113,18 +113,12 @@
                         </div>
                         <label for="password">パスワード</label>
                         <div class="input-group">
-                            <!-- <span class="input-group-addon">
-                                <i class="material-icons">lock</i>
-                            </span> -->
                             <div class="form-line">
                                 <input type="password" class="form-control" name="password" minlength="6" placeholder="英数字で8文字以上" required>
                             </div>
                         </div>
                         <label for="confirm_pass">確認用パスワード</label>
                         <div class="input-group">
-                            <!-- <span class="input-group-addon">
-                                <i class="material-icons">lock</i>
-                            </span> -->
                             <div class="form-line">
                                 <input type="password" class="form-control" name="confirm_pass" minlength="6" placeholder="もう一度同じパスワードを入力" required>
                             </div>

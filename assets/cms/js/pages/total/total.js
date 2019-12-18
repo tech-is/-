@@ -43,13 +43,13 @@ $('#send_register').on('click', function () { //顧客登録画面内の登録�
                 SweetAlertMessage("success_register");
                 console.log(data);
             } else {
-                SweetAlertMessage("failed_register");
+                // SweetAlertMessage("failed_register");
                 console.log(data);
                 // location.reload();
             }
         })
         .fail(function (data, textStatus, errorThrown) {
-            SweetAlertMessage("failed_register");
+            // SweetAlertMessage("failed_register");
             console.log(data);
         });
 });
