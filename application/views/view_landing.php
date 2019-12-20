@@ -208,9 +208,11 @@
                     <a class="nav-link mb-lg-3" href="#feature-3" aria-controls="feature-3" data-toggle="pill"
                         role="tab" aria-selected="false"><i class="fas fa-chart-bar mr-2"></i>予約管理機能</a>
                     <a class="nav-link mb-lg-3" href="#feature-4" aria-controls="feature-4" data-toggle="pill"
-                        role="tab" aria-selected="false"><i class="fas fa-code mr-2"></i>メルマガ配信管理機能</a>
+                        role="tab" aria-selected="false"><i class="fas fa-code mr-2"></i>待ち受けカルテ管理機能</a>
                     <a class="nav-link mb-lg-3" href="#feature-8" aria-controls="feature-8" data-toggle="pill"
                         role="tab" aria-selected="false"><i class="fas fa-heart mr-2"></i>スタッフ管理</a>
+                    <a class="nav-link mb-lg-3" href="#feature-5" aria-controls="feature-5" data-toggle="pill"
+                        role="tab" aria-selected="false"><i class="fas fa-database mr-2"></i>機能概要</a>
                 </div>
                 <!-- Tab panes -->
                 <div class="feature-content tab-content col-lg-8 col-md-6 col-12 order-1 order-md-0">
