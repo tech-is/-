@@ -49,8 +49,8 @@
     <!-- User Info -->
     <div class="user-info">
         <div class="image">
-            <img src="<?php echo base_url('assets/cms/images/user.png') ?>"
-                width="48" height="48" alt="User" />
+            <!-- <img src="<?php echo base_url('assets/cms/images/user.png') ?>"
+                width="48" height="48" alt="User" /> -->
         </div>
         <div class="info-container">
             <div id="account_name" class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['name'] ?></div>

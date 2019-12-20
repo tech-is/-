@@ -22,10 +22,10 @@ p {
 
 a {
   color: #3aa7aa;
-  -webkit-transition: all 0.4s ease-in-out;
+  /* -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -ms-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out; */
 }
 
 a:hover {
@@ -42,10 +42,10 @@ a:focus {
 }
 
 .btn, a.btn {
-  -webkit-transition: all 0.4s ease-in-out;
+  /* -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -ms-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out; */
   font-weight: 600;
   font-size: 14px;
   line-height: 1.5;
@@ -58,7 +58,8 @@ a:focus {
 .btn-cta, a.btn-cta {
   font-weight: bold;
   font-size: 17px;
-  padding: 10px 30px;
+  padding: 17px 22px;
+  height: -1px;
 }
 
 .btn-primary {
@@ -137,10 +138,10 @@ a:focus {
   width: 100%;
   z-index: 30;
   height: 60px;
-  -webkit-transition: none;
+  /* -webkit-transition: none;
   -moz-transition: none;
   -ms-transition: none;
-  -o-transition: none;
+  -o-transition: none; */
 }
 
 .header.header-scrolled {
@@ -195,10 +196,10 @@ a:focus {
 
 .header a {
   color: #fff;
-  -webkit-transition: none;
+  /* -webkit-transition: none;
   -moz-transition: none;
   -ms-transition: none;
-  -o-transition: none;
+  -o-transition: none; */
 }
 
 .header a:hover {
@@ -208,7 +209,7 @@ a:focus {
 .header .logo {
   margin: 0;
   display: inline-block;
-  float: left;
+  /* float: left; */
   font-size: 28px;
   padding-top: 15px;
 }
@@ -716,7 +717,7 @@ a:focus {
 
 .pricing-wrapper .item-inner {
   color: #fff;
-  padding: 30px;
+  padding: 21px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
@@ -779,6 +780,7 @@ a:focus {
 .pricing-wrapper a.btn {
   background: rgba(0, 0, 0, 0.2);
   color: #fff;
+  width: 216px;
 }
 
 .pricing-wrapper a.btn:hover {

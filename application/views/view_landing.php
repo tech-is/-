@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <title>ANIMARL | 誰でも手軽に業務効率化！</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bootstrap 4 landing page template for developers and startups">
-    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <meta name="description" content="無料で始めるシンプルな顧客＆ﾍﾟｯﾄ管理">
+    <meta name="keywords" content="無料で始めるシンプルな顧客＆ﾍﾟｯﾄ管理">
     <link rel="shortcut icon" href="assets/favicon.ico">
     <link
         href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
@@ -21,21 +22,32 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
     <!-- Facebook Pixel Code -->
     <script>
-        !function (f, b, e, v, n, t, s) {
-            if (f.fbq) return; n = f.fbq = function () {
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
                 n.callMethod ?
                     n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            }; if (!f._fbq) f._fbq = n;
-            n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
-            t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
         }(window,
             document, 'script', '//connect.facebook.net/en_US/fbevents.js');
         fbq('init', '1506230579705064');
-        fbq('track', "PageView");</script>
+        fbq('track', "PageView");
+    </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=1506230579705064&ev=PageView&noscript=1" /></noscript>
     <!-- End Facebook Pixel Code -->
 </head>
+
 <body>
     <!-- ******HEADER****** -->
     <header id="header" class="header">
@@ -97,34 +109,29 @@
                     <div class="item-content container">
                         <div class="item-content-inner">
                             <h2 class="heading"> <br class="d-none d-md-block">ﾍﾟｯﾄｻﾛﾝ専用CRM</h2>
-                            <p class="intro">無料で始めるシンプルな顧客＆ﾍﾟｯﾄ管理</p>
-                            <a class="btn btn-primary btn-cta" href="<?php echo base_url()."login";?>" target="_blank">会員登録して始める</a>
+                            <p class="intro">無料で始めるシンプルな顧客＆ペット管理</p>
+                            <a class="btn btn-primary btn-cta"
+                                href="<?php echo base_url()."login";?>"
+                                target="_blank">会員登録して始める</a>
+                            <a class="btn btn-primary btn-cta" style="position:absolute;top: 369px;left: 303px;"
+                                href="<?php echo base_url()."login";?>"
+                                target="_blank">ログイン</a>
                         </div>
                         <!--//item-content-inner-->
                     </div>
                     <!--//item-content-->
                 </div>
                 <!--//item-->
-                    </div>
-                </div>
-
-                <!--//item-->
-        <!--
-                <div class="carousel-item item-3">
-                    <div class="item-content container">
-                        <div class="item-content-inner">
-                            <h2 class="heading">顧客管理<br>営業支援システム</h2>
-                            <p class="intro">誰でも手軽に シンプル顧客管理</p>
-                            <a class="btn btn-primary btn-cta" href="main/login" target="_blank">会員登録して始める</a>
-                        </div>
-                    </div>
-                </div>
-        -->
-                <!--//item-->
             </div>
-            <!--//carousel-inner-->
         </div>
-        <!--//carousel-->
+
+        <!--//item-->
+       
+        <!--//item-->
+    </div>
+    <!--//carousel-inner-->
+    </div>
+    <!--//carousel-->
     </div>
     <!--//hero-->
     <div id="about" class="about-section">
@@ -144,7 +151,7 @@
                         <div class="item-desc">
                             全てをデータ化することでサロンワークを高速化します。
                             顧客管理から予約管理などペットサロンにおけるＰＣワークはすべてこれ一本で。
-                            
+
                         </div>
                         <!--//item-desc-->
                     </div>
@@ -252,8 +259,8 @@
             <h2 class="section-title">PROVIDE BY UMWN</h2>
             <div class="story">
                 <p>愛媛県で共にプログラマを学習した仲間でチームを結成<br>
-            それぞれの技術を活かしAnimarlを開発しました。
-        </p>
+                    それぞれの技術を活かしAnimarlを開発しました。
+                </p>
             </div>
             <div class="members-wrapper row">
                 <div class="item col-md-3 col-12">
@@ -264,7 +271,7 @@
                         <div class="member-content">
                             <h3 class="member-name">森裕信</h3>
                             <div class="member-title">開発・設計</div>
-                            <ul class="social list-inline">
+                            <!-- <ul class="social list-inline">
                                 <li class="list-inline-item">
                                     <a class="facebook" href="https://www.facebook.com/3rdwavethemes/" target="_blank">
                                         <i class="fab fa-facebook-f"></i>
@@ -275,7 +282,7 @@
                                         <i class="fab fa-github"></i>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> -->
                             <div class="member-desc">
                                 <p>サーバ構築<br>PG設計<br>プログラム開発</p>
                             </div>
@@ -294,16 +301,17 @@
                         <div class="member-content">
                             <h3 class="member-name">若林 朋</h3>
                             <div class="member-title">開発・設計</div>
-                            <ul class="social list-inline">
+                            <!-- <ul class="social list-inline">
                                 <li class="list-inline-item">
                                     <a class="twitter" href="http://twitter.com/tnajdek" target="_blank">
                                         <i class="fab fa-twitter"></i>
                                     </a>
                                 </li>
-                                <li class="list-inline-item"><a class="github" href="https://github.com/tnajdek" target="_blank"><i class="fab fa-github"></i>
+                                <li class="list-inline-item"><a class="github" href="https://github.com/tnajdek"
+                                        target="_blank"><i class="fab fa-github"></i>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> -->
                             <div class="member-desc">
                                 <p>サーバ構築<br>PG設計<br>プログラム開発</p>
                             </div>
@@ -322,7 +330,7 @@
                         <div class="member-content">
                             <h3 class="member-name">浦川花</h3>
                             <div class="member-title">フロント開発</div>
-                            <ul class="social list-inline">
+                            <!-- <ul class="social list-inline">
                                 <li class="list-inline-item">
                                     <a class="twitter" href="https://twitter.com/3rdwave_themes" target="_blank">
                                         <i class="fab fa-twitter"></i>
@@ -330,10 +338,10 @@
                                 </li>
                                 <li class="list-inline-item">
                                     <a class="facebook" href="https://www.facebook.com/3rdwavethemes/" target="_blank">
-                                    <i class="fab fa-facebook-f"></i>
+                                        <i class="fab fa-facebook-f"></i>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> -->
                             <div class="member-desc">
                                 <p>WEBデザイン・コーディング</p>
                             </div>
@@ -351,13 +359,13 @@
                         <div class="member-content">
                             <h3 class="member-name">永井祐大郎</h3>
                             <div class="member-title">開発・設計</div>
-                            <ul class="social list-inline">
+                            <!-- <ul class="social list-inline">
                                 <li class="list-inline-item"><a class="twitter"
                                         href="https://twitter.com/3rdwave_themes" target="_blank"><i
                                             class="fab fa-twitter"></i></a></li>
                                 <li class="list-inline-item"><a class="github" href="https://github.com/xriley"
                                         target="_blank"><i class="fab fa-github"></i></a></li>
-                            </ul>
+                            </ul> -->
                             <div class="member-desc">
                                 <p>サーバ構築<br>PG設計<br>プログラム開発</p>
                             </div>
@@ -378,38 +386,60 @@
             <h2 class="section-title">PRICING</h2>
             <div class="intro">利用料金について</div>
             <div class="pricing-wrapper row">
-                <div class="item item-1 col-md-6 col-12">
+                <div class="item item-1 col-md-4 col-12">
                     <div class="item-inner">
-                        <h3 class="item-heading">フリー<br><span class="item-heading-desc">（ペット管理システム）</span></h3>
+                        <h3 class="item-heading">フリーAnimarl<br><span class="item-heading-desc">（ペット管理システム）</span></h3>
                         <div class="price-figure">
                             <span class="currency">￥</span><span class="number">0</span>
                         </div>
                         <!--//price-figure-->
-                        <ul class="list-unstyled mb-3">
+                        <ul class="list-unstyled mb-3" style="text-align:left;">
                             <li class="mb-2"><i class="fas fa-check"></i> ログイン機能であなた専用に!!</li>
-                            <li class="mb-2"><i class="fas fa-check"></i> ペット予約</li>
-                            <li class="mb-2"><i class="fas fa-check"></i> 従業員管理</li>
-                            <li class="mb-2"><i class="fas fa-check"></i> QRコードでラクラク顧客管理</li>
-                            <li class="mb-2"><i class="fas fa-check"></i> メールマガジン管理</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> ペット予約でスケジュール管理</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> 従業員勤務管理</li>
                         </ul>
-                        <div class="mb-3"><a href="index.php/main/login" target="_blank">License 詳細</a></div>
-                        <a class="btn btn-cta" href="index.php/main/login">
-                            ログイン<br>（新規登録）</a>
+                        <div class="mb-3"><a href="#" target="_blank">License 詳細</a></div>
+                        <a class="btn btn-cta" style="position:absolute;bottom: 21px;left: 45px;" href="<?php echo base_url()."login";?>">
+                            ログイン（新規登録）</a>
 
                     </div>
                     <!--//item-inner-->
                 </div>
                 <!--//item-->
-                <div class="item item-2 col-md-6 col-12">
+                <div class="item item-2 col-md-4 col-12">
                     <div class="item-inner">
-                        <h3 class="item-heading">カスタム（有料）<br><span class="item-heading-desc">(オリジナル管理システム)</span></h3>
+                        <h3 class="item-heading">カスタムAnimarl（有料）<br><span class="item-heading-desc">(ペット管理システム)</span>
+                        </h3>
 
                         <div class="price-figure">
-                            <span class="currency">ご相談ください。</span>
+                            <span class="currency">   </span>
                         </div>
                         <!--//price-figure-->
-                        <ul class="list-unstyled mb-3">
-                            <li class="mb-2"><i class="fas fa-check"></i> フリー版を元にカスタマイズ</li>
+                        <ul class="list-unstyled mb-3" style="text-align:left;">
+                        <li class="mb-2"><i class="fas fa-check"></i> ログイン機能であなた専用に!!</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> ペット予約でスケジュール管理</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> 従業員勤務管理</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> 顧客カルテで履歴管理</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> バーコードでラクラク顧客管理</li>
+                            <li class="mb-2"><i class="fas fa-check"></i> メールマガジン管理</li>
+                        </ul>
+                        <div class="mb-3"><a href="#" target="_blank">License 詳細</a></div>
+                        <a class="btn btn-cta" style="position: absolute;bottom: 21px;left: 45px;" href="#" disable>
+                            開発中</a>
+
+                    </div>
+                    <!--//item-inner-->
+                </div>
+                <!--//item-->
+
+                <div class="item item-3 col-md-4 col-12">
+                    <div class="item-inner">
+                        <h3 class="item-heading">多彩な管理システム！！<span class="item-heading-desc">(オリジナル管理システム)</span></h3>
+                        <div class="price-figure">
+                            <span class="currency">     </span>
+                        </div>
+                        <ul class="list-unstyled mb-3" style="text-align:left;">
+                        <li class="mb-2"><i class="fas fa-check"></i> フリー版を元にカスタマイズ</li>
                             <li class="mb-2"><i class="fas fa-check"></i> 理容・美容業界の運営システム</li>
                             <li class="mb-2"><i class="fas fa-check"></i> ネイルサロン運営システム</li>
                             <li class="mb-2"><i class="fas fa-check"></i> 整体・整骨院・鍼灸運営システム</li>
@@ -417,31 +447,9 @@
                             <li class="mb-2"><i class="fas fa-check"></i>ジムの運営システム</li>
                         </ul>
                         <div class="mb-3"><a href="index.php/main/login" target="_blank">License 詳細</a></div>
-                        <a class="btn btn-cta" href="">
-                            お問い合わせ下さい</a>
+                        <a class="btn btn-cta" href="#" disable>開発中</a>
 
                     </div>
-                    <!--//item-inner-->
-                </div>
-                <!--//item-->
-
-                <!-- <div class="item item-3 col-md-4 col-12">
-                    <div class="item-inner">
-                        <h3 class="item-heading">プレミアム版<br><span class="item-heading-desc">(Commercial
-                                License)</span></h3>
-                        <div class="price-figure">
-                            <span class="currency">￥</span><span class="number">35億</span>
-                        </div>
-                        <!--//price-figure-->
-                        <!-- <ul class="list-unstyled mb-3">
-                            <li class="mb-2"><i class="fas fa-check"></i> Single installation</li>
-                            <li class="mb-2"><i class="fas fa-check"></i> Multiple installations</li>
-                            <li class="mb-2"><i class="fas fa-check"></i> Use without attribution link</li>
-                        </ul>
-                        <div class="mb-3"><a href="index.php/main/login" target="_blank">License Details</a></div>
-                        <a class="btn btn-cta" href="index.php/main/login" target="_blank">ダウンロード（有料）</a> -->
-
-                    </div> 
                     <!--//item-inner-->
                 </div>
                 <!--//item-->
@@ -451,7 +459,7 @@
         </div>
         <!--//container-->
     </div>
-    <!--//pricing-section-->
+    <!-- pricing-section -->
     <div id="contact" class="contact-section">
         <div class="container text-center">
             <h2 class="section-title">✉ CONTACT US</h2>
@@ -486,6 +494,8 @@
     <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
 
+    <!-- Custom Js -->
+    <script src="<?php echo base_url(); ?>assets/cms/js/pages/login/login.js"></script>
 </body>
 
 </html>
