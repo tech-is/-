@@ -1,34 +1,52 @@
 /******************************************************************** */
 /** flatpickr */
 /******************************************************************** */
-$(function () {
-    $('input[name="shift_start"]').flatpickr({
+function datepicker(el, defTime = false) {
+    el.flatpickr({
         minDate: 'today',
-        dateFormat: 'Y-m-d'
+        dateFormat: 'Y-m-d',
+        defaultDate: defTime
     });
-    $('input[name="shift_time[0]"]').flatpickr({
+}
+
+function timepicker(el, defTime = false) {
+    el.flatpickr({
         enableTime: true,
         noCalendar: true,
         dateFormat: "H:i",
         time_24hr: true,
+        defaultDate: defTime
     });
-    $('input[name="shift_time[1]"]').flatpickr({
+}
+
+$('#shift_time').on('change', function () {
+    if (!$('#_shift_time').hasClass('lock')) {
+        $('#_shift_time').val(timeCalculation($(this).val(), 1800));
+    }
+});
+
+$('#shift_time').on('focus', function () {
+    let el = $('#_shift_time');
+    el.flatpickr({
         enableTime: true,
         noCalendar: true,
         dateFormat: "H:i",
         time_24hr: true,
-    });
-    $('input[name="shift_end"]').flatpickr({
-        minDate: 'today',
-        dateFormat: 'Y-m-d'
+        defaultDate: el.val(),
+        minTime: $(this).val()
     });
 });
 
-$('input[name="shift_time[0]"]').on('blur', function () {
-    let time = $(this).val();
-    // console.log(addMinuteFormatTime(time));
-    $('input[name="shift_time[1]"]').val(addMinuteFormatTime(time));
-})
+$('#_shift_time').on('blur', function () {
+    let el = $(this);
+    if (!el.hasClass('lock')) {
+        el.val(timeCalculation(el.val(), 1800));
+    }
+});
+
+$('#_shift_time').on('focus', function () {
+    $(this).addClass('lock');
+});
 
 /******************************************************************** */
 /** スタッフ一覧テーブル */
@@ -122,8 +140,8 @@ $(function () {
         eventLimit: true, // allow 'more' link when too many events
         events: event_json,
         eventRender: function (eventObj, $el, calEvent) {
-            var start = $.fullCalendar.formatDate(eventObj.start, 'MM月DD日 HH:mm');
-            var end = $.fullCalendar.formatDate(eventObj.end, 'MM月DD日 HH:mm');
+            let start = $.fullCalendar.formatDate(eventObj.start, 'MM月DD日 HH:mm');
+            let end = $.fullCalendar.formatDate(eventObj.end, 'MM月DD日 HH:mm');
             $el.popover({
                 title: eventObj.title,
                 content: start + ' ~ ' + end,
@@ -133,26 +151,28 @@ $(function () {
             });
         },
         eventClick: function (eventObj, jsEvent, view) {
-            let start = $.fullCalendar.formatDate(eventObj.start, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(eventObj.start, 'HH:mm');
-            var end = $.fullCalendar.formatDate(eventObj.end, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(eventObj.end, 'HH:mm');
-            update_shift_id = eventObj.shift_id
-            $('#modal_shift_title').html('シフト更新・削除');
-            $('#send_Update_shift, #send_Delete_shift').show();
-            $('#register_add_shift').hide();
-            $('#select_shift_staff').val(eventObj.staff_id);
+            datepicker($('#shift_start'), $.fullCalendar.formatDate(eventObj.start, 'YYYY-MM-DD'));
+            datepicker($('#shift_end'), $.fullCalendar.formatDate(eventObj.end, 'YYYY-MM-DD'));
+            timepicker($('#shift_time'), $.fullCalendar.formatDate(eventObj.start, 'HH:mm'));
+            timepicker($('#_shift_time'), $.fullCalendar.formatDate(eventObj.end, 'HH:mm'));
+            $('#modalShiftTitle').text('シフト更新・削除');
+            $('#updateShift, #deleteShift').show();
+            $('#registerShift').hide();
+            $('#staff').val(eventObj.staff_id);
             $('#shift_id').val(eventObj.shift_id);
-            $('input[name="shift_start"]').val(start);
-            $('input[name="shift_end"]').val(end);
-            $('#modalArea_add_shift').fadeIn();
+            $('#modalAreaShift').fadeIn();
         },
         dayClick: function (date, jsEvent, view) {
-            $('#modal_shift_title').html('シフト登録');
-            $('#register_add_shift').show();
-            $('#send_Update_shift, #send_Delete_shift').hide();
-            let day = $.fullCalendar.formatDate(date, 'YYYY-MM-DD');
-            $('input[name="shift_start"], input[name="shift_end"]').val(day);
-            // $('').val(day);
-            $('#modalArea_add_shift').fadeIn();
+            datepicker($('#shift_start'));
+            datepicker($('#shift_end'));
+            timepicker($('#shift_time'), "09:00");
+            timepicker($('#_shift_time'), "09:30");
+            $('#modalShiftTitle').text('シフト登録');
+            $('#staff').val('0');
+            $('#shift_start, #shift_end').val($.fullCalendar.formatDate(date, 'YYYY-MM-DD'));
+            $('#registerShift').show();
+            $('#updateShift, #deleteShift').hide();
+            $('#modalAreaShift').fadeIn();
         }
     });
 });
@@ -162,248 +182,55 @@ $(function () {
 /******************************************************************** */
 $('#form_shift').on('submit', function (e) {
     e.preventDefault();
-    let form = $('#form_shift').serializeArray();
-    let param = {};
-    for (let i = 0; i < form.length; i++) {
-        param[form[i]['name']] = form[i]['value'];
+    let param = CreateFormObj($(this));
+    if ($('#shift_id').val() === '') {
+        var method = 'register_shift';
+    } else {
+        var method = 'update_shift';
+        param['student_id'] = $('#student_id').val();
     }
     $.ajax({
-        url: '//animarl.com/shift/register_shift',
+        url: '//animarl.com/shift/' + method,
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: param
     }).then(function (data) {
-        process_callback(data)
+        process_callback(data, true);
     }, function () {
-        swal({
-            title: 'システムエラー',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK'
-            }
-        });
+        SysError_alert();
     });
 });
 
 /******************************************************************** */
 /** シフト更新*/
 /******************************************************************** */
-function update_shift() {
-    // e.preventDefault();
-    let form = $('#form_shift').serializeArray();
-    let param = {};
-    for (let i = 0; i < form.length; i++) {
-        param[form[i]['name']] = form[i]['value'];
-    }
-    $.ajax({
-        url: '//animarl.com/shift/update_shift_data',
-        type: 'POST',
-        data: param,
-    }).then(
-        function (data) {
-            process_callback(data)
-        },
-        function () {
-            swal({
-                title: 'システムエラー',
-                text: 'また後ほどお試しください',
-                icon: 'warning',
-                button: {
-                    text: 'OK'
-                },
-            })
-        });
-}
+// $('#updateShift').on('click', function () {
+//     let form = $('#form_shift').serializeArray();
+//     let param = {};
+//     for (let i = 0; i < form.length; i++) {
+//         param[form[i]['name']] = form[i]['value'];
+//     }
+//     $.ajax({
+//         url: '//animarl.com/shift/update_shift',
+//         type: 'POST',
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         },
+//         data: param,
+//     }).then(function (data) {
+//         process_callback(data, true)
+//     }, function () {
+//         SysError_alert();
+//     });
+// });
+
 
 /******************************************************************** */
 /* シフト削除 */
 /******************************************************************** */
-$('#send_Delete_shift').on('click', function () {
-    SweetAlertMessage('confirm_delete')
-});
-
-function shift_delete() {
-    var param = {
-        shift_id: $('#shift_id').val()
-    }
-    $.ajax({
-        url: '//animarl.com/shift/delete_shift_data',
-        type: 'POST',
-        data: param,
-    }).done(function (data) {
-        if (data == 'success') {
-            SweetAlertMessage('success_update');
-            $('#modalArea_add_shift').fadeOut();
-        }
-    }).fail(function (xhr, textStatus, errorThrown) {
-        SweetAlertMessage('success_update');
-    });
-}
-
-/******************************************************************** */
-/*スタッフ一覧モーダル */
-/******************************************************************** */
-$('#staff_list').click(function () {
-    $('#modalArea_staff_list').fadeIn();
-});
-
-$('.closeModal, #modalBg_staff_list, #cancel_staff_list').click(function () {
-    $('#modalArea_staff_list').fadeOut();
-    if ($('tr').hasClass('active')) {
-        $('tr').removeClass('active');
-    }
-    $('#updateButton').prop('disabled', true);
-    $('#deleteButton').prop('disabled', true);
-});
-
-/******************************************************************** */
-/** スタッフ追加モーダル */
-/******************************************************************** */
-$('#add_staff').click(function () {
-    $('#modalArea_add_staff').fadeIn();
-});
-
-$('.closeModal, #modalBg_add_staff, #cancel_add_staff').click(function () {
-    $('#modalArea_add_staff').fadeOut();
-    $('input[name="staff_name[0]"]').val('');
-    $('input[name= "staff_name[1]"]').val('');
-    $('input[name="staff_tel"]').val('');
-    $('input[name="staff_email"]').val('');
-    $('input[name="staff_color"]').val('');
-    $('textarea[name="staff_remarks"]').val('');
-});
-
-/******************************************************************** */
-/** シフト追加モーダル */
-/******************************************************************** */
-$('#add_shift').click(function () {
-    $('#modalArea_add_shift').fadeIn();
-});
-
-$('.closeModal, #modalBg_add_shift, #cancel_add_shift').click(function () {
-    $('#modalArea_add_shift').fadeOut();
-    $('#select_shift_staff').val(0);
-    $('input[name="shift_staff"]').val('');
-    $('input[name="shift_start"]').val('');
-    $('input[name="shift_end"]').val('');
-});
-
-/******************************************************************** */
-/* スタッフ登録 */
-/******************************************************************** */
-$('#registButton').on('click', function () {
-    $('#sendRegistButton').show();
-    $('#sendUpdateButton').hide();
-    $('#dialogTitle').html('スタッフ追加');
-    $('#modalArea_add_staff').fadeIn();
-});
-
-$('#form_staff').on('submit', function (e) {
-    e.preventDefault();
-    let form = $('#form_shift').serializeArray();
-    let param = {};
-    for (let i = 0; i < form.length; i++) {
-        param[form[i]['name']] = form[i]['value'];
-    }
-    $.ajax({
-        url: '//animarl.com/staff/register_staff',
-        type: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        // data: {
-        //     staff_name: $('input[name="staff_name[0]"]').val() + ' ' + $('input[name="staff_name[1]"]').val(),
-        //     staff_tel: $('input[name="staff_tel"]').val(),
-        //     staff_email: $('input[name="staff_email"]').val(),
-        //     staff_color: $('input[name="staff_color"]').val(),
-        //     staff_remarks: $('textarea[name="staff_remarks"]').val()
-        // },
-        data: param,
-        dataType: 'json'
-    }).then(
-        function (data) {
-            process_callback(data)
-        },
-        function () {
-            swal({
-                title: 'システムエラー',
-                text: 'また後ほどお試しください',
-                icon: 'warning',
-                button: {
-                    text: 'OK'
-                },
-            })
-        });
-});
-
-/******************************************************************** */
-/** スタッフ更新
-/******************************************************************** */
-$(function () {
-    $('#datatable').DataTable().rows('.active').on('dblclick', function () {
-        let row = $('#datatable').DataTable().rows('.active').data();
-        let str = row[0].staff_name;
-        row_staff_id = row[0].staff_id;
-        let staff_name = str.split(' ');
-        $('#dialogTitle').html('スタッフ更新');
-        $('input[name="staff_name[0]"]').val(staff_name[0]);
-        $('input[name="staff_name[1]"]').val(staff_name[1]);
-        $('input[name="staff_tel"]').val(row[0].staff_tel);
-        $('input[name="staff_email"]').val(row[0].staff_mail);
-        $('input[name="staff_color"]').val(row[0].staff_color);
-        $('textarea[name="staff_remarks"]').val(row[0].staff_remarks);
-        $('#modalArea_add_staff').fadeIn();
-        $('#sendRegistButton').hide();
-        $('#sendUpdateButton').show();
-    });
-
-    $('#updateButton').on('click', function () {
-        let row = $('#datatable').DataTable().rows('.active').data();
-        let str = row[0].staff_name;
-        let staff_name = str.split(' ');
-        $('#dialogTitle').html('スタッフ更新');
-        $('input[name="staff_name[0]"]').val(staff_name[0]) + ' ' + $('input[name="staff_name[1]"]').val(staff_name[1]);
-        $('input[name="staff_tel"]').val(row[0].staff_tel);
-        $('input[name="staff_email"]').val(row[0].staff_mail);
-        $('input[name="staff_color"]').val(row[0].staff_color);
-        $('textarea[name="staff_remarks"]').val(row[0].staff_remarks);
-        $('#staff_id').val(row[0].staff_id);
-        $('#modalArea_add_staff').fadeIn();
-        $('#sendRegistButton').hide();
-        $('#sendUpdateButton').show();
-    });
-
-    $('#sendUpdateButton').on('click', function () {
-        let param = {}
-        let form = $('#form_shift').serializeArray();
-        for (let i = 0; i < form.length; i++) {
-            param[form[i]['name']] = form[i]['value'];
-        }
-        param['staff_id'] = $('#staff_id').val();
-        $.ajax({
-            url: '//animarl.com/staff/update_staff',
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: param
-        }).then(
-            function (data) {
-                process_callback(data)
-            },
-            function () {
-                SysError_alert();
-            });
-        return false;
-    });
-});
-/******************************************************************** */
-/** スタッフ削除  **/
-/******************************************************************** */
-$('#deleteButton').on('click', function () {
+$('#deleteShift').on('click', function () {
     swal({
         title: '削除しますか？',
         icon: 'warning',
@@ -418,128 +245,193 @@ $('#deleteButton').on('click', function () {
                 value: false
             }
         }
+    }).then(function (value) {
+        if (!value) {
+            return false;
+        }
+        let param = {
+            shift_id: $('#shift_id').val()
+        }
+        $.ajax({
+            url: '//animarl.com/shift/delete_shift',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: param,
+        }).then(function (data) {
+            process_callback(data, true)
+        }, function () {
+            SysError_alert();
+        });
+    })
+});
+
+/******************************************************************** */
+/*スタッフ一覧モーダル */
+/******************************************************************** */
+$('#staff_list').click(function () {
+    $('#modalArea_staff_list').fadeIn();
+});
+
+$('.closeModal, .modalBg, .cancel').click(function () {
+    $('#modalArea_staff_list').fadeOut();
+    if ($('tr').hasClass('active')) {
+        $('tr').removeClass('active');
+    }
+    $('#updateButton, #deleteButton').prop('disabled', true);
+});
+
+/******************************************************************** */
+/** スタッフ追加モーダル */
+/******************************************************************** */
+$('#registButton').click(function () {
+    $('#modalAreaStaff').fadeIn();
+});
+
+$('.closeModal, .modalBg, .cancel').click(function () {
+    $('#modalAreaStaff').fadeOut();
+    let form = $('#form_staff').serializeArray();
+    for (i = 0; i < form.length; i++) {
+        $('#' + form[i]['name']).val('');
+    }
+    // $('#staffFamilyName').val('');
+    // $('#staffFirstName').val('');
+    // $('#staff_tel').val('');
+    // $('#staff_email').val('');
+    // $('#staff_color').val('');
+    // $('#staff_remarks').val('');
+});
+
+/******************************************************************** */
+/** シフト追加モーダル */
+/******************************************************************** */
+$('.closeModal, .modalBg, .cancel').click(function () {
+    $('#modalAreaShift').fadeOut();
+    $('#shift_staff').val('');
+    $('#shift_start').val('');
+    $('#shift_end').val('');
+});
+
+/******************************************************************** */
+/* スタッフ登録 */
+/******************************************************************** */
+$('#registButton').on('click', function () {
+    $('#sendRegister').show();
+    $('#sendUpdate').hide();
+    $('#dialogTitle').text('スタッフ追加');
+    $('#modalAreaStaff').fadeIn();
+});
+
+$('#form_staff').on('submit', function (e) {
+    e.preventDefault();
+    let param = CreateFormObj($(this));
+    if ($('#staff_id').val() == '') {
+        var method = 'register_staff';
+    } else {
+        var method = 'update_staff';
+        param['staff_id'] = $('#staff_id').val();
+    }
+    $.ajax({
+        url: '//animarl.com/staff/' + method,
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: param,
+        dataType: 'json'
+    }).then(
+        function (data) {
+            process_callback(data, true)
+        },
+        function () {
+            SysError_alert();
+        });
+});
+
+/******************************************************************** */
+/** スタッフ更新
+/******************************************************************** */
+$(function () {
+    $('#datatable').DataTable().rows('.active').on('dblclick', function () {
+        setStaff();
+    });
+});
+
+$('#updateButton').on('click', function () {
+    setStaff();
+});
+
+function setStaff() {
+    let row = $('#datatable').DataTable().rows('.active').data();
+    let str = row[0].staff_name;
+    let staff_name = str.split(' ');
+    $('#dialogTitle').text('スタッフ更新');
+    $('input[name="staffFamilyName"]').val(staff_name[0]);
+    $('input[name="staffFirstName"]').val(staff_name[1]);
+    $('input[name="staff_tel"]').val(row[0].staff_tel);
+    $('input[name="staff_email"]').val(row[0].staff_mail);
+    $('input[name="staff_color"]').val(row[0].staff_color);
+    $('textarea[name="staff_remarks"]').val(row[0].staff_remarks);
+    $('#staff_id').val(row[0].staff_id);
+    $('#modalAreaStaff').fadeIn();
+    $('#sendRegister').hide();
+    $('#sendUpdate').show();
+}
+
+// $('#sendUpdate').on('click', function () {
+//     let param = {}
+//     let form = $('#form_staff').serializeArray();
+//     for (let i = 0; i < form.length; i++) {
+//         param[form[i]['name']] = form[i]['value'];
+//     }
+//     param['staff_id'] = $('#staff_id').val();
+//     $.ajax({
+//         url: '//animarl.com/staff/update_staff',
+//         type: 'POST',
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         },
+//         data: param
+//     }).then(function (data) {
+//         process_callback(data)
+//     }, function () {
+//         SysError_alert();
+//     });
+// });
+
+/******************************************************************** */
+/** スタッフ削除  **/
+/******************************************************************** */
+$('#deleteButton').on('click', function () {
+    swal({
+        title: '削除しますか？',
+        text: '削除する場合、このスタッフが登録されているシフトも同時に削除されます',
+        icon: 'warning',
+        buttons: {
+            OK: {
+                text: 'OK',
+                value: true,
+                closeModal: false
+            },
+            Cancel: {
+                text: 'Cancel',
+                value: false
+            }
+        }
     }).then((value) => {
-        var selectedRows = $('#datatable').DataTable().rows('.active').data();
+        var rows = $('#datatable').DataTable().rows('.active').data();
         $.ajax({
             url: '//animarl.com/staff/delete_staff',
             type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data: { staff_id: selectedRows[0].staff_id }
+            data: { staff_id: rows[0].staff_id }
         }).then(function (data) {
-            process_callback();
-        }).then(function () {
+            process_callback(data);
+        }, function () {
             SysError_alert();
         });
     });
 });
-/******************************************************************** */
-/** SweetAlert  **/
-/******************************************************************** */
-function SweetAlertMessage(key) {
-    let message_json = {
-        success_register: {
-            title: '登録が完了しました！',
-            text: 'ボタンをクリックして画面を閉じてください',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: 'success',
-                visible: true,
-                className: ',',
-                closeModal: true,
-            },
-        },
-        failed_register: {
-            title: '登録に失敗しました…',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: false,
-            },
-        },
-        success_update: {
-            title: '更新が完了しました！',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: true,
-            }
-        },
-        failed_update: {
-            title: '更新に失敗しました…',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: false,
-            },
-        },
-        success_delete: {
-            title: '削除が完了しました！',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: true,
-            }
-        },
-        failed_delete: {
-            title: '削除に失敗しました…',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: false,
-            },
-        },
-        confirm_delete: {
-            title: '削除しますか？',
-            icon: 'warning',
-            buttons: {
-                OK: {
-                    text: 'OK',
-                    value: 'shift_delete',
-                    closeModal: false
-                },
-                Cancel: {
-                    text: 'Cancel',
-                    value: false
-                }
-            }
-        },
-        confirm_staff_delete: {
-            title: '削除しますか？',
-            icon: 'warning',
-            buttons: {
-                OK: {
-                    text: 'OK',
-                    value: 'staff_delete',
-                    closeModal: false
-                },
-                Cancel: {
-                    text: 'Cancel',
-                    value: false
-                }
-            }
-        }
-    }
-    let swal_data = message_json[key];
-    swal(
-        swal_data
-    ).then((value) => {
-        switch (value) {
-            case 'success':
-                location.reload(true);
-                break;
-            case 'shift_delete':
-                shift_delete();
-                break;
-            case 'staff_delete':
-                staff_delete();
-            case false:
-                return false;
-        }
-    })
-}

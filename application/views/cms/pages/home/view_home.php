@@ -112,8 +112,8 @@
 <script src='<?php echo base_url(); ?>assets/cms/plugins/momentjs/moment.js'></script>
 
 <!-- fullcalendar -->
-<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar-3.9.0/locale-all.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar/locale-all.js"></script>
 
 <!-- Bootstrap Core Js -->
 <script src=" <?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js"> </script>
