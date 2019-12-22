@@ -8,24 +8,25 @@ class staff extends CI_Controller
         parent::__construct();
         $this->load->model('mdl_staff');
         $this->load->model('mdl_shift');
-        $this->load->helper(['url', 'form']);
+        $this->load->library('form_validation');
+        $this->load->helper(['url', 'form', 'ajax']);
         isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     public function index()
     {
-        $column_array = ['staff_name' => 'title', 'shift_name' => 'start', 'shift_start' => 'start', 'shift_end' => 'end'];
-        if ($staffs = $this->mdl_staff->get_staff()) {
+        $column_array = ['staff_name' => 'title', 'shift_name' => 'start', 'shift_start' => 'start', 'shift_end' => 'end', 'staff_color' => 'color'];
+        if ($staffs = $this->mdl_staff->get_staff(['staff_shop_id' => $_SESSION["shop_id"], 'staff_state' => 1])) {
             foreach ($staffs as $row => $staff) {
                 foreach ($staff as $column => $value) {
                     $data['staff'][$row][$column] = $value;
                 }
             }
-            $data['staff_json'] = $this->json_encode_array($data['staff']);
+            $data['staff_json'] = is_array($data['staff'])? json_encode($data['staff']): '{}';
         } else {
             $data['staff_json'] = '{}';
         }
-        if ($shifts = $this->mdl_shift->get_shift_data()) {
+        if ($shifts = $this->mdl_shift->get_shift(['shift_shop_id' => $_SESSION["shop_id"], 'shift_state' => 1, 'staff_state' => 1])) {
             foreach ($shifts as $row => $shift) {
                 foreach ($shift as $column => $value) {
                     if (array_key_exists($column, $column_array)) {
@@ -35,7 +36,7 @@ class staff extends CI_Controller
                     }
                 }
             }
-            $data['shift'] = $this->json_encode_array($data['shift']);
+            $data['shift'] = is_array($data['shift'])? json_encode($data['shift']): '{}';
         } else {
             $data['shift'] = '{}';
         }
@@ -45,76 +46,53 @@ class staff extends CI_Controller
         $this->load->view('cms/pages/staff/view_staff', $data);
     }
 
-    /**
-     * リクエストの正当性をチェック
-     *
-     * @param [str] $_SERVER['HTTP_X_CSRF_TOKEN'] && $_SESSION['token']
-     */
-    private function judge_request_param()
-    {
-        if (empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
-            header('HTTP/1.1 403 Forbidden');
-            exit();
-        }
-    }
-
-    private function json_encode_array($array)
-    {
-        return !empty($array) && gettype($array) === 'array' ? json_encode($array): null;
-    }
-
     public function register_staff()
     {
-        $this->judge_request_param();
+        judge_httprequest();
         if ($this->form_validation->run('staff')) {
             $data = [
                 'staff_shop_id' => $_SESSION['shop_id'],
-                'staff_name' => $this->input->post('staff_name'),
+                'staff_name' => $this->input->post('staffFamilyName'). ' '.$this->input->post('staffFirstName'),
                 'staff_tel' => $this->input->post('staff_tel'),
                 'staff_mail' => $this->input->post('staff_email'),
                 'staff_color' => $this->input->post('staff_color'),
                 'staff_remarks' => $this->input->post('staff_remarks')
             ];
-            $this->mdl_staff->insert_staff_data($data);
-            echo 'success';
-            exit;
+            exit(json_encode(json_msg('staff', $this->mdl_staff->insert_staff($data), 0)));
         } else {
-            echo 'vali_err';
-            exit;
+            exit(json_encode(['valierr' => $this->form_validation->error_array()]));
         }
     }
 
     public function update_staff()
     {
-        $this->judge_request_param();
+        judge_httprequest();
         if ($this->form_validation->run('staff')) {
             $id = [
-                'staff_id' => $this->input->post('staff_id'),
+                'staff_id' => @$this->input->post('staff_id')?: exit(json_encode(json_msg('staff', false), 1)),
                 'staff_shop_id' => $_SESSION['shop_id']
             ];
             $data = [
-                'staff_name' => $this->input->post('staff_name'),
+                'staff_name' => $this->input->post('staffFamilyName'). ' '.$this->input->post('staffFirstName'),
                 'staff_tel' => $this->input->post('staff_tel'),
                 'staff_mail' => $this->input->post('staff_email'),
                 'staff_color' => $this->input->post('staff_color'),
                 'staff_remarks' => $this->input->post('staff_remarks')
             ];
-            echo $this->mdl_staff->update_staff_data($id, $data)? 'success': 'error';
-            exit;
+            exit(json_encode(json_msg('staff', $this->mdl_staff->update_staff($id, $data), 1)));
         } else {
-            echo 'vali_err';
-            exit;
+            exit(json_encode(['valierr' => $this->form_validation->error_array()]));
         }
     }
 
     public function delete_staff()
     {
-        $this->judge_request_param('staff');
+        judge_httprequest();
         $id = [
-            'staff_id' => $this->input->post('staff_id'),
+            'staff_id' => @$this->input->post('staff_id')?: exit,
             'staff_shop_id' => $_SESSION['shop_id'],
         ];
-        if ($this->mdl_staff->delete_staff_data($id) === true) {
+        if ($this->mdl_staff->delete_staff($id) === true) {
             echo 'success';
             exit;
         } else {

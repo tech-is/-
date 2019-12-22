@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="header clearfix">
                         <div class="pull-left">
-                            <h2 class="card-inside-title" style="line-height: 37px">スタッフ管理</h2>
+                            <h2 class="card-inside-title" style="line-height: 30px">スタッフ管理</h2>
                         </div>
                         <div class="pull-right">
                             <button type="button" class="btn btn waves-effect" id="staff_list">
@@ -29,7 +29,7 @@
     <div id="modalBg_staff_list" class="modalBg"></div>
     <div class="modalWrapper_staff_list">
         <h3>スタッフ一覧</h3>
-        <table id="datatable" class="table table-bordered table-striped table-hover js-basic-example dataTable"
+        <table id="datatable" class="table table-bordered table-striped table-hover dataTable"
             style="width: 100%">
             <thead>
                 <tr>
@@ -42,42 +42,40 @@
                 </tr>
             </thead>
         </table>
-        <div>
-            <hr>
-            <div class="pull-left">
-                <button id="registButton" type="button" class="btn btn-primary">スタッフ追加</button>
-                <button id="updateButton" type="button" class="btn btn-success" disabled>更新</button>
-            </div>
-            <div class="pull-right">
-                <button id="deleteButton" type="button" class="btn btn-danger" disabled>削除</button>
-            </div>
+        <div class="pull-left">
+            <button id="registButton" type="button" class="btn m-t-15 waves-effect">スタッフ追加</button>
+            <button id="updateButton" type="button" class="btn m-l-10 m-t-15 waves-effect" disabled="">更新</button>
         </div>
-        <div id="closeModal_register" class="closeModal">
+        <div class="pull-right">
+            <button id="deleteButton" type="button" class="btn m-t-15 waves-effect" disabled="">削除</button>
+        </div>
+        <div class="closeModal">
             ×
         </div>
     </div>
 </section>
 
 <!-- シフト入力フォーム -->
-<section id="modalArea_add_shift" class="modalArea">
+<section id="modalAreaShift" class="modalArea">
     <div id="modalBg_add_shift" class="modalBg"></div>
         <div class="modalWrapper_shift">
             <form id="form_shift" action="POST">
                 <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
-                    <h3 id ="modal_shift_title" style="margin: 0px">シフト追加</h3>
+                    <h3 id ="modalShiftTitle" style="margin: 0px">シフト追加</h3>
                 </div>
                 <div class="body">
                     <div class="form-group">
                         <div class="form-line">
                             <label for="start">担当スタッフ<span style="color: red; margin-left: 10px">必須</span></label>
                             <?php
-                                if(!empty($staff)) {
-                                    echo '<select id="select_shift_staff" class="form-control show-tick" value="">';
-                                    foreach($staff as $value) {
+                                if (!empty($staff)) {
+                                        echo '<select id="staff" name="staff" class="form-control show-tick" value="">';
+                                        echo '<option value=0>スタッフを選択してください</option>';
+                                    foreach ($staff as $value) {
                                         echo "<option value={$value['staff_id']}>{$value['staff_name']}</option>";
                                     }
                                 } else {
-                                    echo '<select id="update_shift_staff" class="form-control show-tick" disabled value="">';
+                                    echo '<select id="staff" class="form-control show-tick" disabled value="">';
                                     echo '<option value="">スタッフが登録されていません</option>';
                                 }
                             ?>
@@ -88,50 +86,58 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="form-line">
-                                <label for="shift_start">始業日時<span
-                                        style="color: red; margin-left: 10px">必須</span></label>
-                                <input type="text" name="shift_start" class="form-control" placeholder="開始日時"
-                                    required />
+                                <label for="shift_start">始業日
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="shift_start" name="shift_start" class="form-control" placeholder="開始日時">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="form-line">
-                                <label for="shift_end">終業日時<span style="color: red; margin-left: 10px">必須</span></label>
-                                <input type="text" name="shift_end" class="form-control" placeholder="終了日時" required />
+                                <label for="shift_time">start
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="shift_time" name="shift_time" class="form-control flatpickr-input" placeholder="開始日時" readonly="readonly">
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="shift_id" id="shift_id" />
-                    <div class="pull-left">
-                        <?php if(!empty($staff)){ ?>
-                            <button type="submit" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect">登録</button>
-                        <?php } else { ?>
-                            <button type="submit" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect" disabled>登録</button>
-                        <?php } ?>
-                        <button type='submit' id='send_Update_shift' class='btn btn-primary m-t-15 waves-effect'>更新</button>
-                        <button type="button" id="cancel_add_shift" class="btn btn-primary m-t-15 waves-effect" style="margin-left: 10px;">キャンセル</button>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="shift_end">終業日時
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="shift_end" name="shift_end" class="form-control" placeholder="終了日時">
+                            </div>
+                        </div>
                     </div>
-                    <div class="pull-right">
-                        <button type="button" id="send_Delete_shift" class='btn btn-primary m-t-15 waves-effect'>削除</button>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="_shift_time">end
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="_shift_time" name="_shift_time" class="form-control flatpickr-input" placeholder="開始日時" readonly="readonly">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <input type="hidden" name="shift_id" id="shift_id" />
                 <div class="pull-left">
-                    <?php if(isset($select_staff)){ ?>
-                    <button type="submit" id="register_add_shift"
-                        class="btn btn-primary m-t-15 waves-effect">登録</button>
-                    <?php } else { ?>
-                    <button type="submit" id="register_add_shift" class="btn btn-primary m-t-15 waves-effect"
-                        disabled>登録</button>
-                    <?php } ?>
-                    <button type='submit' id='send_Update_shift' class='btn btn-primary m-t-15 waves-effect'>更新</button>
-                    <button type="button" id="cancel_add_shift" class="btn btn-primary m-t-15 waves-effect"
-                        style="margin-left: 10px;">キャンセル</button>
+                    <?php if (!empty($staff)) : ?>
+                        <button type="submit" id="registerShift" class="btn m-t-15 waves-effect">登録</button>
+                    <?php  else: ?>
+                        <button type="submit" id="registerShift" class="btn m-t-15 waves-effect" disabled>
+                        登録
+                    <?php endif; ?>
+                    </button>
+                    <button type='submit' id='updateShift' class='btn m-t-15 waves-effect'>更新</button>
+                    <button type="button" class="btn m-l-10 m-t-15 waves-effect cancel">キャンセル</button>
                 </div>
                 <div class="pull-right">
-                    <button type="button" id="send_Delete_shift" class='btn btn-primary m-t-15 waves-effect'>削除</button>
+                    <button type="button" id="deleteShift" class='btn m-t-15 waves-effect'>削除</button>
                 </div>
             </div>
         </form>
@@ -142,10 +148,10 @@
 </section>
 
 <!-- スタッフ入力フォーム -->
-<section id="modalArea_add_staff" class="modalArea_shift">
-    <div id="modalBg_add_staff" class="modalBg_shift"></div>
+<section id="modalAreaStaff" class="modalArea_shift">
+    <div id="modalBg_add_staff" class="modalBg"></div>
     <div class="modalWrapper_shift">
-        <form id="form_shift">
+        <form id="form_staff">
             <div class="header clearfix" style="margin: 30px 0px 30px 0px;">
                 <h3 id="dialogTitle" style="margin: 0px">スタッフ追加</h3>
             </div>
@@ -159,14 +165,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" class="form-control" name="staff_name[0]" placeholder="姓名">
+                                <input type="text" class="form-control" id="staffFamilyName" name="staffFamilyName" placeholder="姓名">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" class="form-control" name="staff_name[1]" placeholder="名前">
+                                <input type="text" class="form-control" id="staffFirstName" name="staffFirstName" placeholder="名前">
                             </div>
                         </div>
                     </div>
@@ -176,7 +182,7 @@
                         <label for="staff_name">電話番号
                             <span style="color: red; margin-left: 10px">必須</span>
                         </label>
-                        <input type="text" class="form-control" name="staff_tel" placeholder="ハイフンなし" maxlength="11">
+                        <input type="text" class="form-control" id="staff_tel" name="staff_tel" placeholder="ハイフンなし" maxlength="11">
                     </div>
                 </div>
                 <div class="form-group">
@@ -184,36 +190,36 @@
                         <label for="staff_name">メールアドレス
                             <span style="color: red; margin-left: 10px">必須</span>
                         </label>
-                        <input type="text" class="form-control" name="staff_email" placeholder="...@...">
+                        <input type="text" class="form-control" id="staff_email" name="staff_email" placeholder="...@...">
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-line">
+                    <div class="form-line focused">
                         <label for="staff_color">シフト用カラーラベル<span style="color: red; margin-left: 10px">必須</span></label>
-                        <input type="color" class="form-control" name="staff_color" value="#0080ff">
+                        <input type="color" class="form-control" id="staff_color" name="staff_color" value="#0080ff">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-line">
                         <label for="staff_content">備考<span style="color: red; margin-left: 10px"></span></label>
-                        <textarea rows="4" class="form-control no-resize" name="staff_remarks"></textarea>
+                        <textarea rows="4" class="form-control no-resize" id="staff_remarks" name="staff_remarks"></textarea>
                     </div>
                 </div>
+                <input type="hidden" id="staff_id">
                 <div class="form-group">
-                    <button type="button" id="sendRegistButton" class="btn btn-primary m-t-15 waves-effect">
+                    <button type="submit" id="sendRegister" class="btn m-t-15 waves-effect">
                         登録
                     </button>
-                    <button type="button" id="sendUpdateButton" class="btn btn-primary m-t-15 waves-effect">
+                    <button type="submit" id="sendUpdate" class="btn m-t-15 waves-effect" style="display: none;">
                         更新
                     </button>
-                    <button type="button" id="cancel_add_staff" class="btn btn-primary m-t-15 waves-effect"
-                        style="margin-left: 10px;">
+                    <button type="button" class="btn m-l-10 m-t-15 waves-effect cancel">
                         キャンセル
                     </button>
                 </div>
             </div>
         </form>
-        <div id="closeModal_register" class="closeModal">
+        <div class="closeModal">
             ×
         </div>
     </div>
@@ -230,8 +236,8 @@
 <script src='<?php echo base_url(); ?>assets/cms/plugins/momentjs/moment.js'></script>
 
 <!-- fullcalendar -->
-<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar-3.9.0/locale-all.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/fullcalendar/locale-all.js"></script>
 
 <!-- Bootstrap Core Js -->
 <script src=" <?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js"> </script>
@@ -249,9 +255,6 @@
 <!-- Sparkline Chart Plugin Js -->
 <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
-<!-- Validation Plugin Js -->
-<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
-
 <!-- Jquery-datatable -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
@@ -261,8 +264,11 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
 <!-- SweetAlert Plugin Js -->
-<!-- <script src="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.min.js"></script> -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+<!-- Custom Plugin Js -->
+<script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
 
 
 <!-- Custom Plugin Js -->
@@ -273,7 +279,8 @@
     event_json = <?php echo $shift ?>;
 </script>
 
-<script src="<?php echo base_url(); ?>assets/cms/js/pages/staff/staff_list.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/js/common.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/js/pages/staff/staff.js"></script>
 
 </body>
 

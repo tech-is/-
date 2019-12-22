@@ -5,6 +5,7 @@ if (! function_exists('judge_request')) {
     /**
      * httpリクエストの正当性をチェック
      *
+     * @return void
      */
     function judge_httprequest()
     {
@@ -18,9 +19,11 @@ if (! function_exists('json_msg')) {
     /**
      * httpリクエストごとにjsonを出力
      *
-     * @param	bool
-     * @param	string
-     * @return	array
+     * @param   string  $item
+     * @param   bool    $type
+     * @param   int     $index
+     *
+     * @return  array
      */
     function json_msg(string $item, bool $type, int $index = null)
     {
@@ -141,16 +144,20 @@ if (! function_exists('json_msg')) {
             ],
             'staff' => [
                 true => [
-                    'success' => [
-                        [
+                    [
+                        'success' => [
                             'title' => '登録に成功しました！',
                             'msg' => ''
-                        ],
-                        [
+                        ]
+                    ],
+                    [
+                        'success' => [
                             'title' => '更新に成功しました！',
                             'msg' => ''
-                        ],
-                        [
+                        ]
+                    ],
+                    [
+                        'success' => [
                             'title' => '削除に成功しました！',
                             'msg' => ''
                         ]
@@ -158,50 +165,68 @@ if (! function_exists('json_msg')) {
                 ],
                 false => [
                     [
-                        'title' => '登録に失敗しました...',
-                        'msg' => ''
+                        'error' => [
+                            'title' => '登録に失敗しました...',
+                            'msg' => ''
+                        ]
                     ],
                     [
-                        'title' => '更新に失敗しました...',
-                        'msg' => ''
+                        'error' => [
+                            'title' => '更新に失敗しました...',
+                            'msg' => ''
+                        ]
                     ],
                     [
-                        'title' => '削除に失敗しました...',
-                        'msg' => ''
+                        'error' => [
+                            'title' => '削除に失敗しました...',
+                            'msg' => ''
+                        ]
                     ]
                 ]
             ],
             'shift' => [
                 true => [
                     [
-                        'title' => '登録に成功しました！',
-                        'msg' => ''
+                        'success' => [
+                            'title' => '登録に成功しました！',
+                            'msg' => ''
+                        ]
                     ],
                     [
-                        'title' => '更新に成功しました！',
-                        'msg' => ''
+                        'success' => [
+                            'title' => '更新に成功しました！',
+                            'msg' => ''
+                        ]
                     ],
                     [
-                        'title' => '削除に成功しました！',
-                        'msg' => ''
+                        'success' => [
+                            'title' => '削除に成功しました！',
+                            'msg' => ''
+                        ]
                     ]
                 ],
                 false => [
                     [
-                        'title' => '登録に失敗しました...',
-                        'msg' => ''
+                        'error' => [
+                            'title' => '登録に失敗しました...',
+                            'msg' => ''
+                        ]
                     ],
                     [
-                        'title' => '更新に失敗しました...',
-                        'msg' => 'シフトidが送信されていません'
+                        'error' => [
+                            'title' => '更新に失敗しました...',
+                            'msg' => ''
+                        ]
                     ],
                     [
-                        'title' => '削除に失敗しました...',
-                        'msg' => ''
+                        'error' => [
+                            'title' => '削除に失敗しました...',
+                            'msg' => ''
+                        ]
                     ]
                 ]
             ]
         ];
-        return $index? $msg[$item][$type][$index] : $msg[$item][$type];
+        return !is_null($index)? $msg[$item][$type][$index] : $msg[$item][$type];
     }
 }

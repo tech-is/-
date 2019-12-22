@@ -32,7 +32,7 @@ $('#modalBg_register, #C_cancel, #P_cancel').on('click', function () {
 $('#send_register').on('click', function () { //顧客登録画面内の登録ボタンをクリック時
     let fd = new FormData($('#total_form_data').get(0));
     $.ajax({
-        url: '//animarl.com/total_list/insert_total_data',
+        url: '//animarl.com/total_list/insert_total',
         type: 'POST',
         dataType: "text",
         processData: false,
@@ -258,7 +258,7 @@ $("#sendUpdateData").on("click", function () {
     fd.append("customer_id", $("#customer_id").val());
     fd.append("pet_id", $("#pet_id").val());
     $.ajax({
-        url: '//animarl.com/total_list/update_total_data',
+        url: '//animarl.com/total_list/update_total',
         type: 'POST',
         processData: false,
         contentType: false,

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 /*
  * タイトル：顧客・ペット管理
  * 説明    ：顧客・ペットの登録・変更・削除を行う
@@ -10,8 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * 変更履歴：2019.8 開発
  */
 
-class Mdl_total_list extends CI_Model {
-
+class Mdl_total_list extends CI_Model
+{
     public function __construct()
     {
         // CI_Model constructor の呼び出し
@@ -28,8 +28,8 @@ class Mdl_total_list extends CI_Model {
     //kind_groupを削除
     public function delete_kind_group_data($id)
     {
-        $this->db->set("kind_group_state", 999);
-        $this->db->where(['kind_group_id'=> $id['kind_group_id'], 'kind_group_shop_id ' => $id["shop_id"]]);
+        $this->db->set('kind_group_state', 999);
+        $this->db->where(['kind_group_id'=> $id['kind_group_id'], 'kind_group_shop_id ' => $id['shop_id']]);
         return $this->db->update('kind_group');
     }
 
@@ -48,11 +48,7 @@ class Mdl_total_list extends CI_Model {
     public function m_get_total_all($pet_id)
     {
         $where = ['customer_state ' => 1, 'pet_state ' => 1, 'pet_id '=> $pet_id];
-        $this->db->where($where);
-        $this->db->select('*');
-        $this->db->from('customer');
-        $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
-        $query = $this->db->get();
+        $query = $this->db->where($where)->select('*')->from('customer')->join('pet', 'customer_id = pet_customer_id', 'left')->get();
         return $query->row_array(); //結果を配列で返す。
     }
 
@@ -61,64 +57,71 @@ class Mdl_total_list extends CI_Model {
     {
         $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
         $this->db->where($where);
-        $this->db->select("customer_id, pet_id , customer_name , pet_name , customer_tel , customer_mail , kind_group_name");
+        $this->db->select('pet_id , customer_name , pet_name , customer_tel , customer_mail , kind_group_name');
+        $this->db->from('customer');
+        $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
+        $this->db->join('kind_group', 'customer_group_id = kind_group_id', 'left');
+        $query = $this->db->get();
+        // echo $this->db->last_query();
+        // exit;
+        return $query->result_array(); //結果を配列で返す。
+    }
+
+    /**
+     * customerテーブルとpetテーブルに対してINSERTクエリを実行
+     *
+     * @param array $customer_data
+     * @param array $pet_data
+     * @return void
+     */
+    public function insert_total($customer_data, $pet_data)
+    {
+        $this->db->trans_start();
+        $this->db->insert('customer', $customer_data);
+        $pet_data['pet_customer_id'] = $this->db->insert_id();
+        $this->db->insert('pet', $pet_data);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            return true;
+        }
+    }
+
+    /**
+     * customerテーブルとpetテーブルに対してUPDATEクエリを実行
+     *
+     * @param string $id
+     * @param array $customer_data
+     * @param array $pet_data
+     * @return bool
+     */
+    public function update_total($id, $customer_data, $pet_data)
+    {
+        $this->db->trans_start();
+        $this->db->set($customer_data)->where(['customer_id'=> $id['customer_id']])->update('customer');
+        $this->db->set($pet_data)->where(['pet_id'=> $id['pet_id']])->update('pet');
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            return true;
+        }
+    }
+    //履歴画面表示分カスタマーのセレクトの分をとってくる
+    public function get_karute_for_customer($shop_id)
+    {
+        $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
+        $this->db->where($where);
+        $this->db->select('customer_id, pet_id , customer_name , pet_name , customer_tel , customer_mail , kind_group_name');
         $this->db->from('customer');
         $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
         $this->db->join('kind_group', 'customer_group_id = kind_group_id', 'left');
         $query = $this->db->get();
         return $query->result_array(); //結果を配列で返す。
     }
-
-
-    //新規登録のペットと顧客をここで登録
-    public function m_insert_total_list($customer_data, $pet_data)
-    {
-        $this->db->trans_start();
-        $this->db->insert('customer', $customer_data);
-        //insert_idを取得して今↑で登録されたお客さんの新規顧客IDを取得する
-        //$pet_data に上のIDを追加する
-        $id = $this->db->insert_id();
-        $pet_data['pet_customer_id'] = $id;
-        $this->db->insert('pet',$pet_data);
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === FALSE) {
-        $this->db->trans_rollback();
-            return false;
-        } else {
-        $this->db->trans_commit();
-            return true;
-        }
-    }
-
-    //更新処理
-    public function m_update_total_list($id, $customer_data, $pet_data)
-    {
-        $this->db->trans_start();
-        $this->db->set($customer_data);
-        $this->db->where(['customer_id'=> $id['customer_id']]);
-        $this->db->update('customer');
-        $this->db->set($pet_data);
-        $this->db->where(['pet_id'=> $id['pet_id']]);
-        $this->db->update('pet');
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === FALSE) {
-        $this->db->trans_rollback();
-            return false;
-        } else {
-        $this->db->trans_commit();
-            return true;
-        }
-    }
-      //履歴画面表示分カスタマーのセレクトの分をとってくる
-      public function get_karute_for_customer($shop_id)
-      {
-          $where = ['customer_state ' => 1, 'customer_shop_id '=> $shop_id];
-          $this->db->where($where);
-          $this->db->select("customer_id, pet_id , customer_name , pet_name , customer_tel , customer_mail , kind_group_name");
-          $this->db->from('customer');
-          $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
-          $this->db->join('kind_group', 'customer_group_id = kind_group_id', 'left');
-          $query = $this->db->get();
-          return $query->result_array(); //結果を配列で返す。
-      }
 }

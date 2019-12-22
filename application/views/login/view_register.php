@@ -24,17 +24,9 @@
 
     <!-- Custom Css -->
     <link href="<?php echo base_url();?>assets/cms/css/style.css" rel="stylesheet" />
-    <style>
-        .input-group {
-            display: flex;
-        }
-        .form-line {
-            margin-right: 10px;
-        }
-    </style>
 </head>
 
-<body class="signup-page">
+<body class="signup-page" style="max-width: 50%;">
     <div class="signup-box">
         <div class="logo">
             <a href="javascript:void(0);"><b>Animarl</b></a>
@@ -44,83 +36,91 @@
                 <form id="sign_up">
                     <div class="msg">新規本登録画面</div>
                         <label>名前</label>
-                        <div class="input-group">
-                            <!-- <span class="input-group-addon">
-                                <i class="material-icons">person</i>
-                            </span> -->
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="name[0]" placeholder="姓" required autofocus>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="shop_name[0]" placeholder="姓" autofocus>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="name[1]" placeholder="名" required>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="shop_name[1]" placeholder="名">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <label for="kana">フリガナ</label>
-                        <div class="input-group">
-                            <!-- <span class="input-group-addon">
-                                <i class="material-icons">person</i>
-                            </span> -->
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="kana[0]" placeholder="カナ姓" required autofocus>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="shop_kana[0]" placeholder="カナ姓" autofocus>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="kana[1]" placeholder="カナ名" required>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="shop_kana[1]" placeholder="カナ名">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <label for="mail">メールアドレス</label>
-                        <div class="input-group">
-                            <!-- <span class="input-group-addon">
-                                <i class="material-icons">mail</i>
-                            </span> -->
+                        <div class="form-group">
                             <div class="form-line">
-                                <input type="mail" class="form-control" name="email" placeholder="メールアドレス" value="<?= $tmp_shop_email ?>" required>
+                                <input type="mail" class="form-control" name="shop_email" placeholder="メールアドレス" value="<?php echo $tmp_shop_email ?>" disabled>
                             </div>
                         </div>
                         <label for="tel">電話番号</label>
-                        <div class="input-group">
-                            <!-- <span class="input-group-addon">
-                                <i class="material-icons">phone</i>
-                            </span> -->
+                        <div class="form-group">
                             <div class="form-line">
-                                <input type="tel" class="form-control" name="tel" placeholder="電話番号(ハイフンなし)" required>
+                                <input type="text" class="form-control" name="shop_tel" placeholder="電話番号(ハイフンなし)">
                             </div>
                         </div>
                         <label for="zip_code">郵便番号</label>
-                        <div class="input-group">
-                            <!-- <span class="input-group-addon">
-                                <i class="material-icons">email</i>
-                            </span> -->
+                        <div class="form-group">
                             <div class="form-line">
-                                <input type="text" class="form-control" name="zip_code" placeholder="郵便番号(ハイフンなし)" pattern="\d{3}-?\d{4}" required>
+                                <input type="text" class="form-control" name="shop_zip_code" placeholder="郵便番号(ハイフンなし)">
                             </div>
                         </div>
                         <label for="zip_address">住所</label>
-                        <div class="input-group">
-                            <!-- <span class="input-group-addon">
-                                <i class="material-icons">phone</i>
-                            </span> -->
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="zip_address[0]" placeholder="都道府県" required>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="shop_zip_address[0]" placeholder="都道府県">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="zip_address[1]" placeholder="市町村" required>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="shop_zip_address[1]" placeholder="市町村">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="input-group">
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="zip_address[2]" placeholder="町域名" required>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="shop_zip_address[2]" placeholder="町域名">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <label for="password">パスワード</label>
-                        <div class="input-group">
+                        <div class="form-group">
                             <div class="form-line">
-                                <input type="password" class="form-control" name="password" minlength="6" placeholder="英数字で8文字以上" required>
+                                <input type="password" class="form-control" name="shop_password" minlength="7" placeholder="半角英数字で8文字以上">
                             </div>
                         </div>
                         <label for="confirm_pass">確認用パスワード</label>
-                        <div class="input-group">
+                        <div class="form-group">
                             <div class="form-line">
-                                <input type="password" class="form-control" name="confirm_pass" minlength="6" placeholder="もう一度同じパスワードを入力" required>
+                                <input type="password" class="form-control" name="shop_confirm_pass" minlength="7" placeholder="もう一度同じパスワードを入力">
                             </div>
                         </div>
                         <div class="form-group">
