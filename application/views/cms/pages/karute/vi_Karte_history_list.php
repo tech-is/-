@@ -19,7 +19,7 @@
                         </div>
                         <div class="body" style ="font-size: 18px;">
                         <div>
-                            <p>顧  客  名    :   <?php echo $disply['customer_name'] ?></p>
+                            <p>顧 客 名    :   <?php echo $disply['customer_name'] ?></p>
                             <p>カルテタイトル :  <?php echo $disply['karute_title'] ?></p>
                             <p>カルテ内容     :  <?php echo $disply['karute_comment'] ?></p>
                         </div>

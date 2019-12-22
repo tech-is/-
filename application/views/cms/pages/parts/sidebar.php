@@ -49,8 +49,8 @@
     <!-- User Info -->
     <div class="user-info">
         <div class="image">
-            <img src="<?php echo base_url('assets/cms/images/user.png') ?>"
-                width="48" height="48" alt="User" />
+            <!-- <img src="<?php echo base_url('assets/cms/images/user.png') ?>"
+                width="48" height="48" alt="User" /> -->
         </div>
         <div class="info-container">
             <div id="account_name" class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo @$_SESSION['name']?:null ?>様</div>
@@ -59,8 +59,8 @@
                 <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="true">keyboard_arrow_down</i>
                 <ul class="dropdown-menu pull-right">
-                    <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-                    <li><a href="//animarl.com/login/logout"><i class="material-icons">input</i>Sign Out</a></li>
+                    <li><a href="//animarl.com/Profile"><i class="material-icons">person</i>プロフィール変更</a></li>
+                    <li><a href="//animarl.com/login/logout"><i class="material-icons">input</i>ログアウト</a></li>
                 </ul>
             </div>
         </div>
