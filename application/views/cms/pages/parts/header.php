@@ -37,7 +37,7 @@
     <link href="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
     <!-- full calender Css -->
-    <link href='<?php echo base_url(); ?>assets/cms/plugins/fullcalendar-3.9.0/fullcalendar.min.css' rel='stylesheet' />
+    <link href='<?php echo base_url(); ?>assets/cms/plugins/fullcalendar/fullcalendar.min.css' rel='stylesheet' />
 
     <!-- Sweetalert Css -->
     <link href="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.css" rel="stylesheet" />

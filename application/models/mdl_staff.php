@@ -3,34 +3,25 @@
 class Mdl_staff extends CI_Model
 {
 
-    public function get_staff()
+    public function get_staff($where)
     {
-        $where = ['staff_shop_id' => $_SESSION["shop_id"], 'staff_state' => 1];
-        $this->db->where($where);
-        $this->db->select("staff_id, staff_name, staff_tel, staff_mail, staff_color, staff_remarks");
-        $this->db->from('staff');
-        $query = $this->db->get();
-        return $query->result_array();
+        return $this->db->where($where)->select("staff_id, staff_name, staff_tel, staff_mail, staff_color, staff_remarks")
+        ->from('staff')->get()->result_array();
     }
 
-    public function insert_staff_data($data)
+    public function insert_staff($data)
     {
-        $this->db->insert('staff', $data)? $result = true: $result = false;
-        return $result;
+        return $this->db->insert('staff', $data);
     }
 
-    public function update_staff_data($id, $data)
+    public function update_staff($id, $data)
     {
-        $this->db->set($data);
-        $this->db->where(['staff_id'=> $id['staff_id'], 'staff_shop_id' => $id['staff_shop_id']]);
-        return $this->db->update('staff');
+        return $this->db->set($data)->where($id)->update('staff');
     }
 
-    public function delete_staff_data($id)
+    public function delete_staff($id)
     {
-        $this->db->set("staff_state", 999);
-        $this->db->where(['staff_id'=> $id['staff_id'], 'staff_shop_id' => $id['staff_shop_id']]);
-        return $this->db->update('staff');
+        return $this->db->set("staff_state", 999)->where($id)->update('staff');
     }
 
 }

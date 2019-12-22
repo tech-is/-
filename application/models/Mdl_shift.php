@@ -2,34 +2,26 @@
 
 class Mdl_shift extends CI_Model
 {
-    public function get_shift_data()
+    public function get_shift($id)
     {
-        $this->db->where(['shift_shop_id' => $_SESSION["shop_id"], 'shift_state' => 1, 'staff_state' => 1]);
-        $this->db->select('staff_id, shift_id, staff_name, shift_start, shift_end, staff_color');
-        $this->db->from('staff_shift');
-        $this->db->join('staff', 'staff_id = shift_staff_id', 'inner');
-        $query = $this->db->get();
-        $result =  $query->result_array();
-        return $result;
+        return $this->db->where($id)
+            ->select('staff_id, shift_id, staff_name, shift_start, shift_end, staff_color')
+            ->from('staff_shift')->join('staff', 'staff_id = shift_staff_id', 'inner')
+            ->get()->result_array();
     }
 
-    public function insert_shift_data($data)
+    public function insert_shift($data)
     {
-        $this->db->insert('staff_shift', $data)? $result = true: $result = false;
-        return $result;
+        return $this->db->insert('staff_shift', $data);
     }
 
-    public function update_shift_data($id, $data)
+    public function update_shift($id, $data)
     {
-        $this->db->set($data);
-        $this->db->where(['shift_id'=> $id['shift_id'], 'shift_shop_id' => $id['shift_shop_id']]);
-        return $this->db->update('staff_shift');
+        return $this->db->set($data)->where($id)->update('staff_shift');
 }
 
-    public function delete_shift_data($id)
+    public function delete_shift($id)
     {
-        $this->db->set("shift_state", 999);
-        $this->db->where(['shift_id'=> $id['shift_id'], 'shift_shop_id' => $id['shift_shop_id']]);
-        return $this->db->update('staff_shift');
+        $this->db->set("shift_state", 999)->where($id)->update('staff_shift');
     }
 }

@@ -1,55 +1,32 @@
 
 function initThemeChooser(settings) {
   var isInitialized = false;
-  var currentThemeSystem; // don't set this directly. use setThemeSystem
-  var currentStylesheetEl;
-  var loadingEl = document.getElementById('loading');
-  var systemSelectEl = document.querySelector('#theme-system-selector select');
-  var themeSelectWrapEls = Array.prototype.slice.call( // convert to real array
-    document.querySelectorAll('.selector[data-theme-system]')
-  );
-
-  systemSelectEl.addEventListener('change', function() {
-    setThemeSystem(this.value);
-  });
-
-  setThemeSystem(systemSelectEl.value);
-
-  themeSelectWrapEls.forEach(function(themeSelectWrapEl) {
-    var themeSelectEl = themeSelectWrapEl.querySelector('select');
-
-    themeSelectWrapEl.addEventListener('change', function() {
-      setTheme(
-        currentThemeSystem,
-        themeSelectEl.options[themeSelectEl.selectedIndex].value
-      );
+  var $currentStylesheet = $();
+  var $loading = $('#loading');
+  var $systemSelect = $('#theme-system-selector select')
+    .on('change', function() {
+      setThemeSystem(this.value);
     });
-  });
+
+  setThemeSystem($systemSelect.val());
 
 
   function setThemeSystem(themeSystem) {
-    var selectedTheme;
+    var $allSelectWraps = $('.selector[data-theme-system]').hide();
+    var $selectWrap = $allSelectWraps.filter('[data-theme-system="' + themeSystem +'"]').show();
+    var $select = $selectWrap.find('select')
+      .off('change') // avoid duplicate handlers :(
+      .on('change', function() {
+        setTheme(themeSystem, this.value);
+      });
 
-    currentThemeSystem = themeSystem;
-
-    themeSelectWrapEls.forEach(function(themeSelectWrapEl) {
-      var themeSelectEl = themeSelectWrapEl.querySelector('select');
-
-      if (themeSelectWrapEl.getAttribute('data-theme-system') === themeSystem) {
-        selectedTheme = themeSelectEl.options[themeSelectEl.selectedIndex].value;
-        themeSelectWrapEl.style.display = 'inline-block';
-      } else {
-        themeSelectWrapEl.style.display = 'none';
-      }
-    });
-
-    setTheme(themeSystem, selectedTheme);
+    setTheme(themeSystem, $select.val());
   }
 
 
   function setTheme(themeSystem, themeName) {
     var stylesheetUrl = generateStylesheetUrl(themeSystem, themeName);
-    var stylesheetEl;
+    var $stylesheet;
 
     function done() {
       if (!isInitialized) {
@@ -64,37 +41,40 @@ function initThemeChooser(settings) {
     }
 
     if (stylesheetUrl) {
-      stylesheetEl = document.createElement('link');
-      stylesheetEl.setAttribute('rel', 'stylesheet');
-      stylesheetEl.setAttribute('href', stylesheetUrl);
-      document.querySelector('head').appendChild(stylesheetEl);
+      $stylesheet = $('<link rel="stylesheet" type="text/css" href="' + stylesheetUrl + '"/>').appendTo('head');
+      $loading.show();
 
-      loadingEl.style.display = 'inline';
-
-      whenStylesheetLoaded(stylesheetEl, function() {
-        if (currentStylesheetEl) {
-          currentStylesheetEl.parentNode.removeChild(currentStylesheetEl);
-        }
-        currentStylesheetEl = stylesheetEl;
-        loadingEl.style.display = 'none';
+      whenStylesheetLoaded($stylesheet[0], function() {
+        $currentStylesheet.remove();
+        $currentStylesheet = $stylesheet;
+        $loading.hide();
         done();
       });
     } else {
-      if (currentStylesheetEl) {
-        currentStylesheetEl.parentNode.removeChild(currentStylesheetEl);
-        currentStylesheetEl = null
-      }
+      $currentStylesheet.remove();
+      $currentStylesheet = $();
       done();
     }
   }
 
 
   function generateStylesheetUrl(themeSystem, themeName) {
-    if (themeSystem === 'bootstrap') {
+    if (themeSystem === 'jquery-ui') {
+      return 'https://code.jquery.com/ui/1.12.1/themes/' + themeName + '/jquery-ui.css';
+    }
+    else if (themeSystem === 'bootstrap3') {
+      if (themeName) {
+        return 'https://bootswatch.com/3/' + themeName + '/bootstrap.min.css';
+      }
+      else { // the default bootstrap theme
+        return 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+      }
+    }
+    else if (themeSystem === 'bootstrap4') {
       if (themeName) {
         return 'https://bootswatch.com/4/' + themeName + '/bootstrap.min.css';
       }
-      else { // the default bootstrap theme
+      else { // the default bootstrap4 theme
         return 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
       }
     }
@@ -104,7 +84,10 @@ function initThemeChooser(settings) {
   function showCredits(themeSystem, themeName) {
     var creditId;
 
-    if (themeSystem.match('bootstrap')) {
+    if (themeSystem === 'jquery-ui') {
+      creditId = 'jquery-ui';
+    }
+    else if (themeSystem === 'bootstrap3') {
       if (themeName) {
         creditId = 'bootstrap-custom';
       }
@@ -113,15 +96,8 @@ function initThemeChooser(settings) {
       }
     }
 
-    Array.prototype.slice.call( // convert to real array
-      document.querySelectorAll('.credits')
-    ).forEach(function(creditEl) {
-      if (creditEl.getAttribute('data-credit-id') === creditId) {
-        creditEl.style.display = 'block';
-      } else {
-        creditEl.style.display = 'none';
-      }
-    })
+    $('.credits').hide()
+      .filter('[data-credit-id="' + creditId + '"]').show();
   }
 
 
