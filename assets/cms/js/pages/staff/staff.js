@@ -1,24 +1,6 @@
 /******************************************************************** */
 /** flatpickr */
 /******************************************************************** */
-function datepicker(el, defTime = false) {
-    el.flatpickr({
-        minDate: 'today',
-        dateFormat: 'Y-m-d',
-        defaultDate: defTime
-    });
-}
-
-function timepicker(el, defTime = false) {
-    el.flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr: true,
-        defaultDate: defTime
-    });
-}
-
 $('#shift_time').on('change', function () {
     if (!$('#_shift_time').hasClass('lock')) {
         $('#_shift_time').val(timeCalculation($(this).val(), 1800));
@@ -72,7 +54,7 @@ $(function () {
             { 'data': 'staff_color' },
             { 'data': 'staff_remarks' },
         ],
-        columnDefs: [
+        'columnDefs': [
             {
                 'targets': 0,
                 'visible': false,
@@ -177,6 +159,40 @@ $(function () {
     });
 });
 
+function get_shift_via_ajax() {
+    $.ajax({
+        url: '//animarl.com/shift/get_shift_via_ajax',
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json'
+    }).then(
+        function (data) {
+            let key = Object.keys(data);
+            if (key[0] == 'error') {
+                let alert = data.error;
+                swal({
+                    title: alert.title,
+                    msg: alert.msg,
+                    icon: 'warning',
+                    buttons: {
+                        OK: {
+                            text: 'OK',
+                            value: true,
+                        }
+                    }
+                });
+            } else {
+                $('#calendar').fullCalendar('removeEvents');
+                $('#calendar').fullCalendar('addEventSource', data);
+                $('#calendar').fullCalendar('rerenderEvents');
+            }
+        }, function () {
+            SysError_alert();
+        }
+    )
+}
 /******************************************************************** */
 /** シフト登録 **/
 /******************************************************************** */
@@ -187,7 +203,7 @@ $('#form_shift').on('submit', function (e) {
         var method = 'register_shift';
     } else {
         var method = 'update_shift';
-        param['student_id'] = $('#student_id').val();
+        // param['shift_id'] = $('#shift_id').val();
     }
     $.ajax({
         url: '//animarl.com/shift/' + method,
@@ -197,7 +213,12 @@ $('#form_shift').on('submit', function (e) {
         },
         data: param
     }).then(function (data) {
-        process_callback(data, true);
+        process_callback(data);
+        let key = Object.keys(data);
+        if (key[0] == 'success') {
+            $('.modalArea').fadeOut();
+            get_shift_via_ajax();
+        }
     }, function () {
         SysError_alert();
     });
@@ -271,11 +292,11 @@ $('#deleteShift').on('click', function () {
 /*スタッフ一覧モーダル */
 /******************************************************************** */
 $('#staff_list').click(function () {
-    $('#modalArea_staff_list').fadeIn();
+    $('#modalArea_staffForm').fadeIn();
 });
 
 $('.closeModal, .modalBg, .cancel').click(function () {
-    $('#modalArea_staff_list').fadeOut();
+    $('#modalArea_staffForm').fadeOut();
     if ($('tr').hasClass('active')) {
         $('tr').removeClass('active');
     }
@@ -295,12 +316,6 @@ $('.closeModal, .modalBg, .cancel').click(function () {
     for (i = 0; i < form.length; i++) {
         $('#' + form[i]['name']).val('');
     }
-    // $('#staffFamilyName').val('');
-    // $('#staffFirstName').val('');
-    // $('#staff_tel').val('');
-    // $('#staff_email').val('');
-    // $('#staff_color').val('');
-    // $('#staff_remarks').val('');
 });
 
 /******************************************************************** */
@@ -340,13 +355,11 @@ $('#form_staff').on('submit', function (e) {
         },
         data: param,
         dataType: 'json'
-    }).then(
-        function (data) {
-            process_callback(data, true)
-        },
-        function () {
-            SysError_alert();
-        });
+    }).then(function (data) {
+        process_callback(data, true)
+    }, function () {
+        SysError_alert();
+    });
 });
 
 /******************************************************************** */

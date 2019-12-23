@@ -16,7 +16,7 @@ class staff extends CI_Controller
     public function index()
     {
         $column_array = ['staff_name' => 'title', 'shift_name' => 'start', 'shift_start' => 'start', 'shift_end' => 'end', 'staff_color' => 'color'];
-        if ($staffs = $this->mdl_staff->get_staff(['staff_shop_id' => $_SESSION["shop_id"], 'staff_state' => 1])) {
+        if ($staffs = $this->mdl_staff->get_staff($_SESSION["shop_id"])) {
             foreach ($staffs as $row => $staff) {
                 foreach ($staff as $column => $value) {
                     $data['staff'][$row][$column] = $value;
@@ -26,7 +26,7 @@ class staff extends CI_Controller
         } else {
             $data['staff_json'] = '{}';
         }
-        if ($shifts = $this->mdl_shift->get_shift(['shift_shop_id' => $_SESSION["shop_id"], 'shift_state' => 1, 'staff_state' => 1])) {
+        if ($shifts = $this->mdl_shift->get_shift($_SESSION["shop_id"])) {
             foreach ($shifts as $row => $shift) {
                 foreach ($shift as $column => $value) {
                     if (array_key_exists($column, $column_array)) {

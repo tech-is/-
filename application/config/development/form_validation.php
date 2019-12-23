@@ -8,7 +8,7 @@ $config = [
             'label' => 'メールアドレス',
             'rules' => 'required|valid_email|trim',
             'errors' => [
-                'required' => '% を入力してください',
+                'required' => '%sを入力してください',
                 'valid_email' => '正しいアドレスを入力してください'
             ]
         ],
@@ -19,7 +19,7 @@ $config = [
             'label' => 'メールアドレス',
             'rules' => 'required|valid_email|trim',
             'errors' => [
-                'required' => '% を入力してください',
+                'required' => '%sを入力してください',
                 'valid_email' => '正しいアドレスを入力してください'
             ]
         ],
@@ -28,7 +28,7 @@ $config = [
             'label' => 'パスワード',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください',
+                'required' => '%sを入力してください',
             ]
         ],
     ],
@@ -38,7 +38,7 @@ $config = [
             'label' => 'メールアドレス',
             'rules' => 'required|valid_email|trim',
             'errors' => [
-                'required' => '%を入力してください',
+                'required' => '%sを入力してください',
                 'valid_email' => '正しいアドレスを入力してください'
             ]
         ]
@@ -49,7 +49,7 @@ $config = [
             'label' => 'パスワード',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -57,7 +57,7 @@ $config = [
             'label' => 'パスワード再確認',
             'rules' => 'required|matches[reset-password]|trim',
             'errors' => [
-                'required' => '%を入力してください',
+                'required' => '%sを入力してください',
                 'matches' => 'もう一度同じパスワードを入力してください'
             ]
         ]
@@ -68,7 +68,7 @@ $config = [
             'label' => 'ユーザ名',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -76,7 +76,7 @@ $config = [
             'label' => 'ユーザ名',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -84,7 +84,7 @@ $config = [
             'label' => 'フリガナ',
             'rules' => 'required|regex_match[/^[ァ-ヾ ]+$/u]|trim',
             'errors' => [
-                'required' => '%を入力してください',
+                'required' => '%sを入力してください',
                 "regex_match" => "全角カタカナで入力してください。"
             ]
         ],
@@ -93,7 +93,7 @@ $config = [
             'label' => 'フリガナ',
             'rules' => 'required|regex_match[/^[ァ-ヾ ]+$/u]|trim',
             'errors' => [
-                'required' => '%を入力してください',
+                'required' => '%sを入力してください',
                 "regex_match" => "全角カタカナで入力してください。"
             ]
         ],
@@ -102,7 +102,7 @@ $config = [
             'label' => 'メールアドレス',
             'rules' => 'required|valid_email|trim',
             'errors' => [
-                'required' => '%を入力してください',
+                'required' => '%sを入力してください',
                 'valid_email' => '正しいアドレスを入力してください'
             ]
         ],
@@ -111,8 +111,8 @@ $config = [
             'label' => '電話番号',
             'rules' => 'required|numeric|trim',
             'errors' => [
-                'required' => '%を入力してください',
-                'numeric' => '%を入力してください'
+                'required' => '%sを入力してください',
+                'numeric' => '%sを入力してください'
             ]
         ],
         [
@@ -120,8 +120,8 @@ $config = [
             'label' => '郵便番号',
             'rules' => 'required|numeric|trim',
             'errors' => [
-                'required' => '%を入力してください',
-                'numeric' => '%を入力してください'
+                'required' => '%sを入力してください',
+                'numeric' => '%sを入力してください'
             ]
         ],
         [
@@ -129,7 +129,7 @@ $config = [
             'label' => '住所',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -137,7 +137,7 @@ $config = [
             'label' => '住所',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -145,7 +145,7 @@ $config = [
             'label' => '住所',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -153,7 +153,7 @@ $config = [
             'label' => 'パスワード',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -161,7 +161,7 @@ $config = [
             'label' => 'パスワード再確認',
             'rules' => 'required|matches[shop_password]|trim',
             'errors' => [
-                'required' => '%を入力してください',
+                'required' => '%sを入力してください',
                 'matches'=> 'もう一度同じパスワードを入力してください'
             ]
         ]
@@ -172,7 +172,7 @@ $config = [
             'label' => 'カルテタイトル',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -180,8 +180,71 @@ $config = [
             'label' => 'カルテコメント',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
+        ]
+    ],
+    'reserve' => [
+        [
+            'field' => 'reserve_customer',
+            'label' => '顧客名',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => 'テーブルから顧客とペットを選択してください'
+            ]
+        ],
+        [
+            'field' => 'reserve_pet',
+            'label' => 'ペット名',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => 'テーブルから顧客とペットを選択してください'
+            ]
+        ],
+        [
+            'field' => 'reserve_start',
+            'label' => '来店予定日',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
+        ],
+        [
+            'field' => 'reserve_time',
+            'label' => '終了予定日',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
+        ],
+        [
+            'field' => 'reserve_end',
+            'label' => '終了予定日',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
+        ],
+        [
+            'field' => '_reserve_time',
+            'label' => '終了予定日',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
+        ],
+        [
+            'field' => 'reserve_color',
+            'label' => 'ラベルカラー',
+            'rules' => 'required|trim',
+            'errors' => [
+                'required' => '%sを入力してください'
+            ]
+        ],
+        [
+            'field' => 'reserve_content',
+            'label' => '備考',
+            'rules' => 'trim'
         ]
     ],
     'total' => [
@@ -190,7 +253,7 @@ $config = [
             'label' => '名前',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -198,7 +261,7 @@ $config = [
             'label' => 'カナ',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -206,7 +269,7 @@ $config = [
             'label' => 'メール',
             'rules' => 'required',
             'errors' => [
-                'required' => '%を入力して下さい'
+                'required' => '%sを入力して下さい'
             ]
         ],
         [
@@ -214,8 +277,8 @@ $config = [
             'label' => '電話番号',
             'rules' => 'required|numeric|trim',
             'errors' => [
-                'required' => '%を入力してください',
-                'numeric' => '%を入力してください'
+                'required' => '%sを入力してください',
+                'numeric' => '%sを入力してください'
             ]
         ],
         [
@@ -223,7 +286,7 @@ $config = [
             'label' => '郵便番号',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -231,7 +294,7 @@ $config = [
             'label' => '住所',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -244,7 +307,7 @@ $config = [
             'label' => '名前',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -252,7 +315,7 @@ $config = [
             'label' => '分類',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -260,7 +323,7 @@ $config = [
             'label' => '種類',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -268,7 +331,7 @@ $config = [
             'label' => '生年月日',
             'rules' => 'trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -279,7 +342,7 @@ $config = [
         [
             'field' => 'pet_body_height',
             'label' => '体高',
-            'rules' => 'required|numeric|trim',
+            'rules' => 'numeric|trim',
             'errors' => [
                 'numeric' => '半角数字で入力してください'
             ]
@@ -287,7 +350,7 @@ $config = [
         [
             'field' => 'pet_body_weight',
             'label' => '体重',
-            'rules' => 'required|numeric|trim',
+            'rules' => 'numeric|trim',
             'errors' => [
                 'numeric' => '半角数字で入力してください'
             ]
@@ -304,8 +367,8 @@ $config = [
             'label' => 'スタッフ',
             'rules' => 'required|greater_than[0]|trim',
             'errors' => [
-                'required' => '%を選択してください',
-                'greater_than' => '%を選択してください'
+                'required' => '%sを選択してください',
+                'greater_than' => '%sを選択してください'
             ]
         ],
         [
@@ -313,7 +376,7 @@ $config = [
             'label' => '開始日時',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -321,7 +384,7 @@ $config = [
             'label' => '終了日時',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -329,7 +392,7 @@ $config = [
             'label' => '開始時間',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -337,7 +400,7 @@ $config = [
             'label' => '終了日時',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
     ],
@@ -347,7 +410,7 @@ $config = [
             'label' => '名前',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -355,7 +418,7 @@ $config = [
             'label' => '名前',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [
@@ -363,8 +426,8 @@ $config = [
             'label' => '電話番号',
             'rules' => 'required|numeric|trim',
             'errors' => [
-                'required' => '%を入力してください',
-                'numeric' => '%を入力してください'
+                'required' => '%sを入力してください',
+                'numeric' => '%sを入力してください'
             ]
         ],
         [
@@ -372,7 +435,7 @@ $config = [
             'label' => 'メールアドレス',
             'rules' => 'required|valid_email|trim',
             'errors' => [
-                'required' => '% を入力してください',
+                'required' => '%sを入力してください',
                 'valid_email' => '正しいアドレスを入力してください'
             ]
         ],
@@ -381,7 +444,7 @@ $config = [
             'label' => 'カラーラベル',
             'rules' => 'required|trim',
             'errors' => [
-                'required' => '%を入力してください'
+                'required' => '%sを入力してください'
             ]
         ],
         [

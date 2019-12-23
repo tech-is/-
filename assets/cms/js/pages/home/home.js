@@ -46,7 +46,7 @@ $(function () {
             $('#start').val(start);
             $('#end').val(end);
             $("#reserve_pet_id").val(eventObj.reserve_pet_id);
-            $('#sendUpdateReserve').val(eventObj.reserve_id);
+            $('#updateReserve').val(eventObj.reserve_id);
             $('#modalArea_register').fadeIn();
         },
         dayClick: function (date, jsEvent, view) {
@@ -71,9 +71,9 @@ $('#datatable').on('click', 'tr', function () {
 });
 
 
-$('#sendResisterReserve').on('click', function () {
+$('#resisterReserve').on('click', function () {
     $.ajax({
-        url: ' reserve/register_reserve_data',
+        url: ' reserve/register_reserve',
         type: 'POST',
         data: {
             "reserve_pet_id": $('#reserve_pet_id').val(),
@@ -90,12 +90,12 @@ $('#sendResisterReserve').on('click', function () {
         })
 });
 
-$('#sendUpdateReserve').on('click', function () {
+$('#updateReserve').on('click', function () {
     $.ajax({
         url: 'reserve/get_reserve_data',
         type: 'POST',
         data: {
-            "reserve_id": $('#sendUpdateReserve').val(),
+            "reserve_id": $('#updateReserve').val(),
             "reserve_pet_id": $('#reserve_pet_id').val(),
             "reserve_start": $('#start').val(),
             "reserve_end": $('#end').val(),

@@ -25,12 +25,11 @@
 <!-- シフト入力フォーム -->
 
 <!-- スタッフ一覧テーブル -->
-<section id="modalArea_staff_list" class="modalArea">
+<section id="modalArea_staffForm" class="modalArea">
     <div id="modalBg_staff_list" class="modalBg"></div>
     <div class="modalWrapper_staff_list">
         <h3>スタッフ一覧</h3>
-        <table id="datatable" class="table table-bordered table-striped table-hover dataTable"
-            style="width: 100%">
+        <table id="datatable" class="table table-bordered table-striped table-hover dataTable" style="width: 100%">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -255,9 +254,12 @@
 <!-- Sparkline Chart Plugin Js -->
 <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
-<!-- Jquery-datatable -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<!-- Jquery DataTable Plugin Js -->
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+
 
 <!-- flatpickr -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -265,10 +267,6 @@
 
 <!-- SweetAlert Plugin Js -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
-<!-- Custom Plugin Js -->
-<script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
 
 
 <!-- Custom Plugin Js -->

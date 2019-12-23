@@ -142,6 +142,48 @@ if (! function_exists('json_msg')) {
                     ]
                 ]
             ],
+            'reserve' =>[
+                true => [
+                    [
+                        'success' => [
+                            'title' => '登録に成功しました！',
+                            'msg' => ''
+                        ]
+                    ],
+                    [
+                        'success' => [
+                            'title' => '更新に成功しました！',
+                            'msg' => ''
+                        ]
+                    ],
+                    [
+                        'success' => [
+                            'title' => '削除に成功しました！',
+                            'msg' => ''
+                        ]
+                    ]
+                ],
+                false => [
+                    [
+                        'error' => [
+                            'title' => '登録に失敗しました...',
+                            'msg' => ''
+                        ]
+                    ],
+                    [
+                        'error' => [
+                            'title' => '更新に失敗しました...',
+                            'msg' => ''
+                        ]
+                    ],
+                    [
+                        'error' => [
+                            'title' => '削除に失敗しました...',
+                            'msg' => ''
+                        ]
+                    ]
+                ]
+            ],
             'staff' => [
                 true => [
                     [

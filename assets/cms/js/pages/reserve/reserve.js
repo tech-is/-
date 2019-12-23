@@ -1,21 +1,28 @@
-/******************************************************************** */
-/** flatpickr */
-/******************************************************************** */
-$(function () {
-    $('#start').flatpickr({
-        minDate: 'today',
-        enableTime: true,
-        dateFormat: 'Y-m-dTH:i',
-        time_24hr: true
+$('#register').on('click', function () {
+    $('#modal_title').text('新規予約');
+    $('#registerReserve').show();
+    $('#updateReserve, #deleteReserve').hide();
+    $('#reserve_start, #reserve_end').flatpickr({
+        dateFormat: 'Y-m-d',
+        defaultDate: 'today'
     });
-
-    $('#end').flatpickr({
-        minDate: 'today',
+    $('#reserve_time').flatpickr({
         enableTime: true,
-        dateFormat: 'Y-m-dTH:i',
-        time_24hr: true
+        noCalendar: true,
+        dateFormat: 'H:i',
+        time_24hr: true,
+        defaultDate: '09:00'
     });
+    $('#_reserve_time').flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: 'H:i',
+        time_24hr: true,
+        defaultDate: '09:30'
+    });
+    $('.modalArea').fadeIn();
 });
+
 
 /******************************************************************** */
 /** 顧客一覧テーブル */
@@ -34,7 +41,6 @@ $(function () {
         'colReorder': true,
         'data': total,
         'columns': [
-            { 'data': 'customer_id' },
             { 'data': 'pet_id' },
             { 'data': 'customer_name' },
             { 'data': 'pet_name' },
@@ -42,14 +48,9 @@ $(function () {
             { 'data': 'customer_mail' },
             { 'data': 'kind_group_name' }
         ],
-        columnDefs: [
+        'columnDefs': [
             {
                 'targets': 0,
-                'visible': false,
-                'searchable': false
-            },
-            {
-                'targets': 1,
                 'visible': false,
                 'searchable': false
             }
@@ -110,27 +111,28 @@ $(function () {
             });
         },
         eventClick: function (eventObj, jsEvent, view) {
-            let start = $.fullCalendar.formatDate(eventObj.start, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(eventObj.start, 'HH:mm');
-            let end = $.fullCalendar.formatDate(eventObj.end, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(eventObj.end, 'HH:mm');
-            $('#sendResisterReserve').hide();
+            datepicker($('#reserve_start'), $.fullCalendar.formatDate(eventObj.start, 'YYYY-MM-DD'));
+            datepicker($('#reserve_end'), $.fullCalendar.formatDate(eventObj.end, 'YYYY-MM-DD'));
+            timepicker($('#reserve_time'), $.fullCalendar.formatDate(eventObj.start, 'HH:mm'));
+            timepicker($('#_reserve_time'), $.fullCalendar.formatDate(eventObj.end, 'HH:mm'));
+            $('#registerReserve').hide();
             $('#modal_title').text('予約更新・削除');
-            $('#reserve_customer').val(eventObj.customer_name);
+            $('#reserve_id').val(eventObj.reserve_id)
             $('#reserve_pet').val(eventObj.title);
-            $('#start').val(start);
-            $('#end').val(end);
-            $('#reserve_customer_id').val(eventObj.reserve_customer_id);
+            $('#reserve_customer').val(eventObj.customer_name);
+            $('#reserve_color').val(eventObj.color);
             $('#reserve_pet_id').val(eventObj.reserve_pet_id);
-            $('#sendUpdateReserve').val(eventObj.reserve_id);
-            $('#modalArea_register, #sendUpdateReserve, #sendDeleteReserve').fadeIn();
+            $('#modalArea_register, #updateReserve, #deleteReserve').fadeIn();
         },
         dayClick: function (date, jsEvent, view) {
-            let start_day = $.fullCalendar.formatDate(date, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(date, 'HH:mm');
-            let end_day = $.fullCalendar.formatDate(date, 'YYYY-MM-DD') + 'T' + $.fullCalendar.formatDate(date, 'HH:mm');
-            $('#start').val(start_day);
-            $('#end').val(end_day);
+            datepicker($('#reserve_start'), $.fullCalendar.formatDate(date, 'YYYY-MM-DD'));
+            datepicker($('#reserve_end'), $.fullCalendar.formatDate(date, 'YYYY-MM-DD'));
+            timepicker($('#reserve_time'), '09:00');
+            timepicker($('#_reserve_time'), '09:30');
+            $('#reserve_id, #reserve_pet, #reserve_customer').val('')
             $('#modal_title').text('新規予約');
-            $('#sendResisterReserve').show();
-            $('#sendUpdateReserve, #sendDeleteReserve').hide();
+            $('#registerReserve').show();
+            $('#updateReserve, #deleteReserve').hide();
             $('#modalArea_register').fadeIn();
         }
     });
@@ -149,15 +151,15 @@ function get_reserve_via_ajax() {
         dataType: 'json'
     }).then(
         function (data) {
-            // console.log(data);
-            $('#calendar').fullCalendar('removeEvents');
-            $('#calendar').fullCalendar('addEventSource', data);
-            $('#calendar').fullCalendar('rerenderEvents');
-        },
-        function (error) {
-            // SweetAlertMessage('failed_register');
-            console.log(error);
-        })
+            if (data !== 'error') {
+                $('#calendar').fullCalendar('removeEvents');
+                $('#calendar').fullCalendar('addEventSource', data);
+                $('#calendar').fullCalendar('rerenderEvents');
+            }
+        }, function () {
+            SysError_alert();
+        }
+    )
 }
 
 $('#datatable').on('click', 'tr', function () {
@@ -167,83 +169,63 @@ $('#datatable').on('click', 'tr', function () {
         owner.addClass('active');
         let row = $('#datatable').DataTable().rows(owner).data()[0];
         $('#reserve_pet_id').val(row.pet_id);
-        $('#reserve_pet_id').val(row.customer_id);
         $('#reserve_customer').val(row.customer_name);
         $('#reserve_pet').val(row.pet_name);
     }
 });
 
-$('#sendResisterReserve').on('click', function () {
+$('#form_reserve').on('submit', function (e) {
+    e.preventDefault();
+    let param = CreateFormObj($(this));
+    if ($('#reserve_id').val() === '') {
+        var method = 'register_reserve';
+    } else {
+        var method = 'update_reserve';
+    }
     $.ajax({
-        url: ' reserve/register_reserve_data',
+        url: ' reserve/' + method,
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: {
-            'reserve_customer_id': $('#reserve_customer_id').val(),
-            'reserve_pet_id': $('#reserve_pet_id').val(),
-            'reserve_start': $('#start').val(),
-            'reserve_end': $('#end').val(),
-            'reserve_content': $('#reserve_content').val(),
-            'reserve_color': $('#color').val()
-        }
-    }).then(
-        function (data) {
-            SweetAlertMessage(data === 'success' ? 'success_register' : 'failed_register');
+        data: param,
+        dataType: 'json'
+    }).then(function (data) {
+        process_callback(data);
+        let key = Object.keys(data);
+        if (key[0] == 'success') {
+            $('.modalArea').fadeOut();
             get_reserve_via_ajax();
-
-        },
-        function () {
-            SweetAlertMessage('failed_register');
-        })
-});
-
-$('#sendUpdateReserve').on('click', function () {
-    swal({
-        title: '更新しますか？',
-        icon: 'warning',
-        buttons: {
-            OK: {
-                text: 'OK',
-                value: true,
-                closeModal: false
-            },
-            Cancel: {
-                text: 'Cancel',
-                value: false
-            }
         }
-    }).then((value) => {
-        if (value === true) {
-            $.ajax({
-                url: 'reserve/update_reserve_data',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    'reserve_id': $('#sendUpdateReserve').val(),
-                    'reserve_customer_id': $('#reserve_customer_id').val(),
-                    'reserve_pet_id': $('#reserve_pet_id').val(),
-                    'reserve_start': $('#start').val(),
-                    'reserve_end': $('#end').val(),
-                    'reserve_content': $('#reserve_content').val(),
-                    'reserve_color': $('#color').val()
-                }
-            }).then(
-                function (data) {
-                    SweetAlertMessage(data === 'success' ? 'success_register' : 'failed_register');
-                    get_reserve_via_ajax();
-                },
-                function () {
-                    SweetAlertMessage('failed_update');
-                });
-        }
+    }, function () {
+        SysError_alert();
     })
 });
 
-$('#sendDeleteReserve').on('click', function () {
+function updateReserve(param) {
+    $.ajax({
+        url: 'reserve/update_reserve',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: param,
+        dataType: 'json'
+    }).then(
+        function (data) {
+            process_callback(data);
+            let key = Object.keys(data);
+            if (key[0] == 'success') {
+                $('.modalArea').fadeOut();
+                get_reserve_via_ajax();
+            }
+        }, function () {
+            SysError_alert();
+        }
+    );
+}
+
+$('#deleteReserve').on('click', function () {
     swal({
         title: '削除しますか？',
         icon: 'warning',
@@ -259,110 +241,36 @@ $('#sendDeleteReserve').on('click', function () {
             }
         }
     }).then((value) => {
-        if (value === true) {
+        if (value) {
             $.ajax({
-                url: 'reserve/delete_reserve_data',
+                url: 'reserve/delete_reserve',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                    'reserve_id': $('#sendUpdateReserve').val(),
+                    'reserve_id': $('#updateReserve').val(),
                 }
             }).then(
                 function (data) {
-                    SweetAlertMessage(data === 'success' ? 'success_delete' : 'failed_delete');
-                    get_reserve_via_ajax();
-                },
-                function () {
-                    SweetAlertMessage('failed_delete');
-                });
+                    process_callback(data);
+                    let key = Object.keys(data);
+                    if (key[0] == 'success') {
+                        $('.modalArea').fadeOut();
+                        get_reserve_via_ajax();
+                    }
+                }, function () {
+                    SysError_alert();
+                }
+            );
         }
     })
 });
-/******************************************************************** */
-/** SweetAlert  **/
-/******************************************************************** */
-function SweetAlertMessage(key) {
-    let message_json = {
-        success_register: {
-            title: '登録が完了しました！',
-            text: 'ボタンをクリックして画面を閉じてください',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: true,
-                visible: true,
-                closeModal: true,
-            },
-        },
-        failed_register: {
-            title: '登録に失敗しました…',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: true,
-            },
-        },
-        success_update: {
-            title: '更新が完了しました！',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: true,
-            }
-        },
-        failed_update: {
-            title: '更新に失敗しました…',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: false,
-            },
-        },
-        success_delete: {
-            title: '削除が完了しました！',
-            icon: 'success',
-            button: {
-                text: 'OK',
-                value: true,
-            }
-        },
-        failed_delete: {
-            title: '削除に失敗しました…',
-            text: 'また後ほどお試しください',
-            icon: 'warning',
-            button: {
-                text: 'OK',
-                value: false,
-            }
-        }
-    }
-    swal(message_json[key]);
-}
 
 /******************************************************************** */
 /*モーダル制御 */
 /******************************************************************** */
-
-$('#closeModal , #modalBg').on('click', function () {
-    $('#modalArea').fadeOut();
+$('.closeModal, .modalBg, .cancel').on('click', function () {
+    $('label' + '.error').remove();
+    $('.modalArea').fadeOut();
 });
-
-$('#closeModal_register , #modalBg_register').on('click', function () {
-    $('#modalArea_register').fadeOut();
-});
-
-$('#register').on('click', function () {
-    $('#modal_title').text('新規予約');
-    $('#sendResisterReserve').show();
-    $('#sendUpdateReserve, #sendDeleteReserve').hide();
-    $('#modalArea_register').fadeIn();
-});
-
-$('#closeModal_update , #modalBg_update').on('click', function () {
-    $('#modalArea_update').fadeOut();
-});
-

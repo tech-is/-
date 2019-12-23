@@ -39,7 +39,7 @@ class Register extends CI_Controller
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
         }
-        header('Content-Type: application/json');
+        header('Content-Type: application/json; charaset=utf-8');
         exit(json_encode($res_array));
     }
 }
