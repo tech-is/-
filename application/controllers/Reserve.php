@@ -6,172 +6,135 @@ class reserve extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper(['url', 'form']);
+        $this->load->helper(['url', 'form', 'ajax']);
         $this->load->model('mdl_reserve');
         $this->load->model('mdl_total_list');
+        $this->load->library('form_validation');
         isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
     }
 
     public function index()
     {
-        $data = [
-            'total' => !empty($array = $this->mdl_total_list->get_total_data($_SESSION['shop_id']))? $this->json_encode_array($array): '{}',
-            'reserve' => !empty($array = $this->get_reserve($_SESSION['shop_id']))? $this->json_encode_array($array): '{}'
+        $columns = [
+            'pet_name' => 'title',
+            'reserve_start' => 'start',
+            'reserve_end' => 'end',
+            'reserve_color' => 'color'
         ];
-        $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(24));
+        if (!empty($reserves = $this->mdl_reserve->get_reserve($_SESSION['shop_id']))) {
+            foreach ($reserves as $row => $reserve) {
+                foreach ($reserve as $column => $value) {
+                    if (array_key_exists($column, $columns)) {
+                        $reserves[$row][$columns[$column]] = $value;
+                    } else {
+                        $reserves[$row][$column] = $value;
+                    }
+                }
+            }
+            $data['reserve'] = json_encode($reserves);
+        } else {
+            $data['reserve'] = '{}';
+        }
+        $array = $this->mdl_total_list->get_total_data($_SESSION['shop_id']);
+        $data['total'] = !empty($array)? json_encode($array): '{}';
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
         $this->load->view('cms/pages/reserve/view_reserve', $data);
     }
 
-    private function json_encode_array($array)
-    {
-        return !empty($array) && gettype($array) === "array" ? json_encode($array): null;
-    }
-
-    private function get_reserve($shop_id)
-    {
-        $columns = [
-            'pet_name' => 'title',
-            'reserve_start' => 'start',
-            'reserve_end' => 'end'
-        ];
-        if (!empty($reserves = $this->mdl_reserve->get_reserve_list($shop_id))) {
-            foreach ($reserves as $row => $reserve) {
-                foreach ($reserve as $column => $value) {
-                    if (array_key_exists($column, $columns)) {
-                        $data[$row][$columns[$column]] = $value;
-                    } else {
-                        $data[$row][$column] = $value;
-                    }
-                }
-            }
-        } else {
-            $data = null;
-        }
-        return $data;
-    }
-
-    private function judge_request_via_ajax()
-    {
-        if (empty($_SERVER['HTTP_X_CSRF_TOKEN']) || $_SERVER['HTTP_X_CSRF_TOKEN'] !== $_SESSION['token']) {
-            header('HTTP/1.1 403 Forbidden');
-            exit();
-        }
-    }
-
     public function get_reserve_via_ajax()
     {
-        $this->judge_request_via_ajax();
+        judge_httprequest();
         $columns = [
             'pet_name' => 'title',
             'reserve_start' => 'start',
-            'reserve_end' => 'end'
+            'reserve_end' => 'end',
+            'reserve_color' => 'color'
         ];
-        if (!empty($reserves = $this->mdl_reserve->get_reserve_list($_SESSION['shop_id']))) {
+        if (!empty($reserves = $this->mdl_reserve->get_reserve($_SESSION['shop_id']))) {
             foreach ($reserves as $row => $reserve) {
                 foreach ($reserve as $column => $value) {
                     if (array_key_exists($column, $columns)) {
-                        $data[$row][$columns[$column]] = $value;
+                        $reserves[$row][$columns[$column]] = $value;
                     } else {
-                        $data[$row][$column] = $value;
+                        $reserves[$row][$column] = $value;
                     }
                 }
             }
-            $data = $this->json_encode_array($data);
+            $data['reserve'] = json_encode($reserves);
         } else {
-            $data = "error";
+            $data['reserve'] = '{error: {title: "カレンダーの取得に失敗しました", msg: "しばらくたってからまたお試しください"}';
         }
         header('Content-Type: application/json; charaset=utf-8');
-        echo $data;
-        exit();
+        exit($data);
     }
 
-    private function reserve_column($which)
+    private function reserve_column()
     {
         $columns = ['reserve_pet_id', 'reserve_start', 'reserve_end', 'reserve_content', 'reserve_color'];
         foreach ($columns as $column) {
-            $data[$column] = $this->input->post($column);
+            if ($column === 'reserve_start') {
+                $data[$column] = $this->input->post('reserve_start').'T'.$this->input->post('reserve_time');
+            } elseif($column === 'reserve_end') {
+                $data[$column] = $this->input->post('reserve_end').'T'.$this->input->post('_reserve_time');
+            } else {
+                $data[$column] = $this->input->post($column);
+            }
         }
-        $which === 'insert'? $data['reserve_shop_id'] = $_SESSION['shop_id']: false;
         return $data;
     }
 
-    public function register_reserve_data()
+    public function register_reserve()
     {
-        $this->judge_request_via_ajax();
-        if ($this->resereve_validation()) {
-            $data = $this->reserve_column('insert');
-            echo $this->mdl_reserve->insert_reserve_data($data)? 'success': 'dberr';
-        } else {
-            echo 'valierr';
-        }
-        exit;
+        header('Content-Type: application/json; charaset=utf-8');
+        judge_httprequest();
+        $this->form_validation->run('reserve')?: exit(json_encode(['valierr' => $this->form_validation->error_array()]));
+        $this->judge_time();
+        $data = $this->reserve_column();
+        $data['reserve_shop_id'] = $_SESSION['shop_id'];
+        exit(json_encode(json_msg('reserve', $this->mdl_reserve->insert_reserve($data), 0)));
     }
 
-    public function update_reserve_data()
+    public function update_reserve()
     {
-        $this->judge_request_via_ajax();
-        if ($this->resereve_validation()) {
-            $data = [
-                'where' => [
-                    'reserve_shop_id' => $_SESSION['shop_id'],
-                    'reserve_id' => $this->input->post('reserve_id')
-                ],
-                'update' => $this->reserve_column('update')
-            ];
-            echo $this->mdl_reserve->update_reserve_data($data)? 'success': 'dberr';
-        } else {
-            echo 'valierr';
-        }
-        exit;
-    }
-
-    public function delete_reserve_data()
-    {
-        $this->judge_request_via_ajax();
-        if (!empty($this->input->post('reserve_id'))) {
-            $data = [
+        header('Content-Type: application/json; charaset=utf-8');
+        judge_httprequest();
+        $this->form_validation->run('reserve')?: exit(json_encode(['valierr' => $this->form_validation->error_array()]));
+        $this->judge_time();
+        $data = [
+            'where' => [
                 'reserve_shop_id' => $_SESSION['shop_id'],
-                'reserve_id' => $this->input->post('reserve_id')
-            ];
-            echo $this->mdl_reserve->delete_reserve_data($data)? 'success': 'dberr';
-        } else {
-            echo 'valierr';
-        }
-        exit;
+                'reserve_id' => @$this->input->post('reserve_id')?: exit(json_encode(json_msg('reserve', false, 1)))
+            ],
+            'update' => $this->reserve_column()
+        ];
+        exit(json_encode(json_msg('reserve', $this->mdl_reserve->update_reserve($data), 1)));
     }
 
-    private function resereve_validation()
+    public function delete_reserve()
     {
-        $config = [
-            [
-                'field' => 'reserve_pet_id',
-                'label' => 'ペット名',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'reserve_start',
-                'label' => '来店予定日',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'reserve_end',
-                'label' => '終了予定日',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'reserve_end',
-                'label' => '終了予定日',
-                'rules' => 'required'
-            ],
-            [
-                'field' => 'reserve_end',
-                'label' => '終了予定日',
-                'rules' => 'required'
-            ]
+        header('Content-Type: application/json; charaset=utf-8');
+        judge_httprequest();
+        !empty($this->input->post('reserve_id'))?:exit(json_encode(json_msg('reserve',false, 2)));
+        $id = [
+            'reserve_shop_id' => $_SESSION['shop_id'],
+            'reserve_id' => $this->input->post('reserve_id')
         ];
-        $this->load->library('form_validation', $config);
-        return $this->form_validation->run();
+        exit(json_encode(json_msg('reserve', $this->mdl_reserve->delete_reserve($id), 2)));
+    }
+
+    private function judge_time()
+    {
+        $start = strtotime($this->input->post('reserve_start') .' '. $this->input->post('reserve_time'));
+        $end = strtotime($this->input->post('reserve_end') .' '. $this->input->post('_reserve_time'));
+        if($start >= $end) {
+            exit(json_encode([
+                    'valierr' => [
+                        'reserve_end' => '開始日時より低い時間を設定してください',
+                        '_reserve_time' => '開始日時より低い時間を設定してください'
+                    ]
+                ]
+            ));
+        }
     }
 }

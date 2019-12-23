@@ -103,13 +103,13 @@
                     <input type="hidden" id="reserve_customer_id">
                     <input type="hidden" id="reserve_pet_id">
                     <div class="col-sm-4">
-                        <button type="button" id="sendResisterReserve" class="btn bg-pink waves-effect">
+                        <button type="button" id="resisterReserve" class="btn bg-pink waves-effect">
                             登録
                         </button>
-                        <button type="button" id="sendUpdateReserve" class="btn bg-pink waves-effect" style="display:none">
+                        <button type="button" id="updateReserve" class="btn bg-pink waves-effect" style="display:none">
                             更新
                         </button>
-                        <button type="button" id="sendDeleteReserve" class="btn bg-pink waves-effect" style="display:none">
+                        <button type="button" id="deleteReserve" class="btn bg-pink waves-effect" style="display:none">
                             削除
                         </button>
                         <button type="button" class="btn bg-orange waves-effect" style="margin-right: 10px">

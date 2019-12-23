@@ -3,9 +3,9 @@
 class Mdl_staff extends CI_Model
 {
 
-    public function get_staff($where)
+    public function get_staff($id)
     {
-        return $this->db->where($where)->select("staff_id, staff_name, staff_tel, staff_mail, staff_color, staff_remarks")
+        return $this->db->where(['staff_shop_id' => $id, 'staff_state' => 1])->select("staff_id, staff_name, staff_tel, staff_mail, staff_color, staff_remarks")
         ->from('staff')->get()->result_array();
     }
 

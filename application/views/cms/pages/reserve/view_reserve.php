@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="header clearfix">
                         <div class="pull-left">
-                            <h2 class="card-inside-title" style="line-height: 37px">予約一覧</h2>
+                            <h2 class="card-inside-title" style="line-height: 30px">予約一覧</h2>
                         </div>
                         <div class="pull-right">
                             <button type="button" class="btn btn waves-effect" id="register">
@@ -29,84 +29,107 @@
         <div id="closeModal_register" class="closeModal">
             ×
         </div>
-        <form action="" id="reserve">
-            <div class="header clearfix" style="margin: 10px 0px">
-                <h2 id="modal_title" class="pull-left" style="font-weight: bold; line-height: 37px; margin: 0px">新規予約</h2>
-            </div>
-            <div class="body">
-                <table class="table table-bordered" id="datatable" style="width: 100%">
-                    <thead>
-                        <th>顧客ID</th>
-                        <th>ペットID</th>
-                        <th>顧客名</th>
-                        <th>ペット名</th>
-                        <th>電話番号</th>
-                        <th>メールアドレス</th>
-                        <th>グループ</th>
-                    </thead>
-                </table>
+        <div class="header clearfix" style="margin: 10px 0px">
+            <h2 id="modal_title" class="pull-left" style="font-weight: bold; line-height: 37px; margin: 0px">新規予約</h2>
+        </div>
+        <div class="body">
+            <table class="table table-bordered" id="datatable" style="width: 100%">
+                <thead>
+                    <th>ペットID</th>
+                    <th>顧客名</th>
+                    <th>ペット名</th>
+                    <th>電話番号</th>
+                    <th>メールアドレス</th>
+                    <th>グループ</th>
+                </thead>
+            </table>
+            <form id="form_reserve">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="form-line">
-                                <label for="reserve_customer">顧客名<span style="color: red; margin-left: 10px">必須</span> </label>
-                                <input type="text" id="reserve_customer" class="form-control" placeholder="顧客名" readonly>
+                                <label for="reserve_customer">顧客名
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="reserve_customer" class="form-control" name="reserve_customer" placeholder="テーブルの行を選択してください" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <div class="form-line">
-                                <label for="reserve_pet">ペット名<span style="color: red; margin-left: 10px">必須</span></label>
-                                <input type="text" id="reserve_pet" class="form-control" placeholder="ペット名" readonly>
+                                <label for="reserve_pet">ペット名
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="reserve_pet" class="form-control" name="reserve_pet" placeholder="テーブルの行を選択してください" readonly>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <div class="form-line">
-                                <label for="reserve_start">開始日時<span style="color: red; margin-left: 10px">必須</span></label>
-                                <input type="text" id="start" class="form-control flatpickr-input" placeholder="開始日時" value="<?php echo date("Y-m-d")."T00:00" ?>">
+                                <label for="reserve_start">始業日
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="reserve_start" name="reserve_start" class="form-control" placeholder="開始日時">
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <div class="form-line">
-                                <label for="reserve_start">終了日時<span style="color: red; margin-left: 10px">必須</span></label>
-                                <input type="text" id="end" class="form-control flatpickr-input" placeholder="開始日時" value="<?php echo date("Y-m-d")."T00:00" ?>">
+                                <label for="reserve_time">start
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="reserve_time" name="reserve_time" class="form-control" placeholder="開始日時" readonly="readonly">
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="reserve_end">終業日時
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="reserve_end" name="reserve_end" class="form-control" placeholder="終了日時">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="_reserve_time">end
+                                    <span style="color: red; margin-left: 10px">必須</span>
+                                </label>
+                                <input type="text" id="_reserve_time" name="_reserve_time" class="form-control" placeholder="開始日時" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <div class="form-line">
                                 <label for="color">カレンダーカラーラベル</label>
-                                <input type="color" class="form-control" id="color" value="#3a87ad">
+                                <input type="color" id="reserve_color" class="form-control" name="reserve_color" value="#3a87ad">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-line">
-                        <label for="from_name">予約内容</label>
-                        <textarea rows=2 id="reserve_content" class="form-control no-resize" name="content" placeholder="トリミング"></textarea>
+                        <label for="reserve_content">予約内容</label>
+                        <textarea rows=2 id="reserve_content" class="form-control no-resize" name="reserve_content" placeholder="トリミング"></textarea>
                     </div>
                 </div>
-                <input type="hidden" id="reserve_customer_id">
-                <input type="hidden" id="reserve_pet_id">
-                <button type="button" id="sendResisterReserve" class="btn bg-pink waves-effect">
-                    登録
-                </button>
-                <button type="button" id="sendUpdateReserve" class="btn bg-pink waves-effect" style="display:none">
-                    更新
-                </button>
-                <button type="button" id="sendDeleteReserve" class="btn bg-pink waves-effect" style="display:none">
-                    削除
-                </button>
-                <button type="button" class="btn bg-orange waves-effect" style="margin-right: 10px">
-                    キャンセル
-                </button>
+                <input type="hidden" name="reserve_id" id="reserve_id">
+                <input type="hidden" name="reserve_pet_id" id="reserve_pet_id">
+                <div class="pull-left">
+                    <button type="submit" id="registerReserve" class="btn m-t-15 waves-effect">登録</button>
+                    <button type='submit' id='updateReserve' class='btn m-t-15 waves-effect'>更新</button>
+                    <button type="button" class="btn m-l-10 m-t-15 waves-effect cancel">キャンセル</button>
+                </div>
+                <div class="pull-right">
+                    <button type="button" id="deleteReserve" class='btn m-t-15 waves-effect'>削除</button>
+                </div>
             </div>
         </form>
     </div>
@@ -137,12 +160,6 @@
 <script src="<?php echo base_url(); ?>assets/cms/plugins/raphael/raphael.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/cms/plugins/morrisjs/morris.js"></script>
 
-<!-- Sparkline Chart Plugin Js -->
-<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-sparkline/jquery.sparkline.js"></script>
-
-<!-- Validation Plugin Js -->
-<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
-
 <!-- Jquery DataTable Plugin Js -->
 <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
 <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
@@ -162,6 +179,7 @@
     reserve = <?php echo $reserve?>;
 </script>
 <script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/js/common.js"></script>
 <script src="<?php echo base_url(); ?>assets/cms/js/pages/reserve/reserve.js"></script>
 
 </body>

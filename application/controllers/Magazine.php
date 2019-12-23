@@ -41,7 +41,7 @@ class magazine extends CI_Controller
             'reserve_start' => 'start',
             'reserve_end' => 'end'
         ];
-        if (!empty($reserves = $this->mdl_reserve->get_reserve_list($shop_id))) {
+        if (!empty($reserves = $this->mdl_reserve->get_reserve($shop_id))) {
             foreach ($reserves as $row => $reserve) {
                 foreach ($reserve as $column => $value) {
                     if (array_key_exists($column, $columns)) {

@@ -57,17 +57,31 @@ function SysError_alert(text = false) {
     })
 }
 
+function datepicker(el, defTime = false) {
+    el.flatpickr({
+        dateFormat: 'Y-m-d',
+        defaultDate: defTime
+    });
+}
+
+function timepicker(el, defTime = false) {
+    el.flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        defaultDate: defTime
+    });
+}
+
 function getUnixtime(datetime) {
     let _timestamp = new Date(datetime + ' 0:0:0');
     let timestamp = _timestamp.getTime() / 1000 + 86400;
-    // console.log(date);
-    // console.log(timestamp);
     let _d = new Date(timestamp * 1000);
     var Y = _d.getFullYear();
     var m = ("0" + (_d.getMonth() + 1)).slice(-2);
     var d = ("0" + _d.getDate()).slice(-2);
     let format = Y + '-' + m + '-' + d;
-    $('#shift_end').val(format)
 }
 
 function formatUnixdate(timestamp) {

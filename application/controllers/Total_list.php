@@ -81,7 +81,7 @@ class Total_list extends CI_Controller
     public function get_total_all_data()
     {
         judge_httprequest();
-        header('Content-type: application/json');
+        header('Content-Type: application/json; charaset=utf-8');
         exit(json_encode($this->Mdl_total_list->m_get_total_all($this->input->post('pet_id'))?:['error' => ['title' => 'データの取得に失敗しました', 'msg' => 'また後ほどお試しください']]));
     }
 
@@ -113,7 +113,7 @@ class Total_list extends CI_Controller
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
         }
-        header('Content-Type: application/json');
+        header('Content-Type: application/json; charaset=utf-8');
         exit(json_encode($res_array));
     }
 
@@ -125,7 +125,7 @@ class Total_list extends CI_Controller
     public function update_total()
     {
         judge_httprequest();
-        header('Content-Type: application/json');
+        header('Content-Type: application/json; charaset=utf-8');
         $exit = json_encode(json_msg('total', false, 1));
         if ($this->form_validation->run('total')) {
             $data['where'] = [

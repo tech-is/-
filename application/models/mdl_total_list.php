@@ -62,8 +62,6 @@ class Mdl_total_list extends CI_Model
         $this->db->join('pet', 'customer_id = pet_customer_id', 'left');
         $this->db->join('kind_group', 'customer_group_id = kind_group_id', 'left');
         $query = $this->db->get();
-        // echo $this->db->last_query();
-        // exit;
         return $query->result_array(); //結果を配列で返す。
     }
 

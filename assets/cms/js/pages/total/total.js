@@ -118,14 +118,14 @@ $('#modalBg_register, #R_cancel').on('click', function () {
     $('#modalReserveArea').fadeOut();
 });
 //ポスト値
-$('#sendResisterReserve').on('click', function () {
+$('#resisterReserve').on('click', function () {
     let param = {
         pet_name: $('#pet_name').val(),
         reserve_start: $('#reserve_start').val()
     }
     //投げる
     $.ajax({
-        url: '//animarl.com/reserve/register_reserve_data',
+        url: '//animarl.com/reserve/register_reserve',
         type: 'POST',
         data: param
     })
