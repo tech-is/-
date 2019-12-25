@@ -56,19 +56,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php
-                                // for ($i = 0; $i < count($list); $i++) {
-                                //     $disply = $list[$i];
-                                //     echo "<tr>";
-                                //     echo "<td>$disply[pet_id]</td>";
-                                //     echo "<td>$disply[customer_name]</td>";
-                                //     echo "<td>$disply[pet_name]</td>";
-                                //     echo "<td>$disply[customer_tel]</td>";
-                                //     echo "<td>$disply[customer_mail]</td>";
-                                //     echo isset($disply["kind_group_name"]) ? "<td>$disply[kind_group_name]</td>" : "<td></td>";
-                                //     echo "</tr>";
-                                // }
-                                ?>
                                 <?php foreach ($list as $data_array): ?>
                                     <tr>
                                     <?php foreach ($data_array as $column => $data): ?>
@@ -112,9 +99,9 @@
                 </div>
             </div>
         </div>
-        <button id="reserve_register" type="button" class="btn btn-primary waves-effect">登録</button>
+        <button id="reserve_register" type="submit" class="btn waves-effect">登録</button>
         <button class="btn btn-primary waves-effect" type="reset">クリア</button>
-        <button type="reset" id="R_cancel" class="btn btn-primary waves-effect">キャンセル</button>
+        <button type="reset" id="R_cancel" class="btn waves-effect">キャンセル</button>
     </div>
 </section>
 <!-- #END# Input -->
@@ -131,14 +118,6 @@
                 <div class="row clearfix">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <h3>顧客新規登録</h3>
-                        <!-- <div class="form-group">
-                            <label for="customer_barcode">コード<span
-                                    style="color: red; margin-left: 10px">必須</span></label>
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="customer_barcode" value=""
-                                    placeholder="作成した数字を入力して下さい" required>
-                            </div>
-                        </div> -->
                         <div class="form-group">
                             <label for="customer_name">名前<span style="color: red; margin-left: 10px">必須</span></label>
                             <div class="form-line">
@@ -187,16 +166,6 @@
                                     placeholder="(例: 東京都中央区日本橋茅場町〇〇番地〇〇マンション〇〇号)" required>
                             </div>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="customer_magazine">メールマガジン<span
-                                    style="color: red; margin-left: 10px">必須</span></label>
-                            <div class="switch">
-                                <label>未希望
-                                    <input type="checkbox" id="customer_magazine" name="customer_magazine" value=1>
-                                    <span class="lever switch-col-red"></span>希望
-                                </label>
-                            </div>
-                        </div> -->
                         <div class="form-group">
                             <label for="customer_magazine">備考</label>
                             <div class="form-line">
@@ -322,8 +291,8 @@
                     </div>
                 </div>
                 <div class="pull-right">
-                    <button id="send_register" type="button" class="btn m-t-15 m-l-10 waves-effect">登録</button>
-                    <button id="sendUpdateData" type="button" class="btn m-t-15 m-l-10 waves-effect">更新</button>
+                    <button id="send_register" type="submit" class="btn m-t-15 m-l-10 waves-effect">登録</button>
+                    <button id="sendUpdateData" type="submit" class="btn m-t-15 m-l-10 waves-effect">更新</button>
                     <button class="btn m-t-15 m-l-10 waves-effect" type="reset">クリア</button>
                     <button type="reset" id="P_cancel" class="btn m-t-15 m-l-10 waves-effect">キャンセル</button>
                 </div>
@@ -384,7 +353,7 @@
     src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.print.min.js">
 </script>
 <!--ボタン効果Sweetalert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.min.js"></script>
 
 <!-- flatpickr -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

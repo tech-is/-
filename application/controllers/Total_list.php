@@ -90,10 +90,12 @@ class Total_list extends CI_Controller
      * 
      * 
      */
-    public function insert_total_data()
+    public function insert_total()
     {
         //顧客の登録
         judge_httprequest();
+        header('Content-Type: application/json; charaset=utf-8');
+        $exit = json_encode(json_msg('total', false, 1));
         if ($this->form_validation->run('total')) {
             $data = $this->escape_xss();
             if (!empty($_FILES['pet_img'])) {
@@ -101,8 +103,7 @@ class Total_list extends CI_Controller
                     $result_upload = $this->img_upload();
                     $data['pet_data']['pet_img'] = $result_upload?: exit(json_encode(json_msg('login', false)));
                 } elseif ($_FILES['pet_img']['error'] !== 4) {
-                    echo 'upload_err';
-                    exit;
+                    exit(json_encode(json_msg('login', false)));
                 }
             }
             if ($this->Mdl_total_list->insert_total($data['customer'], $data['pet']) === true) {
@@ -113,7 +114,6 @@ class Total_list extends CI_Controller
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
         }
-        header('Content-Type: application/json; charaset=utf-8');
         exit(json_encode($res_array));
     }
 
@@ -139,7 +139,6 @@ class Total_list extends CI_Controller
                     // echo $this->db->last_query();
                     // var_dump($filename);
                     $imgName = !empty($imgName['pet_img'])? basename($imgName['pet_img']): null;
-                    // exit;
                     $data['update']['pet']['pet_img'] = $this->img_upload($imgName)?: exit($exit);
                 } elseif ($_FILES['pet_img']['error'] !== 4) { //エラーにてアップロードされてない以外の処理
                     exit($exit);
@@ -196,12 +195,8 @@ class Total_list extends CI_Controller
         $extentison = pathinfo($fileName, PATHINFO_EXTENSION);
         $newName = $prevName?:$_SERVER['REQUEST_TIME'].'.'.$extentison;
         $path = FCPATH.'upload/tmp/'.$newName;
+        // exit($path);
         try {
-            //ファイル名にパスが含めれないかチェック
-            // if (basename(realpath($fileName)) !== $fileName) {
-            //     throw new RuntimeException('ファイル名が不正です');
-            // }
-
             // ファイルにスクリプトタグが含まれていないかのチェック
             if (count(token_get_all($fileName)) >= 2)  {
                 throw new RuntimeException('ファイル形式が不正です');
@@ -251,16 +246,17 @@ class Total_list extends CI_Controller
             }
 
             // アップロードファイルは実行権限のない状態へ
-            chmod($path, 0644);
+            // chmod($path, 0644);
             return $this->resize_img($path, $newName);
         } catch (RuntimeException $e) {
-            $res_array[] = $e->getMessage();
-            exit(json_encode($res_array));
+            // $res_array[] = $e->getMessage();
+            exit(json_encode(['error' => ['title' => '写真のアップロードに失敗しました', 'msg' => $e->getMessage()]]));
+            // exit(json_encode(['error' => ['title' => '写真のアップロードに失敗しました', 'msg' => "写真のサイズが大きいか不正なファイルを\nアップロードした可能性があります"]]));
         }
     }
 
     /**
-     * Undocumented function
+     * アップロードされた画像をサムネイルサイズにリサイズ
      *
      * @param   string  $path
      * @param   string  $newName
@@ -276,10 +272,9 @@ class Total_list extends CI_Controller
         ];
         $this->load->library('image_lib', $config);
         if ($this->image_lib->resize()) {
-            // $fullpath = realpath($resize_path);
             return base_url().'upload/img/'.$newName;
         } else {
-            throw new RuntimeException('ファイル保存時にエラーが発生しました');
+            exit(json_encode(['error' => ['title' => '写真のアップロードに失敗しました', 'msg' => "写真のサイズが大きいか不正なファイルを\nアップロードした可能性があります"]]));
         }
     }
 }

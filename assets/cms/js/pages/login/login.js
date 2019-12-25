@@ -30,7 +30,7 @@ $('#login').on('submit', function () {
         dataType: 'json'
     }).then(
         function (data) {
-            process_callback(data)
+            process_callback(data, true)
         },
         function () {
             swal({

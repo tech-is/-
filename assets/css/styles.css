@@ -780,7 +780,7 @@ a:focus {
 .pricing-wrapper a.btn {
   background: rgba(0, 0, 0, 0.2);
   color: #fff;
-  width: 216px;
+  /* width: 216px; */
 }
 
 .pricing-wrapper a.btn:hover {
