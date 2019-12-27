@@ -11,7 +11,7 @@ $('#sign_up').on('submit', function (e) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: '//animarl.com/register/register',
+        url: 'https://www.animarl.com/register/register',
         type: 'POST',
         data: param,
         dataType: 'json'
@@ -45,7 +45,7 @@ function process_callback(json) {
                         value: true
                     },
                 }).then(function () {
-                    location.href('//animarl.com/login');
+                    window.location.href('https://www.animarl.com/login');
                 });
                 break;
             case 'error':

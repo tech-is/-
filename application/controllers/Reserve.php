@@ -10,7 +10,7 @@ class reserve extends CI_Controller
         $this->load->model('mdl_reserve');
         $this->load->model('mdl_total_list');
         $this->load->library('form_validation');
-        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
+        isset($_SESSION['shop_id'])?: header('location: https://www.animarl.com/login');
     }
 
     public function index()
@@ -61,12 +61,12 @@ class reserve extends CI_Controller
                     }
                 }
             }
-            $data['reserve'] = json_encode($reserves);
+            $data = $reserves;
         } else {
-            $data['reserve'] = '{error: {title: "カレンダーの取得に失敗しました", msg: "しばらくたってからまたお試しください"}';
+            $data = '{error: {title: "カレンダーの取得に失敗しました", msg: "しばらくたってからまたお試しください"}';
         }
         header('Content-Type: application/json; charaset=utf-8');
-        exit($data);
+        exit(json_encode($data));
     }
 
     private function reserve_column()

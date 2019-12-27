@@ -361,6 +361,17 @@ $config = [
             'rules' => 'trim',
         ]
     ],
+    'group' => [
+        [
+            'field' => 'staff',
+            'label' => 'スタッフ',
+            'rules' => 'required|greater_than[0]|trim',
+            'errors' => [
+                'required' => '%sを選択してください',
+                'greater_than' => '%sを選択してください'
+            ]
+        ]
+    ],
     'shift' => [
         [
             'field' => 'staff',

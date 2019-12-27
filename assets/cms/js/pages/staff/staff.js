@@ -161,7 +161,7 @@ $(function () {
 
 function get_shift_via_ajax() {
     $.ajax({
-        url: '//animarl.com/shift/get_shift_via_ajax',
+        url: 'https://www.animarl.com/shift/get_shift_via_ajax',
         type: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -194,19 +194,14 @@ function get_shift_via_ajax() {
     )
 }
 /******************************************************************** */
-/** シフト登録 **/
+/** シフト登録・更新 **/
 /******************************************************************** */
 $('#form_shift').on('submit', function (e) {
     e.preventDefault();
     let param = CreateFormObj($(this));
-    if ($('#shift_id').val() === '') {
-        var method = 'register_shift';
-    } else {
-        var method = 'update_shift';
-        // param['shift_id'] = $('#shift_id').val();
-    }
+    let method = $('#shift_id').val() === '' ? 'register_shift' : 'update_shift';
     $.ajax({
-        url: '//animarl.com/shift/' + method,
+        url: 'https://www.animarl.com/shift/' + method,
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -223,30 +218,6 @@ $('#form_shift').on('submit', function (e) {
         SysError_alert();
     });
 });
-
-/******************************************************************** */
-/** シフト更新*/
-/******************************************************************** */
-// $('#updateShift').on('click', function () {
-//     let form = $('#form_shift').serializeArray();
-//     let param = {};
-//     for (let i = 0; i < form.length; i++) {
-//         param[form[i]['name']] = form[i]['value'];
-//     }
-//     $.ajax({
-//         url: '//animarl.com/shift/update_shift',
-//         type: 'POST',
-//         headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         },
-//         data: param,
-//     }).then(function (data) {
-//         process_callback(data, true)
-//     }, function () {
-//         SysError_alert();
-//     });
-// });
-
 
 /******************************************************************** */
 /* シフト削除 */
@@ -274,7 +245,7 @@ $('#deleteShift').on('click', function () {
             shift_id: $('#shift_id').val()
         }
         $.ajax({
-            url: '//animarl.com/shift/delete_shift',
+            url: 'https://www.animarl.com/shift/delete_shift',
             type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -348,7 +319,7 @@ $('#form_staff').on('submit', function (e) {
         param['staff_id'] = $('#staff_id').val();
     }
     $.ajax({
-        url: '//animarl.com/staff/' + method,
+        url: 'https://www.animarl.com/staff/' + method,
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -400,7 +371,7 @@ function setStaff() {
 //     }
 //     param['staff_id'] = $('#staff_id').val();
 //     $.ajax({
-//         url: '//animarl.com/staff/update_staff',
+//         url: 'https://www.animarl.com/staff/update_staff',
 //         type: 'POST',
 //         headers: {
 //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -435,7 +406,7 @@ $('#deleteButton').on('click', function () {
     }).then((value) => {
         var rows = $('#datatable').DataTable().rows('.active').data();
         $.ajax({
-            url: '//animarl.com/staff/delete_staff',
+            url: 'https://www.animarl.com/staff/delete_staff',
             type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

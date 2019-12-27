@@ -1,6 +1,6 @@
 $('#form').on('submit', function () {
     $.ajax({
-        url: '//animarl.com/login/password_reset',
+        url: 'https://www.animarl.com/login/password_reset',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

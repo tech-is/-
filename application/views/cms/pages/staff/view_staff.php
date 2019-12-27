@@ -10,7 +10,7 @@
                             <h2 class="card-inside-title" style="line-height: 30px">スタッフ管理</h2>
                         </div>
                         <div class="pull-right">
-                            <button type="button" class="btn btn waves-effect" id="staff_list">
+                            <button type="button" class="btn bg-black waves-effect waves-light" id="staff_list">
                                 スタッフ一覧
                             </button>
                         </div>
@@ -29,7 +29,7 @@
     <div id="modalBg_staff_list" class="modalBg"></div>
     <div class="modalWrapper_staff_list">
         <h3>スタッフ一覧</h3>
-        <table id="datatable" class="table table-bordered table-striped table-hover dataTable" style="width: 100%">
+        <table id="datatable" class="table table-bordered table-striped table-hover dataTable" style="min-width: 100%">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -42,11 +42,11 @@
             </thead>
         </table>
         <div class="pull-left">
-            <button id="registButton" type="button" class="btn m-t-15 waves-effect">スタッフ追加</button>
-            <button id="updateButton" type="button" class="btn m-l-10 m-t-15 waves-effect" disabled="">更新</button>
+            <button id="registButton" type="button" class="btn bg-black m-t-15 waves-effect waves-light">スタッフ追加</button>
+            <button id="updateButton" type="button" class="btn bg-black m-t-15 m-l-10 waves-effect waves-light" disabled>更新</button>
         </div>
         <div class="pull-right">
-            <button id="deleteButton" type="button" class="btn m-t-15 waves-effect" disabled="">削除</button>
+            <button id="deleteButton" type="button" class="btn bg-black m-t-15 waves-effect waves-effect waves-light" disabled>削除</button>
         </div>
         <div class="closeModal">
             ×
@@ -68,14 +68,14 @@
                             <label for="start">担当スタッフ<span style="color: red; margin-left: 10px">必須</span></label>
                             <?php
                                 if (!empty($staff)) {
-                                        echo '<select id="staff" name="staff" class="form-control show-tick" value="">';
+                                        echo '<select id="staff" name="staff" class="form-control show-tick">';
                                         echo '<option value=0>スタッフを選択してください</option>';
                                     foreach ($staff as $value) {
                                         echo "<option value={$value['staff_id']}>{$value['staff_name']}</option>";
                                     }
                                 } else {
-                                    echo '<select id="staff" class="form-control show-tick" disabled value="">';
-                                    echo '<option value="">スタッフが登録されていません</option>';
+                                    echo '<select id="staff" class="form-control" disabled>';
+                                    echo '<option value=0>スタッフが登録されていません</option>';
                                 }
                             ?>
                         </select>
@@ -125,18 +125,14 @@
                 </div>
                 <input type="hidden" name="shift_id" id="shift_id" />
                 <div class="pull-left">
-                    <?php if (!empty($staff)) : ?>
-                        <button type="submit" id="registerShift" class="btn m-t-15 waves-effect">登録</button>
-                    <?php  else: ?>
-                        <button type="submit" id="registerShift" class="btn m-t-15 waves-effect" disabled>
-                        登録
-                    <?php endif; ?>
-                    </button>
-                    <button type='submit' id='updateShift' class='btn m-t-15 waves-effect'>更新</button>
-                    <button type="button" class="btn m-l-10 m-t-15 waves-effect cancel">キャンセル</button>
+                        <button type="submit" id="registerShift" class="btn bg-black m-t-15 waves-effect waves-light" <?php echo !empty($staff)? "": "disabled" ?>>
+                            登録
+                        </button>
+                    <button type='submit' id='updateShift' class='btn bg-black m-t-15 waves-effect waves-light'>更新</button>
+                    <button type="button" class="btn bg-black m-l-10 m-t-15 waves-effect waves-light">キャンセル</button>
                 </div>
                 <div class="pull-right">
-                    <button type="button" id="deleteShift" class='btn m-t-15 waves-effect'>削除</button>
+                    <button type="button" id="deleteShift" class='btn bg-black m-t-15 waves-effect waves-light'>削除</button>
                 </div>
             </div>
         </form>
@@ -156,19 +152,19 @@
             </div>
             <div class="body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <label for="staff_name">従業員名
                             <span style="color: red; margin-left: 10px">必須</span>
                         </label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" class="form-control" id="staffFamilyName" name="staffFamilyName" placeholder="姓名">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <div class="form-line">
                                 <input type="text" class="form-control" id="staffFirstName" name="staffFirstName" placeholder="名前">
@@ -260,14 +256,12 @@
 <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
 
-
 <!-- flatpickr -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
 <!-- SweetAlert Plugin Js -->
 <script src="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.min.js"></script>
-
 
 <!-- Custom Plugin Js -->
 <script src="<?php echo base_url(); ?>assets/cms/js/admin.js"></script>

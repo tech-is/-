@@ -20,13 +20,13 @@ class Mdl_total_list extends CI_Model
     }
 
     //kind_groupをインサート
-    public function insert_model_data($data)
+    public function insert_group($data)
     {
         $this->db->insert('kind_group', $data)? $result = true: $result = false;
         return $result;
     }
     //kind_groupを削除
-    public function delete_kind_group_data($id)
+    public function delete_kind_group($id)
     {
         $this->db->set('kind_group_state', 999);
         $this->db->where(['kind_group_id'=> $id['kind_group_id'], 'kind_group_shop_id ' => $id['shop_id']]);
@@ -34,14 +34,9 @@ class Mdl_total_list extends CI_Model
     }
 
     //グループの登録の中身を取得
-    public function m_get_kind_group($id)
+    public function m_get_kind_group($where)
     {
-        $where = ['kind_group_shop_id ' => $id, 'kind_group_state ' => 1];
-        $this->db->where($where);
-        $this->db->select('kind_group_id, kind_group_name');
-        $this->db->from('kind_group');
-        $query = $this->db->get();
-        return $query->result_array(); //結果を配列で返す。
+        return $this->db->where($where)->select('kind_group_id, kind_group_name')->from('kind_group')->get()->result_array();
     }
 
     //更新の中身を取得

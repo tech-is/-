@@ -1,47 +1,44 @@
-﻿<section class="content">
+<section class="content">
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
                         <h2>顧客・ペット一覧</h2>
-                        <button id="register" type="btn" class="btn m-t-15 waves-effect">顧客登録</button>
-                        <button id="register3" type="btn" class="btn m-l-10 m-t-15 waves-effect" disabled>予約登録</button>
-                        <button id="register4" type="btn" class="btn m-l-10 m-t-15 waves-effect" disabled>顧客更新</button>
                     </div>
                     <div class="body">
                         <div class="row clearfix">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <p><b>グループ登録</b></p>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <h2 class="card-inside-title">グループ登録</h2>
                                 <div class="form-group" style="display:inline-flex;">
                                     <div class="form-line" style="margin-right: 10px">
-                                        <input type="text" class="form-control" name="kind_group_name" id="select_group"
-                                            placeholder="例：金・銀・銅">
+                                        <input type="text" class="form-control" name="kind_group_name" id="select_group" placeholder="例：金・銀・銅">
                                     </div>
-                                    <div class="wrapper" style="margin-top: 6px">
-                                        <button id="group_register" type="button" class="btn waves-effect">登録</button>
+                                    <div class="wrapper">
+                                        <button id="group_register" type="button" class="btn bg-black waves-effect waves-light">登録</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <p><b>グループ削除</b></p>
-                                <div class="form-group" style="display:inline-flex">
-                                    <div class="wrapper" style="width: 100%; margin-right: 10px">
-                                        <select name="" id="select_1" class="form-control show-tick">
-                                            <?php foreach ($groups as $group) : ?>
-                                            <option
-                                                value="<?php echo $group["kind_group_id"]; ?>">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <h2 class="card-inside-title">グループ削除</h2>
+                                <select id="delete_group" class="form-control show-tick" <?php echo !empty($groups)? "": "disabled";?>>
+                                    <?php if(!empty($groups)): ?>
+                                        <?php foreach ($groups as $group) : ?>
+                                            <option value="<?php echo $group["kind_group_id"]; ?>">
                                                 <?php echo $group["kind_group_name"]; ?>
-                                            </option>"
+                                            </option>
                                             <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <div class="wrapper" style="margin-top: 6px">
-                                        <button id="delete_group_register" type="button"
-                                            class="btn waves-effect">削除</button>
-                                    </div>
-                                </div>
+                                    <?php else: ?>
+                                        <option value="">
+                                            -- グループが登録されていません --
+                                        </option>
+                                    <?php endif; ?>
+                                </select>
                             </div>
+                        </div>
+                        <div class="button-wrapper m-t-20 m-b-20">
+                            <button id="register" type="btn" class="btn bg-black waves-effect waves-light">顧客登録</button>
+                            <button id="updateTotal" type="btn" class="btn bg-black m-l-10 waves-effect waves-light" disabled>顧客更新</button>
                         </div>
                         <div class="table-responsive">
                             <table id="datatable" class="table table-bordered table-striped table-hover" style="min-width:100%">
@@ -72,38 +69,7 @@
         </div>
 </section>
 <!-- モーダルウィンドウ カスタマー -->
-<!-- モーダルウィンドウの予約フォーム -->
-<section id="modalReserveArea" class="modalArea">
-    <div id="modalReserveBg" class="modalBg"></div>
-    <div class="modalWrapper_Total">
-        <div id="modalReserve" class="modalContents"></div>
-        <!-- <div id="closemodalReserve" class="closeModal"> -->
-        <div id="P_cancel" class="closeModal">
-            <label for="P_cancel" style="font-size:30px;">
-                ×
-            </label>
-        </div>
-        <h3>予約新規登録</h3>
-        <div class="form-group">
-            <label for="reserve_pet">ペット<span style="color: red; margin-left: 10px">必須</span></label>
-            <div id="pet_name"></div>
-        </div>
-        <input type="hidden" class="form-control" id="reserve_pet">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <div class="form-line">
-                        <label for="reserve_start">来店予定<span style="color: red; margin-left: 10px">必須</span></label>
-                        <input type="text" name="reserve_start" id="reserve_start" class="form-control" required />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button id="reserve_register" type="submit" class="btn waves-effect">登録</button>
-        <button class="btn btn-primary waves-effect" type="reset">クリア</button>
-        <button type="reset" id="R_cancel" class="btn waves-effect">キャンセル</button>
-    </div>
-</section>
+
 <!-- #END# Input -->
 <section id="modalArea_register" class="modalArea">
     <div id="modalBg_register" class="modalBg"></div>
@@ -177,10 +143,9 @@
                                     <p><b>グループ選択</b></p>
                                     <select name="customer_group_id" class=" form-control show-tick">
                                         <?php foreach ($groups as $group) : ?>
-                                        <option
-                                            value="<?php echo $group["kind_group_id"]; ?>">
+                                        <option value="<?php echo $group["kind_group_id"]; ?>">
                                             <?php echo $group["kind_group_name"]; ?>
-                                        </option>"
+                                        </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -302,57 +267,32 @@
 </section>
 
 <!-- Jquery Core Js -->
-<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery/jquery.min.js">
-</script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core Js -->
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js">
-</script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap/js/bootstrap.js"></script>
 
 <!-- Select Plugin Js -->
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-select/js/bootstrap-select.js">
-</script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
 
 <!-- Slimscroll Plugin Js -->
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js">
-</script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.js">
-</script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/node-waves/waves.js"></script>
 
 <!-- Jquery DataTable Plugin Js -->
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/jquery.dataTables.js">
-</script>
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js">
-</script>
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js">
-</script>
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.flash.min.js">
-</script>
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/jszip.min.js">
-</script>
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/pdfmake.min.js">
-</script>
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/vfs_fonts.js">
-</script>
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.html5.min.js">
-</script>
-<script
-    src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.print.min.js">
-</script>
-<!--ボタン効果Sweetalert -->
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+<!--Sweetalert -->
 <script src="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.min.js"></script>
 
 <!-- flatpickr -->
