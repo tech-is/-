@@ -6,11 +6,19 @@ class Shift extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        !empty($_SESSION['shop_id'])?: exit;
+        if(empty($_SESSION['shop_id'])) {
+            exit(json_encode([
+                'error' => [
+                    'title' => '認証エラー',
+                    'msg' => '再ログインしてください'
+                    ]
+                ])
+            );
+        }
         $this->load->model('mdl_shift');
         $this->load->helper(['url', 'form', 'ajax']);
-        $this->load->library('form_validation');
         judge_httprequest();
+        $this->load->library('form_validation');
         header('Content-Type: application/json; charaset=utf-8');
     }
 

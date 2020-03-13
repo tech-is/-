@@ -40,7 +40,6 @@
                             <i class="material-icons">email</i>
                         </span>
                         <div class="form-line">
-                            <!-- <input type="email" class="form-control" name="email" placeholder="Email" required autofocus> -->
                             <input type="text" class="form-control" id="login-email" placeholder="Email" autofocus>
                         </div>
                     </div>
@@ -49,7 +48,6 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <!-- <input type="password" class="form-control" name="password" placeholder="Password" required> -->
                             <input type="password" class="form-control" id="login-password" placeholder="Password">
                         </div>
                     </div>
@@ -120,7 +118,6 @@
     <script src="<?php echo base_url(); ?>assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
 
     <!-- sweetalert -->
-    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.min.js"></script>
 
     <!-- Custom Js -->

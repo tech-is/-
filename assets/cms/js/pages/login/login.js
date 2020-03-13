@@ -1,24 +1,22 @@
 function show_prov_register() {
-    $('#login').hide();
-    $('#forgot-password').hide();
+    $('#login, #forgot-password').hide();
     $('#prov-register').show();
 }
 
 function show_login() {
-    $('#prov-register').hide();
-    $('#forgot-password').hide();
+    $('#prov-register, #forgot-password').hide();
     $('#login').show();
 }
 
 function forgot_password() {
-    $('#prov-register').hide();
-    $('#login').hide();
+    $('#prov-register, #login').hide();
     $('#forgot-password').show();
 }
 
 $('#login').on('submit', function () {
+    event.preventDefault();
     $.ajax({
-        url: '//animarl.com/login/login',
+        url: 'https://www.animarl.com/login/login',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -29,25 +27,15 @@ $('#login').on('submit', function () {
         },
         dataType: 'json'
     }).then(
-        function (data) {
-            process_callback(data)
-        },
-        function () {
-            swal({
-                title: 'システムエラー',
-                text: 'また後ほどお試しください',
-                icon: 'warning',
-                button: {
-                    text: 'OK'
-                },
-            })
-        });
-    return false;
+        data => process_callback(data, true),
+        error => SysError_alert()
+    );
 });
 
-$('#prov-register').on('submit', function () {
+$('#prov-register').on('submit', function (e) {
+    event.preventDefault();
     $.ajax({
-        url: '//animarl.com/login/prov_register',
+        url: 'https://www.animarl.com/login/prov_register',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -57,26 +45,15 @@ $('#prov-register').on('submit', function () {
         },
         dataType: 'json'
     }).then(
-        function (data) {
-            process_callback(data);
-        },
-        function () {
-            swal({
-                title: 'システムエラー',
-                text: 'また後ほどお試しください',
-                icon: 'warning',
-                button: {
-                    text: 'OK',
-                    value: true
-                },
-            })
-        });
-    return false;
+        data => process_callback(data),
+        error => SysError_alert()
+    );
 });
 
 $('#forgot-password').on('submit', function () {
+    event.preventDefault();
     $.ajax({
-        url: '//animarl.com/login/send_token_for_reset',
+        url: 'https://www.animarl.com/login/send_token_for_reset',
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -84,21 +61,9 @@ $('#forgot-password').on('submit', function () {
         data: {
             'forgot-email': $('#forgot-email').val(),
         },
-        datatype: JSON
+        datatype: 'json'
     }).then(
-        function (data) {
-            process_callback(data);
-        },
-        function () {
-            swal({
-                title: 'システムエラー',
-                text: 'また後ほどお試しください',
-                icon: 'warning',
-                button: {
-                    text: 'OK',
-                    value: true
-                },
-            })
-        });
-    return false;
+        data => process_callback(data),
+        error => SysError_alert()
+    );
 });

@@ -32,11 +32,6 @@ function process_callback(json, reload = false) {
                     $('#' + name).parents('.form-line').addClass('error')
                     let parent = $('#' + name).parents('.form-group');
                     parent.append('<label class="error">' + text + '</label>');
-                    // $('#' + name).focus();
-                    // let parent = $('input[name="' + name + '"]').parents('.input-group');
-                    // $('input[name="' + name + '"]').parents('.form-line').addClass('error')
-                    // let parent = $('input[name="' + name + '"]').parents('.form-group');
-                    // parent.append('<label class="error">' + text + '</label>');
                 });
                 break;
             default:

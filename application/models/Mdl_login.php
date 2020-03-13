@@ -9,13 +9,12 @@ class Mdl_login extends CI_Model
     public function check_tmp_user($data)
     {
         $query = $this->db->where('shop_email', $data)->select("shop_id")->get('shops');
-        return is_bool($query)? $query: $query->num_rows();
+        return !is_bool($query)? $query->num_rows(): $query;
     }
 
     public function get_tmp_email($code)
     {
-        $query = $this->db->select("tmp_shop_email")->where("tmp_shop_code", $code)->get("tmp_shops");
-        return !is_bool($query)? $query->row_array(): false;
+        return $this->db->where("tmp_shop_code", $code)->select("tmp_shop_email")->get("tmp_shops")->row_array();
     }
 
     public function insert_tmp_data($data)
@@ -32,8 +31,8 @@ class Mdl_login extends CI_Model
         return $this->db->trans_status();
     }
 
-    public function delete_tmp_data()
+    public function delete_tmp_shop($email)
     {
-        // return->db-
+        return$this->db->where('tmp_shop_email', $email)->delete('tmp_shops');
     }
 }

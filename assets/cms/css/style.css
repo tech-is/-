@@ -2492,8 +2492,7 @@ section.content {
   border: none;
   font-size: 13px;
   outline: none; 
-  background-color: #333;
-  color:#fff;}
+  }
 
   .btn:not(.btn-link):not(.btn-circle):hover {
     outline: none; }

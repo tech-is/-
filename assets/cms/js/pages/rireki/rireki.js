@@ -32,7 +32,7 @@ $('#modalBg_register, #C_cancel, #P_cancel').on('click', function () {
 $('#send_register').on('click', function () { //顧客登録画面内の登録ボタンをクリック時
     let fd = new FormData($('#total_form_data').get(0));
     $.ajax({
-        url: '//animarl.com/total_list/insert_total',
+        url: 'https://www.animarl.com/total_list/insert_total',
         type: 'POST',
         dataType: "text",
         processData: false,
@@ -70,7 +70,7 @@ function kind_group_delete() {
         kind_group_id: $("#select_1").val()
     }
     $.ajax({
-        url: "//animarl.com/total_list/delete_kind_group",
+        url: "https://www.animarl.com/total_list/delete_kind_group",
         type: "POST",
         data: param,
     }).done(function (data) {
@@ -90,7 +90,7 @@ $(function () {
 
         let param = { kind_group_name: $('#select_group').val() }
         $.ajax({
-            url: '//animarl.com/total_list/insert_kind_group',
+            url: 'https://www.animarl.com/total_list/insert_kind_group',
             type: 'POST',
             data: param
         })
@@ -149,7 +149,7 @@ $(function () {
     //     })
     // });
     //予約登録
-    $('#register3').on('click', function () { //予約登録ボタンを押したら
+    $('#registerReserve').on('click', function () { //予約登録ボタンを押したら
         $('#modalReserveArea').fadeIn();
     });
     //予約登録で×を押したときのイベント
@@ -164,7 +164,7 @@ $(function () {
         }
         //投げる
         $.ajax({
-            url: '//animarl.com/reserve/register_reserve',
+            url: 'https://www.animarl.com/reserve/register_reserve',
             type: 'POST',
             data: param
         })
@@ -195,18 +195,18 @@ $(function () {
             var owner = $(this);
             $("#datatable tr").removeClass("active");
             owner.addClass("active");
-            $("#register3").prop("disabled", false); //予約ボタン
-            $("#register4").prop("disabled", false); //更新ボタン false で既存のdiabledを外す。
+            $("#registerReserve").prop("disabled", false); //予約ボタン
+            $("#updateTotal").prop("disabled", false); //更新ボタン false で既存のdiabledを外す。
         }
     });
 
     //更新ボタンを押す、押した後のイベント
-    $('#register4').on("click", function () { //更新ボタン
+    $('#updateTotal').on("click", function () { //更新ボタン
         let row = $('#datatable').DataTable().rows('.active').data(); //pet_idの情報の取得
         let pet_id = row[0][0];
         // console.log(column);
         $.ajax({
-            url: '//animarl.com/total_list/get_total_all_data',
+            url: 'https://www.animarl.com/total_list/get_total_all_data',
             type: 'POST',
             data: {
                 id: pet_id
@@ -258,7 +258,7 @@ $("#sendUpdateData").on("click", function () {
     fd.append("customer_id", $("#customer_id").val());
     fd.append("pet_id", $("#pet_id").val());
     $.ajax({
-        url: '//animarl.com/total_list/update_total',
+        url: 'https://www.animarl.com/total_list/update_total',
         type: 'POST',
         processData: false,
         contentType: false,

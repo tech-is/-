@@ -1,6 +1,8 @@
 $('#sign_up').on('submit', function (e) {
     e.preventDefault();
-    let form = $('#sign_up').serializeArray();
+    $('label' + '.error').remove();
+    $('.form-line').removeClass('error')
+    let form = $(this).serializeArray();
     let param = {};
     for (let i = 0; i < form.length; i++) {
         param[form[i]['name']] = form[i]['value'];
@@ -9,7 +11,7 @@ $('#sign_up').on('submit', function (e) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: '//animarl.com/register/register',
+        url: 'https://www.animarl.com/register/register',
         type: 'POST',
         data: param,
         dataType: 'json'
@@ -31,13 +33,11 @@ $('#sign_up').on('submit', function (e) {
 });
 
 function process_callback(json) {
-    $('label' + '.error').remove();
-    $('.form-line').removeClass('error')
     $.each(json, function (index, val) {
         switch (index) {
             case 'success':
                 swal({
-                    title: val,
+                    title: val.title,
                     text: 'ボタンをクリックして画面を閉じてください',
                     icon: 'success',
                     button: {
@@ -45,7 +45,7 @@ function process_callback(json) {
                         value: true
                     },
                 }).then(function () {
-                    location.reload();
+                    window.location.href('https://www.animarl.com/login');
                 });
                 break;
             case 'error':
@@ -64,7 +64,6 @@ function process_callback(json) {
                     $('input[name="' + name).parents('.form-line').addClass('error')
                     let parent = $('input[name="' + name + '"]').parents('.form-group');
                     parent.append('<label class="error">' + text + '</label>');
-                    // $('input[name="' + name + '"]').focus();
                 });
                 break;
             default:

@@ -72,7 +72,7 @@
                         <label for="mail">メールアドレス</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="mail" class="form-control" name="shop_email" placeholder="メールアドレス" value="<?php echo $tmp_shop_email ?>" disabled>
+                                <input type="mail" class="form-control" name="shop_email" placeholder="メールアドレス" value="<?php echo $tmp_shop_email ?>" readonly>
                             </div>
                         </div>
                         <label for="tel">電話番号</label>
@@ -150,7 +150,7 @@
     <script src="<?php echo base_url();?>assets/cms/plugins/jquery-validation/jquery.validate.js"></script>
 
     <!-- sweetalert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.min.js"></script>
 
     <!-- Custom Js -->
     <script src="<?php echo base_url();?>assets/cms/js/admin.js"></script>

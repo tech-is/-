@@ -110,12 +110,14 @@
                         <div class="item-content-inner">
                             <h2 class="heading"> <br class="d-none d-md-block">ﾍﾟｯﾄｻﾛﾝ専用CRM</h2>
                             <p class="intro">無料で始めるシンプルな顧客＆ペット管理</p>
-                            <a class="btn btn-primary btn-cta"
-                                href="<?php echo base_url()."login";?>"
-                                target="_blank">会員登録して始める</a>
-                            <a class="btn btn-primary btn-cta" style="position:absolute;top: 369px;left: 303px;"
-                                href="<?php echo base_url()."login";?>"
-                                target="_blank">ログイン</a>
+                            <div>
+                                <a class="btn btn-primary btn-cta" href="<?php echo base_url()."login";?>" target="_blank">
+                                    会員登録して始める
+                                </a>
+                                <a class="btn btn-primary btn-cta ml-3" href="<?php echo base_url()."login";?>" target="_blank">
+                                    ログイン
+                                </a>
+                            </div>
                         </div>
                         <!--//item-content-inner-->
                     </div>
@@ -217,36 +219,34 @@
                 <!-- Tab panes -->
                 <div class="feature-content tab-content col-lg-8 col-md-6 col-12 order-1 order-md-0">
                     <div role="tabpanel" class="tab-pane fade show active" id="feature-1">
-                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
-                                src="assets/images/feature-1.png" alt="screenshot"></a>
+                        <a href="index.php/main/login" target="_blank">
+                            <img class="img-fluid" src="assets/images/feature-1.png" alt="screenshot">
+                        </a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-2">
-                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
-                                src="assets/images/feature-2.png" alt="screenshot"></a>
+                        <a href="index.php/main/login" target="_blank">
+                            <img class="img-fluid" src="assets/images/feature-2.png" alt="screenshot">
+                        </a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-3">
-                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
-                                src="assets/images/feature-3.png" alt="screenshot"></a>
+                        <a href="index.php/main/login" target="_blank">
+                            <img class="img-fluid" src="assets/images/feature-3.png" alt="screenshot">
+                        </a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-4">
-                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
-                                src="assets/images/feature-4.png" alt="screenshot"></a>
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid" src="assets/images/feature-4.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-5">
-                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
-                                src="assets/images/feature-5.png" alt="screenshot"></a>
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid" src="assets/images/feature-5.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-6">
-                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
-                                src="assets/images/feature-6.png" alt="screenshot"></a>
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid" src="assets/images/feature-6.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-7">
-                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
-                                src="assets/images/feature-7.png" alt="screenshot"></a>
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid" src="assets/images/feature-7.png" alt="screenshot"></a>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="feature-8">
-                        <a href="index.php/main/login" target="_blank"><img class="img-fluid"
-                                src="assets/images/feature-8.png" alt="screenshot"></a>
+                        <a href="index.php/main/login" target="_blank"><img class="img-fluid" src="assets/images/feature-8.png" alt="screenshot"></a>
                     </div>
                 </div>
                 <!--//feature-content-->
@@ -400,10 +400,10 @@
                             <li class="mb-2"><i class="fas fa-check"></i> ペット予約でスケジュール管理</li>
                             <li class="mb-2"><i class="fas fa-check"></i> 従業員勤務管理</li>
                         </ul>
-                        <div class="mb-3"><a href="#" target="_blank">License 詳細</a></div>
-                        <a class="btn btn-cta" style="position:absolute;bottom: 21px;left: 45px;" href="<?php echo base_url()."login";?>">
-                            ログイン（新規登録）</a>
-
+                        <div class="mb-3">
+                            <a href="#" target="_blank">License 詳細</a>
+                        </div>
+                        <a class="btn btn-cta"  href="<?php echo base_url()."login";?>">ログイン（新規登録</a>
                     </div>
                     <!--//item-inner-->
                 </div>
@@ -425,9 +425,12 @@
                             <li class="mb-2"><i class="fas fa-check"></i> バーコードでラクラク顧客管理</li>
                             <li class="mb-2"><i class="fas fa-check"></i> メールマガジン管理</li>
                         </ul>
-                        <div class="mb-3"><a href="#" target="_blank">License 詳細</a></div>
-                        <a class="btn btn-cta" style="position: absolute;bottom: 21px;left: 45px;" href="#" disable>
-                            開発中</a>
+                        <div class="mb-3">
+                            <a href="#" target="_blank">License 詳細</a>
+                        </div>
+                        <a class="btn btn-cta" href="#" disable>
+                            開発中
+                        </a>
 
                     </div>
                     <!--//item-inner-->
@@ -438,7 +441,7 @@
                     <div class="item-inner">
                         <h3 class="item-heading">多彩な管理システム！！<span class="item-heading-desc">(オリジナル管理システム)</span></h3>
                         <div class="price-figure">
-                            <span class="currency">     </span>
+                            <span class="currency"></span>
                         </div>
                         <ul class="list-unstyled mb-3" style="text-align:left;">
                         <li class="mb-2"><i class="fas fa-check"></i> フリー版を元にカスタマイズ</li>
@@ -471,7 +474,7 @@
                     何かご不明な点等ございましたらこちらからお問い合わせください。
                 </p>
             </div>
-            <a class="btn btn-cta btn-primary" href="index.php/main/login">
+            <a class="btn btn-cta btn-primary" href="mailto:contact@animarl.com">
                 お問い合わせはこちらから</a>
 
         </div>
@@ -484,8 +487,6 @@
             <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
             <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a
                     href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
-
-
         </div>
         <!--//container-->
     </footer>

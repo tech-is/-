@@ -10,7 +10,7 @@ class staff extends CI_Controller
         $this->load->model('mdl_shift');
         $this->load->library('form_validation');
         $this->load->helper(['url', 'form', 'ajax']);
-        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
+        isset($_SESSION['shop_id'])?: header('location: https://www.animarl.com/login');
     }
 
     public function index()

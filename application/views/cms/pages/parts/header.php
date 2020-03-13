@@ -1,6 +1,5 @@
 <?php
-    $token = bin2hex(openssl_random_pseudo_bytes(24));
-    $_SESSION['token'] = $token;
+    $token = !empty($_SESSION['token'])? $_SESSION['token']: header('https://www.animarl.com/login');
 ?>
 <!DOCTYPE html>
 
@@ -14,8 +13,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-        type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
@@ -30,9 +28,6 @@
     <!-- Morris Chart Css-->
     <link href="<?php echo base_url(); ?>assets/cms/plugins/morrisjs/morris.css" rel="stylesheet" />
 
-    <!-- Bootstrap Select Css -->
-    <link href="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
-
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
@@ -42,9 +37,6 @@
     <!-- Sweetalert Css -->
     <link href="<?php echo base_url(); ?>assets/cms/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
-    <!-- Custom Css -->
-    <link href="<?php echo base_url(); ?>assets/cms/css/style.css" rel="stylesheet" />
-
     <!-- Datatable Css -->
     <link href="<?php echo base_url(); ?>assets/cms/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
@@ -52,9 +44,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="<?php echo base_url(); ?>assets/cms/css/themes/all-themes.css" rel="stylesheet" /><style>
+    <link href="<?php echo base_url(); ?>assets/cms/css/themes/all-themes.css" rel="stylesheet" />
 
-    </style>
+    <!-- Custom Css -->
+    <link href="<?php echo base_url(); ?>assets/cms/css/style.css" rel="stylesheet" />
+
+     <!-- Bootstrap Select Css -->
+     <link href="<?php echo base_url(); ?>assets/cms/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    
 </head>
 
 <body class="theme-light-blue">

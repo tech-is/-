@@ -3,3 +3,8 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
+SetEnvIf User-Agent "Googlebot" ng_ua
+SetEnvIf User-Agent "bingbot" ng_ua
+order Allow,Deny
+Allow from all
+Deny from env=ng_ua

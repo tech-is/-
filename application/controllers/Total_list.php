@@ -19,8 +19,7 @@ class Total_list extends CI_Controller
         $this->load->helper(['url', 'form', 'ajax']);
         $this->load->model('Mdl_total_list');
         $this->load->library('form_validation');
-        $_SESSION['shop_id'] = 1;
-        // isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
+        isset($_SESSION['shop_id'])?: header('location: https://www.animarl.com/login');
     }
 
     /**
@@ -32,7 +31,7 @@ class Total_list extends CI_Controller
     {
         $data = [
             'list' => $this->Mdl_total_list->get_total_data($_SESSION['shop_id']),
-            'groups' => $this->Mdl_total_list->m_get_kind_group($_SESSION['shop_id'])
+            'groups' => $this->Mdl_total_list->m_get_kind_group(['kind_group_shop_id ' => $_SESSION['shop_id'], 'kind_group_state ' => 1])
         ];
         $this->load->view('cms/pages/parts/header');
         $this->load->view('cms/pages/parts/sidebar');
@@ -90,30 +89,31 @@ class Total_list extends CI_Controller
      * 
      * 
      */
-    public function insert_total_data()
+    public function insert_total()
     {
         //顧客の登録
         judge_httprequest();
+        header('Content-Type: application/json; charaset=utf-8');
+        $error = json_encode(json_msg('total', false, 0));
         if ($this->form_validation->run('total')) {
             $data = $this->escape_xss();
             if (!empty($_FILES['pet_img'])) {
                 if ($_FILES['pet_img']['error'] === 0) {
                     $result_upload = $this->img_upload();
-                    $data['pet_data']['pet_img'] = $result_upload?: exit(json_encode(json_msg('login', false)));
+                    $data['pet']['pet_img'] = $result_upload?: exit($error);
                 } elseif ($_FILES['pet_img']['error'] !== 4) {
-                    echo 'upload_err';
-                    exit;
+                    exit(json_encode($error));
                 }
             }
+            $data['customer']['customer_shop_id'] = $_SESSION['shop_id'];
             if ($this->Mdl_total_list->insert_total($data['customer'], $data['pet']) === true) {
                 $res_array = json_msg('total', true, 0);
             } else {
-                $res_array = json_msg('total', false, 0);
+                $res_array = $error;
             }
         } else {
             $res_array = ['valierr' => $this->form_validation->error_array()];
         }
-        header('Content-Type: application/json; charaset=utf-8');
         exit(json_encode($res_array));
     }
 
@@ -126,29 +126,25 @@ class Total_list extends CI_Controller
     {
         judge_httprequest();
         header('Content-Type: application/json; charaset=utf-8');
-        $exit = json_encode(json_msg('total', false, 1));
+        $error = json_encode(json_msg('total', false, 1));
         if ($this->form_validation->run('total')) {
             $data['where'] = [
-                'customer_id' => @$this->input->post('customer_id')?: exit($exit),
-                'pet_id' => @$this->input->post('pet_id')?: exit($exit)
+                'customer_id' => @$this->input->post('customer_id')?: exit($error),
+                'pet_id' => @$this->input->post('pet_id')?: exit($error)
             ];
             $data['update'] = $this->escape_xss();
             if (!empty($_FILES['pet_img'])) {
                 if ($_FILES['pet_img']['error'] === 0) { //エラーがなく正常
-                    $imgName = $this->db->where('pet_id', $data['where']['pet_id'])->select('pet_img')->get('pet')->row_array();
-                    // echo $this->db->last_query();
-                    // var_dump($filename);
                     $imgName = !empty($imgName['pet_img'])? basename($imgName['pet_img']): null;
-                    // exit;
-                    $data['update']['pet']['pet_img'] = $this->img_upload($imgName)?: exit($exit);
+                    $data['update']['pet']['pet_img'] = $this->img_upload($imgName)?: exit($error);
                 } elseif ($_FILES['pet_img']['error'] !== 4) { //エラーにてアップロードされてない以外の処理
-                    exit($exit);
+                    exit($error);
                 }
             }
             if ($this->Mdl_total_list->update_total($data['where'], $data['update']['customer'], $data['update']['pet'])) {
                 exit(json_encode(json_msg('total', true, 1)));
             } else {
-                $exit;
+                exit($error);
             }
         } else {
             exit(json_encode(['valierr' => $this->form_validation->error_array()]));
@@ -158,29 +154,27 @@ class Total_list extends CI_Controller
     //グループ管理インサート
     public function insert_kind_group()
     {
+        judge_httprequest();
+        header('Content-Type: application/json; charaset=utf-8');
+
         $data = [
             'kind_group_shop_id ' => $_SESSION['shop_id'],
             'kind_group_name' => $this->input->post('kind_group_name')
         ];
-        $result = $this->Mdl_total_list->insert_model_data($data);
-        if ($result === true) {
-            echo 'success';
-        }
+        exit(json_encode(json_msg('group', $this->Mdl_total_list->insert_group($data), false, 1)));
     }
 
     //グループを削除リストへ表示させる
     public function delete_kind_group()
     {
-        if ($this->request_ajax_check() === true) {
-            $kind_group_id = @$this->input->post('kind_group_id')?: exit;
-            $id = [
-                'kind_group_id' => $kind_group_id,
-                'shop_id' => $_SESSION['shop_id']
-            ];
-            $result = $this->Mdl_total_list->delete_kind_group_data($id);
-            echo $result===true? 1: 'dberror';
-        }
-        exit;
+        judge_httprequest();
+        header('Content-Type: application/json; charaset=utf-8');
+        $this->form_validation->run('group')?: exit(json_encode(json_msg('group', false, 1)));
+        $id = [
+            'kind_group_id' => @$this->input->post('kind_group_id')?:exit(),
+            'shop_id' => $_SESSION['shop_id']
+        ];
+        exit(json_encode(json_msg('group', $this->Mdl_total_list->delete_kind_group($id), false, 1)));
     }
 
     /**
@@ -196,12 +190,8 @@ class Total_list extends CI_Controller
         $extentison = pathinfo($fileName, PATHINFO_EXTENSION);
         $newName = $prevName?:$_SERVER['REQUEST_TIME'].'.'.$extentison;
         $path = FCPATH.'upload/tmp/'.$newName;
+        // exit($path);
         try {
-            //ファイル名にパスが含めれないかチェック
-            // if (basename(realpath($fileName)) !== $fileName) {
-            //     throw new RuntimeException('ファイル名が不正です');
-            // }
-
             // ファイルにスクリプトタグが含まれていないかのチェック
             if (count(token_get_all($fileName)) >= 2)  {
                 throw new RuntimeException('ファイル形式が不正です');
@@ -251,16 +241,16 @@ class Total_list extends CI_Controller
             }
 
             // アップロードファイルは実行権限のない状態へ
-            chmod($path, 0644);
+            chmod($path, 0755);
             return $this->resize_img($path, $newName);
         } catch (RuntimeException $e) {
-            $res_array[] = $e->getMessage();
-            exit(json_encode($res_array));
+            // $res_array[] = $e->getMessage();
+            exit(json_encode(['error' => ['title' => '写真のアップロードに失敗しました', 'msg' => $e->getMessage()]]));
         }
     }
 
     /**
-     * Undocumented function
+     * アップロードされた画像をサムネイルサイズにリサイズ
      *
      * @param   string  $path
      * @param   string  $newName
@@ -276,10 +266,9 @@ class Total_list extends CI_Controller
         ];
         $this->load->library('image_lib', $config);
         if ($this->image_lib->resize()) {
-            // $fullpath = realpath($resize_path);
             return base_url().'upload/img/'.$newName;
         } else {
-            throw new RuntimeException('ファイル保存時にエラーが発生しました');
+            exit(json_encode(['error' => ['title' => '写真のアップロードに失敗しました', 'msg' => "写真のサイズが大きいか不正なファイルを\nアップロードした可能性があります"]]));
         }
     }
 }

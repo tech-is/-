@@ -2,7 +2,7 @@
     $url = explode("/", $_SERVER['REQUEST_URI']);
     $req = end($url);
     $sidebar_parts_array = [
-        "main" => [
+        "home" => [
             "icon" => "home",
             "title" => "ホーム",
             "target" => false
@@ -21,27 +21,27 @@
             "icon" => "group",
             "title" => "スタッフ管理",
             "target" => false
-        ],
-        "magazine" => [
-            "icon" => "contact_mail",
-            "title" => "メルマガ管理",
-            "target" => false
-        ],
-        "Karute" => [
-            "icon" => "book",
-            "title" => "受け付けモード",
-            "target" => false
-        ],
-        "Karte_history" => [
-            "icon" => "create_new_folder",
-            "title" => "カルテ",
-            "target" => false
-        ],
-        "/assets/plugins/php_barcode-master/barcode.php" => [
-            "icon" => "format_list_numbered_rtl",
-            "title" => "バーコード",
-            "target" => "_blank"
         ]
+        // "magazine" => [
+        //     "icon" => "contact_mail",
+        //     "title" => "メルマガ管理",
+        //     "target" => false
+        // ],
+        // "Karute" => [
+        //     "icon" => "book",
+        //     "title" => "受け付けモード",
+        //     "target" => false
+        // ],
+        // "Karte_history" => [
+        //     "icon" => "create_new_folder",
+        //     "title" => "カルテ",
+        //     "target" => false
+        // ],
+        // "/assets/plugins/php_barcode-master/barcode.php" => [
+        //     "icon" => "format_list_numbered_rtl",
+        //     "title" => "バーコード",
+        //     "target" => "_blank"
+        // ]
     ];
 ?>
 <!-- Left Sidebar -->
@@ -59,8 +59,8 @@
                 <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="true">keyboard_arrow_down</i>
                 <ul class="dropdown-menu pull-right">
-                    <li><a href="//animarl.com/Profile"><i class="material-icons">person</i>プロフィール変更</a></li>
-                    <li><a href="//animarl.com/login/logout"><i class="material-icons">input</i>ログアウト</a></li>
+                    <li><a href="https://www.animarl.com/Profile"><i class="material-icons">person</i>プロフィール変更</a></li>
+                    <li><a href="https://www.animarl.com/login/logout"><i class="material-icons">input</i>ログアウト</a></li>
                 </ul>
             </div>
         </div>

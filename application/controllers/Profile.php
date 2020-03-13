@@ -7,7 +7,7 @@ class Profile extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(['url', 'form', 'ajax']);
-        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
+        isset($_SESSION['shop_id'])?: header('location: https://www.animarl.com/login');
         $this->load->model('mdl_Profile');
         $this->load->library('form_validation');
     }

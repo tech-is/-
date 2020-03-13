@@ -8,7 +8,7 @@ class magazine extends CI_Controller
         parent::__construct();
         $this->load->helper(['url', 'form']);
         $this->load->model('mdl_magazine');
-        isset($_SESSION['shop_id'])?: header('location: //animarl.com/login');
+        isset($_SESSION['shop_id'])?: header('location: https://www.animarl.com/login');
     }
 
     public function index()
